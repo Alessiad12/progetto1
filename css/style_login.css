@@ -1,15 +1,18 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f4f4f4;
+    /* Sostituisci il grigio (#f4f4f4) con un crema chiaro */
+    background-color: #EAE1C1;
 }
 
 h2 {
-    color: #333;
+    /* Sostituisci il grigio scuro (#333) con il blu scuro */
+    color: #1D3B5B;
 }
 
 div {
-    background: white;
+    /* Resta bianco, con lo stesso box-shadow */
+    background: #fff;
     width: 300px;
     margin: 20px auto;
     padding: 20px;
@@ -26,8 +29,9 @@ input {
 }
 
 button {
-    background-color: #28a745;
-    color: white;
+    /* Invece del verde (#28a745), usiamo il blu scuro della palette */
+    background-color: #1D3B5B;
+    color: #fff;
     padding: 10px;
     width: 100%;
     border: none;
@@ -36,5 +40,6 @@ button {
 }
 
 button:hover {
-    background-color: #218838;
+    /* Un blu più scuro per l'hover */
+    background-color: #13293F;
 }
