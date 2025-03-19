@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust</title>
+    <link rel="stylesheet" href="css/style_pagina_iniziale.css">
+    <style>
+        @font-face {
+            font-family: 'CustomFont';
+            src: url('font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
+            font-display: swap;
+        }
+        h1, p{
+            font-family: 'CustomFont', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="fade-section" id="fadeSection">
+        <h1>Wanderlust</h1>
+    </div>
+    
+    <!-- Prima sezione con l'immagine -->
+    <div class="content">
+        <img src="immagini/pginit.png" alt="Persone in montagna">
+        <div class="overlay">
+            <h1 class="title" >Wl</h1>
+            <p class="text">Non rimandare: il viaggio perfetto non ti aspetta.</p>
+            <button>Accedi</button>
+        </div>
+    </div>
+
+    <!-- Nuova sezione sotto -->
+    <div class="next-section">
+        suca
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('fadeSection').classList.add('hidden');
+        }, 300); // La dissolvenza inizia dopo 2 secondi
+    </script>
+</body>
+</html>
