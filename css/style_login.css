@@ -1,62 +1,54 @@
-/* Font principale e colori */
-:root {
-    --bg-color: #EAE1C1;       /* crema */
-    --box-bg: #fff;            /* bianco per i box */
-    --text-color: #1D3B5B;     /* blu scuro per testo/titoli */
-    --button-color: #1D3B5B;   /* blu scuro per pulsanti */
-  }
-  
-  /* Reset di base */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Corpo pagina */
-  body {
+/* Corpo pagina di esempio (adatta ai tuoi gusti) */
+body {
     font-family: 'Playfair Display', serif;
+    background: #EAE1C1;
     text-align: center;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    padding: 20px;
+    color: #1D3B5B;
+    margin: 20px;
   }
   
-  /* Titolo principale */
-  h2 {
-    margin-bottom: 30px;
-    font-weight: 700;
-    font-size: 2rem;
-  }
-  
-  /* Container dei form */
-  .form-container {
-    background: var(--box-bg);
+  /* Contenitore dei form */
+  #form-registrazione,
+  #login-form {
+    background: #fff;
     width: 300px;
-    margin: 0 auto 20px;
+    margin: 20px auto;
     padding: 20px;
     border-radius: 15px;
-    /* Ombra più morbida e diffusa */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   }
   
-  /* Titolo del box (Login, Sign in) */
-  .form-container h3 {
-    margin-bottom: 20px;
+  /* Titoli */
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  h3 {
+    margin-bottom: 10px;
     font-size: 1.3rem;
     font-weight: 700;
   }
   
-  /* Spazio per i messaggi di errore */
-  .error-message {
-    color: #C0392B; /* Rosso scuro */
-    font-size: 0.9rem;
+  /* Spazio per i messaggi */
+  .error-message, 
+  .success-message {
+    min-height: 20px; /* Tiene spazio anche se vuoto */
     margin-bottom: 10px;
-    min-height: 20px; /* per dare spazio anche se vuoto */
+    font-weight: bold;
   }
   
-  /* Input */
-  .form-container input {
+  /* Colori specifici per errore/successo */
+  .error-message {
+    color: #C0392B; /* Rosso scuro */
+  }
+  .success-message {
+    color: #2E7D32; /* Verde scuro o un colore a piacere */
+  }
+  
+  /* Campi input */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
     width: 90%;
     padding: 10px;
     margin-bottom: 10px;
@@ -66,9 +58,9 @@
     font-size: 1rem;
   }
   
-  /* Pulsanti */
-  .form-container button {
-    background-color: var(--button-color);
+  /* Bottone */
+  button {
+    background-color: #1D3B5B; /* Blu scuro */
     color: #fff;
     padding: 10px;
     width: 100%;
@@ -78,11 +70,9 @@
     font-family: inherit;
     font-size: 1rem;
     transition: background-color 0.3s ease;
-    margin-top: 5px;
   }
-  
-  .form-container button:hover {
-    background-color: #13293F; /* tono di blu leggermente più scuro */
+  button:hover {
+    background-color: #13293F; /* Blu più scuro */
   }
   
   /* ANIMAZIONE SHAKE */
@@ -94,8 +84,6 @@
     80%  { transform: translateX(10px); }
     100% { transform: translateX(0); }
   }
-  
-  /* Classe .shake, usata via JS quando c’è un errore */
   .shake {
     animation: shake 0.4s;
   }
