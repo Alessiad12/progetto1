@@ -1,45 +1,102 @@
-body {
-    font-family: 'Playfair Display', sans-serif;
+/* Font principale e colori */
+:root {
+    --bg-color: #EAE1C1;       /* crema */
+    --box-bg: #fff;            /* bianco per i box */
+    --text-color: #1D3B5B;     /* blu scuro per testo/titoli */
+    --button-color: #1D3B5B;   /* blu scuro per pulsanti */
+  }
+  
+  /* Reset di base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Corpo pagina */
+  body {
+    font-family: 'Playfair Display', serif;
     text-align: center;
-    /* Sostituisci il grigio (#f4f4f4) con un crema chiaro */
-    background-color: #EAE1C1;
-}
-
-h2 {
-    /* Sostituisci il grigio scuro (#333) con il blu scuro */
-    color: #1D3B5B;
-}
-
-div {
-    /* Resta bianco, con lo stesso box-shadow */
-    background: #fff;
-    width: 300px;
-    margin: 20px auto;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-input {
+  }
+  
+  /* Titolo principale */
+  h2 {
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  
+  /* Container dei form */
+  .form-container {
+    background: var(--box-bg);
+    width: 300px;
+    margin: 0 auto 20px;
+    padding: 20px;
+    border-radius: 15px;
+    /* Ombra più morbida e diffusa */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Titolo del box (Login, Sign in) */
+  .form-container h3 {
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  
+  /* Spazio per i messaggi di errore */
+  .error-message {
+    color: #C0392B; /* Rosso scuro */
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    min-height: 20px; /* per dare spazio anche se vuoto */
+  }
+  
+  /* Input */
+  .form-container input {
     width: 90%;
     padding: 10px;
-    margin: 5px 0;
+    margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-}
-
-button {
-    /* Invece del verde (#28a745), usiamo il blu scuro della palette */
-    background-color: #1D3B5B;
+    font-family: inherit;
+    font-size: 1rem;
+  }
+  
+  /* Pulsanti */
+  .form-container button {
+    background-color: var(--button-color);
     color: #fff;
     padding: 10px;
     width: 100%;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-button:hover {
-    /* Un blu più scuro per l'hover */
-    background-color: #13293F;
-}
+    font-family: inherit;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-top: 5px;
+  }
+  
+  .form-container button:hover {
+    background-color: #13293F; /* tono di blu leggermente più scuro */
+  }
+  
+  /* ANIMAZIONE SHAKE */
+  @keyframes shake {
+    0%   { transform: translateX(0); }
+    20%  { transform: translateX(-10px); }
+    40%  { transform: translateX(10px); }
+    60%  { transform: translateX(-10px); }
+    80%  { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+  }
+  
+  /* Classe .shake, usata via JS quando c’è un errore */
+  .shake {
+    animation: shake 0.4s;
+  }
+  
