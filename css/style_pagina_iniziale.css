@@ -3,6 +3,11 @@
     src: url('../font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
     font-display: swap;
 }
+@font-face {
+    font-family: 'secondo_font';
+    src: url('../font/Arimo.7ac02a544211773d9636e056e9da6c35.7.f8f199f09526f79e87644ed227e0f651.woff2') format('woff2');
+    font-display: swap;
+}
 * {
     margin: 0;
     padding: 0;
@@ -13,6 +18,7 @@ body {
     text-align: center;
     overflow-x: hidden; /* Blocca lo scroll orizzontale */
     position: relative;
+    background-color:  #f5f1de;
 }
 
 .fade-section {
@@ -102,17 +108,14 @@ button:hover {
     color: white;
 }
 
-/* Sezione sotto l'immagine */
+/* Sezione immagini*/
 .next-section {
-    min-height: 100vh; /* Stessa altezza della finestra */
-    background-color: #f5f1de;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 50px;
-    font-size: 2rem;
-    font-family: 'CustomFont', sans-serif;
-    color: rgb(8, 7, 91);
+    min-height: 80vh;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    background-color:  #f5f1de;
+    top: 100px;
 }
 
 h2{
@@ -122,54 +125,55 @@ h2{
 
 
 .contenitore_immagini{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    padding: 20px;
-    margin: auto;
+    display: flex;
+    width: max-content; /* adatta la dimensione alla quantità di immagini */
+    animation: scroll 180s linear infinite; /* Controlla la velocità qui */
 }
-.blocco-singolo{
-    position: relative;
-    border-radius: 15px;
-    overflow: hidden;
-
-}
-.blocco-singolo img{
+.immagine{
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 15px;
-    display: block;
+    height: 250px; /* Imposta un'altezza fissa per uniformare */
+    object-fit: cover; /* Riempe il contenitore tagliando il minimo necessario */
+    border-radius: 10px;
+    margin-right: 10px;
+ 
 }
-.grande {
-    grid-row: span 2; /* Occupa 2 righe */
-    height: 400px;
+/* Animazione */
+@keyframes scroll {
+    0%{
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
-
-.medio {
-    height: 250px;
-}
-
-.piccolo {
-    height: 180px;
-}
-.blocco-singolo h3{
+h3{
+    top: 280px;
     position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: none; /* Nessun sfondo */
-    color: #1D1D65; /* Blu scuro */
+    color:rgb(84, 41, 21);
     font-weight: bold;
     font-size: 18px;
-    text-align: center;
-    font-family: 'Georgia', serif; /* Stile serif simile */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ombra per leggibilità */
+    text-align: left;
+    left: 20px;
+    font-family: 'Georgia', serif;  /* Stile serif simile */
+
 }
 
+.spiegazione_app{
+    position: absolute;
+    top: 310px;
+    width: 50%;  /* Occupa l'altra metà dello schermo */
+    justify-content: center; /* Centra il testo verticalmente */
+    text-align: left; /* Allinea il testo a sinistra */
+    font-family: 'Georgia', serif; 
+    color:rgb(84, 41, 21);
+    left: 20px;
+}
 
-
-.sezione-immagini-percorso{
-    min-height: 100vh; 
-    color: aquamarine !important;
+.scarica{
+    position: absolute;
+    top: 610px;
+    left: 40px;
+    font-family: 'secondo_font', sans-serif;
+   color:  rgb(8, 7, 91) ;
+   font-weight: bold;
 }
