@@ -146,52 +146,46 @@ h2{
         transform: translateX(-50%);
     }
 }
+/* Contenitore principale che avvolge testo e QR code */
 .contenitore_descrizione {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
-    margin: 100px auto 0 auto; /* Aggiunto spazio sopra */
-    padding: 20px;
+    display: flex; /* Usa flexbox per gestire il layout */
+    justify-content: space-between; /* Testo a sinistra, QR code a destra */
+    align-items: flex-start; /* Allinea il testo in alto */
+    width: 100%; /* Occupa tutta la larghezza disponibile */
+    margin: 70px auto; /* Centro il contenitore orizzontalmente con margine superiore */
+    padding: 10px; /* Aggiunge spazio interno */
+    height: 50vh; /* Imposta un'altezza fissa del 50% della viewport */
+    position: relative; /* Imposta un riferimento per gli elementi interni */
 }
 
-h3{
-    position: absolute;
-    color:rgb(84, 41, 21);
-    font-weight: bold;
-    font-size: 18px;
-    text-align: left;
-    left: 20px;
-    font-family: 'Georgia', serif;  /* Stile serif simile */
-
+/* Stile per la sezione di testo */
+.spiegazione_app {
+    width: 50%; /* Occupa la metà sinistra del contenitore */
+    font-size: 1.2em; 
+    color: rgb(8, 7, 91);
+    font-family: 'Georgia', serif; 
+    text-align: left; /* Allinea il testo a sinistra */
+    padding: 20px; /* Aggiunge spazio interno per non far toccare il testo ai bordi */
 }
 
-.spiegazione_app{
-    width: 50%;
-    padding: 20px;
-    font-size: 1.2em;
-    color: #5A3822;
-    font-family: 'Georgia', serif;
-    text-align: left; 
-    margin-right: auto;
-
-}
-
+/* Contenitore del QR Code e del testo "Scarica l'app" */
 .qrcode {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 30%;
-    text-align: center;
+    width: 50%; /* Occupa la metà destra del contenitore */
+    display: flex; /* Usa flexbox per gestire il posizionamento del QR code */
+    flex-direction: column; /* Organizza gli elementi in colonna (QR code sopra, testo sotto) */
+    align-items: center; /* Centra il contenuto orizzontalmente */
+    justify-content: flex-end; /* Posiziona gli elementi in basso all'interno del contenitore */
+    height: 100%; /* Occupa tutta l'altezza disponibile del contenitore */
 }
+
 
 .qrcode img {
-    width: 150px; /* Dimensione QR code */
-    height: auto;
+    width: 150px; /* Imposta una dimensione fissa per il QR code */
+    height: auto; /* Mantiene le proporzioni dell'immagine */
 }
 
 .scarica {
-    font-size: 1.3em;
-    color:rgb(8, 7, 91);
-    margin-top: 10px;
+    font-size: 1.3em; 
+    color: rgb(8, 7, 91); 
+    margin-top: 10px; /* Aggiunge spazio tra il QR code e il testo */
 }
