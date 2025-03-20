@@ -110,7 +110,7 @@ button:hover {
 
 /* Sezione immagini*/
 .next-section {
-    min-height: 80vh;
+    min-height: 40vh;
     overflow: hidden;
     position: relative;
     white-space: nowrap;
@@ -146,8 +146,16 @@ h2{
         transform: translateX(-50%);
     }
 }
+.contenitore_descrizione {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto 0 auto; /* Aggiunto spazio sopra */
+    padding: 20px;
+}
+
 h3{
-    top: 280px;
     position: absolute;
     color:rgb(84, 41, 21);
     font-weight: bold;
@@ -159,21 +167,31 @@ h3{
 }
 
 .spiegazione_app{
-    position: absolute;
-    top: 310px;
-    width: 50%;  /* Occupa l'altra metà dello schermo */
-    justify-content: center; /* Centra il testo verticalmente */
-    text-align: left; /* Allinea il testo a sinistra */
-    font-family: 'Georgia', serif; 
-    color:rgb(84, 41, 21);
-    left: 20px;
+    width: 50%;
+    padding: 20px;
+    font-size: 1.2em;
+    color: #5A3822;
+    font-family: 'Georgia', serif;
+    text-align: left; 
+    margin-right: auto;
+
 }
 
-.scarica{
+.qrcode {
     position: absolute;
-    top: 610px;
-    left: 40px;
-    font-family: 'secondo_font', sans-serif;
-   color:  rgb(8, 7, 91) ;
-   font-weight: bold;
+    bottom: 20px;
+    right: 20px;
+    width: 30%;
+    text-align: center;
+}
+
+.qrcode img {
+    width: 150px; /* Dimensione QR code */
+    height: auto;
+}
+
+.scarica {
+    font-size: 1.3em;
+    color:rgb(8, 7, 91);
+    margin-top: 10px;
 }
