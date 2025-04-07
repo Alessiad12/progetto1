@@ -4,127 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profilo Utente</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .profile-container {
-            width: 80%;
-            max-width: 900px;
-            background: white;
-            padding: 20px;
-            margin-top: 50px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-        }
-        .profile-left {
-            width: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .profile-pic-container {
-            width: 100%;
-            max-width: 400px;
-            height: 400px;
-            position: relative;
-        }
-        .profile-pic {
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            object-fit: cover;
-            display: none;
-        }
-        .profile-pic.active {
-            display: block;
-        }
-        .nav-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .prev {
-            left: 0;
-        }
-        .next {
-            right: 0;
-        }
-        .profile-right {
-            width: 50%;
-            padding: 20px;
-        }
-        .name-age {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .bio {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 20px;
-        }
-        .companions-button {
-            background: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .companions-list {
-            display: none;
-            margin-top: 10px;
-            background: #eee;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .companions-list ul {
-            list-style: none;
-            padding: 0;
-        }
-        .photo-gallery {
-            width: 80%;
-            max-width: 900px;
-            background: white;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .photo-gallery h3 {
-            font-size: 18px;
-        }
-        .photos {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-        .photos img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style_profilo.css">
 </head>
 <body>
     <div class="profile-container">
-        <div class="profile-left">
-            <div class="profile-pic-container">
+        <div class="foto_profilo">
+            <div class="contenitore_foto">
                 <button class="nav-button prev" onclick="prevProfilePic()">&#9664;</button>
                 <img src="profile1.jpg" alt="Foto profilo 1" class="profile-pic active">
                 <img src="profile2.jpg" alt="Foto profilo 2" class="profile-pic">
@@ -132,8 +17,9 @@
                 <button class="nav-button next" onclick="nextProfilePic()">&#9654;</button>
             </div>
         </div>
-        <div class="profile-right">
-            <div class="name-age">Mario Rossi, 28</div>
+        <div class="descrizione_profilo">
+            <div class="name-age" id="user-fullname"></div>
+
             <div class="bio">Amante dei viaggi e dell'avventura! Sempre alla ricerca di nuove esperienze nel mondo.</div>
             <button class="companions-button" onclick="toggleCompanions()">Compagni di viaggio</button>
             <div class="companions-list" id="companions">
@@ -145,42 +31,86 @@
             </div>
         </div>
     </div>
-    
+
     <div class="photo-gallery">
         <h3>I miei viaggi!</h3>
         <div class="photos">
-            <img src="foto1.jpg" alt="Viaggio 1">
-            <img src="foto2.jpg" alt="Viaggio 2">
-            <img src="foto3.jpg" alt="Viaggio 3">
-            <img src="foto4.jpg" alt="Viaggio 4">
-            <img src="foto5.jpg" alt="Viaggio 5">
-            <img src="foto6.jpg" alt="Viaggio 6">
+            <img src="foto1.jpg" alt="Viaggio a Roma">
+            <img src="foto2.jpg" alt="Viaggio in Grecia">
+            <img src="foto3.jpg" alt="Viaggio in Islanda">
+            <img src="foto4.jpg" alt="Viaggio a Parigi">
+            <img src="foto5.jpg" alt="Viaggio in Giappone">
+            <img src="foto6.jpg" alt="Viaggio in Norvegia">
+        </div>
+    </div>
+    <div class="user-menu dropdown" id="userMenu">
+        <div class="user-initial" id="user-initial">?</div>
+        <div class="dropdown-content" id="dropdownMenu"> 
+            <a href="#" onclick="logout()">Logout</a>
         </div>
     </div>
     
+    
+
     <script>
         let currentPic = 0;
         const pics = document.querySelectorAll('.profile-pic');
-        
+    
         function showPic(index) {
             pics.forEach((pic, i) => {
                 pic.classList.toggle('active', i === index);
             });
         }
-        
+    
         function prevProfilePic() {
             currentPic = (currentPic - 1 + pics.length) % pics.length;
             showPic(currentPic);
         }
-        
+    
         function nextProfilePic() {
             currentPic = (currentPic + 1) % pics.length;
             showPic(currentPic);
         }
-        
+    
         function toggleCompanions() {
             const companions = document.getElementById('companions');
+            const hasItems = companions.querySelector('li');
+    
+            if (!hasItems) {
+                companions.innerHTML = '<p>Nessun compagno di viaggio al momento.</p>';
+            }
+    
             companions.style.display = companions.style.display === 'block' ? 'none' : 'block';
+        }
+        //inserire i dati della registrazione nel profilo
+        document.addEventListener("DOMContentLoaded", () => { // aspetta che l'intera pagina sia caricata
+            const name = localStorage.getItem("userName") || "errore nome";
+            const age = 28; // da modificare
+            const fullNameElement = document.getElementById("user-fullname");
+
+            if (fullNameElement) {
+                fullNameElement.textContent = `${name}, ${age}`;
+            }
+
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+            const menuButton = document.getElementById("userMenu");
+            const dropdown = document.getElementById("dropdownMenu");
+
+            menuButton.addEventListener("click", (e) => {
+                e.stopPropagation(); // Evita che il click venga intercettato dal body
+                dropdown.classList.toggle("show"); // Apre o chiude il menù
+            });
+
+            // Chiudi il menu se clicchi fuori
+            document.body.addEventListener("click", () => {
+                dropdown.classList.remove("show");
+            });
+        });
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = "login.html";
         }
     </script>
 </body>

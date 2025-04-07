@@ -21,7 +21,7 @@
   
     // Trova l'utente
     const user = users.find(u => u.email === email && u.password === password);
-  
+    window.location.href="profilo.html";
     if (!user) {
       // Errore: credenziali non valide
       errorDiv.textContent = "Email o password errate.";

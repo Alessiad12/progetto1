@@ -12,7 +12,11 @@ function register() {
     successDiv.textContent = "";
     errorDiv.classList.remove("shake");
     formReg.classList.remove("shake");
-  
+
+    if (!name || !email || !password) {
+      document.getElementById("register-error").textContent = "Compila tutti i campi!";
+      return;
+  }
     // Creazione dell'oggetto utente
     const user = { name, email, password };
   
@@ -39,6 +43,13 @@ function register() {
     users.push(user);
     localStorage.setItem("users", JSON.stringify(users));
   
-    // Messaggio di successo (nessun popup)
-    successDiv.textContent = "Registrazione avvenuta con successo! Ora effettua il login.";
+    // Salva il nome dell'utente attivo
+localStorage.setItem("userName", name);
+
+// Messaggio di successo
+successDiv.textContent = "Registrazione avvenuta con successo! Verrai reindirizzato al login.";
+
+setTimeout(() => {
+    window.location.href = "login.html";
+}, 2500);
   }
