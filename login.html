@@ -1,34 +1,70 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--per adattare la pagina-->
-    <title>Wanderlust - Login</title>
-    <link rel="stylesheet" href="css/style_login.css">
-    <link rel="icon" href="immagini/ex.png"  type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="immagini/ex.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wanderlust - Login</title>
+  <!-- Collega il file CSS -->
+  <link rel="stylesheet" href="css/style_login.css">
+  <!-- Favicon -->
+  <link rel="icon" href="immagini/ex.png" type="image/png">
+  <!-- Font da Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <h2>Benvenuto in Wanderlust!</h2>
+  <!-- Contenitore principale -->
+  <div class="login-container">
+    <!-- Logo “Wanderlust” -->
+    <h2 class="logo">Wanderlust</h2>
 
     <!-- Form di Login -->
-    <div class="form-container" id="login-form">
-        <h3>Login</h3>
-        <div class="error-message" id="login-error"></div>
-        <div id="login-success" class="success-message"></div>
-        <input type="email" id="login-email" placeholder="Email">
-        <input type="password" id="login-password" placeholder="Password">
-        <button onclick="login()">Accedi</button>
+    <div class="form-box" id="login-form">
+      <h3>Login</h3>
 
-        <p class="link-registrazione">
-            Non sei registrato? 
-            <a href="register.html">Registrati qui</a>
-        </p>
+      <!-- Messaggi di errore e successo -->
+      <div class="error-message" id="login-error"></div>
+      <div class="success-message" id="login-success"></div>
+
+      <input type="email" id="login-email" placeholder="Email">
+      <input type="password" id="login-password" placeholder="Password">
+      <button onclick="login()">Accedi</button>
+      
+      <!-- Separatore con “O” -->
+      <div class="separator">
+        <div class="line"></div>
+        <div class="or">O</div>
+        <div class="line"></div>
+      </div>
+
+      <!-- Sezione di login alternativo -->
+      <div class="alt-login">
+        <div class="social-btn" onclick="loginWithFacebook()">
+          <img src="immagini/fb-icon.png" alt="Facebook Icon">
+          <span>Accedi con Facebook</span>
+        </div>
+
+        <div class="social-btn" onclick="loginWithGoogle()">
+          <img src="immagini/google-icon.png" alt="Google Icon">
+          <span>Accedi con Google</span>
+        </div>
+
+        <div class="social-btn" onclick="loginWithApple()">
+          <img src="immagini/apple-icon.png" alt="Apple Icon">
+          <span>Accedi con Apple</span>
+        </div>
+      </div>
     </div>
+  </div>
 
-   
+  <!-- Box per la registrazione sotto il form -->
+  <div class="signup-container">
+    <p>Non sei registrato?
+      <a href="register.html">Registrati qui</a>
+    </p>
+  </div>
 
-    <script src="js/login.js"></script>
+  <!-- File JS per il login -->
+  <script src="js/login.js"></script>
 </body>
 </html>
