@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--per adattare la pagina-->
-    <title>Wanderlust - Registrazione</title>
-    <link rel="stylesheet" href="css/style_login.css">
-    <link rel="icon" href="immagini/ex.png"  type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="immagini/ex.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wanderlust - Registrazione</title>
+  <link rel="stylesheet" href="css/style_register.css">
+  <link rel="icon" href="immagini/ex.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h2>Registrati in Wanderlust!</h2>
+  <h2>Registrati in Wanderlust!</h2>
 
-   
+  <div class="form-container" id="form-registrazione">
+    <h3>Sign in</h3>
+    <div class="error-message" id="register-error"></div>
+    <div class="success-message" id="register-success"></div>
+    <input type="text" id="reg-name" placeholder="Nome">
+    <input type="email" id="reg-email" placeholder="Email">
+    <input type="password" id="reg-password" placeholder="Password">
+    <button onclick="register()">Registrati</button>
 
-    <!-- Form di Registrazione -->
-    <div class="form-container" id="form-registrazione">
-        <h3>Sign in</h3>
-        <div class="error-message" id="register-error"></div>
-        <div id="register-success" class="success-message"></div>
-        <input type="text" id="reg-name" placeholder="Nome">
-        <input type="email" id="reg-email" placeholder="Email">
-        <input type="password" id="reg-password" placeholder="Password">
-        <button onclick="register()">Registrati</button>
+    <p class="link-registrazione">
+      Sei già registrato?
+      <a href="login.html">Accedi qui</a>
+    </p>
+  </div>
 
-        <p class="link-registrazione">
-            Sei già registrato?
-            <a href="login.html">Accedi qui</a>
-        </p>
-    </div>
-
-    <script src="js/register.js"></script>
+  <script src="js/register.js"></script>
 </body>
 </html>
