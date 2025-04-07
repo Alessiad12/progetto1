@@ -1,0 +1,118 @@
+/* Reset di base (opzionale) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Corpo pagina */
+  body {
+    /* Sfondo crema, testo blu, font Playfair (come da link Google Fonts) */
+    background-color: #EAE1C1;
+    color: #1D3B5B;
+    font-family: 'Playfair Display', serif;
+  
+    /* Centro verticalmente il contenuto */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* min-height per coprire tutta la finestra */
+    min-height: 100vh;
+    /* Un po' di padding in alto se vuoi spazio extra */
+    padding-top: 40px;
+  }
+  
+  /* Titolo principale in alto */
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 30px; /* spazio sotto il titolo */
+  }
+  
+  /* Box del form */
+  .form-container {
+    /* Sfondo bianco, bordi arrotondati, ombra */
+    background: #fff;
+    width: 320px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  
+    /* Centra il testo all'interno del box */
+    text-align: center;
+  }
+  
+  /* Titolo del box (Sign in) */
+  .form-container h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+  
+  /* Messaggi di errore/successo */
+  .error-message, .success-message {
+    min-height: 20px; /* Spazio anche se vuoto */
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  /* Colori per errore/successo */
+  .error-message {
+    color: #C0392B; /* Rosso scuro */
+  }
+  .success-message {
+    color: #2E7D32; /* Verde scuro */
+  }
+  
+  /* Campi input */
+  .form-container input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+  }
+  
+  /* Bottone “Registrati” */
+  .form-container button {
+    background-color: #1D3B5B; /* Blu scuro */
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    font-family: inherit;
+  }
+  .form-container button:hover {
+    background-color: #13293F; /* Blu più scuro */
+  }
+  
+  /* Paragrafo in basso con link */
+  .link-registrazione {
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+  .link-registrazione a {
+    color: #6c04fc; /* viola / personalizzabile */
+    text-decoration: none;
+  }
+  .link-registrazione a:hover {
+    text-decoration: underline;
+  }
+  
+  /* ANIMAZIONE SHAKE (se la usi per errori) */
+  @keyframes shake {
+    0%   { transform: translateX(0); }
+    20%  { transform: translateX(-10px); }
+    40%  { transform: translateX(10px); }
+    60%  { transform: translateX(-10px); }
+    80%  { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+  }
+  .shake {
+    animation: shake 0.4s;
+  }
+  
