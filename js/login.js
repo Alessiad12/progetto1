@@ -1,4 +1,6 @@
 function login() {
+  console.log("LOGIN FUNCTION RICHIESTA");
+
   const email = document.getElementById("login-email").value;
   const password = document.getElementById("login-password").value;
 
