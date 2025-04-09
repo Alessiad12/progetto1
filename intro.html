@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wanderlust - Landing Page</title>
+  <link rel="stylesheet" href="css/style_intro.css">
+  <!-- Includi il font se lo desideri -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+    // Oggetto contenente i testi nelle lingue supportate (italiano ed inglese, per esempio)
+    const texts = {
+      it: {
+        heading: "Scopri il mondo con Wanderlust",
+        subtitle: "Connetti con viaggiatori che condividono i tuoi interessi e crea esperienze indimenticabili insieme a loro. Esplora,connetti e viaggia sicuramente.",
+        getStarted: "Iniziamo!",  // Puoi decidere se tradurlo in Italiano oppure mantenerlo in Inglese come brand.
+        learnMore: "Scopri di più"
+      },
+      en: {
+        heading: "Discover the world with Wanderlust",
+        subtitle: "Connect with travelers who share your interests and create unforgettable experiences together.Explore,connect,and travel with confidence",
+        getStarted: "Get Started",
+        learnMore: "Learn More"
+      }
+    };
+
+    // Imposta la lingua corrente; ad esempio predefinita 'it'
+    let currentLang = 'it';
+
+    // Funzione per applicare i testi nella lingua selezionata
+    function updateLanguage() {
+      document.getElementById("hero-heading").textContent = texts[currentLang].heading;
+      document.getElementById("hero-subtitle").textContent = texts[currentLang].subtitle;
+      document.getElementById("btn-get-started").textContent = texts[currentLang].getStarted;
+      document.getElementById("btn-learn-more").textContent = texts[currentLang].learnMore;
+    }
+
+    // Funzione per cambiare lingua quando selezionata dal menu a tendina
+    function changeLanguage() {
+      const select = document.getElementById("language-select");
+      currentLang = select.value;
+      updateLanguage();
+    }
+
+    // Aggiorna i testi al caricamento della pagina
+    window.addEventListener("DOMContentLoaded", () => {
+      updateLanguage();
+    });
+  </script>
+</head>
+<body>
+  <header class="top-bar">
+    <!-- Puoi aggiungere qui il logo se desideri -->
+    <div class="brand">Wanderlust</div>
+    <!-- Selettore di lingua -->
+    <select id="language-select" onchange="changeLanguage()">
+      <option value="it">Italiano</option>
+      <option value="en">English</option>
+    </select>
+  </header>
+
+  <section class="hero">
+    <h1 id="hero-heading"></h1>
+    <p id="hero-subtitle"></p>
+    <div class="buttons">
+      <!-- Get Started reindirizza a register.html -->
+      <button id="btn-get-started" onclick="location.href='register.html'"></button>
+      <!-- Learn More reindirizza a paginainiziale.html -->
+      <button id="btn-learn-more" onclick="location.href='pagina_iniziale.html'"></button>
+    </div>
+  </section>
+
+  <footer>
+    <!-- Puoi inserire link informativi o social se vuoi -->
+  </footer>
+</body>
+</html>
