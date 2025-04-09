@@ -11,16 +11,14 @@
         <div class="foto_profilo">
             <div class="contenitore_foto">
                 <button class="nav-button prev" onclick="prevProfilePic()">&#9664;</button>
-                <img src="profile1.jpg" alt="Foto profilo 1" class="profile-pic active">
-                <img src="profile2.jpg" alt="Foto profilo 2" class="profile-pic">
-                <img src="profile3.jpg" alt="Foto profilo 3" class="profile-pic">
+                <img src="https://i.pinimg.com/736x/35/c4/9d/35c49de33b49d0f34a20893b38afac8c.jpg" alt="nessuna foto profilo" class="profile-pic active">
                 <button class="nav-button next" onclick="nextProfilePic()">&#9654;</button>
             </div>
         </div>
         <div class="descrizione_profilo">
             <div class="name-age" id="user-fullname"></div>
-
-            <div class="bio">Amante dei viaggi e dell'avventura! Sempre alla ricerca di nuove esperienze nel mondo.</div>
+            <div class="bio"></div>
+            
             <button class="companions-button" onclick="toggleCompanions()">Compagni di viaggio</button>
             <div class="companions-list" id="companions">
                 <ul>
@@ -34,23 +32,45 @@
 
     <div class="photo-gallery">
         <h3>I miei viaggi!</h3>
-        <div class="photos">
-            <img src="foto1.jpg" alt="Viaggio a Roma">
-            <img src="foto2.jpg" alt="Viaggio in Grecia">
-            <img src="foto3.jpg" alt="Viaggio in Islanda">
-            <img src="foto4.jpg" alt="Viaggio a Parigi">
-            <img src="foto5.jpg" alt="Viaggio in Giappone">
-            <img src="foto6.jpg" alt="Viaggio in Norvegia">
+        <div class="photos-grid">
+            <div class="viaggio-cella">
+                <div class="foto-wrapper">
+                    <img class="foto-utente" id="roma-overlay" src="immagini/apple.png" alt="Foto utente">
+                    <img class="foto-base" src="immagini/IMG_4529_preview_rev_1.png" alt="Viaggio a Roma">
+                </div>
+                <input type="file" accept="image/*" onchange="caricaOverlay(this, 'roma-overlay')">
+            </div>
+    
+            <div class="viaggio-cella">
+                <div class="foto-wrapper">
+                    <img class="foto-utente" id="roma-overlay" src="immagini/google.png" alt="Foto utente">
+                    <img class="foto-base" src="immagini/IMG_4529_preview_rev_1.png" alt="Viaggio a Roma">
+                </div>
+                <input type="file" accept="image/*" onchange="caricaOverlay(this, 'roma-overlay')">
+            </div>
+
+
+            <div class="viaggio-cella">
+                <div class="foto-wrapper">
+                    <img class="foto-utente" id="roma-overlay" src="immagini/travel.png" alt="Foto utente">
+                    <img class="foto-base" src="immagini/IMG_4529_preview_rev_1.png" alt="Viaggio a Roma">
+                </div>
+                <input type="file" accept="image/*" onchange="caricaOverlay(this, 'roma-overlay')">
+            </div>
+    
+    
+            <!-- Altre celle... -->
         </div>
+
     </div>
+    
     <div class="user-menu dropdown" id="userMenu">
         <div class="user-initial" id="user-initial">?</div>
         <div class="dropdown-content" id="dropdownMenu"> 
             <a href="#" onclick="logout()">Logout</a>
+            <a href="#" onclick="modifica()">Modifica</a>
         </div>
     </div>
-    
-    
 
     <script>
         let currentPic = 0;
@@ -83,16 +103,39 @@
             companions.style.display = companions.style.display === 'block' ? 'none' : 'block';
         }
         //inserire i dati della registrazione nel profilo
-        document.addEventListener("DOMContentLoaded", () => { // aspetta che l'intera pagina sia caricata
+        document.addEventListener("DOMContentLoaded", () => {
             const name = localStorage.getItem("userName") || "errore nome";
-            const age = 28; // da modificare
+            const bio = localStorage.getItem("userBio") || "";
+            const profilePics = JSON.parse(localStorage.getItem("userProfilePics") || "[]");
+
             const fullNameElement = document.getElementById("user-fullname");
+            const bioElement = document.querySelector(".bio");
 
-            if (fullNameElement) {
-                fullNameElement.textContent = `${name}, ${age}`;
+            if (fullNameElement) fullNameElement.textContent = name;
+            if (bioElement) bioElement.textContent = bio;
+
+            // Se ci sono immagini salvate, usale al posto delle immagini statiche
+            const contenitoreFoto = document.querySelector(".contenitore_foto");
+            if (profilePics.length > 0) {
+                const navButtons = document.querySelectorAll(".nav-button");
+                const imgsHtml = profilePics.map((img, index) =>
+                    `<img src="${img}" class="profile-pic ${index === 0 ? 'active' : ''}" alt="Profilo ${index + 1}">`
+                ).join('');
+
+                contenitoreFoto.innerHTML = `
+                    <button class="nav-button prev" onclick="prevProfilePic()">&#9664;</button>
+                    ${imgsHtml}
+                    <button class="nav-button next" onclick="nextProfilePic()">&#9654;</button>
+                `;
+
+                // Riassegna le immagini alla variabile globale
+                window.pics = document.querySelectorAll('.profile-pic');
+                showPic(0); // Mostra la prima immagine
             }
-
         });
+        currentPic=0;
+        pics=document.querySelectorAll('.profile-pic');
+
         document.addEventListener("DOMContentLoaded", () => {
             const menuButton = document.getElementById("userMenu");
             const dropdown = document.getElementById("dropdownMenu");
@@ -111,6 +154,10 @@
         function logout() {
             localStorage.clear();
             window.location.href = "login.html";
+        }
+        function modifica() {
+            localStorage.clear();
+            window.location.href = "modifica_profilo.html";
         }
     </script>
 </body>

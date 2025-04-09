@@ -10,45 +10,51 @@
 } 
 body {
     font-family: 'CustomFont', sans-serif;
-    background:  rgba(8, 7, 91, 0.252);
+    background-color: #f5f1de;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.profile-container {
+.edit-container{
+    font-family: 'CustomFont', sans-serif;
     width: 80%;
     max-width: 900px;
+    height: 450px;
     color: rgb(8, 7, 91);
-    padding: 20px;
-    margin-top: 50px;
+    padding: 10px;
+    margin-top:50px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     display: flex;
 }
+
 .foto_profilo {
     width: 50%;
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
+    border: 0cap;
 }
 .contenitore_foto {
     width: 100%;
     max-width: 400px;
     height: 400px;
     position: relative;
+    font-family: 'secondo_font', sans-serif;
 }
 .profile-pic {
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: 50px;
     object-fit: cover;
     display: none;
     opacity: 0;
     transition: opacity 0.5s ease;
     position: absolute;
 }
+
 .profile-pic.active {
     display: block;
     opacity: 1;
@@ -74,17 +80,16 @@ body {
 .descrizione_profilo {
     width: 50%;
     padding: 20px;
+    font-family: "secondo_font", sans-serif;
 }
-.name-age {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
+.bio-textarea {
+    width: 100%;
+    height: 50px;
+    border: 2px solid #888;
+    border-radius: 10px;
+    background-color: #f9f9f9;
 }
-.bio {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 20px;
-}
+
 .companions-button {
     background-color: rgb(8, 7, 91);
     color: white;
@@ -109,56 +114,27 @@ body {
 .photo-gallery {
     width: 80%;
     max-width: 900px;
-    background:  rgba(8, 7, 91, 0.23);
+    background: white;
     padding: 20px;
     margin-top: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .photo-gallery h3 {
-    color: rgb(8, 7, 91);  ;
     font-size: 18px;
 }
-.photos-grid {
+.photos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
-
-.viaggio-cella {
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.foto-wrapper {
-    position: relative;
+.photos img {
     width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-}
-
-
-.foto-base {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    height: 200px;
     object-fit: cover;
-    z-index: 1;
+    border-radius: 5px;
 }
 
-.foto-utente {
-    position: absolute;
-    top: 58px;
-    right: 52px;
-    width: 67%;
-    height: auto;
-    z-index: 1;
-    opacity: 0.9;
-    border-radius: 8px;
-    }
 
 /*menu*/
 .user-menu {
@@ -167,7 +143,7 @@ body {
     right: 20px;
     width: 50px;   /*altezza e larghezza uguali->cerchio*/
     height: 50px;
-    background-color:  #f5f1de;
+    background-color: rgb(187, 186, 227);
     border-radius: 50%;
     display: flex;
     align-items: center;
