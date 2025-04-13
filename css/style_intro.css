@@ -127,7 +127,7 @@
     color: #1D3B5B;
   }
   
-  /* Altre eventuali regole per layout responsivo */
+  
   @media (max-width: 768px) {
     .hero h1 {
       font-size: 2rem;

@@ -1,20 +1,20 @@
 /* Stile di base */
 body {
     margin: 0;
-    font-family: 'Playfair Display' sans-serif;  /* Puoi sostituire con un font elegante */
+    font-family: 'Playfair Display' sans-serif;  
     background-color: #FAFAFA;
     color: #333;
   }
   
   /* Barra superiore */
   header {
-    background-color: #1D3B5B; /* Un blu scuro, in linea con la palette */
+    background-color: #1D3B5B; 
     color: #fff;
     padding: 1rem;
     text-align: center;
   }
   
-  /* Titolo (puoi personalizzare font-size, margini, ecc.) */
+
   header h1 {
     margin: 0;
     font-size: 1.8rem;
@@ -24,7 +24,7 @@ body {
   /* Contenitore griglia */
   .gallery {
     display: grid;
-    /* Le card si adatteranno automaticamente alla larghezza disponibile */
+  
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;         /* Spaziatura tra le card */
     padding: 1rem;     /* Spazio ai margini interni */
@@ -35,11 +35,11 @@ body {
     background-color: #fff;
     border-radius: 5px;
     border: 1px solid #ddd;
-    overflow: hidden;  /* Evita che l’immagine esca dai bordi */
+    overflow: hidden;  
     display: flex;
     flex-direction: column; 
     align-items: center; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Leggera ombra */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
   }
   
   /* L'immagine riempie la larghezza della card */
