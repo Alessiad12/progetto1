@@ -7,7 +7,7 @@
   
   /* Corpo pagina */
   body {
-    /* Sfondo crema, testo blu, font Playfair (come da link Google Fonts) */
+    
     background-color: #EAE1C1;
     color: #1D3B5B;
     font-family: 'Playfair Display', serif;
@@ -18,7 +18,7 @@
     align-items: center;
     /* min-height per coprire tutta la finestra */
     min-height: 100vh;
-    /* Un po' di padding in alto se vuoi spazio extra */
+   
     padding-top: 40px;
   }
   
