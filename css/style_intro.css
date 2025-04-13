@@ -1,143 +1,178 @@
-/* Reset e impostazioni di base */
+/* Reset di base */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Playfair Display', serif;
-    background-color: #EAE1C1;  /* Sfondo crema */
-    color: #1D3B5B;             /* Testo blu scuro */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding-top: 80px; /* Spazio per il top-bar fisso */
-  }
-  
-  /* Barra superiore */
-  .top-bar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #fff;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    z-index: 100;
-  }
-  
-  .top-bar .brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #1D3B5B;
-  }
-  
-  /* Selettore lingua personalizzato */
-  .language-select {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .language-select select {
-    background-color: transparent;
-    color: #1D3B5B;
-    border: none;
-    font-size: 1rem;
-    padding: 8px 28px 8px 8px; /* Spazio per la freccia */
-    cursor: pointer;
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-  }
-  
-  .language-select::after {
-    content: "\25BC"; /* Freccia ▼ */
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: #1D3B5B;
-    font-size: 0.8rem;
-  }
-  
-  /* Sezione Hero */
-  .hero {
-    text-align: center;
-    padding: 60px 20px;
-    margin-top: 20px;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Playfair Display', serif;
+  background-color: #EAE1C1; /* Sfondo crema */
+  color: #1D3B5B;           /* Testo blu scuro */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 80px; /* per non sovrapporsi alla top-bar fissa */
+}
+
+/* Barra superiore */
+.top-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #fff; /* Oppure #EAE1C1 se vuoi un effetto più fuso */
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1D3B5B;
+}
+
+/* Nav a destra */
+.top-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Indicatore Lingua (icona + testo "Lingua") */
+.language-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.lang-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.lang-text {
+  font-size: 1rem;
+  color: #1D3B5B;
+}
+
+/* Dropdown di selezione lingua */
+.lang-menu {
+  position: absolute;
+  top: 50px; /* un po' sotto la barra */
+  right: 80px; /* spostalo in base alla larghezza del nav */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: none; /* nascosto di default */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.lang-menu.show {
+  display: block;
+}
+
+.lang-menu div {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #1D3B5B;
+  font-size: 0.9rem;
+}
+
+.lang-menu div:hover {
+  background-color: #f0f0f0;
+}
+
+/* Pulsante Accedi */
+.btn-accedi {
+  background-color: #fff;
+  color: #1D3B5B;
+  border: 2px solid #1D3B5B;
+  padding: 8px 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.btn-accedi:hover {
+  background-color: #1D3B5B;
+  color: #fff;
+}
+
+/* Sezione Hero */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  margin-top: 20px;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.buttons {
+  display: inline-flex;
+  gap: 20px;
+}
+
+.buttons button {
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#btn-get-started {
+  background-color: #1D3B5B;
+  color: #fff;
+}
+
+#btn-get-started:hover {
+  background-color: #13293F;
+}
+
+#btn-learn-more {
+  background-color: #fff;
+  color: #1D3B5B;
+  border: 2px solid #1D3B5B;
+}
+
+#btn-learn-more:hover {
+  background-color: #1D3B5B;
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    font-size: 1.8rem;
   }
-  
   .hero p {
-    font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto 30px;
-  }
-  
-  /* Pulsanti della sezione Hero */
-  .buttons {
-    display: inline-flex;
-    gap: 20px;
-  }
-  
-  .buttons button {
-    padding: 12px 30px;
     font-size: 1rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
   }
-  
-  #btn-get-started {
-    background-color: #1D3B5B;
-    color: #fff;
-  }
-  
-  #btn-get-started:hover {
-    background-color: #13293F;
-  }
-  
-  #btn-learn-more {
-    background-color: #fff;
-    color: #1D3B5B;
-    border: 2px solid #1D3B5B;
-  }
-  
-  #btn-learn-more:hover {
-    background-color: #1D3B5B;
-    color: #fff;
-  }
-  
-  /* Footer (opzionale) */
-  footer {
-    margin-top: 40px;
+  .buttons button {
+    padding: 10px 20px;
     font-size: 0.9rem;
-    color: #1D3B5B;
   }
-  
-  
-  @media (max-width: 768px) {
-    .hero h1 {
-      font-size: 2rem;
-    }
-    .hero p {
-      font-size: 1rem;
-    }
-    .buttons button {
-      padding: 10px 20px;
-      font-size: 0.9rem;
-    }
+  .lang-menu {
+    top: 50px;
+    right: 10px; /* su schermi piccoli, adattare la posizione */
   }
-  
+}
