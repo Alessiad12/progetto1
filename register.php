@@ -1,8 +1,9 @@
+
 <?php
-$dbconn = pg_connect("host=localhost port=5432 dbname=ConnessionePHP user=postgres password=Francesca2");
+$dbconn = pg_connect("host=localhost port=5432 dbname=ConnessionePHP user=postgres password=html");
 
 if (!$dbconn) {
-    echo "❌ Errore di connessione al database.";
+    echo " Errore di connessione al database.";
     exit;
 }
 
@@ -12,7 +13,7 @@ $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
 
 if (!$name || !$username || !$email || !$password) {
-    echo "❌ Tutti i campi sono obbligatori.";
+    echo "Tutti i campi sono obbligatori.";
     exit;
 }
 
@@ -29,9 +30,9 @@ $query = "INSERT INTO utenti (nome, username, email, password) VALUES ($1, $2, $
 $res = pg_query_params($dbconn, $query, [$name, $username, $email, $hashed]);
 
 if ($res) {
-    echo "✅ Registrazione avvenuta con successo!";
+    echo " Registrazione avvenuta con successo!";
 } else {
-    echo "❌ Errore nella registrazione: " . pg_last_error($dbconn);
+    echo " Errore nella registrazione: " . pg_last_error($dbconn);
 }
 
 pg_close($dbconn);
