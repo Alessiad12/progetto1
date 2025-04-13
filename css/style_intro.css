@@ -1,4 +1,4 @@
-/* Reset di base */
+
 * {
   margin: 0;
   padding: 0;
@@ -7,21 +7,21 @@
 
 body {
   font-family: 'Playfair Display', serif;
-  background-color: #EAE1C1; /* Sfondo crema */
-  color: #1D3B5B;           /* Testo blu scuro */
+  background-color: #EAE1C1; 
+  color: #1D3B5B;           
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding-top: 80px; /* per non sovrapporsi alla top-bar fissa */
+  padding-top: 80px; 
 }
 
-/* Barra superiore */
+
 .top-bar {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #fff; /* Oppure #EAE1C1 se vuoi un effetto più fuso */
+  background-color: #fff; 
   padding: 10px 20px;
   display: flex;
   align-items: center;
@@ -36,14 +36,14 @@ body {
   color: #1D3B5B;
 }
 
-/* Nav a destra */
+
 .top-nav {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-/* Indicatore Lingua (icona + testo "Lingua") */
+
 .language-indicator {
   display: flex;
   align-items: center;
@@ -62,7 +62,7 @@ body {
   color: #1D3B5B;
 }
 
-/* Dropdown di selezione lingua */
+
 .lang-menu {
   position: absolute;
   top: 50px; /* un po' sotto la barra */

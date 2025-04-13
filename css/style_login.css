@@ -7,7 +7,7 @@ body {
   margin: 20px;
 }
 
-/* Contenitore dei form */
+
 #form-registrazione,
 #login-form {
   background: #fff;
@@ -18,7 +18,6 @@ body {
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
-/* Titoli */
 h2 {
   font-size: 2rem;
   margin-bottom: 30px;
@@ -29,23 +28,23 @@ h3 {
   font-weight: 700;
 }
 
-/* Spazio per i messaggi */
+
 .error-message, 
 .success-message {
-  min-height: 20px; /* Tiene spazio anche se vuoto */
+  min-height: 20px; 
   margin-bottom: 10px;
   font-weight: bold;
 }
 
-/* Colori specifici per errore/successo */
+
 .error-message {
-  color: #C0392B; /* Rosso scuro */
+  color: #C0392B; 
 }
 .success-message {
-  color: #2E7D32; /* Verde scuro */
+  color: #2E7D32; 
 }
 
-/* Campi input */
+
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -58,9 +57,9 @@ input[type="password"] {
   font-size: 1rem;
 }
 
-/* Bottone */
+
 button {
-  background-color: #1D3B5B; /* Blu scuro */
+  background-color: #1D3B5B; 
   color: #fff;
   padding: 10px;
   width: 100%;
@@ -72,7 +71,7 @@ button {
   transition: background-color 0.3s ease;
 }
 button:hover {
-  background-color: #13293F; /* Blu più scuro */
+  background-color: #13293F;
 }
 
 /* ANIMAZIONE SHAKE */
@@ -106,7 +105,6 @@ button:hover {
   font-weight: 600;
 }
 
-/* CONTENITORE BOTTONI SOCIAL (Facebook, Google, Apple) */
 .alt-login {
   display: flex;
   flex-direction: column;
@@ -114,7 +112,7 @@ button:hover {
   margin-top: 10px;
 }
 
-/* SINGOLO BOTTONE SOCIAL */
+
 .social-btn {
   display: flex;
   align-items: center;
@@ -130,13 +128,29 @@ button:hover {
   transition: background-color 0.2s ease;
 }
 
-/* Effetto hover sui bottoni social */
+
 .social-btn:hover {
   background-color: #f0f0f0;
 }
 
-/* Icona social (fb, google, apple) */
+
 .social-btn img {
   width: 18px;
   height: 18px;
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border: 2px #ccc;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+  border-radius: 5%;
+}
+.modal.show {
+  display: block;
 }

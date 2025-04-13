@@ -4,40 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wanderlust - Login</title>
-  <!-- Collega il file CSS -->
   <link rel="stylesheet" href="css/style_login.css">
-  <!-- Favicon -->
   <link rel="icon" href="immagini/ex.png" type="image/png">
-  <!-- Font da Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <!-- Contenitore principale -->
   <div class="login-container">
-    <!-- Logo “Wanderlust” -->
     <h2 class="logo">Wanderlust</h2>
 
-    <!-- Form di Login -->
-    <div class="form-box" id="login-form">
+    <form class="form-box" id="login-form">
       <h3>Login</h3>
 
-      <!-- Messaggi di errore e successo -->
-      <div class="error-message" id="login-error"></div>
-      <div class="success-message" id="login-success"></div>
+      <input type="email" id="login-email" name="email" placeholder="Email" required>
+      <input type="password" id="login-password" name="password" placeholder="Password" required>
+      <button type="submit">Accedi</button>
 
-      <input type="email" id="login-email" placeholder="Email">
-      <input type="password" id="login-password" placeholder="Password">
-      <button onclick="login()">Accedi</button>
-      
-      <!-- Separatore con “O” -->
+      <div id="login-success" class="message success"></div>
+      <div id="login-error" class="message error"></div>
+
       <div class="separator">
         <div class="line"></div>
         <div class="or">O</div>
         <div class="line"></div>
       </div>
 
-      <!-- Sezione di login alternativo -->
       <div class="alt-login">
         <div class="social-btn" onclick="loginWithFacebook()">
           <img src="immagini/facebook.png" alt="Facebook Icon">
@@ -54,22 +45,64 @@
           <span>Accedi con Apple</span>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 
-  <!-- Box per la registrazione sotto il form -->
   <div class="signup-container">
     <p>Non sei registrato?
       <a href="register.html">Registrati qui</a>
     </p>
   </div>
 
-  <!-- Esempio di link in un paragrafo -->
   <p class="forgot-link">
     <a href="password.html">Password dimenticata?</a>
   </p>
 
-  <!-- File JS per il login -->
-  <script src="js/login.js"></script>
+  <div class="modal" id="modal-message"></div>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+
+      const res = await fetch('login.php', {
+        method: 'POST',
+        body: formData
+      });
+
+      const text = await res.text();
+      const modal = document.getElementById('modal-message');
+
+      modal.innerHTML = text;
+      modal.classList.add('show');
+
+      if (text.toLowerCase().includes("successo")) {
+        modal.classList.add('success');
+        modal.classList.remove('error');
+        document.getElementById('login-success').textContent = text;
+        document.getElementById('login-error').textContent = "";
+      } else {
+        modal.classList.add('error');
+        modal.classList.remove('success');
+        document.getElementById('login-error').textContent = text;
+        document.getElementById('login-success').textContent = "";
+      }
+
+      setTimeout(() => modal.classList.remove('show'), 3000);
+    });
+
+    function loginWithFacebook() {
+      alert("Login con Facebook non ancora implementato.");
+    }
+
+    function loginWithGoogle() {
+      alert("Login con Google non ancora implementato.");
+    }
+
+    function loginWithApple() {
+      alert("Login con Apple non ancora implementato.");
+    }
+  </script>
 </body>
 </html>
