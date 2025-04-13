@@ -17,11 +17,10 @@ if (!$name || !$username || !$email || !$password) {
     exit;
 }
 
-// Controllo se l'email o username esistono già
 $check = pg_query_params($dbconn, "SELECT 1 FROM utenti WHERE email=$1 OR username=$2", [$email, $username]);
 
 if (pg_num_rows($check) > 0) {
-    echo "⚠️ Email o nome utente già registrati.";
+    echo "Email o nome utente già registrati.";
     exit;
 }
 
