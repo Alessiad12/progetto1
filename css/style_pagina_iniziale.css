@@ -66,7 +66,7 @@ body {
     font-family: 'CustomFont', sans-serif;
 }
 
-/* Wanderlust in alto a sinistra */
+
 .title {
     position: absolute;
     top: 20px;
@@ -76,7 +76,7 @@ body {
     font-family: 'CustomFont', sans-serif;
 }
 
-/* Testo in basso a sinistra */
+
 .text {
     position: absolute;
     bottom: 20px;
@@ -89,19 +89,20 @@ body {
 
 }
 
-/* Bottone in basso a destra */
+
 button {
     position: absolute;
     bottom: 20px;
     right: 20px;
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 1.3rem;
     border: none;
     background-color: #f5f1de;
     color: rgb(8, 7, 91);
     cursor: pointer;
     border-radius: 5px;
     font-family: 'CustomFont';
+    size: 30px;
 }
 button:hover {
     background-color: #0056b3;
@@ -118,10 +119,6 @@ button:hover {
     top: 100px;
 }
 
-h2{
-    color:rgb(8, 7, 91) ;
-    font-size: 2rem;
-}
 
 
 .contenitore_immagini{
@@ -146,36 +143,68 @@ h2{
         transform: translateX(-50%);
     }
 }
-/* Contenitore principale che avvolge testo e QR code */
-.contenitore_descrizione {
-    display: flex; /* Usa flexbox per gestire il layout */
-    justify-content: space-between; /* Testo a sinistra, QR code a destra */
-    align-items: flex-start; /* Allinea il testo in alto */
-    width: 100%; /* Occupa tutta la larghezza disponibile */
-    margin: 70px auto; /* Centro il contenitore orizzontalmente con margine superiore */
-    padding: 10px; /* Aggiunge spazio interno */
-    height: 50vh; /* Imposta un'altezza fissa del 50% della viewport */
-    position: relative; /* Imposta un riferimento per gli elementi interni */
-}
 
-/* Stile per la sezione di testo */
-.spiegazione_app {
-    width: 50%; /* Occupa la metà sinistra del contenitore */
-    font-size: 1.2em; 
+.contenitore_step{
+    display: flex; 
+    width: 100%; 
+    position: relative;
+    top: 100px;
+    flex-direction: column;
+    align-items: center;
+}
+h2 {
+    font-size: 2em;
+    margin-bottom: 40px;
     color: rgb(8, 7, 91);
-    font-family: 'Georgia', serif; 
-    text-align: left; /* Allinea il testo a sinistra */
-    padding: 20px; /* Aggiunge spazio interno per non far toccare il testo ai bordi */
-}
+    text-align: center;}
 
-/* Contenitore del QR Code e del testo "Scarica l'app" */
+    .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 60px;
+        max-width: 500px;
+        width: 100%;
+      }
+  
+      .circle {
+        background-color: #2e5a80;
+        color: white;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-bottom: 15px;
+        font-size: 1.2em;
+      }
+  
+      .title_s {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 8px;
+        text-align: center;
+      }
+  
+      .description {
+        font-size: 1em;
+        color: #555;
+        text-align: center;
+        line-height: 1.5;
+      }
+
+
 .qrcode {
-    width: 50%; /* Occupa la metà destra del contenitore */
-    display: flex; /* Usa flexbox per gestire il posizionamento del QR code */
-    flex-direction: column; /* Organizza gli elementi in colonna (QR code sopra, testo sotto) */
-    align-items: center; /* Centra il contenuto orizzontalmente */
-    justify-content: flex-end; /* Posiziona gli elementi in basso all'interno del contenitore */
-    height: 100%; /* Occupa tutta l'altezza disponibile del contenitore */
+    display: flex; 
+    width: 100%; 
+    position: relative;
+    top: 100px;
+    right: 20px;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
 }
 
 
