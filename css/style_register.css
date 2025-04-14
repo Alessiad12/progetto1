@@ -1,23 +1,35 @@
 
 * {
     margin: 0;
-    padding: 0;
+    padding: 25px;
     box-sizing: border-box;
   }
   
   body {
-    
-    background-color: #EAE1C1;
+    background-image: url('https://i.pinimg.com/736x/ed/44/d4/ed44d40e3e0ba3d261a79a42d5b89828.jpg'); /* Inserisci il percorso dell'immagine */
+    background-size: cover; /* L'immagine copre l'intera area */
+    background-position: center; /* Centra l'immagine */
+    background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
+    background-color: #EAE1C1; /* Colore di sfondo di fallback */
     color: #1D3B5B;
     font-family: 'Playfair Display', serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-   
     padding-top: 40px;
   }
-  
+  /* Aggiungi un overlay per la trasparenza */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.324); /* Sovrapposizione bianca con trasparenza */
+  z-index: -1; /* Posiziona l'overlay sotto il contenuto */
+}
   
   h2 {
     font-size: 2rem;
@@ -88,10 +100,12 @@
     margin-top: 10px;
     font-size: 0.9rem;
     text-align: center;
-    align-items: center ;
+    align-items: center;
+    background-color: #5480566e;
+    border-radius: 15px;
   }
   .link-registrazione a {
-    color: #6c04fc; 
+    color: #5704fc; 
     text-decoration: none;
   }
   .link-registrazione a:hover {

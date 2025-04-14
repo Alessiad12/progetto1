@@ -1,12 +1,30 @@
-
 body {
-  font-family: 'Playfair Display', serif;
-  background: #EAE1C1;
-  text-align: center;
+  background-image: url('https://i.pinimg.com/736x/a7/e3/aa/a7e3aa95a740686fe85bcf6f2ee839c1.jpg'); /* Inserisci il percorso dell'immagine */
+  background-size: cover; /* L'immagine copre l'intera area */
+  background-position: center; /* Centra l'immagine */
+  background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
+  background-color: #EAE1C1; /* Colore di sfondo di fallback */
   color: #1D3B5B;
+  font-family: 'Playfair Display', serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
   margin: 20px;
+  padding-top: 40px;
 }
-
+/* Aggiungi un overlay per la trasparenza */
+body::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(255, 255, 255, 0.324); /* Sovrapposizione bianca con trasparenza */
+z-index: -1; /* Posiziona l'overlay sotto il contenuto */
+}
 
 #form-registrazione,
 #login-form {
@@ -153,4 +171,14 @@ button:hover {
 }
 .modal.show {
   display: block;
+}
+.signup-container {
+  background-color: #a7bcc194;
+  border-radius: 15px;
+  padding: 5px; 
+}
+.forgot-link {
+  background-color: #a7bcc194;
+  border-radius: 15px;
+  padding: 5px; 
 }
