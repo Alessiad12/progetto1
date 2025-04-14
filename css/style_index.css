@@ -1,0 +1,177 @@
+/* Reset di base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Stile del body */
+  body {
+    font-family: 'Playfair Display', serif;
+    background-color: #EAE1C1; /* Sfondo crema */
+    color: #1D3B5B;            /* Testo blu scuro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  /* Container principale del profilo */
+  .profile-container {
+    width: 90%;
+    max-width: 900px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+  
+  /* Sezione Header */
+  .profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .profile-pic-container {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 15px;
+  }
+  
+  .profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #1D3B5B;
+  }
+  
+  .profile-info {
+    text-align: center;
+  }
+  
+  .profile-name {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .profile-bio {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.4;
+  }
+  
+  /* Pulsante e lista dei compagni di Wanderlust */
+  .companions-toggle {
+    background-color: #1D3B5B;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .companions-toggle:hover {
+    background-color: #13293F;
+  }
+  
+  .companions-list {
+    list-style: none;
+    display: none; /* Nascosta di default, verrà mostrata con la funzione JS */
+    text-align: center;
+    margin-top: 10px;
+    padding: 0 10px;
+  }
+  
+  .companions-list li {
+    font-size: 0.95rem;
+    padding: 4px 0;
+    color: #1D3B5B;
+  }
+  
+  /* Sezione Azioni */
+  .profile-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .btn {
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .connect {
+    background-color: #1D3B5B;
+    color: #fff;
+  }
+  
+  .connect:hover {
+    background-color: #13293F;
+  }
+  
+  .message {
+    background-color: #fff;
+    color: #1D3B5B;
+    border: 2px solid #1D3B5B;
+  }
+  
+  .message:hover {
+    background-color: #1D3B5B;
+    color: #fff;
+  }
+  
+  /* Sezione Galleria */
+  .profile-gallery {
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .profile-gallery h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .gallery {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .gallery img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    .profile-header, .profile-actions, .profile-gallery {
+      padding: 10px;
+    }
+  
+    .profile-pic-container {
+      width: 120px;
+      height: 120px;
+    }
+  
+    .gallery img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  

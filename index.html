@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wanderlust - Profilo</title>
+  <link rel="stylesheet" href="css/style_index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="profile-container">
+    
+    <!-- Sezione Header: Foto Profilo e Informazioni -->
+    <div class="profile-header">
+      <div class="profile-pic-container">
+        <!-- Immagine profilo circolare -->
+        <img src="immagini/sfondo.jpg" alt="Foto Profilo" class="profile-pic">
+      </div>
+      <div class="profile-info">
+        <h1 class="profile-name">Mario Rossi, 28</h1>
+        <p class="profile-bio">
+          Appassionato di esperienze uniche e avventure.<br>
+          Amo scoprire nuove culture, cibi e paesaggi: ogni viaggio è un’opportunità per crescere e condividere.
+        </p>
+        <!-- Pulsante per mostrare/nascondere la lista dei compagni di Wanderlust -->
+        <button class="companions-toggle" onclick="toggleCompanions()">Mostra Compagni di viaggio</button>
+        <ul id="companions-list" class="companions-list">
+          <li>Alice Bianchi</li>
+          <li>Marco Verdi</li>
+          <li>Elena Neri</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Sezione Azioni -->
+    <div class="profile-actions">
+      <button class="btn connect">Connect</button>
+      <button class="btn message">Message</button>
+    </div>
+    
+    <!-- Sezione Galleria dei Wanderlust -->
+    <div class="profile-gallery">
+      <h2>I miei viaggi</h2>
+      <div class="gallery">
+        <img src="immagini/Malaga-Spain.jpg" alt="Wanderlust 1">
+        <img src="immagini/new-york-city.jpg" alt="Wanderlust 2">
+        <img src="immagini/praga.jpeg" alt="Wanderlust 3">
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Funzione che alterna la visualizzazione della lista dei compagni di Wanderlust
+    function toggleCompanions() {
+      const compList = document.getElementById('companions-list');
+      if (compList.style.display === 'block') {
+        compList.style.display = 'none';
+      } else {
+        compList.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
