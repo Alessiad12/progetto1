@@ -8,12 +8,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Icona circolare in alto a destra -->
+  <div class="profile-toggle" onclick="toggleProfileContainer()">
+    <img src="immagini/sfondo.jpg" alt="Foto Profilo" class="profile-icon">
+
+  </div>
+
+  <!-- Contenitore del profilo -->
   <div class="profile-container">
-    
-    <!-- Sezione Header: Foto Profilo e Informazioni -->
     <div class="profile-header">
       <div class="profile-pic-container">
-        <!-- Immagine profilo circolare -->
         <img src="immagini/sfondo.jpg" alt="Foto Profilo" class="profile-pic">
       </div>
       <div class="profile-info">
@@ -22,44 +26,31 @@
           Appassionato di esperienze uniche e avventure.<br>
           Amo scoprire nuove culture, cibi e paesaggi: ogni viaggio è un’opportunità per crescere e condividere.
         </p>
-        <!-- Pulsante per mostrare/nascondere la lista dei compagni di Wanderlust -->
-        <button class="companions-toggle" onclick="toggleCompanions()">Mostra Compagni di viaggio</button>
-        <ul id="companions-list" class="companions-list">
-          <li>Alice Bianchi</li>
-          <li>Marco Verdi</li>
-          <li>Elena Neri</li>
-        </ul>
+        <button class="companions-toggle">Mostra Compagni di viaggio</button>
+        <button class="viaggi-toggle">Mostra viaggi</button>
+        <a class="modifica-toggle" href="creaprofilo.html" type="button">Modifica profilo</a>
+        
       </div>
     </div>
-    
-    <!-- Sezione Azioni -->
-    <div class="profile-actions">
-      <button class="btn connect">Connect</button>
-      <button class="btn message">Message</button>
-    </div>
-    
-    <!-- Sezione Galleria dei Wanderlust -->
-    <div class="profile-gallery">
-      <h2>I miei viaggi</h2>
-      <div class="gallery">
-        <img src="immagini/Malaga-Spain.jpg" alt="Wanderlust 1">
-        <img src="immagini/new-york-city.jpg" alt="Wanderlust 2">
-        <img src="immagini/praga.jpeg" alt="Wanderlust 3">
-      </div>
-    </div>
-
   </div>
 
-  <script>
-    // Funzione che alterna la visualizzazione della lista dei compagni di Wanderlust
-    function toggleCompanions() {
-      const compList = document.getElementById('companions-list');
-      if (compList.style.display === 'block') {
-        compList.style.display = 'none';
-      } else {
-        compList.style.display = 'block';
-      }
+  <script >
+// Funzione per mostrare/nascondere il contenitore del profilo
+function toggleProfileContainer() {
+  const container = document.querySelector('.profile-container');
+  container.classList.toggle('active'); // Usa 'active' invece di 'show'
+}
+
+// Chiudi il menu se clicchi fuori
+window.onclick = function(event) {
+  if (!event.target.matches('.profile-toggle')) {
+    const container = document.querySelector('.profile-container');
+    if (container.classList.contains('active')) {
+      container.classList.remove('active'); // Usa 'active' invece di 'show'
     }
+  }
+}
+
   </script>
 </body>
 </html>
