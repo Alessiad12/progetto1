@@ -72,6 +72,29 @@
         })
         .catch(error => console.error('Errore:', error));
     });
+
+    async function caricaViaggi() {
+      const r = await fetch("/api/get_trips.php");
+      if (!r.ok) { alert("Non loggato"); return; }
+
+      const photos = await r.json();
+      const gallery = document.getElementById("gallery");
+      gallery.innerHTML = "";
+
+      if (photos.length === 0) {
+        gallery.innerHTML = '<p class="col-span-2 text-center text-navy/60">Nessun viaggio ancora.</p>';
+        return;
+      }
+
+      photos.forEach((url) => {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Foto viaggio";
+        img.className = "w-full h-40 object-cover rounded-lg border border-navy/30 shadow";
+        gallery.appendChild(img);
+      });
+}
+
   </script>
 </body>
 </html>

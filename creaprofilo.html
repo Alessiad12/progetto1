@@ -1,135 +1,174 @@
-<html>
- <head>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
- </head>
- <body class="bg-gray-900 text-white">
-  <div class="container mx-auto p-4">
-   <div class="flex justify-between items-center mb-8">
-    <img alt="Tinder logo" class="h-8" src="https://placehold.co/100x50"/>
-    <button class="text-gray-400">
-     Lingua
-    </button>
-   </div>
-  
-   <div class="max-w-4xl mx-auto">
-    <h1 class="text-3xl font-bold mb-6">
-     Modifica account
-    </h1>
-    <div class="flex flex-col md:flex-row">
-     <div class="w-full md:w-1/2 md:pr-4">
-      <div class="mb-4">
-       <label class="block text-sm font-medium mb-2" for="name">
-        Nome
-       </label>
-       <input class="w-full bg-gray-800 text-white border border-gray-700 rounded p-2" id="name" type="text" value="Ida Benvenuto"/>
-      </div>
-      <div class="mb-4">
-       <label class="block text-sm font-medium mb-2" for="email">
-        Email
-       </label>
-       <input class="w-full bg-gray-800 text-white border border-gray-700 rounded p-2" id="email" type="email" value="benvenutoida3@gmail.com"/>
-      </div>
-      <div class="mb-4">
-       <label class="block text-sm font-medium mb-2">
-        Compleanno
-       </label>
-       <div class="flex space-x-2">
-        <input class="w-1/3 bg-gray-800 text-white border border-gray-700 rounded p-2" placeholder="Day" type="text" value="12"/>
-        <input class="w-1/3 bg-gray-800 text-white border border-gray-700 rounded p-2" placeholder="Month" type="text" value="08"/>
-        <input class="w-1/3 bg-gray-800 text-white border border-gray-700 rounded p-2" placeholder="Year" type="text" value="2003"/>
-       </div>
-      </div>
-      
-      <div class="mb-4">
-       <label class="block text-sm font-medium mb-2">
-        Mi interessano:
-        <i class="fas fa-info-circle text-blue-500">
-        </i>
-       </label>
-       <div class="flex space-x-2">
-        <button class="w-1/3 bg-gray-800 text-white border border-gray-700 rounded p-2">
-         viaggi singoli
-        </button>
-        <button class="w-1/3 bg-gray-800 text-white border border-gray-700 rounded p-2">
-         viaggi in coppia
-        </button>
-        <button class="w-1/3 bg-gray-800 text-white border border-red-500 rounded p-2">
-         viaggi di gruppo
-        </button>
-       </div>
-      </div>
-      <div class="mb-4">
-       <label class="block text-sm font-medium mb-2">
-        Qui per...
-       </label>
-       <button class="w-full bg-gray-800 text-white border border-gray-700 rounded p-2 mb-2">
-        Modifica la sezione "Qui per..."
-       </button>
-      </div>
-     </div>
-     <div class="w-full md:w-1/2 md:pl-4">
-      <label class="block text-sm font-medium mb-2">
-       Foto profilo
-      </label>
-      <div class="grid grid-cols-3 gap-2 mb-4">
-       <div class="relative">
-        <img alt="Profile photo 1" class="w-full h-full object-cover border border-gray-700 rounded" src="https://placehold.co/100x100"/>
-        <button class="absolute top-0 right-0 bg-gray-800 text-white rounded-full p-1">
-         <i class="fas fa-times">
-         </i>
-        </button>
-       </div>
-       <div class="relative">
-        <img alt="Profile photo 2" class="w-full h-full object-cover border border-gray-700 rounded" src="https://placehold.co/100x100"/>
-        <button class="absolute top-0 right-0 bg-gray-800 text-white rounded-full p-1">
-         <i class="fas fa-times">
-         </i>
-        </button>
-       </div>
-       <div class="relative">
-        <div class="w-full h-full border border-gray-700 rounded flex items-center justify-center">
-         <button class="bg-gray-800 text-white rounded-full p-2">
-          <i class="fas fa-plus">
-          </i>
-         </button>
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tailwind CDN + custom palette cream / navy -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              cream: "#FDF7E3", // background principale
+              navy: "#0A2342",  // testo primario, bottoni
+              "navy-light": "#12315C",
+              "navy-dark": "#06162F"
+            }
+          }
+        }
+      };
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <title>Wanderlust – Modifica account</title>
+  </head>
+  <body class="bg-cream text-navy min-h-screen">
+    <div class="container mx-auto p-4">
+      <header class="flex justify-between items-center mb-8">
+        <img src="immagini/travel.png" alt="Wanderlust logo" class="h-8" />
+      </header>
+
+      <div class="max-w-4xl mx-auto bg-white/40 backdrop-blur-sm rounded-2xl shadow-lg p-8">
+        <h1 class="text-3xl md:text-4xl font-extrabold mb-8 text-center">Modifica account</h1>
+
+        <div class="flex flex-col md:flex-row gap-8">
+          <!-- Colonna sinistra -->
+          <section class="flex-1">
+            <!-- Nome -->
+            <div class="mb-6">
+              <label for="name" class="block text-sm font-semibold mb-2 tracking-wide">Nome</label>
+              <input id="name" type="text" placeholder="nome" class="w-full bg-cream border border-navy/30 focus:border-navy-light focus:ring-1 focus:ring-navy-light rounded-lg p-3 placeholder-navy/50 transition" />
+            </div>
+
+            <!-- Email -->
+            <div class="mb-6">
+              <label for="email" class="block text-sm font-semibold mb-2 tracking-wide">Email</label>
+              <input id="email" type="email" placeholder="email" class="w-full bg-cream border border-navy/30 focus:border-navy-light focus:ring-1 focus:ring-navy-light rounded-lg p-3 placeholder-navy/50 transition" />
+            </div>
+
+            <!-- Compleanno -->
+            <div class="mb-6">
+              <label class="block text-sm font-semibold mb-2 tracking-wide">Compleanno</label>
+              <div class="flex gap-2">
+                <input type="text" placeholder="GG" class="flex-1 bg-cream border border-navy/30 rounded-lg p-3 text-center focus:border-navy-light focus:ring-1 focus:ring-navy-light" />
+                <input type="text" placeholder="MM" class="flex-1 bg-cream border border-navy/30 rounded-lg p-3 text-center focus:border-navy-light focus:ring-1 focus:ring-navy-light" />
+                <input type="text" placeholder="AAAA" class="flex-1 bg-cream border border-navy/30 rounded-lg p-3 text-center focus:border-navy-light focus:ring-1 focus:ring-navy-light" />
+              </div>
+            </div>
+
+            <!-- Mi interessano -->
+            <div class="mb-6">
+              <label class="block text-sm font-semibold mb-2 tracking-wide">Mi interessano</label>
+              <div class="flex gap-2">
+                <button class="flex-1 bg-cream border border-navy text-navy rounded-lg p-3 hover:bg-navy hover:text-cream transition">Viaggi in solitaria</button>
+                <button class="flex-1 bg-cream border border-navy text-navy rounded-lg p-3 hover:bg-navy hover:text-cream transition">Viaggi di coppia</button>
+                <button class="flex-1 bg-cream border border-navy text-navy rounded-lg p-3 hover:bg-navy hover:text-cream transition">Viaggi di gruppo</button>
+              </div>
+            </div>
+
+            <!-- Qui per -->
+            <div class="mb-6">
+              <label class="block text-sm font-semibold mb-2 tracking-wide">Qui per...</label>
+              <div class="flex flex-col gap-4">
+                <button type="button" class="flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left">
+                  <span class="text-xl">🏖️</span>
+                  <span class="flex-1">Rilassarsi in spiaggia</span>
+                </button>
+                <button type="button" class="flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left">
+                  <span class="text-xl">🏛️</span>
+                  <span class="flex-1">Imparare nei musei</span>
+                </button>
+                <button type="button" class="flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left">
+                  <span class="text-xl">🍴</span>
+                  <span class="flex-1">Mangiare nei migliori ristoranti</span>
+                </button>
+                <button type="button" class="flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left">
+                  <span class="text-xl">⛰️</span>
+                  <span class="flex-1">Esplorare la natura e l'aria aperta</span>
+                </button>
+                <button type="button" class="flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left">
+                  <span class="text-xl">👨‍👩‍👧‍👦</span>
+                  <span class="flex-1">Intrattenere i bambini</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Colonna destra: foto -->
+          <section class="flex-1">
+            <label class="block text-sm font-semibold mb-2 tracking-wide">I miei viaggi</label>
+
+            <!-- Input nascosto -->
+            <input id="fileInput" type="file" accept="image/*" multiple class="hidden" />
+
+            <div id="photoGrid" class="grid grid-cols-3 gap-3 mb-4"></div>
+
+            <template id="emptySlotTemplate">
+              <div class="relative flex items-center justify-center w-full h-full border border-dashed border-navy/40 rounded-lg empty-slot">
+                <button class="bg-navy text-cream rounded-full p-2 hover:bg-navy-light transition add-photo">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </template>
+
+            <p class="text-xs text-navy/70">Tieni premuto, trascina e rilascia per riordinare le tue foto</p>
+          </section>
         </div>
-       </div>
-       <div class="relative">
-        <div class="w-full h-full border border-gray-700 rounded flex items-center justify-center">
-         <button class="bg-gray-800 text-white rounded-full p-2">
-          <i class="fas fa-plus">
-          </i>
-         </button>
+
+        <!-- Bottone termina modifica -->
+        <div class="flex justify-center mt-10">
+          <a href="index.html" class="bg-navy text-cream px-8 py-3 rounded-lg font-semibold hover:bg-navy-light focus:ring-2 focus:ring-navy-light transition">Termina modifica</a>
         </div>
-       </div>
-       <div class="relative">
-        <div class="w-full h-full border border-gray-700 rounded flex items-center justify-center">
-         <button class="bg-gray-800 text-white rounded-full p-2">
-          <i class="fas fa-plus">
-          </i>
-         </button>
-        </div>
-       </div>
-       <div class="relative">
-        <div class="w-full h-full border border-gray-700 rounded flex items-center justify-center">
-         <button class="bg-gray-800 text-white rounded-full p-2">
-          <i class="fas fa-plus">
-          </i>
-         </button>
-        </div>
-       </div>
       </div>
-      <p class="text-sm text-gray-400">
-       Tieni premuto, trascina e rilascia (o usa la barra spaziatrice e le frecce) per riordinare le tue foto
-      </p>
-      <p class="text-sm text-gray-400 mt-2">
-       Inizia scegliendo 2 foto. Consiglio: caricane almeno 4 per far risaltare il tuo profilo!
-      </p>
-     </div>
     </div>
-   </div>
-  </div>
- </body>
+
+    <!-- ============================ -->
+    <!-- JS: upload + preview foto    -->
+    <!-- ============================ -->
+    <script>
+      // genera 6 slot iniziali
+      const photoGrid = document.getElementById("photoGrid");
+      const slotTpl = document.getElementById("emptySlotTemplate").content;
+      for (let i = 0; i < 3; i++) {
+        photoGrid.appendChild(document.importNode(slotTpl, true));
+      }
+
+      const fileInput = document.getElementById("fileInput");
+
+      // click sul + → file‑picker
+      photoGrid.addEventListener("click", (e) => {
+        if (e.target.closest(".add-photo")) fileInput.click();
+      });
+
+      // preview + upload
+      fileInput.addEventListener("change", (e) => {
+        [...e.target.files].forEach((file) => {
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            const slot = document.querySelector(".empty-slot");
+            if (!slot) return;
+            slot.classList.remove("empty-slot");
+            slot.innerHTML = `<img src="${ev.target.result}" alt="Nuova foto" class="w-full h-full object-cover border border-navy/30 rounded-lg" />`;
+            uploadPhoto(file);
+          };
+          reader.readAsDataURL(file);
+        });
+        e.target.value = ""; // reset
+      });
+
+      function uploadPhoto(file) {
+        const fd = new FormData();
+        fd.append("photo", file);
+        fetch("/api/upload_photo.php", { method: "POST", body: fd })
+          .then((r) => r.json())
+          .then((d) => console.log("Foto salvata:", d.url))
+          .catch(console.error);
+      }
+    </script>
+  </body>
 </html>
