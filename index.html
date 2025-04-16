@@ -11,7 +11,6 @@
   <!-- Icona circolare in alto a destra -->
   <div class="profile-toggle" onclick="toggleProfileContainer()">
     <img src="immagini/sfondo.jpg" alt="Foto Profilo" class="profile-icon">
-
   </div>
 
   <!-- Contenitore del profilo -->
@@ -21,36 +20,58 @@
         <img src="immagini/sfondo.jpg" alt="Foto Profilo" class="profile-pic">
       </div>
       <div class="profile-info">
-        <h1 class="profile-name">Mario Rossi, 28</h1>
+        <h1 class="profile-name">Mario Rossi, 35</h1>
         <p class="profile-bio">
           Appassionato di esperienze uniche e avventure.<br>
           Amo scoprire nuove culture, cibi e paesaggi: ogni viaggio è un’opportunità per crescere e condividere.
         </p>
+        
+        <!-- Modifica del profilo, usiamo <a> al posto di <button> -->
+          <button class="modifica-toggle" onclick="caricaModificaProfilo()">Modifica profilo</button>
+        
         <button class="companions-toggle">Mostra Compagni di viaggio</button>
         <button class="viaggi-toggle">Mostra viaggi</button>
-        <a class="modifica-toggle" href="creaprofilo.html" type="button">Modifica profilo</a>
-        
       </div>
     </div>
   </div>
 
-  <script >
-// Funzione per mostrare/nascondere il contenitore del profilo
-function toggleProfileContainer() {
-  const container = document.querySelector('.profile-container');
-  container.classList.toggle('active'); // Usa 'active' invece di 'show'
-}
 
-// Chiudi il menu se clicchi fuori
-window.onclick = function(event) {
-  if (!event.target.matches('.profile-toggle')) {
-    const container = document.querySelector('.profile-container');
-    if (container.classList.contains('active')) {
-      container.classList.remove('active'); // Usa 'active' invece di 'show'
+  <script>
+    // Funzione per mostrare/nascondere il contenitore del profilo
+    function toggleProfileContainer() {
+      const container = document.querySelector('.profile-container');
+      container.classList.toggle('active'); // Usa 'active' per mostrare/nascondere
     }
-  }
-}
 
+    // Chiudi il menu se clicchi fuori dal contenitore
+    window.onclick = function(event) {
+      if (!event.target.matches('.profile-toggle')) {
+        const container = document.querySelector('.profile-container');
+        if (container.classList.contains('active')) {
+          container.classList.remove('active'); // Usa 'active' per chiudere il menu
+        }
+      }
+    }
+
+    function caricaModificaProfilo() {
+      window.location.href = 'modificaprofilo.html';
+    }
+
+    // Caricamento delle informazioni del profilo all'avvio della pagina
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('profilo.php')
+        .then(response => response.json())
+        .then(data => {
+          if (!data.error) {
+            document.querySelector('.profile-name').textContent = `${data.nome}, ${data.eta}`;
+            document.querySelector('.profile-bio').innerHTML = data.bio.replace(/\n/g, '<br>');
+            document.querySelector('.profile-container').style.backgroundColor = data.colore_sfondo;
+          } else {
+            console.error(data.error);
+          }
+        })
+        .catch(error => console.error('Errore:', error));
+    });
   </script>
 </body>
 </html>

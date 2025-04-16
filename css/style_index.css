@@ -89,6 +89,7 @@
     font-size: 1.3rem;
     margin-bottom: 10px;
   }
+
   
   .profile-bio {
     color: #555;
@@ -135,8 +136,6 @@
     font-size: 0.7rem;
 
 }
-
-  
 
   /* Responsive */
   @media (max-width: 600px) {

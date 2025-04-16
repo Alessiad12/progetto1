@@ -60,48 +60,43 @@
   <div class="modal" id="modal-message"></div>
 
   <script>
-    document.getElementById('login-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
+  document.getElementById('login-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-      const formData = new FormData(this);
+    const formData = new FormData(this);
 
-      const res = await fetch('login.php', {
-        method: 'POST',
-        body: formData
-      });
-
-      const text = await res.text();
-      const modal = document.getElementById('modal-message');
-
-      modal.innerHTML = text;
-      modal.classList.add('show');
-
-      if (text.toLowerCase().includes("successo")) {
-        modal.classList.add('success');
-        modal.classList.remove('error');
-        document.getElementById('login-success').textContent = text;
-        document.getElementById('login-error').textContent = "";
-      } else {
-        modal.classList.add('error');
-        modal.classList.remove('success');
-        document.getElementById('login-error').textContent = text;
-        document.getElementById('login-success').textContent = "";
-      }
-
-      setTimeout(() => modal.classList.remove('show'), 3000);
+    const res = await fetch('login.php', {
+      method: 'POST',
+      body: formData
     });
 
-    function loginWithFacebook() {
-      alert("Login con Facebook non ancora implementato.");
+    const data = await res.json(); // Leggi la risposta come JSON
+    console.log(data);
+    const modal = document.getElementById('modal-message');
+
+    modal.innerHTML = data.message;
+    modal.classList.add('show');
+
+    if (data.status === "success") {
+      modal.classList.add('success');
+      modal.classList.remove('error');
+      document.getElementById('login-success').textContent = data.message;
+      document.getElementById('login-error').textContent = "";
+
+      // Reindirizza alla pagina specificata
+      setTimeout(() => {
+        window.location.href = data.redirect;
+      }, 2000);
+    } else {
+      modal.classList.add('error');
+      modal.classList.remove('success');
+      document.getElementById('login-error').textContent = data.message;
+      document.getElementById('login-success').textContent = "";
     }
 
-    function loginWithGoogle() {
-      alert("Login con Google non ancora implementato.");
-    }
-
-    function loginWithApple() {
-      alert("Login con Apple non ancora implementato.");
-    }
+    setTimeout(() => modal.classList.remove('show'), 2000);
+  });
+</script>
   </script>
 </body>
 </html>

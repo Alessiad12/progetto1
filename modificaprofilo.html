@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Modifica Profilo</title>
+</head>
+<body>
+  <h1>Modifica Profilo</h1>
+  <input id="name" type="text" placeholder="Nickname">
+  <textarea id="bio" placeholder="Scrivi la tua bio"></textarea>
+  <div>
+    <label><input type="radio" name="color" value="#FFEDF0"> Rosa</label>
+    <label><input type="radio" name="color" value="#E0F7FA"> Azzurro</label>
+  </div>
+  <button id="saveBtn">Salva Profilo</button>
+
+  <script>
+  document.getElementById('saveBtn').addEventListener('click', () => {
+      const nome = document.getElementById('name').value;
+      const bio = document.getElementById('bio').value;
+      const colore = document.querySelector('input[name="color"]:checked')?.value;
+
+      if (!nome || !bio || !colore) {
+        alert("Compila tutti i campi.");
+        return;
+      }
+
+      fetch('modificaprofilo.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+        nome: nome, 
+        bio: bio,
+        colore_sfondo: colore})
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert("Profilo aggiornato!");
+          window.location.href = "index.php";
+        } else {
+          alert("Errore: " + data.error);
+        }
+      })
+      .catch(err => console.error("Errore fetch:", err));
+    });
+  </script>
+</body>
+</html>
