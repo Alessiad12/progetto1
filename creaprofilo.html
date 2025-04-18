@@ -200,6 +200,19 @@
           .then((d) => console.log("Foto salvata:", d.url))
           .catch(console.error);
       }
+
+  fetch('creaprofilo.php')
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === "success") {
+        // Inserisci la mail nel campo email
+        document.getElementById('email').value = data.email;
+      } else {
+        console.error("Errore:", data.message);
+      }
+    })
+    .catch(error => console.error("Errore nella richiesta:", error));
+</script>
     </script>
   </body>
 </html>

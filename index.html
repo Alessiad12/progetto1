@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wanderlust - Profilo</title>
+  <title>Wanderlust - Travel match</title>
   <link rel="stylesheet" href="css/style_index.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -32,8 +32,17 @@
         <button class="companions-toggle">Mostra Compagni di viaggio</button>
         <button class="viaggi-toggle">Mostra viaggi</button>
       </div>
+
+        </div>
     </div>
   </div>
+  <div class="grid grid-cols-2 gap-6 p-4">
+     <div class="bg-white p-4 rounded-lg shadow">
+      <img src="immagini/sfondo.jpg" alt="Foto Viaggio"
+      class="w-full h-40 object-cover rounded mb-2" />
+ <h3 class="font-semibold">fgfg</h3>
+
+    </div>
 
 
   <script>
@@ -72,29 +81,6 @@
         })
         .catch(error => console.error('Errore:', error));
     });
-
-    async function caricaViaggi() {
-      const r = await fetch("/api/get_trips.php");
-      if (!r.ok) { alert("Non loggato"); return; }
-
-      const photos = await r.json();
-      const gallery = document.getElementById("gallery");
-      gallery.innerHTML = "";
-
-      if (photos.length === 0) {
-        gallery.innerHTML = '<p class="col-span-2 text-center text-navy/60">Nessun viaggio ancora.</p>';
-        return;
-      }
-
-      photos.forEach((url) => {
-        const img = document.createElement("img");
-        img.src = url;
-        img.alt = "Foto viaggio";
-        img.className = "w-full h-40 object-cover rounded-lg border border-navy/30 shadow";
-        gallery.appendChild(img);
-      });
-}
-
   </script>
 </body>
 </html>

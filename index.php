@@ -1,24 +1,35 @@
 <?php
 session_start();
-require 'config.php';
-if (!isset($_SESSION['user_id'])) { header('Location:/login.php'); exit; }
-$u = $_SESSION['user_id'];
+require 'connessione.php';
 
-// leggi preferenze
+if (!isset($_SESSION['id_utente'])||!isset($_SESSION['user']) ) { 
+  header('Location:/login.php'); 
+  exit; 
+}
+
+$u = $_SESSION['id_utente'];
+
+// Leggi preferenze dell'utente
 $r = pg_query_params($dbconn,
-  "SELECT dream_vacation, trip_purpose FROM utenti WHERE id=$1", [$u]
+  "SELECT vacanza, tipo_vacanza FROM utenti WHERE email = $1", [$u]
 );
 $pref = pg_fetch_assoc($r);
 
-// recupera i viaggi matching
+if (!$pref) {
+    echo "Errore nel recupero delle preferenze.";
+    exit;
+}
+
+// Recupera i viaggi che corrispondono alle preferenze
 $r2 = pg_query_params($dbconn,
-  "SELECT t.photo_path, u.nome
-   FROM trips t JOIN utenti u ON u.id=t.user_id
-   WHERE t.user_id<>$1
-     AND t.vacation_type=$2
-     AND t.purpose=$3",
-  [$u, $pref['dream_vacation'], $pref['trip_purpose']]
+  "SELECT v.foto AS photo_path, u.nome
+   FROM viaggi v JOIN utenti u ON u.id = v.utente
+   WHERE v.utente = $1
+     AND v.vacanza = $2
+     AND v.scopo = $3",
+  [$u, $pref['vacanza'], $pref['tipo_vacanza']]
 );
+
 $matches = pg_fetch_all($r2) ?: [];
 ?>
 <!DOCTYPE html>
@@ -31,7 +42,8 @@ $matches = pg_fetch_all($r2) ?: [];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/brands.min.css">
-  <body>
+</head>
+<body>
   <div class="grid grid-cols-2 gap-6 p-4">
   <?php if (empty($matches)): ?>
     <p>Nessun viaggio disponibile.</p>
@@ -42,6 +54,6 @@ $matches = pg_fetch_all($r2) ?: [];
       <h3 class="font-semibold"><?=htmlspecialchars($m['nome'])?></h3>
     </div>
   <?php endforeach; endif; ?>
-</div>
-<body>
-<html>
+  </div>
+</body>
+</html>

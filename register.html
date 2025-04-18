@@ -22,28 +22,49 @@
       <a href="login.html"> Accedi qui</a>
     </p>
   </form>
+  <div id="register-success" class="message success"></div>
+  <div id="register-error" class="message error"></div>
 
   <div class="modal" id="modal-message"></div>
 
   <script>
-    document.getElementById('register-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
+     document.getElementById('register-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-      const formData = new FormData(this);
+    const formData = new FormData(this);
 
-      const res = await fetch('register.php', {
-        method: 'POST',
-        body: formData
-      });
-
-      const text = await res.text();
-      const modal = document.getElementById('modal-message');
-      modal.innerHTML = text;
-      modal.classList.add('show');
-
-      
-      setTimeout(() => modal.classList.remove('show'), 3000);
+    const res = await fetch('register.php', {
+      method: 'POST',
+      body: formData
     });
+
+    const data = await res.json(); // Leggi la risposta come JSON
+    console.log(data);
+    const modal = document.getElementById('modal-message');
+
+    modal.innerHTML = data.message;
+    modal.classList.add('show');
+
+    if (data.status === "success") {
+      modal.classList.add('success');
+      modal.classList.remove('error');
+      document.getElementById('register-success').textContent = data.message;
+      document.getElementById('register-error').textContent = "";
+
+      // Reindirizza alla pagina specificata
+      setTimeout(() => {
+        window.location.href = data.redirect;
+      }, 2000);
+    } else {
+      modal.classList.add('error');
+      modal.classList.remove('success');
+      document.getElementById('register-error').textContent = data.message;
+      document.getElementById('register-success').textContent = "";
+    }
+
+    setTimeout(() => modal.classList.remove('show'), 2000);
+  });
+
   </script>
 </body>
 </html>

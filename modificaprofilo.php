@@ -1,5 +1,6 @@
 <?php
 session_start();
+require 'connessione.php';
 
 header("Content-Type: application/json");
 
@@ -10,6 +11,7 @@ if (!isset($_SESSION['id_utente'])) {
   }
 
 $id_utente = $_SESSION['id_utente'];
+$utente= $_SESSION['user'];
 $data = json_decode(file_get_contents("php://input"), true);
 
 $nome = $data['nome'] ?? '';
@@ -27,8 +29,8 @@ if (!$conn) {
   exit;
 }
 
-$sql = "UPDATE profili SET nome = $1, bio = $2, colore_sfondo = $3 WHERE id_utente = $4";
-$result = pg_query_params($conn, $sql, [$nome, $bio, $colore, $id_utente]);
+$sql = "UPDATE profili SET nome = $1, bio = $2, colore_sfondo = $3 WHERE email = $4";
+$result = pg_query_params($dbconn, $sql, [$nome, $bio, $colore, $utente]);
 
 if ($result) {
   echo json_encode(["success" => true]);
