@@ -25,7 +25,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
-    <title>Wanderlust – Modifica account</title>
+    <title>Wanderlust – Crea account</title>
   </head>
   <body class="bg-cream text-navy min-h-screen">
     <div class="container mx-auto p-4">
@@ -34,7 +34,7 @@
       </header>
 
       <div class="max-w-4xl mx-auto bg-white/40 backdrop-blur-sm rounded-2xl shadow-lg p-8">
-        <h1 class="text-3xl md:text-4xl font-extrabold mb-8 text-center">Modifica account</h1>
+        <h1 class="text-3xl md:text-4xl font-extrabold mb-8 text-center">Crea account</h1>
 
         <div class="flex flex-col md:flex-row gap-8">
           <!-- Colonna sinistra -->
@@ -72,31 +72,33 @@
             </div>
 
             <!-- Qui per -->
-            <div class="mb-6">
-              <label class="block text-sm font-semibold mb-2 tracking-wide">Qui per...</label>
+            <div class="mb-8">
+              <label class="block text-lg font-bold mb-6 text-center">Qual è la tua vacanza da sogno?</label>
+              <input type="hidden" id="dreamInput" name="dream_vacation" />
               <div class="flex flex-col gap-4">
-                <button type="button" class="flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left">
+                <button type="button" data-value="spiaggia" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
                   <span class="text-xl">🏖️</span>
                   <span class="flex-1">Rilassarsi in spiaggia</span>
                 </button>
-                <button type="button" class="flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left">
+                <button type="button" data-value="musei" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
                   <span class="text-xl">🏛️</span>
                   <span class="flex-1">Imparare nei musei</span>
                 </button>
-                <button type="button" class="flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left">
+                <button type="button" data-value="ristoranti" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
                   <span class="text-xl">🍴</span>
                   <span class="flex-1">Mangiare nei migliori ristoranti</span>
                 </button>
-                <button type="button" class="flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left">
+                <button type="button" data-value="natura" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
                   <span class="text-xl">⛰️</span>
                   <span class="flex-1">Esplorare la natura e l'aria aperta</span>
                 </button>
-                <button type="button" class="flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left">
+                <button type="button" data-value="bambini" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
                   <span class="text-xl">👨‍👩‍👧‍👦</span>
                   <span class="flex-1">Intrattenere i bambini</span>
                 </button>
               </div>
             </div>
+
           </section>
 
           <!-- Colonna destra: foto -->
@@ -121,9 +123,21 @@
         </div>
 
         <!-- Bottone termina modifica -->
-        <div class="flex justify-center mt-10">
-          <a href="index.html" class="bg-navy text-cream px-8 py-3 rounded-lg font-semibold hover:bg-navy-light focus:ring-2 focus:ring-navy-light transition">Termina modifica</a>
-        </div>
+        <form id="createForm" action="/api/save_profile.php" method="POST" enctype="multipart/form-data">
+          <!-- gli input esistenti: name, email, compleanno… -->
+          
+          <!-- hidden per le due scelte -->
+          <input type="hidden" id="dreamInput"   name="dream_vacation" />
+          <input type="hidden" id="purposeInput" name="trip_purpose"   />
+          
+          
+          <div class="flex justify-center mt-10">
+            <button type="submit" class="bg-navy text-cream px-8 py-3 rounded-lg font-semibold hover:bg-navy-light">
+              Termina modifica
+            </button>
+          </div>
+        </form>
+        
       </div>
     </div>
 
@@ -131,6 +145,23 @@
     <!-- JS: upload + preview foto    -->
     <!-- ============================ -->
     <script>
+      document.querySelectorAll('.dream-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          // deselect all
+          document.querySelectorAll('.dream-btn').forEach(b => {
+            b.classList.remove('bg-navy', 'text-cream');
+            b.classList.add('bg-white/70', 'text-navy');
+          });
+          // select clicked
+          btn.classList.add('bg-navy', 'text-cream');
+          btn.classList.remove('bg-white/70');
+          // store value
+          document.getElementById('dreamInput').value = btn.dataset.value;
+        });
+      });
+
+
+
       // genera 6 slot iniziali
       const photoGrid = document.getElementById("photoGrid");
       const slotTpl = document.getElementById("emptySlotTemplate").content;
