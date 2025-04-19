@@ -45,7 +45,7 @@
     right: -100%; /* Nasconde il contenitore fuori dallo schermo */
     width: 30vh;
     height: 100vh;
-    background-color: #faf3bfc4;
+    background-color: #faf3bf;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border-radius: 10px 0 0 10px;
     transition: right 0.3s ease; /* Aggiunge una transizione fluida */

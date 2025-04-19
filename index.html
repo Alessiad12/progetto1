@@ -5,15 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wanderlust - Travel match</title>
   <link rel="stylesheet" href="css/style_index.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style_swipe.css">
+
 </head>
 <body>
-  <!-- Icona circolare in alto a destra -->
+  <div class="card-container" id="cardContainer">
+    <div class="card"><img src="immagini/apple.png" alt="Immagine 1">
+      <div class="action-bar">
+        <button class="action-button" id="rejectBtn">❌</button>
+        <button class="action-button" id="acceptBtn">🩵</button>
+      </div>
+    </div>
+    <div class="card"><img src="immagini/google.png" alt="Immagine 2">
+      <div class="action-bar">
+        <button class="action-button" id="rejectBtn">❌</button>
+        <button class="action-button" id="acceptBtn">🩵</button>
+      </div>
+    </div>
+    <div class="card"><img src="immagini/image3.jpg" alt="Immagine 3">
+      <div class="action-bar">
+        <button class="action-button" id="rejectBtn">❌</button>
+        <button class="action-button" id="acceptBtn">🩵</button>
+      </div>
+    </div>
+    <div class="card"><img src="immagini/image4.jpg" alt="Immagine 4">
+      <div class="action-bar">
+        <button class="action-button" id="rejectBtn">❌</button>
+        <button class="action-button" id="acceptBtn">🩵</button>
+      </div>
+    </div>
+  </div>
+
+
   <div class="profile-toggle" onclick="toggleProfileContainer()">
     <img src="immagini/sfondo.jpg" alt="Foto Profilo" class="profile-icon">
   </div>
 
-  <!-- Contenitore del profilo -->
+
   <div class="profile-container">
     <div class="profile-header">
       <div class="profile-pic-container">
@@ -26,7 +54,7 @@
           Amo scoprire nuove culture, cibi e paesaggi: ogni viaggio è un’opportunità per crescere e condividere.
         </p>
         
-        <!-- Modifica del profilo, usiamo <a> al posto di <button> -->
+
           <button class="modifica-toggle" onclick="caricaModificaProfilo()">Modifica profilo</button>
         
         <button class="companions-toggle">Mostra Compagni di viaggio</button>
@@ -36,51 +64,6 @@
         </div>
     </div>
   </div>
-  <div class="grid grid-cols-2 gap-6 p-4">
-     <div class="bg-white p-4 rounded-lg shadow">
-      <img src="immagini/sfondo.jpg" alt="Foto Viaggio"
-      class="w-full h-40 object-cover rounded mb-2" />
- <h3 class="font-semibold">fgfg</h3>
-
-    </div>
-
-
-  <script>
-    // Funzione per mostrare/nascondere il contenitore del profilo
-    function toggleProfileContainer() {
-      const container = document.querySelector('.profile-container');
-      container.classList.toggle('active'); // Usa 'active' per mostrare/nascondere
-    }
-
-    // Chiudi il menu se clicchi fuori dal contenitore
-    window.onclick = function(event) {
-      if (!event.target.matches('.profile-toggle')) {
-        const container = document.querySelector('.profile-container');
-        if (container.classList.contains('active')) {
-          container.classList.remove('active'); // Usa 'active' per chiudere il menu
-        }
-      }
-    }
-
-    function caricaModificaProfilo() {
-      window.location.href = 'modificaprofilo.html';
-    }
-
-    // Caricamento delle informazioni del profilo all'avvio della pagina
-    document.addEventListener('DOMContentLoaded', () => {
-      fetch('profilo.php')
-        .then(response => response.json())
-        .then(data => {
-          if (!data.error) {
-            document.querySelector('.profile-name').textContent = `${data.nome}, ${data.eta}`;
-            document.querySelector('.profile-bio').innerHTML = data.bio.replace(/\n/g, '<br>');
-            document.querySelector('.profile-container').style.backgroundColor = data.colore_sfondo;
-          } else {
-            console.error(data.error);
-          }
-        })
-        .catch(error => console.error('Errore:', error));
-    });
-  </script>
+  <script  type="module" src="/js/index.js"> </script>
 </body>
 </html>
