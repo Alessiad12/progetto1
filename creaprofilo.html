@@ -39,6 +39,11 @@
         <div class="flex flex-col md:flex-row gap-8">
           <!-- Colonna sinistra -->
           <section class="flex-1">
+            <div>
+              <label class="block text-sm font-semibold mb-2">Foto Profilo</label>
+              <input type="file" name="avatar" accept="image/*"
+                class="block w-full text-sm text-navy bg-cream border border-navy/30 rounded-lg cursor-pointer focus:outline-none" />
+            </div>
             <!-- Nome -->
             <div class="mb-6">
               <label for="name" class="block text-sm font-semibold mb-2 tracking-wide">Nome</label>
@@ -133,7 +138,7 @@
           
           <div class="flex justify-center mt-10">
             <button type="submit" class="bg-navy text-cream px-8 py-3 rounded-lg font-semibold hover:bg-navy-light">
-              Termina modifica
+              Termina 
             </button>
           </div>
         </form>
