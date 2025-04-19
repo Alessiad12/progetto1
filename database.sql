@@ -18,7 +18,7 @@ CREATE TABLE profili (
   FOREIGN KEY (id_utente) REFERENCES utenti(id);
 );
 
-salvare viaggio: 
+--'salvare viaggio:' 
 CREATE TABLE viaggi (
   id SERIAL PRIMARY KEY,
   utente INT NOT NULL REFERENCES utenti(id),
