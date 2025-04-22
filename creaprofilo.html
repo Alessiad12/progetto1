@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Tailwind CDN + custom palette cream / navy -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -27,6 +26,28 @@
 
     <title>Wanderlust – Crea account</title>
   </head>
+  <style>
+    /* Stile per il profilo */
+    .profile-pic {
+    width: 96%;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+    .empty-slot {
+      background-color: #f8f9fa; /* Colore di sfondo per gli slot vuoti */
+    }
+
+  .profile-pic img {
+    max-width: 40%;
+  border-radius: 15px;
+  margin-bottom: 4%;
+  }
+  .border{
+    border-width: 1px;
+    margin-bottom: 3%;
+}
+  
+    </style>
   <body class="bg-cream text-navy min-h-screen">
     <div class="container mx-auto p-4">
       <header class="flex justify-between items-center mb-8">
@@ -37,27 +58,30 @@
         <h1 class="text-3xl md:text-4xl font-extrabold mb-8 text-center">Crea account</h1>
 
         <div class="flex flex-col md:flex-row gap-8">
-          <!-- Colonna sinistra -->
+  
           <section class="flex-1">
-            <div>
+            <div >
               <label class="block text-sm font-semibold mb-2">Foto Profilo</label>
+              <div class="profile-pic">
+                <img src="immagini/sfondo.jpg" alt="Foto Profilo" class="img" />
+              </div>
               <input type="file" name="avatar" accept="image/*"
                 class="block w-full text-sm text-navy bg-cream border border-navy/30 rounded-lg cursor-pointer focus:outline-none" />
             </div>
-            <!-- Nome -->
-            <div class="mb-6">
+  
+            <div >
               <label for="name" class="block text-sm font-semibold mb-2 tracking-wide">Nome</label>
               <input id="name" type="text" placeholder="nome" class="w-full bg-cream border border-navy/30 focus:border-navy-light focus:ring-1 focus:ring-navy-light rounded-lg p-3 placeholder-navy/50 transition" />
             </div>
 
             <!-- Email -->
-            <div class="mb-6">
+            <div >
               <label for="email" class="block text-sm font-semibold mb-2 tracking-wide">Email</label>
               <input id="email" type="email" placeholder="email" class="w-full bg-cream border border-navy/30 focus:border-navy-light focus:ring-1 focus:ring-navy-light rounded-lg p-3 placeholder-navy/50 transition" />
             </div>
 
             <!-- Compleanno -->
-            <div class="mb-6">
+            <div >
               <label class="block text-sm font-semibold mb-2 tracking-wide">Compleanno</label>
               <div class="flex gap-2">
                 <input type="text" placeholder="GG" class="flex-1 bg-cream border border-navy/30 rounded-lg p-3 text-center focus:border-navy-light focus:ring-1 focus:ring-navy-light" />
@@ -67,7 +91,7 @@
             </div>
 
             <!-- Mi interessano -->
-            <div class="mb-6">
+            <div >
               <label class="block text-sm font-semibold mb-2 tracking-wide">Mi interessano</label>
               <div class="flex gap-2">
                 <button class="flex-1 bg-cream border border-navy text-navy rounded-lg p-3 hover:bg-navy hover:text-cream transition">Viaggi in solitaria</button>
@@ -78,7 +102,7 @@
 
             <!-- Qui per -->
             <div class="mb-8">
-              <label class="block text-lg font-bold mb-6 text-center">Qual è la tua vacanza da sogno?</label>
+              <label class="block text-lg font-bold text-center">Qual è la tua vacanza da sogno?</label>
               <input type="hidden" id="dreamInput" name="dream_vacation" />
               <div class="flex flex-col gap-4">
                 <button type="button" data-value="spiaggia" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
