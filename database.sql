@@ -5,17 +5,21 @@ CREATE TABLE utenti (
   email TEXT UNIQUE NOT NULL,
   vacanza VARCHAR(50),
   tipo_vacanza VARCHAR(50),
+  immagine_profilo TEXT,
+  data_di_nascita DATE,
   password TEXT NOT NULL
 );
 
 CREATE TABLE profili (
   id SERIAL PRIMARY KEY,
-  id_utente INT,
+  email TEXT UNIQUE NOT NULL,
   nome VARCHAR(100),
   eta INT,
   bio TEXT,
   colore_sfondo VARCHAR(10) default '#faf3bfc4',
-  FOREIGN KEY (id_utente) REFERENCES utenti(id)
+  data_di_nascita DATE,
+  immagine_profilo TEXT,
+  FOREIGN KEY (id) REFERENCES utenti(id)
 );
 
 --'salvare viaggio:' 

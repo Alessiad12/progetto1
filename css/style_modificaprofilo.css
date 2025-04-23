@@ -1,117 +1,220 @@
+@font-face {
+  font-family: 'CustomFont';
+  src: url('../font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'secondo_font';
+  src: url('../font/Arimo.7ac02a544211773d9636e056e9da6c35.7.f8f199f09526f79e87644ed227e0f651.woff2') format('woff2');
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: 'Helvetica Neue', sans-serif;
-    background-color: #f2f2f2;
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .container {
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    padding: 30px;
-    width: 100%;
-    max-width: 500px;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .profile-photo-section {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .photo-wrapper {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 10px;
-  }
-  
-  .photo-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #ccc;
-  }
-  
-  .remove-photo {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background: #ff4d4d;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    padding: 6px 8px;
-    cursor: pointer;
-  }
-  
-  label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-    color: #444;
-  }
-  
-  input[type="text"],
-  textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    margin-top: 5px;
-    resize: vertical;
-  }
-  
-  textarea {
-    height: 80px;
-  }
-  
-  .color-options {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    flex-wrap: wrap;
-  }
-  
-  .color-options label {
-    cursor: pointer;
-  }
-  
-  .color-swatch {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    border: 2px solid transparent;
-    transition: border 0.3s ease;
-  }
-  
-  input[type="radio"]:checked + .color-swatch {
-    border: 2px solid #333;
-  }
-  
-  .save-btn {
-    width: 100%;
-    margin-top: 25px;
-    padding: 12px;
-    background: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .save-btn:hover {
-    background: #45a049;
-  }
-  
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #f5f1de;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #27374a;
+  margin-bottom: 30px;
+}
+
+.container {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 35px 30px;
+  width: 100%;
+  max-width: 500px;
+  transition: background-color 0.3s ease;
+}
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 15px;
+}
+
+.profile-picture-container {
+  width: 300px;
+  height: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: #f0f0f0;
+  position: relative;
+  cursor: grab;
+}
+
+.profile-picture-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  user-select: none;
+  pointer-events: none;
+}
+
+input[type="file"] {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-top: 18px;
+  font-weight: 600;
+  color: #444;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #fafafa;
+  transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  height: 80px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  margin-top: 25px;
+  padding: 14px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background: #45a049;
+}
+
+
+
+/* Sezione immagine profilo */
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 15px; /* Spaziatura tra gli elementi */
+}
+
+.profile-picture-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: #f0f0f0;
+}
+
+
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #27374a;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.custom-file-upload:hover {
+  background-color: #3c5066;
+}
+
+/* Viaggio preferito */
+.preferito-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.preferito-options button {
+  background-color: #f0f0f0;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.preferito-options button:hover {
+  background-color: #e6e6e6;
+}
+
+.preferito-options button.selected {
+  background-color: #66b0d3;
+  color: white;
+  border-color: #3e6f8e;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+/* Selettori colore */
+.color-options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.color-options label {
+  cursor: pointer;
+}
+
+.color-swatch {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: border 0.3s ease;
+}
+
+input[type="radio"]:checked + .color-swatch {
+  border: 2px solid #333;
+}

@@ -38,14 +38,16 @@
 
 
   <div class="profile-toggle" onclick="toggleProfileContainer()">
-    <img src="immagini/sfondo.jpg" alt="Foto Profilo" class="profile-icon">
+    <img src="/uploads/<?= htmlspecialchars($immagine_profilo) ?>" alt="Foto Profilo" class="profile-icon">
+
   </div>
 
 
   <div class="profile-container">
     <div class="profile-header">
       <div class="profile-pic-container">
-        <img src="immagini/sfondo.jpg" alt="Foto Profilo" class="profile-pic">
+        <img src="/uploads/<?= htmlspecialchars($immagine_profilo) ?>" alt="Foto Profilo" class="profile-pic">
+
       </div>
       <div class="profile-info">
         <h1 class="profile-name">Mario Rossi, 35</h1>
