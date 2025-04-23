@@ -94,7 +94,7 @@ viaggi.forEach((v, i) => {
   L.marker([v.lat, v.lon], { icon: viaggioIcon })
     .addTo(map)
     .on('click', () => {
-      window.location.href = `viaggio.php?id=${i}`; // cambia 'i' con v.id se hai ID veri
+      window.location.href = `viaggi.php?id=${v.id}`; // cambia 'i' con v.id se hai ID veri
     })
     .bindTooltip(v.nome, { permanent: false, direction: 'top' });
 });
