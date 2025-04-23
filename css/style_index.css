@@ -34,9 +34,10 @@
   
   .profile-icon {
     width: 100%;
-    border-radius: 100%;
     height: 100%;
-    /* z-index: -2; */
+    object-fit: cover;
+    object-position: center center; /* oppure usa una % dinamica */
+    border-radius: 50%;
     pointer-events: none;
   }
   .profile-container {
@@ -76,7 +77,8 @@
   }
   
   .profile-pic {
-    width: 96%;
+    width: 100%;
+    height: 100%;
     border-radius: 10px;
     object-fit: cover;
   }
@@ -149,4 +151,49 @@
       height: 100px;
     }
   }
+
+  #travel-map-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #travel-map-container.hidden {
+    display: none;
+  }
+  
+  .map-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+  }
+  
+  .map-image {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .map-icon {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    transform: translate(-50%, -50%);
+  }
+  
+  .map-icon img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  
   

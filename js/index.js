@@ -25,6 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.profile-pic').src =  data.immagine_profilo;
         document.querySelector('.profile-icon').src =   data.immagine_profilo;
         document.querySelector('.profile-container').style.backgroundColor = data.colore_sfondo;
+        if (data.posizione_immagine !== undefined) {
+          document.querySelector('.profile-pic').style.objectPosition = `${data.posizione_immagine}% center`;
+          document.querySelector('.profile-icon').style.objectPosition = `${data.posizione_immagine}% center`;
+
+        }
       } else {
         console.error(data.error);
       }
@@ -115,6 +120,12 @@ container.addEventListener('mouseleave', () => {
   }
 });
 
+function caricaViaggi() {
+  window.location.href = 'mappamondo.php';
+}
+
+
 // Esportazione funzioni globali
 window.toggleProfileContainer = toggleProfileContainer;
 window.caricaModificaProfilo = caricaModificaProfilo;
+window.caricaViaggi = caricaViaggi;

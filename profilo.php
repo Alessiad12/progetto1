@@ -12,8 +12,9 @@ $id_utente = $_SESSION['id_utente'];
 $email = $_SESSION['user'];
 
 
-$sql = "SELECT nome, eta, bio, colore_sfondo, immagine_profilo FROM profili WHERE email = $1";
-$result = pg_query_params($dbconn, $sql, [$email]);
+$sql = "SELECT nome, eta, bio, colore_sfondo, immagine_profilo, posizione_immagine FROM profili WHERE id = $1";
+$result = pg_query_params($dbconn, $sql, [$id_utente]);
+
 
 
 if ($result) {

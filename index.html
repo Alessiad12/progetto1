@@ -6,7 +6,20 @@
   <title>Wanderlust - Travel match</title>
   <link rel="stylesheet" href="css/style_index.css">
   <link rel="stylesheet" href="css/style_swipe.css">
-
+  <style>
+    .profile-picture-container {
+display: flex;
+justify-content: center;
+align-items: center;
+width: 200px;
+height: 260px;
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+background-color: #f0f0f0;
+margin-bottom: 18px;
+}
+  </style>
 </head>
 <body>
   <div class="card-container" id="cardContainer">
@@ -45,7 +58,7 @@
 
   <div class="profile-container">
     <div class="profile-header">
-      <div class="profile-pic-container">
+      <div class="profile-picture-container">
         <img src="/uploads/<?= htmlspecialchars($immagine_profilo) ?>" alt="Foto Profilo" class="profile-pic">
 
       </div>
@@ -60,7 +73,7 @@
           <button class="modifica-toggle" onclick="caricaModificaProfilo()">Modifica profilo</button>
         
         <button class="companions-toggle">Mostra Compagni di viaggio</button>
-        <button class="viaggi-toggle">Mostra viaggi</button>
+        <button class="viaggi-toggle" onclick="caricaViaggi()">Mostra viaggi</button>
       </div>
 
         </div>

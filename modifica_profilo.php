@@ -65,10 +65,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $path_db = $target_file;
     }
+    // Gestione posizione immagine
+    $currentX = $_POST['currentX'] ?? 50; // 50% come valore predefinito
 
-    // Aggiorna profilo
-    $sql_profilo = "UPDATE profili SET nome = $1, bio = $2, colore_sfondo = $3, immagine_profilo =$4 WHERE id= $5";
-    pg_query_params($dbconn, $sql_profilo, [$nome, $bio, $colore,$path_db, $id_utente]);
+// Salva nel database
+$sql_profilo = "UPDATE profili SET nome = $1, bio = $2, colore_sfondo = $3, immagine_profilo = $4, posizione_immagine = $5 WHERE id = $6";
+pg_query_params($dbconn, $sql_profilo, [$nome, $bio, $colore, $path_db, $currentX, $id_utente]);
+
 
     // Aggiorna utenti
     if ($path_db) {
@@ -214,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         reader.readAsDataURL(file);
       }
     });
-
+    currentX = 50;
     imageContainer.addEventListener("mousedown", (e) => {
       isDragging = true;
       startX = e.clientX;
@@ -247,7 +250,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Mostra immagine
   const img = document.getElementById('profileImage');
   img.src = data.immagine_profilo ? `/uploads/${data.immagine_profilo}` : '/img/default.png';
-
+  if (data.posizione_immagine) {
+    img.style.objectPosition = `${data.posizione_immagine}% center`;
+  }
   // Preseleziona colore
   document.querySelectorAll('input[name="colore_preferito_radio"]').forEach(radio => {
     if (radio.value === data.colore_sfondo) {
@@ -273,6 +278,7 @@ document.querySelector('.save-btn').addEventListener('click', function () {
   formData.append('bio', document.getElementById('bio').value);
   formData.append('colore_preferito', document.getElementById('colore_preferito').value);
   formData.append('viaggio_scelto', document.getElementById('viaggio_scelto').value);
+  formData.append('currentX', currentX);
 
 
   const fileInput = document.getElementById('fileInput');
@@ -284,30 +290,18 @@ document.querySelector('.save-btn').addEventListener('click', function () {
   method: 'POST',
   body: formData
 })
-  .then(async response => {
-    const text = await response.text(); // Legge il testo grezzo
-
-    console.log("Risposta grezza:", text); // DEBUG: stampa in console
-
-    try {
-      const data = JSON.parse(text); // Prova a fare il parsing del JSON
-
-      if (data.success) {
-        window.location.href = '/index.html';
-      } else {
-        alert(data.error || "Errore durante il salvataggio.");
-      }
-    } catch (e) {
-      console.error("Errore nel parsing del JSON:", e);
-      alert("La risposta non è in formato JSON. Guarda la console.");
+.then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      window.location.href = '/index.html';
+    } else {
+      alert(data.error || "Errore durante il salvataggio.");
     }
   })
   .catch(error => {
     console.error("Errore AJAX:", error);
     alert("Errore durante la richiesta.");
   });
-
-
 });
 </script>
 
