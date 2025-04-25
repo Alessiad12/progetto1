@@ -124,6 +124,52 @@ function caricaViaggi() {
   window.location.href = 'mappamondo.php';
 }
 
+// ─── Organizza viaggio al click sul cuore ──────────────────────────────────
+container.addEventListener('click', async e => {
+  const btn = e.target;
+  // se è il cuore (abbiamo usato la classe .acceptBtn)
+  if (btn.classList.contains('acceptBtn')) {
+    e.stopPropagation();                // non far scattare anche lo swipe
+    const card = btn.closest('.card');
+    const viaggioId = card.dataset.viaggioId;
+
+    // feedback immediato
+    btn.disabled = true;
+    btn.textContent = '🩷';
+
+    try {
+      const resp = await fetch('index.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'organize',
+          viaggioId
+        })
+      });
+      if (!resp.ok) throw new Error('Server ' + resp.status);
+      const data = await resp.json();
+      if (data.planId) {
+        // vai alla pagina di organizzazione
+        window.location.href = `organizer.html?planId=${data.planId}`;
+      } else {
+        throw new Error('Nessun planId in risposta');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Errore nell’organizzazione del viaggio.');
+      // ripristina UI
+      btn.disabled = false;
+      btn.textContent = '🩵';
+    }
+  }
+
+  // se invece è la X
+  if (btn.classList.contains('rejectBtn')) {
+    swipeCard('left');
+  }
+});
+
+
 
 // Esportazione funzioni globali
 window.toggleProfileContainer = toggleProfileContainer;
