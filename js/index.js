@@ -169,9 +169,16 @@ container.addEventListener('click', async e => {
   }
 });
 
+function creaViaggi() {
+  window.location.href = 'viaggi.php';
+}
+
+
+
 
 
 // Esportazione funzioni globali
 window.toggleProfileContainer = toggleProfileContainer;
 window.caricaModificaProfilo = caricaModificaProfilo;
 window.caricaViaggi = caricaViaggi;
+window.creaViaggi = creaViaggi;
