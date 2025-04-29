@@ -173,6 +173,9 @@ function creaViaggi() {
   window.location.href = 'viaggi.php';
 }
 
+function match() {
+  window.location.href = 'visualizza_viaggi.php';
+}
 
 
 
@@ -182,3 +185,4 @@ window.toggleProfileContainer = toggleProfileContainer;
 window.caricaModificaProfilo = caricaModificaProfilo;
 window.caricaViaggi = caricaViaggi;
 window.creaViaggi = creaViaggi;
+window.match = match;
