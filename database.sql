@@ -25,7 +25,7 @@ CREATE TABLE profili (
 
 --'salvare viaggio:' 
 CREATE TABLE viaggi (
-  id SERIAL INT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   user_id INT,
   destinazione VARCHAR(100),
   data_partenza DATE,
