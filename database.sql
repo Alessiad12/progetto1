@@ -19,15 +19,30 @@ CREATE TABLE profili (
   colore_sfondo VARCHAR(10) default '#faf3bfc4',
   data_di_nascita DATE,
   immagine_profilo TEXT,
+  posizione_immagine TEXT,
   FOREIGN KEY (id) REFERENCES utenti(id)
 );
 
 --'salvare viaggio:' 
 CREATE TABLE viaggi (
-  id SERIAL PRIMARY KEY,
-  utente INT NOT NULL REFERENCES utenti(id),
-  foto TEXT NOT NULL,
-  vacanza VARCHAR(50) NOT NULL,
-  scopo       VARCHAR(50) NOT NULL,
-  creazione    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  id SERIAL INT PRIMARY KEY,
+  user_id INT,
+  destinazione VARCHAR(100),
+  data_partenza DATE,
+  data_ritorno DATE,
+  budget VARCHAR(20),
+  tipo_viaggio VARCHAR(50),
+  lingua VARCHAR(50),
+  compagnia VARCHAR(50),
+  descrizione TEXT,
+  FOREIGN KEY (user_id) REFERENCES utenti(id)
+);
+
+CREATE TABLE viaggi_utenti (
+  viaggio_id INT,
+  user_id INT,
+  ruolo VARCHAR(20) DEFAULT 'partecipante', -- o 'ideatore'
+  PRIMARY KEY (viaggio_id, user_id),
+  FOREIGN KEY (viaggio_id) REFERENCES viaggi(id),
+  FOREIGN KEY (user_id) REFERENCES utenti(id)
 );
