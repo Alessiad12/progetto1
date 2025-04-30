@@ -1,4 +1,9 @@
 <?php
+session_start(); // Inizia la sessione
+if (!isset($_SESSION['id_utente']) || !isset($_SESSION['user'])) {
+    header('Location:/register.php'); 
+    exit;
+}
 require 'connessione.php'; // Connessione al database
 
 // Recupero i dati dal form
