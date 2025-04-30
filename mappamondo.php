@@ -43,30 +43,6 @@ margin-bottom: 18px;
 <body>
 
   <div id="map"></div>
-  <div class="profile-toggle" onclick="toggleProfileContainer()">
-    <img src="/uploads/<?= htmlspecialchars($immagine_profilo) ?>" alt="Foto Profilo" class="profile-icon">
-
-  </div>
-
-<div class="profile-container">
-    <div class="profile-header">
-      <div class="profile-picture-container">
-        <img src="/uploads/<?= htmlspecialchars($immagine_profilo) ?>" alt="Foto Profilo" class="profile-pic">
-
-      </div>
-      <div class="profile-info">
-        <h1 class="profile-name">Mario Rossi, 35</h1>
-        <p class="profile-bio">
-          Appassionato di esperienze uniche e avventure.<br>
-          Amo scoprire nuove culture, cibi e paesaggi: ogni viaggio è un’opportunità per crescere e condividere.
-        </p>
-        
-        <button class="companions-toggle"> Compagni di viaggio</button>
-        <button class="viaggi-toggle" onclick="caricaViaggi()">Modifica viaggi</button>
-      </div>
-
-        </div>
-    </div>
 
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

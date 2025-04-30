@@ -6,81 +6,44 @@
   <title>Wanderlust - Travel match</title>
   <link rel="stylesheet" href="css/style_index.css">
   <link rel="stylesheet" href="css/style_swipe.css">
-  <style>
-    .profile-picture-container {
-display: flex;
-justify-content: center;
-align-items: center;
-width: 200px;
-height: 260px;
-border-radius: 10px;
-overflow: hidden;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-background-color: #f0f0f0;
-margin-bottom: 18px;
-}
-  </style>
 </head>
 <body>
   <div class="card-container" id="cardContainer">
     <div class="card"><img src="immagini/apple.png" alt="Immagine 1">
       <div class="action-bar">
-        <button class="action-button" class="rejectBtn">❌</button>
-        <button class="action-button" class="acceptBtn">🩵</button>
+        <button class="action-button rejectBtn">❌</button>
+        <button class="action-button acceptBtn">🩵</button>
       </div>
     </div>
     <div class="card"><img src="immagini/google.png" alt="Immagine 2">
       <div class="action-bar">
-        <button class="action-button" class="rejectBtn">❌</button>
-        <button class="action-button" class="acceptBtn">🩵</button>
+        <button class="action-button rejectBtn">❌</button>
+        <button class="action-button acceptBtn">🩵</button>
       </div>
     </div>
     <div class="card"><img src="immagini/image3.jpg" alt="Immagine 3">
       <div class="action-bar">
-        <button class="action-button" class="rejectBtn">❌</button>
-        <button class="action-button" class="acceptBtn">🩵</button>
+        <button class="action-button rejectBtn">❌</button>
+        <button class="action-button acceptBtn">🩵</button>
       </div>
     </div>
     <div class="card"><img src="immagini/image4.jpg" alt="Immagine 4">
       <div class="action-bar">
-        <button class="action-button" class="rejectBtn">❌</button>
-        <button class="action-button" class="acceptBtn">🩵</button>
+        <button class="action-button rejectBtn">❌</button>
+        <button class="action-button acceptBtn">🩵</button>
       </div>
     </div>
   </div>
 
-
-  <div class="profile-toggle" onclick="toggleProfileContainer()">
-    <img src="immagini/new-york-city.jpg" alt="Foto Profilo" class="profile-icon">
-
-  </div>
-
-
-  <div class="profile-container">
-    <div class="profile-header">
-      <div class="profile-picture-container">
-        <img src="immagini/new-york-city.jpg" alt="Foto Profilo" class="profile-pic">
-
-      </div>
-      <div class="profile-info">
-        <h1 class="profile-name">Mario Rossi, 35</h1>
-        <p class="profile-bio">
-          Appassionato di esperienze uniche e avventure.<br>
-          Amo scoprire nuove culture, cibi e paesaggi: ogni viaggio è un’opportunità per crescere e condividere.
-        </p>
-        
-
-          <button class="modifica-toggle" onclick="caricaModificaProfilo()">Modifica profilo</button>
-        
-        <button class="companions-toggle" onclick="match()">Mostra Compagni di viaggio</button>
-        <button class="viaggi-toggle" onclick="caricaViaggi()">Mostra viaggi</button>
-        
-        <button class="companions-toggle" onclick="creaViaggi()">crea viaggio</button>
-      </div>
-
-        </div>
+  <!-- Menu Profilo -->
+  <div class="profile-menu-wrapper">
+    <img src="immagini/new-york-city.jpg" alt="Foto Profilo" class="profile-icon" onclick="toggleDropdown()" />
+    <div class="dropdown-menu" id="dropdownMenu">
+      <a href="pagina_profilo.php">Profilo</a>
+      <a href="logout.php">Logout</a>
     </div>
   </div>
-  <script  type="module" src="/js/index.js"> </script>
+
+  <script type="module" src="/js/index.js"></script>
 </body>
 </html>
