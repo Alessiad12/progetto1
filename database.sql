@@ -8,7 +8,7 @@ CREATE TABLE utenti (
 );
 
 CREATE TABLE profili (
-  id SERIAL PRIMARY KEY,
+  id INT PRIMARY KEY,
   email TEXT UNIQUE NOT NULL,
   nome VARCHAR(100),
   eta INT,
@@ -33,6 +33,18 @@ CREATE TABLE viaggi (
   compagnia VARCHAR(50),
   descrizione TEXT,
   FOREIGN KEY (user_id) REFERENCES utenti(id)
+);
+
+CREATE TABLE preferenze_utente_viaggio (
+  utente_id INT,
+  email TEXT,
+  destinazione VARCHAR(100),
+  data_partenza DATE,
+  data_ritorno DATE,
+  budget VARCHAR(20),
+  tipo_viaggio VARCHAR(50),
+  compagnia VARCHAR(50),
+  FOREIGN KEY (utente_id) REFERENCES utenti(id)
 );
 
 CREATE TABLE viaggi_utenti (
