@@ -3,9 +3,6 @@ CREATE TABLE utenti (
   nome TEXT NOT NULL,
   nickname TEXT UNIQUE NOT NULL,
   email TEXT UNIQUE NOT NULL,
-  vacanza VARCHAR(50),
-  tipo_vacanza VARCHAR(50),
-  immagine_profilo TEXT,
   data_di_nascita DATE,
   password TEXT NOT NULL
 );

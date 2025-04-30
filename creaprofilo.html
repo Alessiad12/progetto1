@@ -226,17 +226,26 @@
           .catch(console.error);
       }
 
-  fetch('creaprofilo.php')
-    .then(response => response.json())
-    .then(data => {
-      if (data.status === "success") {
-        // Inserisci la mail nel campo email
-        document.getElementById('email').value = data.email;
-      } else {
-        console.error("Errore:", data.message);
-      }
-    })
-    .catch(error => console.error("Errore nella richiesta:", error));
+      document.addEventListener('DOMContentLoaded', function() {
+    fetch('creaprofilo.php')
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === "success") {
+          console.log(data);
+          
+          document.getElementById('email').value = data.email;
+          
+          if (data.nickname) {
+            document.getElementById('name').value = data.nickname;
+          } else {
+            console.error("Nickname non trovato!");
+          }
+        } else {
+          console.error("Errore:", data.message);
+        }
+      })
+      .catch(error => console.error("Errore nella richiesta:", error));
+  });
     </script>
   </body>
 </html>

@@ -6,9 +6,10 @@ $name = $_POST['name'] ?? '';
 $nickname = $_POST['username'] ?? '';
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
+$data=$_POST['data_nascita'] ?? '';
 
 // Controllo campi vuoti
-if (!$name || !$nickname || !$email || !$password) {
+if (!$name || !$nickname || !$email || !$password || !$data) {
     echo json_encode([
         "status" => "error",
         "message" => "Tutti i campi sono obbligatori."
@@ -31,8 +32,8 @@ if (pg_num_rows($check) > 0) {
 $hashed = password_hash($password, PASSWORD_DEFAULT);
 
 // Inserimento nuovo utente
-$query = "INSERT INTO utenti (nome, nickname, email, password, vacanza, tipo_vacanza) VALUES ($1, $2, $3, $4, $5, $6)";
-$res = pg_query_params($dbconn, $query, [$name, $nickname, $email, $hashed, null, null]);
+$query = "INSERT INTO utenti (nome, nickname, email, password, data_di_nascita) VALUES ($1, $2, $3, $4, $5)";
+$res = pg_query_params($dbconn, $query, [$name, $nickname, $email, $hashed, $data]);
 
 if ($res) {
     // Recupera ID utente appena creato
