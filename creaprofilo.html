@@ -226,26 +226,40 @@
           .catch(console.error);
       }
 
-      document.addEventListener('DOMContentLoaded', function() {
-    fetch('creaprofilo.php')
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === "success") {
-          console.log(data);
-          
-          document.getElementById('email').value = data.email;
-          
-          if (data.nickname) {
-            document.getElementById('name').value = data.nickname;
-          } else {
-            console.error("Nickname non trovato!");
-          }
-        } else {
-          console.error("Errore:", data.message);
-        }
-      })
-      .catch(error => console.error("Errore nella richiesta:", error));
-  });
+        fetch('creaprofilo.php')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);  // Visualizza la risposta ricevuta
+    if (data.status === "success") {
+      document.getElementById('email').value = data.email;
+      if (data.nickname) {
+        document.getElementById('name').value = data.nickname;
+      } else {
+        console.error("Nickname non trovato!");
+      }
+
+      // Gestione della data di nascita
+      if (data.data_di_nascita) {
+        console.log("Data di nascita:", data.data_di_nascita);
+        
+        // Separiamo la data (YYYY-MM-DD)
+        const birthDate = new Date(data.data_di_nascita);
+        const day = birthDate.getDate().toString().padStart(2, '0'); // GG
+        const month = (birthDate.getMonth() + 1).toString().padStart(2, '0'); // MM
+        const year = birthDate.getFullYear(); // AAAA
+
+        // Assegniamo i valori ai campi del compleanno (GG, MM, AAAA)
+        document.querySelector('input[placeholder="GG"]').value = day;
+        document.querySelector('input[placeholder="MM"]').value = month;
+        document.querySelector('input[placeholder="AAAA"]').value = year;
+      } else {
+        console.error("Data di nascita non trovata!");
+      }
+    } else {
+      console.error("Errore:", data.message);
+    }
+  })
+  .catch(error => console.error("Errore nella richiesta:", error));
     </script>
   </body>
 </html>
