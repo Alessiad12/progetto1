@@ -1,8 +1,8 @@
 <?php
 session_start();
-require '../config.php';          // connessione DB + session_start()
+require 'connessione.php';          // connessione DB + session_start()
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['id_utente'])) {
   header('Location: /login.php'); exit;
 }
 $u = $_SESSION['user_id'];
