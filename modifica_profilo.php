@@ -250,7 +250,7 @@ pg_query_params($dbconn, $sql_profilo, [$nome, $bio, $colore, $path_db, $current
 
   // Mostra immagine
   const img = document.getElementById('profileImage');
-  img.src = data.immagine_profilo ? `/uploads/${data.immagine_profilo}` : '/immagini/default.png';
+  img.src = data.immagine_profilo ? `${data.immagine_profilo}` : '/immagini/default.png';
   if (data.posizione_immagine) {
     img.style.objectPosition = `${data.posizione_immagine}% center`;
   }
