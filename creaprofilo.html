@@ -24,30 +24,85 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
-    <title>Wanderlust – Crea account</title>
+    <title>Wanderlust – Crea account</title>
   </head>
   <style>
-    /* Stile per il profilo */
     .profile-pic {
-    width: 96%;
-    border-radius: 10px;
-    object-fit: cover;
-  }
+      width: 96%;
+      border-radius: 10px;
+      object-fit: cover;
+    }
     .empty-slot {
-      background-color: #f8f9fa; /* Colore di sfondo per gli slot vuoti */
+      background-color: #f8f9fa;
     }
 
-  .profile-pic img {
-    max-width: 40%;
-  border-radius: 15px;
-  margin-bottom: 4%;
-  }
-  .border{
-    border-width: 1px;
-    margin-bottom: 3%;
+    .profile-pic img {
+      max-width: 40%;
+      border-radius: 15px;
+      margin-bottom: 4%;
+    }
+    .border {
+      border-width: 1px;
+      margin-bottom: 3%;
+    }
+
+    .profile-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      gap: 15px;
+    }
+
+    .profile-picture-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 270px;
+      height: 360px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      background-color: #f0f0f0;
+    }
+
+    .custom-file-upload {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #27374a;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .custom-file-upload:hover {
+      background-color: #3c5066;
+    }
+
+.profile-picture-container {
+  width: 300px;
+  height: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: #f0f0f0;
+  position: relative;
+  cursor: grab;
 }
-  
-    </style>
+
+.profile-picture-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  user-select: none;
+  pointer-events: none;
+}
+
+  </style>
+
   <body class="bg-cream text-navy min-h-screen">
     <div class="container mx-auto p-4">
       <header class="flex justify-between items-center mb-8">
@@ -57,209 +112,144 @@
       <div class="max-w-4xl mx-auto bg-white/40 backdrop-blur-sm rounded-2xl shadow-lg p-8">
         <h1 class="text-3xl md:text-4xl font-extrabold mb-8 text-center">Crea account</h1>
 
-        <div class="flex flex-col md:flex-row gap-8">
-  
-          <section class="flex-1">
-            <div >
-              <label class="block text-sm font-semibold mb-2">Foto Profilo</label>
-              <div class="profile-pic">
-                <img src="immagini/sfondo.jpg" alt="Foto Profilo" class="img" />
+        <section class="flex-1">
+          <div>
+            
+            <div class="profile-header">
+              <div class="profile-picture-container" id="imageContainer">
+                <img id="profileImage" src="" alt="Immagine Profilo" />
               </div>
-              <input type="file" name="avatar" accept="image/*"
-                class="block w-full text-sm text-navy bg-cream border border-navy/30 rounded-lg cursor-pointer focus:outline-none" />
+              <input type="file" id="fileInputProfile" name="immagine_profilo" accept="image/*" />
             </div>
-  
-            <div >
-              <label for="name" class="block text-sm font-semibold mb-2 tracking-wide">Nome</label>
-              <input id="name" type="text" placeholder="nome" class="w-full bg-cream border border-navy/30 focus:border-navy-light focus:ring-1 focus:ring-navy-light rounded-lg p-3 placeholder-navy/50 transition" />
+          </div>
+
+          <div>
+            <label for="name" class="block text-sm font-semibold mb-2 tracking-wide">Nome</label>
+            <input id="name" type="text" placeholder="nome" class="w-full bg-cream border border-navy/30 focus:border-navy-light focus:ring-1 focus:ring-navy-light rounded-lg p-3 placeholder-navy/50 transition" />
+          </div>
+
+          <div>
+            <label for="bio" class="block text-sm font-semibold mb-2 tracking-wide">Bio:</label>
+            <input id="bio" type="text" placeholder="bio" class="w-full bg-cream border border-navy/30 focus:border-navy-light focus:ring-1 focus:ring-navy-light rounded-lg p-3 placeholder-navy/50 transition" />
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-semibold mb-2 tracking-wide">Email</label>
+            <input id="email" type="email" placeholder="email" class="w-full bg-cream border border-navy/30 focus:border-navy-light focus:ring-1 focus:ring-navy-light rounded-lg p-3 placeholder-navy/50 transition" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-2 tracking-wide">Compleanno</label>
+            <div class="flex gap-2">
+              <input type="text" placeholder="GG" class="flex-1 bg-cream border border-navy/30 rounded-lg p-3 text-center focus:border-navy-light focus:ring-1 focus:ring-navy-light" />
+              <input type="text" placeholder="MM" class="flex-1 bg-cream border border-navy/30 rounded-lg p-3 text-center focus:border-navy-light focus:ring-1 focus:ring-navy-light" />
+              <input type="text" placeholder="AAAA" class="flex-1 bg-cream border border-navy/30 rounded-lg p-3 text-center focus:border-navy-light focus:ring-1 focus:ring-navy-light" />
             </div>
+          </div>
 
-            <!-- Email -->
-            <div >
-              <label for="email" class="block text-sm font-semibold mb-2 tracking-wide">Email</label>
-              <input id="email" type="email" placeholder="email" class="w-full bg-cream border border-navy/30 focus:border-navy-light focus:ring-1 focus:ring-navy-light rounded-lg p-3 placeholder-navy/50 transition" />
+          <div>
+            <label class="block text-sm font-semibold mb-2 tracking-wide">Mi interessano</label>
+            <div class="flex gap-2">
+              <button class="flex-1 bg-cream border border-navy text-navy rounded-lg p-3 hover:bg-navy hover:text-cream transition">Viaggi in solitaria</button>
+              <button class="flex-1 bg-cream border border-navy text-navy rounded-lg p-3 hover:bg-navy hover:text-cream transition">Viaggi di coppia</button>
+              <button class="flex-1 bg-cream border border-navy text-navy rounded-lg p-3 hover:bg-navy hover:text-cream transition">Viaggi di gruppo</button>
             </div>
+          </div>
 
-            <!-- Compleanno -->
-            <div >
-              <label class="block text-sm font-semibold mb-2 tracking-wide">Compleanno</label>
-              <div class="flex gap-2">
-                <input type="text" placeholder="GG" class="flex-1 bg-cream border border-navy/30 rounded-lg p-3 text-center focus:border-navy-light focus:ring-1 focus:ring-navy-light" />
-                <input type="text" placeholder="MM" class="flex-1 bg-cream border border-navy/30 rounded-lg p-3 text-center focus:border-navy-light focus:ring-1 focus:ring-navy-light" />
-                <input type="text" placeholder="AAAA" class="flex-1 bg-cream border border-navy/30 rounded-lg p-3 text-center focus:border-navy-light focus:ring-1 focus:ring-navy-light" />
-              </div>
+          <div class="mb-8">
+            <label class="block text-lg font-bold text-center">Qual è la tua vacanza da sogno?</label>
+            <input type="hidden" id="dreamInput" name="dream_vacation" />
+            <div class="flex flex-col gap-4">
+              <button type="button" data-value="spiaggia" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
+                <span class="text-xl">🏖️</span>
+                <span class="flex-1">Rilassarsi in spiaggia</span>
+              </button>
+              <button type="button" data-value="musei" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
+                <span class="text-xl">🏛️</span>
+                <span class="flex-1">Imparare nei musei</span>
+              </button>
+              <button type="button" data-value="ristoranti" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
+                <span class="text-xl">🍴</span>
+                <span class="flex-1">Mangiare nei migliori ristoranti</span>
+              </button>
+              <button type="button" data-value="natura" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
+                <span class="text-xl">⛰️</span>
+                <span class="flex-1">Esplorare la natura e l'aria aperta</span>
+              </button>
+              <button type="button" data-value="bambini" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
+                <span class="text-xl">👨‍👩‍👧‍👦</span>
+                <span class="flex-1">Intrattenere i bambini</span>
+              </button>
             </div>
+          </div>
 
-            <!-- Mi interessano -->
-            <div >
-              <label class="block text-sm font-semibold mb-2 tracking-wide">Mi interessano</label>
-              <div class="flex gap-2">
-                <button class="flex-1 bg-cream border border-navy text-navy rounded-lg p-3 hover:bg-navy hover:text-cream transition">Viaggi in solitaria</button>
-                <button class="flex-1 bg-cream border border-navy text-navy rounded-lg p-3 hover:bg-navy hover:text-cream transition">Viaggi di coppia</button>
-                <button class="flex-1 bg-cream border border-navy text-navy rounded-lg p-3 hover:bg-navy hover:text-cream transition">Viaggi di gruppo</button>
-              </div>
-            </div>
+        </section>
 
-            <!-- Qui per -->
-            <div class="mb-8">
-              <label class="block text-lg font-bold text-center">Qual è la tua vacanza da sogno?</label>
-              <input type="hidden" id="dreamInput" name="dream_vacation" />
-              <div class="flex flex-col gap-4">
-                <button type="button" data-value="spiaggia" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
-                  <span class="text-xl">🏖️</span>
-                  <span class="flex-1">Rilassarsi in spiaggia</span>
-                </button>
-                <button type="button" data-value="musei" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
-                  <span class="text-xl">🏛️</span>
-                  <span class="flex-1">Imparare nei musei</span>
-                </button>
-                <button type="button" data-value="ristoranti" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
-                  <span class="text-xl">🍴</span>
-                  <span class="flex-1">Mangiare nei migliori ristoranti</span>
-                </button>
-                <button type="button" data-value="natura" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
-                  <span class="text-xl">⛰️</span>
-                  <span class="flex-1">Esplorare la natura e l'aria aperta</span>
-                </button>
-                <button type="button" data-value="bambini" class="dream-btn flex items-center gap-3 w-full rounded-xl bg-white/70 hover:bg-white shadow px-6 py-3 text-left transition">
-                  <span class="text-xl">👨‍👩‍👧‍👦</span>
-                  <span class="flex-1">Intrattenere i bambini</span>
-                </button>
-              </div>
-            </div>
-
-          </section>
-
-          <!-- Colonna destra: foto -->
-          <section class="flex-1">
-            <label class="block text-sm font-semibold mb-2 tracking-wide">I miei viaggi</label>
-
-            <!-- Input nascosto -->
-            <input id="fileInput" type="file" accept="image/*" multiple class="hidden" />
-
-            <div id="photoGrid" class="grid grid-cols-3 gap-3 mb-4"></div>
-
-            <template id="emptySlotTemplate">
-              <div class="relative flex items-center justify-center w-full h-full border border-dashed border-navy/40 rounded-lg empty-slot">
-                <button class="bg-navy text-cream rounded-full p-2 hover:bg-navy-light transition add-photo">
-                  <i class="fas fa-plus"></i>
-                </button>
-              </div>
-            </template>
-
-            <p class="text-xs text-navy/70">Tieni premuto, trascina e rilascia per riordinare le tue foto</p>
-          </section>
-        </div>
-
-        <!-- Bottone termina modifica -->
         <form id="createForm" action="/api/save_profile.php" method="POST" enctype="multipart/form-data">
-          <!-- gli input esistenti: name, email, compleanno… -->
-          
-          
           <div class="flex justify-center mt-10">
             <button type="submit" class="bg-navy text-cream px-8 py-3 rounded-lg font-semibold hover:bg-navy-light">
-              Termina 
+              Termina
             </button>
           </div>
         </form>
-        
+
       </div>
     </div>
 
-    <!-- ============================ -->
-    <!-- JS: upload + preview foto    -->
-    <!-- ============================ -->
     <script>
+      // Selezione delle opzioni per "Mi interessano"
       document.querySelectorAll('.dream-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          // deselect all
           document.querySelectorAll('.dream-btn').forEach(b => {
             b.classList.remove('bg-navy', 'text-cream');
             b.classList.add('bg-white/70', 'text-navy');
           });
-          // select clicked
           btn.classList.add('bg-navy', 'text-cream');
           btn.classList.remove('bg-white/70');
-          // store value
-          document.getElementById('dreamInput').value = btn.dataset.value;
+          document.getElementById('dreamInput').value = btn.getAttribute('data-value');
         });
       });
 
+      // Caricamento dell'immagine del profilo
+      const fileInput = document.getElementById("fileInputProfile");
+      const profileImage = document.getElementById("profileImage");
 
-
-      // genera 6 slot iniziali
-      const photoGrid = document.getElementById("photoGrid");
-      const slotTpl = document.getElementById("emptySlotTemplate").content;
-      for (let i = 0; i < 3; i++) {
-        photoGrid.appendChild(document.importNode(slotTpl, true));
-      }
-
-      const fileInput = document.getElementById("fileInput");
-
-      // click sul + → file‑picker
-      photoGrid.addEventListener("click", (e) => {
-        if (e.target.closest(".add-photo")) fileInput.click();
-      });
-
-      // preview + upload
       fileInput.addEventListener("change", (e) => {
-        [...e.target.files].forEach((file) => {
+        const file = e.target.files[0];
+        if (file) {
           const reader = new FileReader();
-          reader.onload = (ev) => {
-            const slot = document.querySelector(".empty-slot");
-            if (!slot) return;
-            slot.classList.remove("empty-slot");
-            slot.innerHTML = `<img src="${ev.target.result}" alt="Nuova foto" class="w-full h-full object-cover border border-navy/30 rounded-lg" />`;
-            uploadPhoto(file);
+          reader.onload = function(event) {
+            profileImage.src = event.target.result;
           };
           reader.readAsDataURL(file);
-        });
-        e.target.value = ""; // reset
+        }
       });
 
-      function uploadPhoto(file) {
-        const fd = new FormData();
-        fd.append("photo", file);
-        fetch("/api/upload_photo.php", { method: "POST", body: fd })
-          .then((r) => r.json())
-          .then((d) => console.log("Foto salvata:", d.url))
-          .catch(console.error);
-      }
+      // Gestione dello spostamento dell'immagine
+      const imageContainer = document.getElementById("imageContainer");
+      let isDragging = false;
+      let startX = 0;
+      let currentX = 50; // Percentuale per object-position x
 
-        fetch('creaprofilo.php')
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);  // Visualizza la risposta ricevuta
-    if (data.status === "success") {
-      document.getElementById('email').value = data.email;
-      if (data.nickname) {
-        document.getElementById('name').value = data.nickname;
-      } else {
-        console.error("Nickname non trovato!");
-      }
+      imageContainer.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        imageContainer.style.cursor = "grabbing";
+      });
 
-      // Gestione della data di nascita
-      if (data.data_di_nascita) {
-        console.log("Data di nascita:", data.data_di_nascita);
-        
-        // Separiamo la data (YYYY-MM-DD)
-        const birthDate = new Date(data.data_di_nascita);
-        const day = birthDate.getDate().toString().padStart(2, '0'); // GG
-        const month = (birthDate.getMonth() + 1).toString().padStart(2, '0'); // MM
-        const year = birthDate.getFullYear(); // AAAA
+      window.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const deltaX = e.clientX - startX;
+        startX = e.clientX;
 
-        // Assegniamo i valori ai campi del compleanno (GG, MM, AAAA)
-        document.querySelector('input[placeholder="GG"]').value = day;
-        document.querySelector('input[placeholder="MM"]').value = month;
-        document.querySelector('input[placeholder="AAAA"]').value = year;
-      } else {
-        console.error("Data di nascita non trovata!");
-      }
-    } else {
-      console.error("Errore:", data.message);
-    }
-  })
-  .catch(error => console.error("Errore nella richiesta:", error));
+        currentX = Math.max(0, Math.min(100, currentX + deltaX / 3));
+        profileImage.style.objectPosition = `${currentX}% center`;
+      });
+
+      window.addEventListener("mouseup", () => {
+        isDragging = false;
+        imageContainer.style.cursor = "grab";
+      });
     </script>
   </body>
 </html>
