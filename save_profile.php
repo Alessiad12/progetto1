@@ -1,91 +1,83 @@
 <?php
-session_start(); // Inizia la sessione
-if (!isset($_SESSION['id_utente']) || !isset($_SESSION['user'])) {
-    header('Location:/register.php'); 
-    exit;
+session_start();
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id_utente'])) {
+  header('Location: register.php');
+  exit;
 }
-require 'connessione.php'; // Connessione al database
 
-// Recupero i dati dal form
-$id = $_SESSION['id_utente'];
-$nome = $_POST['name'];
-$bio = $_POST['bio'];
-$email = $_POST['email'];
-$compleanno = $_POST['compleanno']; // Formato della data: YYYY-MM-DD
-$mi_interessano = $_POST['mi_interessano']; // Può essere un valore come 'viaggi in solitaria', 'coppia', ecc.
-$dream_vacation = $_POST['dream_vacation'];
-$posizione = null; // Può essere un valore come 'montagna', 'mare', ecc.
+// include la connessione (definisce $dbconn)
+require_once __DIR__ . '/connessione.php';
 
-echo "Dati del form ricevuti: <br>";
-echo "ID: $id <br>";
-echo "Nome: $nome <br>";
-echo "Bio: $bio <br>";
-echo "Email: $email <br>";
-echo "Compleanno: $compleanno <br>";
-echo "Mi interessano: $mi_interessano <br>";
-echo "Dream vacation: $dream_vacation <br>";
+$id             = $_SESSION['id_utente'];
+$nome           = $_POST['name']           ?? '';
+$bio            = $_POST['bio']            ?? '';
+$email          = $_POST['email']          ?? '';
+$compleanno     = $_POST['compleanno']     ?? '';
+$mi_interessano = $_POST['mi_interessano'] ?? '';
+$dream_vacation = $_POST['dream_vacation'] ?? '';
 
-// Calcolo dell'età
+// calcolo età
 $birthdate = new DateTime($compleanno);
-$today = new DateTime();
-$eta = $today->diff($birthdate)->y; // Ottieni l'età in anni
-echo "Età calcolata: $eta <br>";
+$eta       = (new DateTime())->diff($birthdate)->y;
 
-// Caricamento dell'immagine (se presente)
-$immagine_profilo = null;
-if (isset($_FILES['immagine_profilo']) && $_FILES['immagine_profilo']['error'] === UPLOAD_ERR_OK) {
-    echo "Immagine profilo ricevuta: " . $_FILES['immagine_profilo']['name'] . "<br>";
-    $immagine_profilo = file_get_contents($_FILES['immagine_profilo']['tmp_name']);
-} else {
-    echo "Nessuna immagine caricata o errore nel caricamento immagine <br>";
+// immagine (bytea)
+$img_data = null;
+if (!empty($_FILES['immagine_profilo']['tmp_name'])) {
+  $raw = file_get_contents($_FILES['immagine_profilo']['tmp_name']);
+  // PG si aspetta bytea: escapalo
+  $img_data = pg_escape_bytea($raw);
 }
 
-// Prepara e esegue la query di inserimento nella tabella profili
-$sql_profili = "INSERT INTO profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, immagine_profilo, posizione_immagine) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+// ---- INSERT su profili ----
+$sql_profili = <<<SQL
+INSERT INTO profili
+  (id, email, nome, eta, bio, data_di_nascita, immagine_profilo, posizione_immagine)
+VALUES
+  ($1, $2, $3, $4, $5, $6, DECODE($7, 'escape'), $8)
+SQL;
 
-echo "Esecuzione query profili...<br>";
+$params_profili = [
+  $id,
+  $email,
+  $nome,
+  $eta,
+  $bio,
+  $compleanno,
+  $img_data,
+  null  // o un valore per posizione_immagine
+];
 
-$stmt_profili = $conn->prepare($sql_profili);
-if (!$stmt_profili) {
-    echo "Errore preparazione query profili: " . $conn->error . "<br>";
-} else {
-    echo "Query profili preparata correttamente.<br>";
+$res = pg_query_params($dbconn, $sql_profili, $params_profili);
+if (!$res) {
+  die('Profili INSERT failed: ' . pg_last_error($dbconn));
 }
 
-$stmt_profili->bind_param("ississbss", $id, $email, $nome, $eta, $bio, $posizione, $compleanno, $immagine_profilo, $posizione);
+// ---- INSERT su preferenze_utente_viaggio ----
+$sql_pref = <<<SQL
+INSERT INTO preferenze_utente_viaggio
+  (utente_id, email, destinazione, data_partenza, data_ritorno, budget, tipo_viaggio, compagnia)
+VALUES
+  ($1, $2, $3, $4, $5, $6, $7, $8)
+SQL;
 
-// Prepara e esegue la query di inserimento nella tabella preferenze_utente_viaggio
-$sql_preferenze = "INSERT INTO preferenze_utente_viaggio (utente_id, email, destinazione, data_partenza, data_ritorno, budget, tipo_viaggio, compagnia) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+$params_pref = [
+  $id,
+  $email,
+  null,   // destinazione
+  null,   // data_partenza
+  null,   // data_ritorno
+  null,   // budget
+  $dream_vacation,
+  $mi_interessano
+];
 
-echo "Esecuzione query preferenze...<br>";
-
-$stmt_preferenze = $conn->prepare($sql_preferenze);
-if (!$stmt_preferenze) {
-    echo "Errore preparazione query preferenze: " . $conn->error . "<br>";
-} else {
-    echo "Query preferenze preparata correttamente.<br>";
+$res2 = pg_query_params($dbconn, $sql_pref, $params_pref);
+if (!$res2) {
+  die('Preferenze INSERT failed: ' . pg_last_error($dbconn));
 }
 
-$stmt_preferenze->bind_param("ssssssss", $id, $email, NULL, NULL, NULL, NULL, $dream_vacation, $mi_interessano);
-
-// Esegui entrambe le query
-if ($stmt_profili->execute()) {
-    echo "Query profili eseguita con successo!<br>";
-} else {
-    echo "Errore esecuzione query profili: " . $stmt_profili->error . "<br>";
-}
-
-if ($stmt_preferenze->execute()) {
-    echo "Query preferenze eseguita con successo!<br>";
-} else {
-    echo "Errore esecuzione query preferenze: " . $stmt_preferenze->error . "<br>";
-}
-
-// Chiude le connessioni
-$stmt_profili->close();
-$stmt_preferenze->close();
-$conn->close();
-
-?>
+// tutto ok
+echo json_encode([
+  'status' => 'success',
+  'message'=> 'Profilo e preferenze salvate.'
+]);
