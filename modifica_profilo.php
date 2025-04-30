@@ -149,12 +149,12 @@ pg_query_params($dbconn, $sql_profilo, [$nome, $bio, $colore, $path_db, $current
       <div class="colore_preferito">
         <label for="colore_preferito">Colore preferito:</label>
         <div class="color-options">
-          <label><input type="radio" name="colore_preferito_radio" value="#FFB3BA"><span class="color-swatch" style="background-color:rgb(255, 179, 252);"></span></label>
-          <label><input type="radio" name="colore_preferito_radio" value="#FFDFBA"><span class="color-swatch" style="background-color: #FFDFBA;"></span></label>
-          <label><input type="radio" name="colore_preferito_radio" value="#FFFFBA"><span class="color-swatch" style="background-color: #FFFFBA;"></span></label>
-          <label><input type="radio" name="colore_preferito_radio" value="#BAFFC9"><span class="color-swatch" style="background-color: #BAFFC9;"></span></label>
-          <label><input type="radio" name="colore_preferito_radio" value="#BAE1FF"><span class="color-swatch" style="background-color: #BAE1FF;"></span></label>
-        </div>
+        <label><input type="radio" name="colore_preferito_radio" value="#f4cedc"><span class="color-swatch" style="background-color: #f4cedc;"></span></label>
+        <label><input type="radio" name="colore_preferito_radio" value="#fbe0ce"><span class="color-swatch" style="background-color: #fbe0ce;"></span></label>
+        <label><input type="radio" name="colore_preferito_radio" value="#fbfbce"><span class="color-swatch" style="background-color: #fbfbce;"></span></label>
+        <label><input type="radio" name="colore_preferito_radio" value="#cef4e3"><span class="color-swatch" style="background-color: #cef4e3;"></span></label>
+        <label><input type="radio" name="colore_preferito_radio" value="#cee3f4"><span class="color-swatch" style="background-color: #cee3f4;"></span></label>
+          </div>
       </div>
 
       <input type="hidden" name="viaggio_scelto" id="viaggio_scelto">

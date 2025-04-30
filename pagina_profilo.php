@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style_index.css">
   <title>Profilo Viaggiatore</title>
   <style>
     * {
@@ -12,6 +13,7 @@
     }
 
     body, html {
+      background-color:rgb(247, 247, 247);
       height: 100%;
       font-family: Arial, sans-serif;
     }
@@ -122,6 +124,7 @@
       border-radius: 10px;
       overflow: hidden;
       margin-bottom: 20px;
+      margin-right: 20px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       cursor: pointer;
       position: relative;
@@ -154,6 +157,7 @@
       border-radius: 10px;
       display: flex;
       flex-wrap: wrap;
+      margin-right: 20px;
       gap: 10px;
       box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
     }
@@ -242,6 +246,13 @@
   <div class="map-overlay" id="mapOverlay">
     <span class="close-btn" onclick="chiudiMappa()">✖</span>
     <iframe src="mappamondo.php"></iframe>
+  </div>
+  <div class="profile-menu-wrapper">
+    <img src="immagini/new-york-city.jpg" alt="Foto Profilo" class="profile-icon" onclick="toggleDropdown()" />
+    <div class="dropdown-menu" id="dropdownMenu">
+      <a href="pagina_profilo.php">Profilo</a>
+      <a href="logout.php">Logout</a>
+    </div>
   </div>
 
   <script>

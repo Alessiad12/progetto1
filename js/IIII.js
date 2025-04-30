@@ -1,19 +1,4 @@
-// Mostra/nasconde profilo
-function toggleProfileContainer() {
-    document.querySelector('.profile-container').classList.toggle('active');
-  }
-  
-  // Chiudi cliccando fuori
-  window.onclick = (e) => {
-    if (!e.target.closest('.profile-toggle') && document.querySelector('.profile-container').classList.contains('active')) {
-      document.querySelector('.profile-container').classList.remove('active');
-    }
-  };
-  
-  function caricaModificaProfilo() {
-    window.location.href = 'modifica_profilo.php';
-  }
-  
+
   // Carica dati profilo all'avvio
   document.addEventListener('DOMContentLoaded', () => {
     fetch('/profilo.php')
@@ -119,11 +104,6 @@ function toggleProfileContainer() {
       currentCard = null;
     }
   });
-  
-  function caricaViaggi() {
-    window.location.href = 'mappamondo.php';
-  }
-  
   // ─── Organizza viaggio al click sul cuore ──────────────────────────────────
   container.addEventListener('click', async e => {
     const btn = e.target;
