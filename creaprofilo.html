@@ -155,10 +155,6 @@
         <form id="createForm" action="/api/save_profile.php" method="POST" enctype="multipart/form-data">
           <!-- gli input esistenti: name, email, compleanno… -->
           
-          <!-- hidden per le due scelte -->
-          <input type="hidden" id="dreamInput"   name="dream_vacation" />
-          <input type="hidden" id="purposeInput" name="trip_purpose"   />
-          
           
           <div class="flex justify-center mt-10">
             <button type="submit" class="bg-navy text-cream px-8 py-3 rounded-lg font-semibold hover:bg-navy-light">
@@ -241,7 +237,6 @@
       }
     })
     .catch(error => console.error("Errore nella richiesta:", error));
-</script>
     </script>
   </body>
 </html>
