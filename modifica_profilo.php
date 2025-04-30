@@ -10,9 +10,10 @@ if (!isset($_SESSION['id_utente']) || !isset($_SESSION['user'])) {
 $id_utente = $_SESSION['id_utente'];
 $utente_email = $_SESSION['user']; 
 
-$sql = "SELECT u.email, u.tipo_vacanza, p.immagine_profilo, p.nome, p.bio, p.colore_sfondo
+$sql = "SELECT u.email,puv.tipo_viaggio as tipo_vacanza, p.immagine_profilo, p.nome, p.bio, p.colore_sfondo
         FROM utenti u
         JOIN profili p ON u.id = p.id
+        JOIN preferenze_utente_viaggio puv ON u.id = puv.utente_id
         WHERE u.id = $1";
 
 $result = pg_query_params($dbconn, $sql, [$id_utente]);
@@ -75,11 +76,11 @@ pg_query_params($dbconn, $sql_profilo, [$nome, $bio, $colore, $path_db, $current
 
     // Aggiorna utenti
     if ($path_db) {
-        $sql_utente = "UPDATE utenti SET tipo_vacanza = $1, immagine_profilo = $2 WHERE id = $3";
-        pg_query_params($dbconn, $sql_utente, [$viaggio, $path_db, $id_utente]);
-    } else {
-        $sql_utente = "UPDATE utenti SET tipo_vacanza = $1 WHERE id = $2";
+        $sql_utente = "UPDATE preferenze_utente_viaggio SET tipo_viaggio = $1 WHERE id = $2";
         pg_query_params($dbconn, $sql_utente, [$viaggio, $id_utente]);
+    } else {
+        $sql_utente = "UPDATE profili SET immagine_profilo= $1 WHERE id = $2";
+        pg_query_params($dbconn, $sql_utente, [$path_db, $id_utente]);
     }
 
     // Inserisce viaggio (opzionale)
@@ -145,7 +146,7 @@ pg_query_params($dbconn, $sql_profilo, [$nome, $bio, $colore, $path_db, $current
       <div class="colore_preferito">
         <label for="colore_preferito">Colore preferito:</label>
         <div class="color-options">
-          <label><input type="radio" name="colore_preferito_radio" value="#FFB3BA"><span class="color-swatch" style="background-color: #FFB3BA;"></span></label>
+          <label><input type="radio" name="colore_preferito_radio" value="#FFB3BA"><span class="color-swatch" style="background-color:rgb(255, 179, 252);"></span></label>
           <label><input type="radio" name="colore_preferito_radio" value="#FFDFBA"><span class="color-swatch" style="background-color: #FFDFBA;"></span></label>
           <label><input type="radio" name="colore_preferito_radio" value="#FFFFBA"><span class="color-swatch" style="background-color: #FFFFBA;"></span></label>
           <label><input type="radio" name="colore_preferito_radio" value="#BAFFC9"><span class="color-swatch" style="background-color: #BAFFC9;"></span></label>
@@ -201,8 +202,8 @@ pg_query_params($dbconn, $sql_profilo, [$nome, $bio, $colore, $path_db, $current
     const imageContainer = document.getElementById("imageContainer");
 
     let isDragging = false;
-    let startX = 0;
-    let currentX = 50; // percentuale per object-position x
+    //let startX = 0;
+    //let currentX = 50; // percentuale per object-position x
 
     // Caricamento immagine
     document.getElementById("fileInput").addEventListener("change", function(e) {
