@@ -74,14 +74,10 @@ $sql_profilo = "UPDATE profili SET nome = $1, bio = $2, colore_sfondo = $3, imma
 pg_query_params($dbconn, $sql_profilo, [$nome, $bio, $colore, $path_db, $currentX, $id_utente]);
 
 
-    // Aggiorna utenti
-    if ($path_db) {
+  
         $sql_utente = "UPDATE preferenze_utente_viaggio SET tipo_viaggio = $1 WHERE id = $2";
         pg_query_params($dbconn, $sql_utente, [$viaggio, $id_utente]);
-    } else {
-        $sql_utente = "UPDATE profili SET immagine_profilo= $1 WHERE id = $2";
-        pg_query_params($dbconn, $sql_utente, [$path_db, $id_utente]);
-    }
+ 
 
     // Inserisce viaggio (opzionale)
     if (!empty($foto_nome) && !empty($viaggio)) {
