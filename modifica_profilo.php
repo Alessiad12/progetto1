@@ -69,7 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       
 
         $path_db = $target_file;
-    }
+    } else {
+      // Se non viene caricata una nuova immagine, usa quella esistente
+      $path_db = $immagine; // $immagine contiene il valore dal database
+  }
     // Gestione posizione immagine
     $currentX = $_POST['currentX'] ?? 50; // 50% come valore predefinito
 

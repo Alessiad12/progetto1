@@ -35,6 +35,7 @@
   padding: 20px;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
+  background-color: rgb(186, 222, 214);
 }
 
       .profile-sidebar-container {
@@ -43,7 +44,6 @@
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  background-color: #f0f0f0;
   position: relative;
   cursor: grab;
 }
@@ -131,7 +131,7 @@
       width: 100%;
       height: 100%;
       border: none;
-      pointer-events: none; /* evita il click accidentale sull’iframe */
+     /* pointer-events: none; /* evita il click accidentale sull’iframe */
     }
 
     .map-container::after {
@@ -263,7 +263,7 @@
           document.querySelector('.profile-bio').innerHTML = data.bio.replace(/\n/g, '<br>');
           document.querySelector('.profile-pic').src =  data.immagine_profilo;
           document.querySelector('.profile-icon').src =   data.immagine_profilo;
-          document.querySelector('.profile-sidebar').style.backgroundColor = data.colore_sfondo;
+          document.querySelector('.photos-container').style.backgroundColor = data.colore_sfondo;
           if (data.posizione_immagine !== undefined) {
             document.querySelector('.profile-pic').style.objectPosition = `${data.posizione_immagine}% center`;
             document.querySelector('.profile-icon').style.objectPosition = `${data.posizione_immagine}% center`;
@@ -273,6 +273,20 @@
         }
       });
   });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('/profilo.php')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.error) {
+          const sidebar = document.querySelector('.profile-sidebar');
+          sidebar.style.setProperty('background-color', data.colore_sfondo, 'important');
+        } else {
+          console.error(data.error);
+        }
+      });
+    });
+
 </script>
 </body>
 </html>
