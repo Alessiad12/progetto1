@@ -1,3 +1,10 @@
+// ────────────────────────────────────────────────────────
+// 1) Funzione per aprire/chiudere il menu del profilo
+// ────────────────────────────────────────────────────────
+function toggleProfileContainer() {
+  const c = document.querySelector('.profile-container');
+  if (c) c.classList.toggle('active');
+}
 
   // Carica dati profilo all'avvio
   document.addEventListener('DOMContentLoaded', () => {

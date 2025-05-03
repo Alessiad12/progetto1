@@ -221,7 +221,7 @@
       </div>
     </div>
     <button onclick="window.location.href='modifica_profilo.php'">Modifica profilo</button>
-    <button onclick="window.location.href='crea_viaggio.php'">Crea viaggio</button>
+    <button onclick="window.location.href='/crea_viaggio.php'">Crea viaggio</button>
   </div>
 
     <!-- CONTENUTO DESTRO -->

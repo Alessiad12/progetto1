@@ -97,7 +97,7 @@ if (!$res2) {
 }
 
 // Tutto ok
-header('Location: /visualizza_viaggi.php');
+header('Location: /index.html');
 exit;
 /* header('Content-Type: application/json');
 echo json_encode([
