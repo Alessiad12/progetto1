@@ -32,6 +32,7 @@ CREATE TABLE viaggi (
   lingua VARCHAR(50),
   compagnia VARCHAR(50),
   descrizione TEXT,
+  foto TEXT,
   FOREIGN KEY (user_id) REFERENCES utenti(id)
 );
 

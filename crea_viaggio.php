@@ -16,8 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dataPartenza  = $_POST['data_partenza']   ?? null;
     $dataRitorno   = $_POST['data_ritorno']    ?? null;
     $budget        = floatval($_POST['budget'] ?? 0);
-    $tipoViaggio   = $_POST['tipo_viaggio']    ?? '';
-    $vacanzaSogno  = $_POST['vacanza_sogno']   ?? '';
+    $compagnia   = $_POST['compagnia']    ?? '';
+    $tipoViaggio  = $_POST['tipo_viaggio']   ?? '';
 
     // Upload foto se presente
     $photoPath = null;
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Inserisci nel DB
     $sql = "INSERT INTO viaggi
-        (user_id, destinazione, descrizione, data_partenza, data_ritorno, budget, tipo_viaggio, vacanza_sogno, foto)
+        (user_id, destinazione, descrizione, data_partenza, data_ritorno, budget, compagnia, tipo_viaggio, foto)
         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)";
     $params = [
         $userId,
@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $dataPartenza,
         $dataRitorno,
         $budget,
+        $compagnia,
         $tipoViaggio,
-        $vacanzaSogno,
         $photoPath
     ];
     $res = pg_query_params($dbconn, $sql, $params);
@@ -103,9 +103,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div>
         <span class="block mb-2 font-semibold">Tipo di viaggio</span>
         <div class="flex gap-3">
-          <label class="flex items-center"><input type="radio" name="tipo_viaggio" value="singolo" required><span class="ml-2">Solo</span></label>
-          <label class="flex items-center"><input type="radio" name="tipo_viaggio" value="coppia"><span class="ml-2">Coppia</span></label>
-          <label class="flex items-center"><input type="radio" name="tipo_viaggio" value="gruppo"><span class="ml-2">Gruppo</span></label>
+          <label class="flex items-center"><input type="radio" name="compagnia" value="singolo" required><span class="ml-2">Solo</span></label>
+          <label class="flex items-center"><input type="radio" name="compagnia" value="coppia"><span class="ml-2">Coppia</span></label>
+          <label class="flex items-center"><input type="radio" name="compagnia" value="gruppo"><span class="ml-2">Gruppo</span></label>
         </div>
       </div>
       <div>
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $options = ['spiaggia'=>'🏖️ Spiaggia','musei'=>'🏛️ Musei','ristoranti'=>'🍴 Ristoranti','natura'=>'⛰️ Natura','bambini'=>'👨‍👩‍👧‍👦 Bambini'];
           foreach ($options as $val => $label) {
             echo "<label class='flex items-center bg-white/70 rounded-lg p-3 hover:bg-white cursor-pointer'>";
-            echo "<input type='radio' name='vacanza_sogno' value='".htmlspecialchars($val)."' class='mr-3' required>";
+            echo "<input type='radio' name='tipo_viaggio' value='".htmlspecialchars($val)."' class='mr-3' required>";
             echo "<span>$label</span></label>";
           }
           ?>
