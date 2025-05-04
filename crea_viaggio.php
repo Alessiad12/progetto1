@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $res = pg_query_params($dbconn, $sql, $params);
     if ($res) {
         // redirect a visualizza viaggi
-        header('Location: /visualizza_viaggi.php');
+        header('Location: /pagina_profilo.php');
         exit;
     } else {
         $error = pg_last_error($dbconn);
