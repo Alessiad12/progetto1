@@ -8,9 +8,9 @@ if (!isset($_SESSION['id_utente'])) {
 require_once __DIR__ . '/connessione.php';
 
 $error = '';
+$userId = intval($_SESSION['id_utente']);
 // Se POST, processa il form
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $userId        = intval($_SESSION['id_utente']);
     $destinazione  = trim($_POST['destinazione']    ?? '');
     $descrizione   = trim($_POST['descrizione']     ?? '');
     $dataPartenza  = $_POST['data_partenza']   ?? null;
@@ -18,6 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $budget        = floatval($_POST['budget'] ?? 0);
     $compagnia   = $_POST['compagnia']    ?? '';
     $tipoViaggio  = $_POST['tipo_viaggio']   ?? '';
+    $latitudine = $_POST['latitudine'] ?? null;
+    $longitudine = $_POST['longitudine'] ?? null;
 
     // Upload foto se presente
     $photoPath = null;
@@ -31,21 +33,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Inserisci nel DB
-    $sql = "INSERT INTO viaggi
-        (user_id, destinazione, descrizione, data_partenza, data_ritorno, budget, compagnia, tipo_viaggio, foto)
-        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)";
-    $params = [
-        $userId,
-        $destinazione,
-        $descrizione,
-        $dataPartenza,
-        $dataRitorno,
-        $budget,
-        $compagnia,
-        $tipoViaggio,
-        $photoPath
-    ];
+    $sql = "INSERT INTO viaggi (user_id, destinazione, data_partenza, data_ritorno, budget, tipo_viaggio, lingua, compagnia, descrizione, latitudine, longitudine)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)";
+
+$params = array(
+  $userId,
+  $destinazione,
+  $dataPartenza,
+  $dataRitorno,
+  $budget,
+  $tipoViaggio,
+  null, // oppure una variabile $lingua se la aggiungi al form
+  $compagnia,
+  $descrizione,
+  $latitudine,
+  $longitudine
+);
+
     $res = pg_query_params($dbconn, $sql, $params);
     if ($res) {
         // redirect a visualizza viaggi
@@ -72,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if ($error): ?>
       <div class="mb-4 p-3 bg-red-100 text-red-700 rounded"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
-    <form action="crea_viaggio.php" method="POST" enctype="multipart/form-data" class="space-y-5">
+    <form  id="form-viaggio" action="crea_viaggio.php" method="POST" enctype="multipart/form-data" class="space-y-5">
       <div>
         <label class="block mb-1 font-semibold">Destinazione</label>
         <input name="destinazione" type="text" required placeholder="Roma, Parigi..."
@@ -131,5 +135,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
     </form>
   </div>
+  <script src="cerca_coordinate.js"></script>
 </body>
 </html>
