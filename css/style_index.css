@@ -85,3 +85,22 @@ body {
 .dropdown-menu a:hover {
   background-color: #f0f0f0;
 }
+
+.pallino-componente {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  text-decoration: none;
+  border-radius: 50%;
+  background-color: #ddd; /* Colore di sfondo */
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  margin-top: 30px;
+}
+
+.pallino-componente i {
+  font-size: 16px; /* Dimensione dell'icona */
+  color: #333; /* Colore dell'icona */
+}

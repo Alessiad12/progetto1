@@ -66,7 +66,8 @@ while ($row = pg_fetch_assoc($result)) {
   
   <body style="background-color: <?= htmlspecialchars($colore_sfondo) ?>;">
 
-    <div class="card" id="card-<?php echo $viaggio['id']; ?>" style="background-image: url('<?= htmlspecialchars($immagine) ?>');">
+    <div class="card" id="card-<?php echo $viaggio['id']; ?>" style="background-image: url('<?= htmlspecialchars($immagine) ?>');"
+    data-viaggio-id="<?php echo $viaggio['id']; ?>">>
       <div class="card-content">
         <h2><?php echo $viaggio['destinazione']; ?></h2>
         <p class="destination">Destinazione: <?php echo $viaggio['destinazione']; ?></p>
@@ -85,6 +86,7 @@ while ($row = pg_fetch_assoc($result)) {
           <span class="budget">Budget: <?php echo $viaggio['budget']; ?></span>
           <span class="date">Partenza: <?php echo $viaggio['data_partenza']; ?></span>
         </div>
+        <div class="componenti-wrapper"></div>
         </div>
       </div>
 <?php endforeach; ?>
@@ -99,6 +101,34 @@ while ($row = pg_fetch_assoc($result)) {
   </div>
 
   <script type="module" src="/js/index.js"></script>
+  <script>
+  document.querySelectorAll('.card').forEach(card => {
+  const idViaggio = card.dataset.viaggioId;
+  console.log('viaggio ID', idViaggio);
+  const wrapper = card.querySelector('.componenti-wrapper');
 
+  fetch(`get_componenti.php?id_viaggio=${idViaggio}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log('Componenti ricevuti per viaggio ID', idViaggio, data);
+      data.forEach(componente => {
+        const pallino = document.createElement('a');
+        pallino.classList.add('pallino-componente');
+        pallino.href = `get_profilo.html?id=${componente.id_utente}`;
+        pallino.title = componente.username;
+        const img = document.createElement('img');
+        img.src = componente.immagine_profilo || 'immagini/default.jpg'; // fallback se non presente
+        img.alt = componente.nome;
+        img.classList.add('img-pallino'); // stile da definire in CSS
+        pallino.appendChild(img);
+        wrapper.appendChild(pallino);
+      });
+    })
+    .catch(error => {
+      console.error('Errore nel caricamento componenti:', error);
+    });
+});
+
+  </script>
 </body>
 </html>
