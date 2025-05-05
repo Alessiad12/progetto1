@@ -23,7 +23,6 @@
     transform: translate(-50%, -50%);
     background: #fff;
     border-radius: 20px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
     overflow: hidden;
     transition: transform 0.6s ease, opacity 0.6s ease, box-shadow 0.3s;
     display: flex;
@@ -78,3 +77,121 @@
     background: rgba(255, 255, 255, 0.3);
     transform: scale(1.1);
   }
+
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fef6e4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.5s ease;
+  }
+
+  .card-container:hover {
+    transform: scale(1.05);
+  }
+  .card {
+  position: absolute;
+  width: 67%;
+  top: 47%;
+  max-width: 1200px;
+  height: 589px; 
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  display: absolute;
+  flex-direction: row;
+  background-color: transparent;
+  background-size: cover; 
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+  .card-content {
+    width: 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #fff; /* Testo chiaro sopra lo sfondo scuro */
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo traslucido per il testo */
+    border-radius: 10px;
+  }
+
+  .card-content h2 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #FF7F50;
+  }
+
+  .card-content .destination {
+    font-size: 20px;
+    color: #FFFAFA;
+    font-style: italic;
+    margin-bottom: 15px;
+  }
+
+  .card-content p {
+    font-size: 16px;
+    color: #FFFAFA;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+    color: #FFFAFA;
+  }
+
+  .card-footer span {
+    font-size: 14px;
+  }
+
+  .card-footer .budget {
+    font-weight: bold;
+    color: #FF7F50;
+  }
+
+  .card-footer .date {
+    color: #888;
+  }
+
+  .btn:hover {
+    background-color: #FF6A3D;
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .info-list {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #FFFAFA;
+  }
+
+  .info-list li {
+    margin-bottom: 8px;
+  }
+ 

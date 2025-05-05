@@ -6,59 +6,73 @@ if (!isset($_SESSION['id_utente'])) {
   exit;
 }
 require_once __DIR__ . '/connessione.php';
-
 $error = '';
 $userId = intval($_SESSION['id_utente']);
-// Se POST, processa il form
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $destinazione  = trim($_POST['destinazione']    ?? '');
-    $descrizione   = trim($_POST['descrizione']     ?? '');
-    $dataPartenza  = $_POST['data_partenza']   ?? null;
-    $dataRitorno   = $_POST['data_ritorno']    ?? null;
-    $budget        = floatval($_POST['budget'] ?? 0);
-    $compagnia   = $_POST['compagnia']    ?? '';
-    $tipoViaggio  = $_POST['tipo_viaggio']   ?? '';
-    $latitudine = $_POST['latitudine'] ?? null;
-    $longitudine = $_POST['longitudine'] ?? null;
 
-    // Upload foto se presente
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $destinazione  = trim($_POST['destinazione'] ?? '');
+    $descrizione   = trim($_POST['descrizione'] ?? '');
+    $dataPartenza  = $_POST['data_partenza'] ?? null;
+    $dataRitorno   = $_POST['data_ritorno'] ?? null;
+    $budget        = floatval($_POST['budget'] ?? 0);
+    $compagnia     = $_POST['compagnia'] ?? '';
+    $tipoViaggio   = $_POST['tipo_viaggio'] ?? '';
+    $latitudine    = $_POST['latitudine'] ?? null;
+    $longitudine   = $_POST['longitudine'] ?? null;
+
     $photoPath = null;
     if (!empty($_FILES['foto']['tmp_name']) && is_uploaded_file($_FILES['foto']['tmp_name'])) {
         $uploadsDir = __DIR__ . '/uploads/';
         if (!is_dir($uploadsDir)) mkdir($uploadsDir, 0755, true);
         $filename = uniqid() . '_' . basename($_FILES['foto']['name']);
-        $target   = $uploadsDir . $filename;
+        $target = $uploadsDir . $filename;
         if (move_uploaded_file($_FILES['foto']['tmp_name'], $target)) {
             $photoPath = '/uploads/' . $filename;
         }
     }
 
-    $sql = "INSERT INTO viaggi (user_id, destinazione, data_partenza, data_ritorno, budget, tipo_viaggio, lingua, compagnia, descrizione, latitudine, longitudine)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)";
+    // Inserimento viaggio
+    $sql1 = "INSERT INTO viaggi (
+        user_id, destinazione, data_partenza, data_ritorno, budget, tipo_viaggio,
+        lingua, compagnia, descrizione, latitudine, longitudine
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id";
 
-$params = array(
-  $userId,
-  $destinazione,
-  $dataPartenza,
-  $dataRitorno,
-  $budget,
-  $tipoViaggio,
-  null, // oppure una variabile $lingua se la aggiungi al form
-  $compagnia,
-  $descrizione,
-  $latitudine,
-  $longitudine
-);
+    $params1 = [
+        $userId,
+        $destinazione,
+        $dataPartenza,
+        $dataRitorno,
+        $budget,
+        $tipoViaggio,
+        null, // oppure $lingua se previsto
+        $compagnia,
+        $descrizione,
+        $latitudine,
+        $longitudine
+    ];
 
-    $res = pg_query_params($dbconn, $sql, $params);
-    if ($res) {
-        // redirect a visualizza viaggi
-        header('Location: /pagina_profilo.php');
-        exit;
-    } else {
+    $res1 = pg_query_params($dbconn, $sql1, $params1);
+    if (!$res1) {
         $error = pg_last_error($dbconn);
+    } else {
+        $row = pg_fetch_assoc($res1);
+        $viaggioId = $row['id'];
+
+        // Inserimento nella tabella viaggi_utenti
+        $sql2 = "INSERT INTO viaggi_utenti (viaggio_id, user_id, ruolo) VALUES ($1, $2, $3)";
+        $params2 = [$viaggioId, $userId, 'ideatore'];
+        $res2 = pg_query_params($dbconn, $sql2, $params2);
+
+        if ($res2) {
+            header('Location: /pagina_profilo.php');
+            exit;
+        } else {
+            $error = pg_last_error($dbconn);
+        }
     }
 }
+
+
 ?><!DOCTYPE html>
 <html lang="it">
 <head>
@@ -135,6 +149,6 @@ $params = array(
       </div>
     </form>
   </div>
-  <script src="cerca_coordinate.js"></script>
+  <script src="js/cerca_coordinate.js"></script>
 </body>
 </html>
