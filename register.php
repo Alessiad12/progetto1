@@ -29,7 +29,7 @@ if (pg_num_rows($check) > 0) {
 }
 
 // Hash della password
-$hashed = password_hash($password, PASSWORD_DEFAULT);
+$hashed = password_hash($password, PASSWORD_BCRYPT);
 
 // Inserimento nuovo utente
 $query = "INSERT INTO utenti (nome, nickname, email, password, data_di_nascita) VALUES ($1, $2, $3, $4, $5)";

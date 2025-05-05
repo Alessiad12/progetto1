@@ -247,11 +247,13 @@
     <span class="close-btn" onclick="chiudiMappa()">✖</span>
     <iframe src="mappamondo.php"></iframe>
   </div>
-  <div class="profile-menu-wrapper">
+    <!-- Menu Profilo -->
+    <div class="profile-menu-wrapper">
     <img src="immagini/new-york-city.jpg" alt="Foto Profilo" class="profile-icon" onclick="toggleDropdown()" />
     <div class="dropdown-menu" id="dropdownMenu">
       <a href="pagina_profilo.php">Profilo</a>
-      <a href="logout.php">Logout</a>
+      <a href="login.html">Logout</a>
+      <a href=visualizza_viaggi.php>Home</a>
     </div>
   </div>
 
@@ -299,5 +301,6 @@
     });
 
 </script>
+<script type="module" src="/js/index.js"></script>
 </body>
 </html>

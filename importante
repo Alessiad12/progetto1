@@ -1,0 +1,4 @@
+ chmod +x setup.sh
+ ./setup.sh
+chmod +x backup.sh
+./backup.sh

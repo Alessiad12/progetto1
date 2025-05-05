@@ -34,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Inserimento viaggio
     $sql1 = "INSERT INTO viaggi (
         user_id, destinazione, data_partenza, data_ritorno, budget, tipo_viaggio,
-        lingua, compagnia, descrizione, latitudine, longitudine
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id";
+        lingua, compagnia, descrizione,foto, latitudine, longitudine
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id";
 
     $params1 = [
         $userId,
@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         null, // oppure $lingua se previsto
         $compagnia,
         $descrizione,
+        $photoPath,
         $latitudine,
         $longitudine
     ];

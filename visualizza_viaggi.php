@@ -94,7 +94,7 @@ while ($row = pg_fetch_assoc($result)) {
     <img src="immagini/new-york-city.jpg" alt="Foto Profilo" class="profile-icon" onclick="toggleDropdown()" />
     <div class="dropdown-menu" id="dropdownMenu">
       <a href="pagina_profilo.php">Profilo</a>
-      <a href="logout.php">Logout</a>
+      <a href="login.html">Logout</a>
     </div>
   </div>
 
