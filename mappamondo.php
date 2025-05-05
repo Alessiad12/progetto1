@@ -1,9 +1,15 @@
 <?php
-$viaggi = [
-  ["lat" => -13.1631, "lon" => -72.545, "nome" => "Machu Picchu"],
-  ["lat" => 48.8566, "lon" => 2.3522, "nome" => "Parigi"],
-  // Aggiungi altri viaggi
-];
+require_once __DIR__ . '/connessione.php';
+
+$viaggi = [];
+$query = "SELECT id, destinazione AS nome, latitudine AS lat, longitudine AS lon FROM viaggi WHERE latitudine IS NOT NULL AND longitudine IS NOT NULL";
+$result = pg_query($dbconn, $query);
+
+if ($result) {
+    while ($row = pg_fetch_assoc($result)) {
+        $viaggi[] = $row;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="it">

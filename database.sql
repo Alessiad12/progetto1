@@ -33,6 +33,8 @@ CREATE TABLE viaggi (
   compagnia VARCHAR(50),
   descrizione TEXT,
   foto TEXT,
+  latitudine DECIMAL(10,8),
+  longitudine DECIMAL(11,8),
   FOREIGN KEY (user_id) REFERENCES utenti(id)
 );
 

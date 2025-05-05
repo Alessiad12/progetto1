@@ -174,7 +174,8 @@ while ($row = pg_fetch_assoc($result)) {
     </div>
 <?php endforeach; ?>
 </div>
-<div class="profile-menu-wrapper">
+  <!-- Menu Profilo -->
+  <div class="profile-menu-wrapper">
     <img src="immagini/new-york-city.jpg" alt="Foto Profilo" class="profile-icon" onclick="toggleDropdown()" />
     <div class="dropdown-menu" id="dropdownMenu">
       <a href="pagina_profilo.php">Profilo</a>
@@ -182,7 +183,7 @@ while ($row = pg_fetch_assoc($result)) {
     </div>
   </div>
 
-<script type="module" src="/js/IIII.js"></script>
+  <script type="module" src="/js/index.js"></script>
 <script>
   // Funzione per selezionare una foto casuale in base al tipo di viaggio
   function setCardBackground(tipoViaggio, id) {

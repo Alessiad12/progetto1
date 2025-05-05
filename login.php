@@ -37,7 +37,7 @@ if (password_verify($password, $hashedPassword)) {
     echo json_encode([
         "status" => "success",
         "message" => "Login effettuato con successo!",
-        "redirect" => "index.html" // Cambia con la tua pagina di destinazione
+        "redirect" => "visualizza_viaggi.php" // Cambia con la tua pagina di destinazione
     ]);
 } else {
     echo json_encode([
