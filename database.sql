@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 17.0
+-- Dumped from database version 17.4
 -- Dumped by pg_dump version 17.4
 
 SET statement_timeout = 0;
@@ -187,6 +187,9 @@ ALTER TABLE ONLY public.viaggi ALTER COLUMN id SET DEFAULT nextval('public.viagg
 --
 
 COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_partenza, data_ritorno, budget, tipo_viaggio, compagnia) FROM stdin;
+9	b@e.it	\N	\N	\N	\N	spiaggia	solitaria
+9	b@e.it	\N	\N	\N	\N	spiaggia	solitaria
+9	b@e.it	\N	\N	\N	\N	spiaggia	solitaria
 \.
 
 
@@ -195,14 +198,15 @@ COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_part
 --
 
 COPY public.profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, immagine_profilo, posizione_immagine) FROM stdin;
+1	anna.bianchi@example.com	Anna Bianchi	35	Mi piace viaggiare e scoprire nuovi luoghi. Appassionata di fotografia.	#faf3bfc4	1990-04-10	immagini/default.png	
 2	luca.verdi@example.com	Luca Verdi	36	Adoro la musica e il buon cibo. Viaggio spesso per lavoro.	#faf3bfc4	1988-11-22	immagini/default.png	
 3	giulia.neri@example.com	Giulia Neri	33	Sono un’appassionata di sport e natura. Mi piace fare trekking.	#faf3bfc4	1992-07-30	immagini/default.png	
 4	marco.rossi@xample.com	Marco Rossi	28	Viaggiare è la mia passione. Ho una collezione di mappe antiche.	#faf3bfc4	1997-05-15	immagini/default.png	
 5	s.gallo@xampre.com	Sara Gallo	29	Viaggiare è una delle cose che mi rende felice, ma amo anche il buon cinema.	#faf3bfc4	1995-12-01	immagini/default.png	
 6	fra@gmail.com	Francesco Esposito	32	Tecnologia e viaggi, la mia vita in poche parole. Sempre in cerca di avventure.	#faf3bfc4	1993-03-20	immagini/default.png	
+7	ida@ida.it	Ida Benvenuto	22	Studentessa di design e amante della moda. Viaggiare mi ispira moltissimo.	#faf3bfc4	2003-08-19	immagini/default.png	
 8	ale@desi@gmail.com	Alessia Desideri	22	Futura architetta e viaggiatrice nel cuore. Amo la cultura e l’arte.	#faf3bfc4	2003-06-12	immagini/default.png	
-1	anna.bianchi@example.com		35		#cef4e3	1990-04-10	uploads/profilo_6818f174bade2.webp	50
-7	ida@ida.it	ida	22		#cef4e3	2003-08-19	uploads/profilo_6819c3bc411e4.webp	50
+9	b@e.it	betta	22	mi piace viaggiare 	#fbfbce	20003-04-17	uploads/profilo_681921cace5c3.jpg	50
 \.
 
 
@@ -211,27 +215,26 @@ COPY public.profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, 
 --
 
 COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
-4	1	t	2025-05-06 10:04:43.707163
-4	2	f	2025-05-06 10:04:44.827792
-4	3	t	2025-05-06 10:04:46.264627
-4	4	f	2025-05-06 10:04:47.37543
-4	5	t	2025-05-06 10:04:48.787711
-4	6	f	2025-05-06 10:04:50.144844
-4	7	t	2025-05-06 10:04:51.186353
-4	8	f	2025-05-06 10:04:52.190486
-4	9	t	2025-05-06 10:04:53.267219
-4	10	f	2025-05-06 10:04:54.208231
-7	1	t	2025-05-06 10:09:45.502614
-7	2	f	2025-05-06 10:09:46.16049
-7	3	f	2025-05-06 10:09:47.072356
-7	4	t	2025-05-06 10:09:47.877563
-7	5	f	2025-05-06 10:09:49.255371
-7	6	f	2025-05-06 10:09:49.714399
-7	7	t	2025-05-06 10:09:50.541531
-7	8	f	2025-05-06 10:09:51.534622
-7	9	f	2025-05-06 10:09:52.202871
-7	10	t	2025-05-06 10:09:52.918248
-7	11	f	2025-05-06 10:09:54.243028
+6	1	f	2025-05-06 10:20:21.360614
+6	2	t	2025-05-06 10:20:22.655217
+6	3	t	2025-05-06 10:20:23.349945
+6	4	f	2025-05-06 10:20:24.836068
+6	5	t	2025-05-06 10:20:26.475582
+6	6	f	2025-05-06 10:20:27.444927
+6	7	t	2025-05-06 10:20:29.578356
+6	8	f	2025-05-06 10:20:31.229276
+6	9	t	2025-05-06 10:20:32.429073
+6	10	f	2025-05-06 10:20:34.800827
+4	1	f	2025-05-06 10:08:44.323162
+4	2	f	2025-05-06 10:08:45.17623
+4	3	f	2025-05-06 10:08:46.544267
+4	4	f	2025-05-06 10:08:47.139289
+4	5	f	2025-05-06 10:08:48.690182
+4	6	f	2025-05-06 10:08:49.288282
+4	7	f	2025-05-06 10:08:50.471596
+4	8	f	2025-05-06 10:08:51.589348
+4	9	f	2025-05-06 10:08:52.492275
+4	10	f	2025-05-06 10:08:54.213641
 \.
 
 
@@ -248,6 +251,7 @@ COPY public.utenti (id, nome, nickname, email, data_di_nascita, password) FROM s
 6	Francesco Esposito	fesposito	fra@gmail.com	1993-03-20	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
 7	Ida Benvenuto	ida_b	ida@ida.it	2003-08-19	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
 8	Alessia Desideri	ale_desi	ale@desi@gmail.com	2003-06-12	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
+9	betta	betta	b@e.it	20003-04-17	$2y$10$NJqjqSh11tCmFi0Vv0cPa.B46Gp4VSzLuCcQQ9/eUK2Yf2VN6IbBS
 \.
 
 
@@ -265,8 +269,7 @@ COPY public.viaggi (id, user_id, destinazione, data_partenza, data_ritorno, budg
 7	7	Canada	2024-04-10	2024-04-25	2200 EUR	ristoranti	Inglese/French	gruppo	Relax tra le montagne canadesi.		56.13040000	-106.34680000
 8	8	Portogallo	2024-05-01	2024-05-15	1800 EUR	spiaggia	Portoghese	coppia	Esplorazione delle città storiche del Portogallo.		39.39990000	-8.22450000
 9	7	roma	2025-05-17	2025-05-21	400	musei	\N	gruppo	sogno di vedere il Colosseo	\N	41.89332030	12.48293210
-10	1	Londra	2025-05-17	2025-05-27	600	musei	\N	coppia	voglio compagnia per visitare la capitale del Regno Unito	\N	51.48933350	-0.14405510
-11	1	parma	2025-05-31	2025-06-03	200	ristoranti	\N	gruppo	Voglio visitare tutta l'Italia	/uploads/6818f2c7add3f_plane.png	44.69520060	10.09798690
+10	9	New York	2025-05-05	2025-05-09	1000	ristoranti	\N	singolo	Viaggio divertente	/uploads/68192209a1ed8_io.jpg	40.71272810	-74.00601520
 \.
 
 
@@ -292,8 +295,7 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 7	8	partecipante
 8	8	ideatore
 9	7	ideatore
-10	1	ideatore
-11	1	ideatore
+10	9	ideatore
 \.
 
 
