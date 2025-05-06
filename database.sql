@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 17.4
+-- Dumped from database version 17.0
 -- Dumped by pg_dump version 17.4
 
 SET statement_timeout = 0;
@@ -193,9 +193,14 @@ ALTER TABLE ONLY public.viaggi ALTER COLUMN id SET DEFAULT nextval('public.viagg
 --
 
 COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_partenza, data_ritorno, budget, tipo_viaggio, compagnia) FROM stdin;
-9	b@e.it	\N	\N	\N	\N	spiaggia	solitaria
-9	b@e.it	\N	\N	\N	\N	spiaggia	solitaria
-9	b@e.it	\N	\N	\N	\N	spiaggia	solitaria
+1	anna.bianchi@example.com	Parigi	2025-06-01	2025-06-10	500-1000€	Culturale	Amici
+2	luca.verdi@example.com	New York	2025-07-15	2025-07-25	2000-3000€	Avventura	Famiglia
+3	giulia.neri@example.com	Tokyo	2025-09-01	2025-09-15	3000-4000€	Gastronomico	Gruppo
+4	marco.rossi@example.com	Roma	2025-05-20	2025-05-25	100-500€	Spiaggia	Coppia
+5	s.gallo@example.com	Londra	2025-08-10	2025-08-20	1000-2000€	Shopping	Amici
+6	fra@gmail.com	Parigi	2025-06-01	2025-06-10	500-1000€	Culturale	Amici
+7	ida@ida.it	Portogallo	2025-07-15	2025-07-25	2000-3000€	Avventura	Famiglia
+8	ale.desi@gmail.com	Giappone	2025-09-01	2025-09-15	3000-4000€	Gastronomico	Gruppo
 \.
 
 
@@ -357,14 +362,6 @@ ALTER TABLE ONLY public.profili
 
 
 --
--- Name: swipes swipes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.swipes
-    ADD CONSTRAINT swipes_pkey PRIMARY KEY (user_id, trip_id);
-
-
---
 -- Name: utenti utenti_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -418,14 +415,6 @@ ALTER TABLE ONLY public.preferenze_utente_viaggio
 
 ALTER TABLE ONLY public.profili
     ADD CONSTRAINT profili_id_fkey FOREIGN KEY (id) REFERENCES public.utenti(id);
-
-
---
--- Name: swipes swipes_trip_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.swipes
-    ADD CONSTRAINT swipes_trip_id_fkey FOREIGN KEY (trip_id) REFERENCES public.viaggi(id) ON DELETE CASCADE;
 
 
 --

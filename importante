@@ -2,3 +2,10 @@
  ./setup.sh
 chmod +x backup.sh
 ./backup.sh
+
+DROP TABLE IF EXISTS public.preferenze_utente_viaggio CASCADE;
+DROP TABLE IF EXISTS public.profili CASCADE;
+DROP TABLE IF EXISTS public.swipes CASCADE;
+DROP TABLE IF EXISTS public.utenti CASCADE;
+DROP TABLE IF EXISTS public.viaggi CASCADE;
+DROP TABLE IF EXISTS public.viaggi_utenti CASCADE;
