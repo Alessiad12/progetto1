@@ -90,6 +90,16 @@ while ($row = pg_fetch_assoc($result)) {
         </div>
       </div>
 <?php endforeach; ?>
+<div id="match-modal" class="hidden">
+  <div class="modal-backdrop"></div>
+  <div class="modal-content">
+    <h2>🎉 Interesse Registrato!</h2>
+    <p id="modal-text"></p>
+    <button id="btn-chat">Vai alla chat</button>
+    <button id="btn-close">Chiudi</button>
+  </div>
+</div>
+
 </div>
   <!-- Menu Profilo -->
   <div class="profile-menu-wrapper">

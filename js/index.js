@@ -23,17 +23,63 @@ document.querySelector(".profile-icon").addEventListener("click", (e) => {
 // Funzione per ottenere la carta superiore
 const container = document.getElementById('cardContainer');
 
+const modal     = document.getElementById('match-modal');
+const modalText = document.getElementById('modal-text');
+const btnChat   = document.getElementById('btn-chat');
+const btnClose  = document.getElementById('btn-close');
+let   currentConv = null;
+
+
 function getTopCard() {
   const cards = container.querySelectorAll('.card');
   return cards.length ? cards[cards.length - 1] : null;
 }
 
-function swipeCard(direction) {
+// Chiama il backend per registrare lo swipe
+async function registerSwipe(tripId, like) {
+  const form = new FormData();
+  form.append('tripId', tripId);
+  form.append('like', like);
+  const res = await fetch('swipe.php', {
+    method: 'POST',
+    credentials: 'same-origin',
+    body: form
+  });
+  if (!res.ok) throw new Error('Network error');
+  return res.json(); // { success, isMatch, conversationId, tripTitle }
+}
+
+// Mostra il modal di match
+function showMatchModal(tripTitle, conversationId) {
+  currentConv = conversationId;
+  modalText.textContent = `Hai mostrato interesse per “${tripTitle}”!`;
+  modal.classList.remove('hidden');
+}
+
+async function swipeCard(direction) {
   const card = getTopCard();
   if (!card) return;
+
+  const tripId = card.dataset.viaggioId;
+  const like   = direction === 'right' ? '1' : '0';
+
+  // animazione visiva
   card.classList.add(direction === 'right' ? 'accept' : 'reject');
+
+  // registra lo swipe sul server
+  try {
+    const data = await registerSwipe(tripId, like);
+    if (data.isMatch) {
+      showMatchModal(data.tripTitle, data.conversationId);
+    }
+  } catch (err) {
+    console.error('Errore swipe:', err);
+  }
+
+  // rimuovi la card dopo l'animazione
   setTimeout(() => card.remove(), 600);
 }
+
 
 // Swipe da tastiera
 document.addEventListener('keydown', (e) => {
@@ -53,40 +99,40 @@ container.addEventListener('touchend', (e) => {
 // Drag manuale stile Tinder
 let isDragging = false;
 let startPos = { x: 0, y: 0 };
-let currentCard = null;
+let draggedCard = null;
 
 container.addEventListener('mousedown', (e) => {
-  currentCard = getTopCard();
-  if (!currentCard) return;
+  draggedCard = getTopCard();
+  if (!draggedCard) return;
   isDragging = true;
   startPos = { x: e.clientX, y: e.clientY };
-  currentCard.style.transition = 'none';
+  draggedCard.style.transition = 'none';
 });
 
 container.addEventListener('mousemove', (e) => {
-  if (!isDragging || !currentCard) return;
+  if (!isDragging || !draggedCard) return;
   const dx = e.clientX - startPos.x;
   const dy = e.clientY - startPos.y;
-  currentCard.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx * 0.05}deg)`;
+  draggedCard.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx * 0.05}deg)`;
 });
 
 container.addEventListener('mouseup', (e) => {
-  if (!isDragging || !currentCard) return;
+  if (!isDragging || !draggedCard) return;
   const dx = e.clientX - startPos.x;
-  currentCard.style.transition = 'transform 0.5s ease';
+  draggedCard.style.transition = 'transform 0.5s ease';
   if (dx > 150) swipeCard('right');
   else if (dx < -150) swipeCard('left');
-  else currentCard.style.transform = '';
+  else draggedCard.style.transform = '';
   isDragging = false;
-  currentCard = null;
+  draggedCard = null;
 });
 
 container.addEventListener('mouseleave', () => {
-  if (isDragging && currentCard) {
-    currentCard.style.transition = 'transform 0.5s ease';
-    currentCard.style.transform = '';
+  if (isDragging && draggedCard) {
+    draggedCard.style.transition = 'transform 0.5s ease';
+    draggedCard.style.transform = '';
     isDragging = false;
-    currentCard = null;
+    draggedCard = null;
   }
 });
 
@@ -113,3 +159,9 @@ async function loadProfilePicture() {
 // Chiama la funzione quando la pagina è caricata
 document.addEventListener('DOMContentLoaded', loadProfilePicture);
 
+btnChat.addEventListener('click', () => {
+  window.location.href = `chat.php?conv=${currentConv}`;
+});
+btnClose.addEventListener('click', () => {
+  modal.classList.add('hidden');
+});
