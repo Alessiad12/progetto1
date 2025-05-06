@@ -254,6 +254,7 @@
       <a href="pagina_profilo.php">Profilo</a>
       <a href="login.html">Logout</a>
       <a href=visualizza_viaggi.php>Home</a>
+      <a href=notifiche.php>Notifiche</a>
     </div>
   </div>
 
