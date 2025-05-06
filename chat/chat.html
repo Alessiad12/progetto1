@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat del Viaggio</title>
+    <style>
+        .chat-box {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+        .messages {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .message {
+            margin: 10px 0;
+        }
+        .message strong {
+            font-weight: bold;
+        }
+        .message em {
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-box">
+    <div class="messages" id="messages"></div>
+    
+    <form id="chat-form">
+        <textarea id="message" rows="3" placeholder="Scrivi un messaggio..." required></textarea><br>
+        <button type="submit">Invia</button>
+    </form>
+</div>
+
+<script>
+    const viaggioId = 1; // ID del viaggio (puoi recuperarlo dinamicamente)
+    const userId = 1; // ID dell'utente che sta scrivendo il messaggio
+
+    // Carica i messaggi iniziali
+    function loadMessages() {
+        fetch('get_chat.php?viaggio_id=' + viaggioId)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('messages').innerHTML = data;
+            });
+    }
+
+    // Invia il messaggio
+    document.getElementById('chat-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        const messaggio = document.getElementById('message').value;
+        
+        // Invia il messaggio tramite AJAX
+        fetch('send_message.php', {
+            method: 'POST',
+            body: new URLSearchParams({
+                viaggio_id: viaggioId,
+                user_id: userId,
+                messaggio: messaggio
+            })
+        })
+        .then(response => response.text())
+        .then(data => {
+            loadMessages(); // Ricarica i messaggi dopo l'invio
+            document.getElementById('message').value = ''; // Pulisce la textarea
+        });
+    });
+
+    // Carica i messaggi all'avvio
+    loadMessages();
+</script>
+
+</body>
+</html>

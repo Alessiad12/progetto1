@@ -119,6 +119,19 @@ CREATE TABLE public.viaggi (
 
 ALTER TABLE public.viaggi OWNER TO postgres;
 
+CREATE TABLE public.match_richieste (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES public.utenti(id),
+    viaggio_id INTEGER NOT NULL REFERENCES public.viaggi(id),
+    stato_match VARCHAR(20) DEFAULT 'in_attesa',  -- 'in_attesa', 'accettato', 'rifiutato'
+    data_richiesta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_risposta TIMESTAMP
+);
+
+ALTER TABLE public.match_richieste
+ADD CONSTRAINT unique_match UNIQUE (user_id, viaggio_id);
+
+
 --
 -- Name: viaggi_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
