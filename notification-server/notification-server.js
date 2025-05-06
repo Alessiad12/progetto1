@@ -1,17 +1,18 @@
-const express    = require('express');
-const http       = require('http');
+const express = require('express');
+const http = require('http');
 const bodyParser = require('body-parser');
-const cors       = require('cors');
+const cors = require('cors');
 const { Server } = require('socket.io');
 
-const app    = express();
+const app = express();
 const server = http.createServer(app);
-const io     = new Server(server, {
-  cors: { origin: '*' }
-});
+const io = new Server(server, { cors: { origin: '*' } });
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// Serve il client di Socket.IO
+app.use('/socket.io', express.static('node_modules/socket.io/client-dist'));
 
 io.on('connection', socket => {
   console.log('WS client connesso:', socket.id);

@@ -1,80 +1,98 @@
 <?php
 session_start();
-require_once 'connessione.php'; // qui imposti $dbconn come connessione pgsql
+require_once 'connessione.php';
 
+// Impostiamo l'header per il tipo di risposta
+header('Content-Type: application/json');
+
+// 1. Leggi parametri
 $userId = $_SESSION['id_utente'] ?? null;
 $tripId = filter_input(INPUT_POST, 'tripId', FILTER_VALIDATE_INT);
-// Leggi il valore raw e converti esattamente “1”→true, tutto il resto→false
-$raw   = $_POST['like'] ?? '';
-$isLike = ($raw === '1');
+$like   = $_POST['like'] ?? null;
+$isLike = $like === '1';
 
-if (!$userId || !$tripId || $isLike === null) {
-  echo json_encode(['userId'=>$userId,'tripId'=>$tripId,'isLike'=>$isLike]);
-  http_response_code(400);
-  echo json_encode(['error'=>'Parametri mancanti']);
-  exit;
+// Log per debug
+error_log("User ID: " . $userId);
+error_log("Trip ID: " . $tripId);
+error_log("Like: " . $like);
+error_log("Is Like: " . $isLike);
+
+// Verifica la validità dei parametri
+if (!$userId || !$tripId || !in_array($like, ['0', '1'], true)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Parametri mancanti o non validi']);
+    exit;
 }
 
-// 1) Inserisci o aggiorna lo swipe
+// 2. Registra o aggiorna lo swipe
 $sql = "INSERT INTO swipes(user_id, trip_id, is_like, created_at)
-        VALUES($1,$2,$3,now())
-        ON CONFLICT(user_id,trip_id) DO UPDATE
-          SET is_like = EXCLUDED.is_like, created_at = now()";
-// Dopo: passa 1 o 0 espliciti
-pg_query_params($dbconn, $sql, [
-    $userId,
-    $tripId,
-    $isLike ? 1 : 0
-  ]);
-if ($isLike) {
-  // 2) prendi dati viaggio+organizzatore
-  $sql = "SELECT v.user_id AS org_id, v.destinazione, v.descrizione, u.email, u.nome
-          FROM viaggi v JOIN utenti u ON u.id=v.user_id
-          WHERE v.id=$1";
-  $res = pg_query_params($dbconn, $sql, [$tripId]);
-  $trip = pg_fetch_assoc($res);
+        VALUES ($1, $2, $3, now())
+        ON CONFLICT(user_id, trip_id)
+        DO UPDATE SET is_like = EXCLUDED.is_like, created_at = now()";
 
-  // 3) crea / recupera conversation
-  $sql = "INSERT INTO conversations(trip_id,user_a,user_b,created_at)
-          VALUES($1,$2,$3,now())
-          ON CONFLICT(trip_id,user_a,user_b) DO NOTHING
-          RETURNING id";
-  $res = pg_query_params($dbconn, $sql, [$tripId, $userId, $trip['org_id']]);
-  if (pg_num_rows($res)) {
-    $convId = pg_fetch_result($res,0,'id');
-  } else {
-    $sql = "SELECT id FROM conversations WHERE trip_id=$1 AND user_a=$2 AND user_b=$3";
-    $res = pg_query_params($dbconn, $sql, [$tripId, $userId, $trip['org_id']]);
-    $convId = pg_fetch_result($res,0,'id');
+// Log della query SQL
+error_log("SQL Query: " . $sql);
+
+// Esegui la query
+$result = pg_query_params($dbconn, $sql, [$userId, $tripId, $isLike ? 1 : 0]);
+
+// Se la query fallisce, logga l'errore
+if (!$result) {
+    $error = pg_last_error($dbconn);
+    error_log("Errore SQL: " . $error);
+    http_response_code(500);
+    echo json_encode(['error' => 'Errore durante l\'inserimento dello swipe']);
+    exit;
+}
+
+// 3. Se è un like, manda la notifica all'organizzatore
+if ($isLike) {
+  // Recupera dati del viaggio e dell'organizzatore
+  $sql = "SELECT v.user_id AS org_id, v.destinazione
+          FROM viaggi v
+          WHERE v.id = $1";
+
+  error_log("SQL Query: " . $sql);
+  $res = pg_query_params($dbconn, $sql, [$tripId]);
+
+  if (!$res || pg_num_rows($res) === 0) {
+      error_log("Errore SQL o viaggio non trovato: " . pg_last_error($dbconn));
+      http_response_code(500);
+      echo json_encode(['error' => 'Viaggio non trovato']);
+      exit;
   }
-  // 4  notifica realtime con Node.js
+
+  $trip = pg_fetch_assoc($res);
+  $orgId = $trip['org_id'];
+  $tripTitle = $trip['destinazione'];
+
+
+  // Notifica realtime con Node.js (non blocca in caso di errore)
   $notifyData = [
-    'userId'    => $trip['org_id'],
-    'fromUser'  => $userId,
-    'tripId'    => $tripId,
-    'tripTitle' => $trip['destinazione']
+      'userId'    => (int)$orgId,
+      'fromUser'  => (int)$userId,
+      'tripId'    => (int)$tripId,
+      'tripTitle' => $tripTitle
   ];
 
   $options = [
-    'http' => [
-      'header'  => "Content-type: application/json",
-      'method'  => 'POST',
-      'content' => json_encode($notifyData),
-    ]
+      'http' => [
+          'header'  => "Content-type: application/json",
+          'method'  => 'POST',
+          'content' => json_encode($notifyData),
+          'timeout' => 1
+      ]
   ];
 
   $context = stream_context_create($options);
-  file_get_contents('http://127.0.0.1:3000/notify-swipe', false, $context);
+  $response = @file_get_contents('http://127.0.0.1:4000/notify-swipe', false, $context);
+  error_log("Notifica inviata. Risposta: " . ($response ?: 'nessuna risposta'));
 
-  // 5) rispondi al client
   echo json_encode([
-    'success'=>true,
-    'isMatch'=>true,
-    'conversationId'=>(int)$convId,
-    'tripTitle'=>$trip['destinazione']
+      'success' => true,
+      'isMatch' => true
   ]);
   exit;
 }
-
-// se è dislike
-echo json_encode(['success'=>true,'isMatch'=>false]);
+// 4. Se è dislike
+echo json_encode(['success' => true, 'isMatch' => false]);

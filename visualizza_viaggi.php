@@ -1,42 +1,44 @@
 <?php
 session_start();
-require_once 'connessione.php'; // Include il file di configurazione per la connessione al DB
+require_once 'connessione.php'; // Connessione al DB
 
-if (!isset($_SESSION['id_utente']) || !isset($_SESSION['user'])) { 
-  header('Location:/login.php'); 
-  exit; 
+if (!isset($_SESSION['id_utente']) || !isset($_SESSION['user'])) {
+    header('Location: /login.php');
+    exit;
 }
 
 $id_utente = $_SESSION['id_utente'];
-$sql = "SELECT colore_sfondo FROM profili WHERE id = $1";
-$res= pg_query_params($dbconn, $sql, [$id_utente]);
-if (!$res) {
-    die("Errore nella query: " . pg_last_error($dbconn));
-}
-$row = pg_fetch_assoc($res);
-$colore_sfondo = $row['colore_sfondo'] ?? '#fef6e4'; // Colore di default se non trovato
 
+// Ottieni il colore di sfondo dell'utente
+$sql = "SELECT colore_sfondo, immagine_profilo FROM profili WHERE id = $1";
+$res = pg_query_params($dbconn, $sql, [$id_utente]);
+if (!$res) {
+    die("Errore nella query del profilo: " . pg_last_error($dbconn));
+}
+
+$row = pg_fetch_assoc($res);
+$colore_sfondo = $row['colore_sfondo'] ?? '#fef6e4';
+$immagine_profilo = $row['immagine_profilo'] ?? 'immagini/default.png';
 // Recupera tutti i viaggi
 $query = "SELECT * FROM viaggi ORDER BY id DESC";
 $result = pg_query($dbconn, $query);
+if (!$result) {
+    die("Errore nella query dei viaggi: " . pg_last_error($dbconn));
+}
 
 $viaggi = [];
 while ($row = pg_fetch_assoc($result)) {
     $viaggi[] = $row;
-
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wanderlog-home </title>
-  <link rel="stylesheet" href="css/style_index.css">
-  <link rel="stylesheet" href="css/style_swipe.css">
+  <title>Menu Profilo</title>
+  <link rel="stylesheet" href="visualizza_viaggi.css">
 </head>
-<body>
+<body style="background-color: <?= htmlspecialchars($colore_sfondo) ?>;">
 <div class="card-container" id="cardContainer">
 <?php foreach ($viaggi as $viaggio): 
     $immagine = $viaggio['foto'] ?? null;
@@ -62,12 +64,9 @@ while ($row = pg_fetch_assoc($result)) {
           break;
       }
     }
-  ?>
-  
-  <body style="background-color: <?= htmlspecialchars($colore_sfondo) ?>;">
-
-    <div class="card" id="card-<?php echo $viaggio['id']; ?>" style="background-image: url('<?= htmlspecialchars($immagine) ?>');"
-    data-viaggio-id="<?php echo $viaggio['id']; ?>">>
+?>
+<div class="card" id="card-<?php echo $viaggio['id']; ?>" style="background-image: url('<?= htmlspecialchars($immagine) ?>');"
+    data-viaggio-id="<?php echo $viaggio['id']; ?>">
       <div class="card-content">
         <h2><?php echo $viaggio['destinazione']; ?></h2>
         <p class="destination">Destinazione: <?php echo $viaggio['destinazione']; ?></p>
@@ -90,55 +89,20 @@ while ($row = pg_fetch_assoc($result)) {
         </div>
       </div>
 <?php endforeach; ?>
-<div id="match-modal" class="hidden">
-  <div class="modal-backdrop"></div>
-  <div class="modal-content">
-    <h2>🎉 Interesse Registrato!</h2>
-    <p id="modal-text"></p>
-    <button id="btn-chat">Vai alla chat</button>
-    <button id="btn-close">Chiudi</button>
+</div>
+<div class="profile-menu-wrapper">
+  <img src="<?= htmlspecialchars($immagine_profilo) ?>" alt="Foto Profilo" class="profile-icon"  />
+  <div class="dropdown-menu" id="dropdownMenu" >
+          <a href="pagina_profilo.php">Profilo</a>
+          <a href="login.html">Logout</a>
   </div>
 </div>
 
-</div>
-  <!-- Menu Profilo -->
-  <div class="profile-menu-wrapper">
-    <img src="immagini/new-york-city.jpg" alt="Foto Profilo" class="profile-icon" onclick="toggleDropdown()" />
-    <div class="dropdown-menu" id="dropdownMenu">
-      <a href="pagina_profilo.php">Profilo</a>
-      <a href="login.html">Logout</a>
-    </div>
-  </div>
-
-  <script type="module" src="/js/index.js"></script>
-  <script>
-  document.querySelectorAll('.card').forEach(card => {
-  const idViaggio = card.dataset.viaggioId;
-  console.log('viaggio ID', idViaggio);
-  const wrapper = card.querySelector('.componenti-wrapper');
-
-  fetch(`get_componenti.php?id_viaggio=${idViaggio}`)
-    .then(res => res.json())
-    .then(data => {
-      console.log('Componenti ricevuti per viaggio ID', idViaggio, data);
-      data.forEach(componente => {
-        const pallino = document.createElement('a');
-        pallino.classList.add('pallino-componente');
-        pallino.href = `get_profilo.html?id=${componente.id_utente}`;
-        pallino.title = componente.username;
-        const img = document.createElement('img');
-        img.src = componente.immagine_profilo || 'immagini/default.jpg'; // fallback se non presente
-        img.alt = componente.nome;
-        img.classList.add('img-pallino'); // stile da definire in CSS
-        pallino.appendChild(img);
-        wrapper.appendChild(pallino);
-      });
-    })
-    .catch(error => {
-      console.error('Errore nel caricamento componenti:', error);
-    });
+<script src="visualizza_viaggi.js"></script>
+<script> document.querySelectorAll('.card').forEach(card => {
+  enableMouseSwipe(card);
+  enableSwipe(card);
 });
-
-  </script>
+</script>
 </body>
 </html>

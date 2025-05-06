@@ -22,14 +22,47 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: notifiche; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.notifiche (
+    id integer NOT NULL,
+    utente_id integer NOT NULL,
+    mittente_id integer NOT NULL,
+    viaggio_id integer NOT NULL,
+    titolo_viaggio character varying(255),
+    letta boolean DEFAULT false,
+    data_creazione timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.notifiche OWNER TO postgres;
+
+--
+-- Name: notifiche_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.notifiche_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.notifiche_id_seq OWNER TO postgres;
+
+--
+-- Name: notifiche_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.notifiche_id_seq OWNED BY public.notifiche.id;
+
+
+--
 -- Name: preferenze_utente_viaggio; Type: TABLE; Schema: public; Owner: postgres
 --
-DROP TABLE IF EXISTS public.preferenze_utente_viaggio CASCADE;
-DROP TABLE IF EXISTS public.profili CASCADE;
-DROP TABLE IF EXISTS public.swipes CASCADE;
-DROP TABLE IF EXISTS public.utenti CASCADE;
-DROP TABLE IF EXISTS public.viaggi CASCADE;
-DROP TABLE IF EXISTS public.viaggi_utenti CASCADE;
 
 CREATE TABLE public.preferenze_utente_viaggio (
     utente_id integer,
@@ -175,6 +208,13 @@ CREATE TABLE public.viaggi_utenti (
 ALTER TABLE public.viaggi_utenti OWNER TO postgres;
 
 --
+-- Name: notifiche id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notifiche ALTER COLUMN id SET DEFAULT nextval('public.notifiche_id_seq'::regclass);
+
+
+--
 -- Name: utenti id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -186,6 +226,34 @@ ALTER TABLE ONLY public.utenti ALTER COLUMN id SET DEFAULT nextval('public.utent
 --
 
 ALTER TABLE ONLY public.viaggi ALTER COLUMN id SET DEFAULT nextval('public.viaggi_id_seq'::regclass);
+
+
+--
+-- Data for Name: notifiche; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.notifiche (id, utente_id, mittente_id, viaggio_id, titolo_viaggio, letta, data_creazione) FROM stdin;
+1	6	3	6	USA	f	2025-05-06 18:13:24.698726
+2	7	3	7	Canada	f	2025-05-06 18:13:31.1874
+4	8	3	8	Portogallo	f	2025-05-06 18:13:32.168294
+6	7	3	9	roma	f	2025-05-06 18:13:33.051304
+7	9	3	10	New York	f	2025-05-06 18:13:33.920203
+8	1	3	1	Giappone	f	2025-05-06 18:13:43.1925
+9	2	3	2	Spagna	f	2025-05-06 18:13:44.024532
+10	3	3	3	Francia	f	2025-05-06 18:13:44.74743
+15	4	3	4	Thailandia	f	2025-05-06 18:14:31.573169
+16	5	3	5	Australia	f	2025-05-06 18:14:32.439308
+25	1	7	1	Giappone	f	2025-05-06 18:15:41.050084
+26	2	7	2	Spagna	f	2025-05-06 18:15:41.771563
+27	3	7	3	Francia	f	2025-05-06 18:15:42.430998
+28	4	7	4	Thailandia	f	2025-05-06 18:15:43.105922
+29	5	7	5	Australia	f	2025-05-06 18:15:54.126798
+30	6	7	6	USA	f	2025-05-06 18:15:54.845781
+31	7	7	7	Canada	f	2025-05-06 18:15:55.553242
+32	8	7	8	Portogallo	f	2025-05-06 18:15:56.274651
+33	7	7	9	roma	f	2025-05-06 18:15:57.013156
+34	9	7	10	New York	f	2025-05-06 18:15:58.315254
+\.
 
 
 --
@@ -236,37 +304,28 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 6	8	f	2025-05-06 10:20:31.229276
 6	9	t	2025-05-06 10:20:32.429073
 6	10	f	2025-05-06 10:20:34.800827
-4	1	f	2025-05-06 10:08:44.323162
-4	2	f	2025-05-06 10:08:45.17623
-4	3	f	2025-05-06 10:08:46.544267
-4	4	f	2025-05-06 10:08:47.139289
-4	5	f	2025-05-06 10:08:48.690182
-4	6	f	2025-05-06 10:08:49.288282
-4	7	f	2025-05-06 10:08:50.471596
-4	8	f	2025-05-06 10:08:51.589348
-4	9	f	2025-05-06 10:08:52.492275
-4	10	f	2025-05-06 10:08:54.213641
-4	1	t	2025-05-06 10:04:43.707163
-4	2	f	2025-05-06 10:04:44.827792
-4	3	t	2025-05-06 10:04:46.264627
-4	4	f	2025-05-06 10:04:47.37543
-4	5	t	2025-05-06 10:04:48.787711
-4	6	f	2025-05-06 10:04:50.144844
-4	7	t	2025-05-06 10:04:51.186353
-4	8	f	2025-05-06 10:04:52.190486
-4	9	t	2025-05-06 10:04:53.267219
-4	10	f	2025-05-06 10:04:54.208231
-7	1	t	2025-05-06 10:16:02.096913
-7	2	t	2025-05-06 10:16:02.927634
-7	3	t	2025-05-06 10:16:03.848557
-7	4	t	2025-05-06 10:16:04.653125
-7	5	t	2025-05-06 10:16:05.413125
-7	6	t	2025-05-06 10:16:06.198552
-7	7	f	2025-05-06 10:16:07.586904
-7	8	f	2025-05-06 10:16:07.959022
-7	9	f	2025-05-06 10:16:09.298541
-7	10	t	2025-05-06 10:16:10.35897
 7	11	t	2025-05-06 10:16:10.728117
+2	2	t	2025-05-06 18:13:07.995039
+3	4	t	2025-05-06 18:14:31.554559
+3	5	t	2025-05-06 18:14:32.431859
+3	6	t	2025-05-06 18:14:33.906336
+3	7	t	2025-05-06 18:14:35.160837
+3	8	t	2025-05-06 18:14:36.415359
+3	9	t	2025-05-06 18:14:37.837975
+3	10	t	2025-05-06 18:14:38.976876
+3	1	t	2025-05-06 18:14:41.419358
+3	2	t	2025-05-06 18:14:42.739496
+3	3	t	2025-05-06 18:14:44.005545
+7	1	t	2025-05-06 18:15:41.034002
+7	2	t	2025-05-06 18:15:41.76641
+7	3	t	2025-05-06 18:15:42.424231
+7	4	t	2025-05-06 18:15:43.100855
+7	5	t	2025-05-06 18:15:54.10891
+7	6	t	2025-05-06 18:15:54.840394
+7	7	t	2025-05-06 18:15:55.547315
+7	8	t	2025-05-06 18:15:56.2708
+7	9	t	2025-05-06 18:15:57.009689
+7	10	t	2025-05-06 18:15:58.309647
 \.
 
 
@@ -332,6 +391,13 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 
 
 --
+-- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.notifiche_id_seq', 34, true);
+
+
+--
 -- Name: utenti_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -343,6 +409,14 @@ SELECT pg_catalog.setval('public.utenti_id_seq', 8, true);
 --
 
 SELECT pg_catalog.setval('public.viaggi_id_seq', 11, true);
+
+
+--
+-- Name: notifiche notifiche_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notifiche
+    ADD CONSTRAINT notifiche_pkey PRIMARY KEY (id);
 
 
 --
@@ -359,6 +433,22 @@ ALTER TABLE ONLY public.profili
 
 ALTER TABLE ONLY public.profili
     ADD CONSTRAINT profili_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notifiche unica_notifica; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notifiche
+    ADD CONSTRAINT unica_notifica UNIQUE (utente_id, viaggio_id, mittente_id);
+
+
+--
+-- Name: swipes unique_swipe; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.swipes
+    ADD CONSTRAINT unique_swipe UNIQUE (user_id, trip_id);
 
 
 --
