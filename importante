@@ -9,3 +9,11 @@ DROP TABLE IF EXISTS public.swipes CASCADE;
 DROP TABLE IF EXISTS public.utenti CASCADE;
 DROP TABLE IF EXISTS public.viaggi CASCADE;
 DROP TABLE IF EXISTS public.viaggi_utenti CASCADE;
+
+
+Quando un utente si unisce alla chat di un viaggio, può farlo tramite l'ID del viaggio:
+
+socket.on('joinChat', (viaggio_id) => {
+    socket.join(`trip_${viaggio_id}`);
+    console.log(`Utente ${socket.id} è entrato nel viaggio ${viaggio_id}`);
+});

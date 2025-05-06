@@ -22,6 +22,43 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: chat_viaggio; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.chat_viaggio (
+    id integer NOT NULL,
+    viaggio_id integer NOT NULL,
+    utente_id integer NOT NULL,
+    messaggio text NOT NULL,
+    data_creazione timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.chat_viaggio OWNER TO postgres;
+
+--
+-- Name: chat_viaggio_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.chat_viaggio_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.chat_viaggio_id_seq OWNER TO postgres;
+
+--
+-- Name: chat_viaggio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.chat_viaggio_id_seq OWNED BY public.chat_viaggio.id;
+
+
+--
 -- Name: notifiche; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -32,11 +69,34 @@ CREATE TABLE public.notifiche (
     titolo_viaggio character varying(255),
     letta boolean DEFAULT false,
     data_creazione timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    tipo text
+    tipo text,
+    id integer NOT NULL
 );
 
 
 ALTER TABLE public.notifiche OWNER TO postgres;
+
+--
+-- Name: notifiche_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.notifiche_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.notifiche_id_seq OWNER TO postgres;
+
+--
+-- Name: notifiche_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.notifiche_id_seq OWNED BY public.notifiche.id;
+
 
 --
 -- Name: preferenze_utente_viaggio; Type: TABLE; Schema: public; Owner: postgres
@@ -186,6 +246,20 @@ CREATE TABLE public.viaggi_utenti (
 ALTER TABLE public.viaggi_utenti OWNER TO postgres;
 
 --
+-- Name: chat_viaggio id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.chat_viaggio ALTER COLUMN id SET DEFAULT nextval('public.chat_viaggio_id_seq'::regclass);
+
+
+--
+-- Name: notifiche id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notifiche ALTER COLUMN id SET DEFAULT nextval('public.notifiche_id_seq'::regclass);
+
+
+--
 -- Name: utenti id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -200,50 +274,93 @@ ALTER TABLE ONLY public.viaggi ALTER COLUMN id SET DEFAULT nextval('public.viagg
 
 
 --
+-- Data for Name: chat_viaggio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.chat_viaggio (id, viaggio_id, utente_id, messaggio, data_creazione) FROM stdin;
+\.
+
+
+--
 -- Data for Name: notifiche; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta, data_creazione, tipo) FROM stdin;
-7	7	7	Canada	f	2025-05-06 19:28:23.526819	\N
-1	7	1	Giappone	f	2025-05-06 19:33:48.773977	\N
-2	7	2	Spagna	f	2025-05-06 19:33:54.676214	\N
-3	7	3	Francia	f	2025-05-06 19:33:56.860481	\N
-4	7	4	Thailandia	f	2025-05-06 19:34:34.170973	\N
-5	7	5	Australia	f	2025-05-06 19:35:42.381414	\N
-5	7	5	Australia	f	2025-05-06 19:35:42.88503	\N
-6	7	6	USA	f	2025-05-06 19:35:43.267922	\N
-1	7	1	Giappone	f	2025-05-06 19:39:11.222992	\N
-2	7	2	Spagna	f	2025-05-06 19:39:12.122792	\N
-3	7	3	Francia	f	2025-05-06 19:39:12.810289	\N
-4	7	4	Thailandia	f	2025-05-06 19:40:21.391828	\N
-5	7	5	Australia	f	2025-05-06 19:40:22.443098	\N
-7	7	7	Canada	f	2025-05-06 19:40:40.307992	\N
-8	7	8	Portogallo	f	2025-05-06 19:40:41.061384	\N
-7	7	9	roma	f	2025-05-06 19:41:13.042183	like
-1	7	1	Giappone	f	2025-05-06 19:41:35.46645	like
-1	7	1	Giappone	f	2025-05-06 19:41:35.942619	like
-2	7	2	Spagna	f	2025-05-06 19:41:36.266931	like
-3	7	3	Francia	f	2025-05-06 19:41:36.961299	like
-4	7	4	Thailandia	f	2025-05-06 19:41:37.601098	like
-4	7	4	Thailandia	f	2025-05-06 19:41:38.198597	like
-5	7	5	Australia	f	2025-05-06 19:41:38.527258	like
-5	7	5	Australia	f	2025-05-06 19:41:38.825365	like
-5	7	5	Australia	f	2025-05-06 19:41:39.1061	like
-6	7	6	USA	f	2025-05-06 19:41:39.376156	like
-6	7	6	USA	f	2025-05-06 19:41:39.646403	like
-6	7	6	USA	f	2025-05-06 19:41:39.941897	like
-7	7	7	Canada	f	2025-05-06 19:41:40.212629	like
-7	7	7	Canada	f	2025-05-06 19:41:40.475036	like
-7	7	7	Canada	f	2025-05-06 19:41:40.745595	like
-8	7	8	Portogallo	f	2025-05-06 19:41:40.978377	like
-8	7	8	Portogallo	f	2025-05-06 19:41:41.226021	like
-8	7	8	Portogallo	f	2025-05-06 19:41:41.423206	like
-8	7	8	Portogallo	f	2025-05-06 19:41:41.597024	like
-7	7	9	roma	f	2025-05-06 19:41:41.767579	like
-7	7	9	roma	f	2025-05-06 19:41:41.936514	like
-7	7	7	Canada	f	2025-05-06 20:17:10.485029	like
-7	7	7	Canada	f	2025-05-06 20:17:11.029184	like
-8	7	8	Portogallo	f	2025-05-06 20:17:11.776908	like
+COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta, data_creazione, tipo, id) FROM stdin;
+7	7	7	Canada	f	2025-05-06 19:28:23.526819	\N	1
+1	7	1	Giappone	f	2025-05-06 19:33:48.773977	\N	2
+2	7	2	Spagna	f	2025-05-06 19:33:54.676214	\N	3
+3	7	3	Francia	f	2025-05-06 19:33:56.860481	\N	4
+4	7	4	Thailandia	f	2025-05-06 19:34:34.170973	\N	5
+5	7	5	Australia	f	2025-05-06 19:35:42.381414	\N	6
+5	7	5	Australia	f	2025-05-06 19:35:42.88503	\N	7
+6	7	6	USA	f	2025-05-06 19:35:43.267922	\N	8
+1	7	1	Giappone	f	2025-05-06 19:39:11.222992	\N	9
+2	7	2	Spagna	f	2025-05-06 19:39:12.122792	\N	10
+3	7	3	Francia	f	2025-05-06 19:39:12.810289	\N	11
+4	7	4	Thailandia	f	2025-05-06 19:40:21.391828	\N	12
+5	7	5	Australia	f	2025-05-06 19:40:22.443098	\N	13
+7	7	7	Canada	f	2025-05-06 19:40:40.307992	\N	14
+8	7	8	Portogallo	f	2025-05-06 19:40:41.061384	\N	15
+7	7	9	roma	f	2025-05-06 19:41:13.042183	like	16
+1	7	1	Giappone	f	2025-05-06 19:41:35.46645	like	17
+1	7	1	Giappone	f	2025-05-06 19:41:35.942619	like	18
+2	7	2	Spagna	f	2025-05-06 19:41:36.266931	like	19
+3	7	3	Francia	f	2025-05-06 19:41:36.961299	like	20
+4	7	4	Thailandia	f	2025-05-06 19:41:37.601098	like	21
+4	7	4	Thailandia	f	2025-05-06 19:41:38.198597	like	22
+5	7	5	Australia	f	2025-05-06 19:41:38.527258	like	23
+5	7	5	Australia	f	2025-05-06 19:41:38.825365	like	24
+5	7	5	Australia	f	2025-05-06 19:41:39.1061	like	25
+6	7	6	USA	f	2025-05-06 19:41:39.376156	like	26
+6	7	6	USA	f	2025-05-06 19:41:39.646403	like	27
+6	7	6	USA	f	2025-05-06 19:41:39.941897	like	28
+7	7	7	Canada	f	2025-05-06 19:41:40.212629	like	29
+7	7	7	Canada	f	2025-05-06 19:41:40.475036	like	30
+7	7	7	Canada	f	2025-05-06 19:41:40.745595	like	31
+8	7	8	Portogallo	f	2025-05-06 19:41:40.978377	like	32
+8	7	8	Portogallo	f	2025-05-06 19:41:41.226021	like	33
+8	7	8	Portogallo	f	2025-05-06 19:41:41.423206	like	34
+8	7	8	Portogallo	f	2025-05-06 19:41:41.597024	like	35
+7	7	9	roma	f	2025-05-06 19:41:41.767579	like	36
+7	7	9	roma	f	2025-05-06 19:41:41.936514	like	37
+7	7	7	Canada	f	2025-05-06 20:17:10.485029	like	38
+7	7	7	Canada	f	2025-05-06 20:17:11.029184	like	39
+8	7	8	Portogallo	f	2025-05-06 20:17:11.776908	like	40
+1	7	1	Giappone	f	2025-05-06 21:35:17.87023	like	41
+1	7	1	Giappone	f	2025-05-06 21:35:18.220518	like	42
+2	7	2	Spagna	f	2025-05-06 21:35:18.86269	like	43
+2	7	2	Spagna	f	2025-05-06 21:35:19.501237	like	44
+3	7	3	Francia	f	2025-05-06 21:35:19.89345	like	45
+4	7	4	Thailandia	f	2025-05-06 21:35:34.585829	like	46
+5	7	5	Australia	f	2025-05-06 21:35:35.251849	like	47
+5	7	5	Australia	f	2025-05-06 21:35:35.72979	like	48
+6	7	6	USA	f	2025-05-06 21:35:36.076783	like	49
+6	7	6	USA	f	2025-05-06 21:35:36.590088	like	50
+7	7	7	Canada	f	2025-05-06 21:35:36.929764	like	51
+7	7	7	Canada	f	2025-05-06 21:35:37.432468	like	52
+8	7	8	Portogallo	f	2025-05-06 21:35:37.780581	like	53
+7	7	9	roma	f	2025-05-06 21:35:39.094822	like	54
+7	7	9	roma	f	2025-05-06 21:44:18.683619	match_accepted	56
+7	7	7	Canada	f	2025-05-06 21:44:33.878221	match_accepted	57
+7	7	7	Canada	f	2025-05-06 21:47:13.730808	match_accepted	58
+7	7	7	Canada	f	2025-05-06 21:47:13.754024	match_accepted	59
+7	7	9	roma	f	2025-05-06 21:57:21.071061	match_accepted	60
+7	7	9	roma	f	2025-05-06 21:57:21.075591	match_accepted	61
+7	7	9	roma	f	2025-05-06 21:57:51.996758	match_accepted	62
+7	7	9	roma	f	2025-05-06 21:57:51.997868	match_accepted	63
+7	7	9	roma	f	2025-05-06 21:58:11.597423	match_accepted	64
+7	7	9	roma	f	2025-05-06 21:58:11.598433	match_accepted	65
+1	9	1	Giappone	f	2025-05-06 21:59:31.548711	like	66
+3	9	3	Francia	f	2025-05-06 21:59:33.537087	like	67
+4	9	4	Thailandia	f	2025-05-06 21:59:34.2608	like	68
+5	9	5	Australia	f	2025-05-06 21:59:35.01355	like	69
+7	9	7	Canada	f	2025-05-06 21:59:36.478881	like	70
+8	9	8	Portogallo	f	2025-05-06 21:59:37.120253	like	71
+8	9	8	Portogallo	f	2025-05-06 21:59:37.738359	like	72
+7	9	9	roma	f	2025-05-06 21:59:38.665115	like	73
+7	9	7	Canada	f	2025-05-06 22:00:27.051801	match_accepted	74
+7	9	7	Canada	f	2025-05-06 22:00:27.052932	match_accepted	75
+9	7	7	Canada	f	2025-05-06 22:00:27.078452	match_accepted	76
 \.
 
 
@@ -300,23 +417,32 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 3	1	t	2025-05-06 18:14:41.419358
 3	2	t	2025-05-06 18:14:42.739496
 3	3	t	2025-05-06 18:14:44.005545
-7	1	t	2025-05-06 19:41:35.935554
-7	2	t	2025-05-06 19:41:36.260505
 7	10	t	2025-05-06 18:15:58.309647
 6	1	t	2025-05-06 18:35:02.803363
-7	3	t	2025-05-06 19:41:36.954166
 6	2	t	2025-05-06 18:35:03.850965
 6	3	t	2025-05-06 18:35:05.013729
-7	4	t	2025-05-06 19:41:38.1918
 6	4	t	2025-05-06 18:35:06.082046
 6	5	t	2025-05-06 18:35:07.022276
 6	6	t	2025-05-06 18:35:07.946892
 6	7	t	2025-05-06 18:35:08.39716
-7	5	t	2025-05-06 19:41:39.099912
-7	6	t	2025-05-06 19:41:39.936096
-7	9	t	2025-05-06 19:41:41.930538
-7	7	t	2025-05-06 20:17:11.023331
-7	8	t	2025-05-06 20:17:11.769146
+7	1	t	2025-05-06 21:35:18.20784
+7	2	t	2025-05-06 21:35:19.493726
+7	3	t	2025-05-06 21:35:19.8864
+7	4	t	2025-05-06 21:35:34.560133
+7	5	t	2025-05-06 21:35:35.725482
+7	6	t	2025-05-06 21:35:36.582653
+7	7	t	2025-05-06 21:35:37.42513
+7	8	t	2025-05-06 21:35:37.773093
+7	9	t	2025-05-06 21:35:39.088394
+9	1	t	2025-05-06 21:59:31.505808
+9	2	f	2025-05-06 21:59:32.535099
+9	3	t	2025-05-06 21:59:33.517192
+9	4	t	2025-05-06 21:59:34.252615
+9	5	t	2025-05-06 21:59:35.005085
+9	6	f	2025-05-06 21:59:35.772415
+9	7	t	2025-05-06 21:59:36.471365
+9	8	t	2025-05-06 21:59:37.727582
+9	9	t	2025-05-06 21:59:38.657066
 \.
 
 
@@ -378,7 +504,22 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 8	8	ideatore
 9	7	ideatore
 10	9	ideatore
+7	9	partecipante
 \.
+
+
+--
+-- Name: chat_viaggio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 3, true);
+
+
+--
+-- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.notifiche_id_seq', 76, true);
 
 
 --
@@ -393,6 +534,22 @@ SELECT pg_catalog.setval('public.utenti_id_seq', 8, true);
 --
 
 SELECT pg_catalog.setval('public.viaggi_id_seq', 11, true);
+
+
+--
+-- Name: chat_viaggio chat_viaggio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.chat_viaggio
+    ADD CONSTRAINT chat_viaggio_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notifiche notifiche_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notifiche
+    ADD CONSTRAINT notifiche_pkey PRIMARY KEY (id);
 
 
 --

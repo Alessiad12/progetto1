@@ -56,7 +56,7 @@ $mittente_nome = $row['mittente_nome'] ?? 'Utente sconosciuto';
 <?php
 // Se non ci sono notifiche, mostra un messaggio
 if (empty($notifiche)) {
-    echo "<p>Nessuna notifica disponibile.</p>";
+    echo "<p>Nessuna notifica al momento.</p>";
 } else {
   foreach ($notifiche as $notifica) {
     if($notifica['tipo']=== 'like'){
@@ -77,6 +77,25 @@ if (empty($notifiche)) {
             <button class='accetta-btn' data-id='{$notifica['id']}'>Accetta</button>
           </div>";
 }
+  
+  if($notifica['tipo']=== 'match_accepted'){
+    $mittente_nome = htmlspecialchars($notifica['mittente_nome']);
+    $viaggio = htmlspecialchars($notifica['titolo_viaggio']);
+    $profilo_img = !empty($notifica['immagine_mittente']) ? htmlspecialchars($notifica['immagine_mittente']) : 'immagini/default.png';
+    $mittente_id = htmlspecialchars($notifica['mittente_id']);
+
+    echo "<div class='notifica'>
+            <div class='notifica-header'>
+            <a href='get_profilo.html?id=$mittente_id'>
+                <img src='$profilo_img' alt='Profilo' class='avatar'>
+              </a>
+              <div class='testo-notifica'>
+                <strong>$mittente_nome</strong> ha accettato la tua proposta <strong>\"$viaggio\"</strong>.
+              </div>
+            </div>
+            <button class='organizza-btn' data-id='{$notifica['id']}' data-viaggio-id='{$notifica['viaggio_id']}'>organizza</button>
+          </div>";
+}
   }
 }
 ?>
@@ -93,9 +112,8 @@ if (empty($notifiche)) {
 <!-- Socket.IO -->
 <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <script>
-  // Ottieni l'ID dell'utente dalla sessione PHP (assumiamo che tu abbia già un sistema di autenticazione)
   const userId = <?php echo $_SESSION['id_utente']; ?>; // Modifica secondo la tua logica
-
+  
   // Crea una connessione Socket.IO al server
   const socket = io('http://localhost:4000');
 
@@ -147,7 +165,7 @@ document.querySelectorAll('.accetta-btn').forEach(button => {
     button.innerText = 'In attesa...';
 
     try {
-      const response = await fetch('php/accetta_notifica.php', {
+      const response = await fetch('accetta_notifica.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -170,6 +188,14 @@ document.querySelectorAll('.accetta-btn').forEach(button => {
       button.disabled = false;
       button.innerText = 'Accetta';
     }
+  });
+});
+document.querySelectorAll('.organizza-btn').forEach(button => {
+  button.addEventListener('click', async () => {
+    const viaggioId = button.dataset.viaggioId;
+
+    // Naviga direttamente alla pagina della chat del viaggio
+    window.location.href = `chat.php?viaggio_id=${viaggioId}`;
   });
 });
 

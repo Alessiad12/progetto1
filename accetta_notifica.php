@@ -35,16 +35,33 @@ if (!$res || pg_num_rows($res) === 0) {
 $notifica = pg_fetch_assoc($res);
 $mittente_id = $notifica['mittente_id'];
 $titolo_viaggio = $notifica['titolo_viaggio'] ?? 'il tuo viaggio';
-
-$testo = "Il tuo interesse per il viaggio \"$titolo_viaggio\" è stato accettato!";
+$tripId=$notifica["viaggio_id"];
 $tipo = 'match_accepted';
 
 log_debug("✅ Generata notifica di accettazione per utente $mittente_id");
 
 // Inserisci nuova notifica nel DB
-$insert = "INSERT INTO notifiche (utente_id, mittente_id, testo, tipo, data_creazione, titolo_viaggio)
+$insert = "INSERT INTO notifiche (utente_id, mittente_id,viaggio_id, titolo_viaggio, data_creazione, tipo)
            VALUES ($1, $2, $3, $4, NOW(), $5)";
-$insert_res = pg_query_params($dbconn, $insert, [$mittente_id, $utente_loggato, $testo, $tipo, $titolo_viaggio]);
+$insert_res = pg_query_params($dbconn, $insert, [ $utente_loggato,$mittente_id, $tripId, $titolo_viaggio, $tipo]);
+
+if (!$insert_res) {
+    log_debug("❌ Errore nell'inserimento della nuova notifica: " . pg_last_error($dbconn));
+    echo json_encode(['success' => false, 'message' => 'Errore nel salvataggio']);
+    exit;
+}
+$insert = "INSERT INTO notifiche (utente_id, mittente_id,viaggio_id, titolo_viaggio, data_creazione, tipo)
+           VALUES ($1, $2, $3, $4, NOW(), $5)";
+$insert_res = pg_query_params($dbconn, $insert, [ $utente_loggato,$mittente_id, $tripId, $titolo_viaggio, $tipo]);
+
+if (!$insert_res) {
+    log_debug("❌ Errore nell'inserimento della nuova notifica: " . pg_last_error($dbconn));
+    echo json_encode(['success' => false, 'message' => 'Errore nel salvataggio']);
+    exit;
+}
+$insert = "INSERT INTO viaggi_utenti (viaggio_id, user_id)
+           VALUES ($1, $2)";
+$insert_res = pg_query_params($dbconn, $insert, [ $tripId,$mittente_id]);
 
 if (!$insert_res) {
     log_debug("❌ Errore nell'inserimento della nuova notifica: " . pg_last_error($dbconn));
@@ -57,7 +74,7 @@ log_debug("✅ Notifica salvata nel DB");
 // Invia notifica real-time al server Node
 $postData = json_encode([
     'userId' => $mittente_id,
-    'fromUser' => $_SESSION['user'],
+    'fromUser' => $_SESSION['id_utente'],
     'tripId' => $notifica['viaggio_id'],
     'tripTitle' => $titolo_viaggio,
     'tipo' => $tipo
