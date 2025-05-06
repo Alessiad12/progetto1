@@ -24,6 +24,12 @@ SET default_table_access_method = heap;
 --
 -- Name: preferenze_utente_viaggio; Type: TABLE; Schema: public; Owner: postgres
 --
+DROP TABLE IF EXISTS public.preferenze_utente_viaggio CASCADE;
+DROP TABLE IF EXISTS public.profili CASCADE;
+DROP TABLE IF EXISTS public.swipes CASCADE;
+DROP TABLE IF EXISTS public.utenti CASCADE;
+DROP TABLE IF EXISTS public.viaggi CASCADE;
+DROP TABLE IF EXISTS public.viaggi_utenti CASCADE;
 
 CREATE TABLE public.preferenze_utente_viaggio (
     utente_id integer,
@@ -215,7 +221,6 @@ COPY public.profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, 
 --
 
 COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
-<<<<<<< HEAD
 6	1	f	2025-05-06 10:20:21.360614
 6	2	t	2025-05-06 10:20:22.655217
 6	3	t	2025-05-06 10:20:23.349945
@@ -236,7 +241,6 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 4	8	f	2025-05-06 10:08:51.589348
 4	9	f	2025-05-06 10:08:52.492275
 4	10	f	2025-05-06 10:08:54.213641
-=======
 4	1	t	2025-05-06 10:04:43.707163
 4	2	f	2025-05-06 10:04:44.827792
 4	3	t	2025-05-06 10:04:46.264627
@@ -258,7 +262,6 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 7	9	f	2025-05-06 10:16:09.298541
 7	10	t	2025-05-06 10:16:10.35897
 7	11	t	2025-05-06 10:16:10.728117
->>>>>>> ff26fd4b5a7cf99474444cd4b8d3358bf4c4f9a9
 \.
 
 
