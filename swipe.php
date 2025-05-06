@@ -9,6 +9,7 @@ $raw   = $_POST['like'] ?? '';
 $isLike = ($raw === '1');
 
 if (!$userId || !$tripId || $isLike === null) {
+  echo json_encode(['userId'=>$userId,'tripId'=>$tripId,'isLike'=>$isLike]);
   http_response_code(400);
   echo json_encode(['error'=>'Parametri mancanti']);
   exit;
@@ -46,14 +47,24 @@ if ($isLike) {
     $res = pg_query_params($dbconn, $sql, [$tripId, $userId, $trip['org_id']]);
     $convId = pg_fetch_result($res,0,'id');
   }
+  // 4  notifica realtime con Node.js
+  $notifyData = [
+    'userId'    => $trip['org_id'],
+    'fromUser'  => $userId,
+    'tripId'    => $tripId,
+    'tripTitle' => $trip['destinazione']
+  ];
 
-  // 4) notifica via mail
-  $subj = "Nuovo interesse per “{$trip['destinazione']}”";
-  $msg  = "Ciao {$trip['nome']},\n\n"
-        . "L'utente #{$userId} è interessato al tuo viaggio: {$trip['destinazione']}.\n\n"
-        . "Descrizione:\n{$trip['descrizione']}\n\n"
-        . "Apri la chat: https://tuosito.it/chat.php?conv={$convId}";
-  mail($trip['email'],$subj,$msg,"From: no-reply@tuosito.it");
+  $options = [
+    'http' => [
+      'header'  => "Content-type: application/json",
+      'method'  => 'POST',
+      'content' => json_encode($notifyData),
+    ]
+  ];
+
+  $context = stream_context_create($options);
+  file_get_contents('http://127.0.0.1:3000/notify-swipe', false, $context);
 
   // 5) rispondi al client
   echo json_encode([

@@ -103,6 +103,18 @@ require 'connessione.php';
       lista.appendChild(li);
     });
   </script>
+    <script>
+    const socket = io('http://localhost:3000');
+
+    const myUserId = 1; // Simula l'organizzatore (chi riceve la notifica)
+    socket.emit('join', myUserId);
+
+    socket.on('swipeNotification', data => {
+      console.log('Notifica ricevuta:', data);
+      document.getElementById('notifica').innerText =
+        `Hai ricevuto interesse da utente ${data.fromUser} per il viaggio "${data.tripTitle}"`;
+    });
+  </script>
 
 </body>
 </html>
