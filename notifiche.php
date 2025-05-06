@@ -18,6 +18,27 @@ if (!$res) {
 $row = pg_fetch_assoc($res);
 $colore_sfondo = $row['colore_sfondo'] ?? '#fef6e4';
 $immagine_profilo = $row['immagine_profilo'] ?? 'immagini/default.png';
+
+$notifiche = [];
+// Recupera le notifiche per l'utente
+$sql = "
+SELECT n.*, p.nome AS mittente_nome, p.immagine_profilo AS immagine_mittente
+FROM notifiche n
+JOIN profili p ON n.mittente_id = p.id
+WHERE n.utente_id = $1
+ORDER BY n.data_creazione DESC;
+";
+
+$res = pg_query_params($dbconn, $sql, [$id_utente]);
+if (!$res) {
+    die("Errore nella query delle notifiche: " . pg_last_error($dbconn));
+}
+
+$notifiche = [];
+while ($row = pg_fetch_assoc($res)) {
+    $notifiche[] = $row;
+}
+$mittente_nome = $row['mittente_nome'] ?? 'Utente sconosciuto';
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -25,69 +46,40 @@ $immagine_profilo = $row['immagine_profilo'] ?? 'immagini/default.png';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notifiche</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 20px;
-    }
-    .profile-menu-wrapper {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-  }
-  
-  .profile-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid #ddd;
-  }
-  
-  .dropdown-menu {
-    display: none;
-    position: absolute;
-    bottom: 60px;
-    left: 0;
-    background-color: white;
-    min-width: 140px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    z-index: 1000;
-  }
-  
-  .dropdown-menu a {
-    display: block;
-    padding: 12px 16px;
-    color: #333;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-  
-  .dropdown-menu a:hover {
-    background-color: #f0f0f0;
-  }
-  
-    .notifica {
-      background-color: #fff;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-    }
-    .notifica:hover {
-      transform: scale(1.05);
-    }
-  </style>
+  <link rel="stylesheet" href="css/style_notifiche.css">
 </head>
-<body>
+<body style="background-color: <?= htmlspecialchars($colore_sfondo) ?>;">
 
 <h1>Le tue notifiche</h1>
 
 <div id="notifiche">
-  <!-- Le notifiche verranno aggiunte qui -->
+<?php
+// Se non ci sono notifiche, mostra un messaggio
+if (empty($notifiche)) {
+    echo "<p>Nessuna notifica disponibile.</p>";
+} else {
+  foreach ($notifiche as $notifica) {
+    if($notifica['tipo']=== 'like'){
+    $mittente_nome = htmlspecialchars($notifica['mittente_nome']);
+    $viaggio = htmlspecialchars($notifica['titolo_viaggio']);
+    $profilo_img = !empty($notifica['immagine_mittente']) ? htmlspecialchars($notifica['immagine_mittente']) : 'immagini/default.png';
+    $mittente_id = htmlspecialchars($notifica['mittente_id']);
+
+    echo "<div class='notifica'>
+            <div class='notifica-header'>
+            <a href='get_profilo.html?id=$mittente_id'>
+                <img src='$profilo_img' alt='Profilo' class='avatar'>
+              </a>
+              <div class='testo-notifica'>
+                <strong>$mittente_nome</strong> è interessato a partire con te per il viaggio <strong>\"$viaggio\"</strong>.
+              </div>
+            </div>
+            <button class='accetta-btn' data-id='{$notifica['id']}'>Accetta</button>
+          </div>";
+}
+  }
+}
+?>
 </div>
 <div class="profile-menu-wrapper">
   <img src="<?= htmlspecialchars($immagine_profilo) ?>" alt="Foto Profilo" class="profile-icon"  />
@@ -130,6 +122,57 @@ $immagine_profilo = $row['immagine_profilo'] ?? 'immagini/default.png';
 
   });
 </script>
+<script>
+  // Mostra/nascondi il menu a discesa
+  const profileIcon = document.querySelector('.profile-icon');
+  const dropdownMenu = document.getElementById('dropdownMenu');
 
+  profileIcon.addEventListener('click', () => {
+    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+  });
+
+  // Chiudi il menu se si fa clic al di fuori
+  window.addEventListener('click', (event) => {
+    if (!profileIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+      dropdownMenu.style.display = 'none';
+    }
+  });
+</script>
+<script>
+document.querySelectorAll('.accetta-btn').forEach(button => {
+  button.addEventListener('click', async () => {
+    const notificaId = button.dataset.id;
+
+    button.disabled = true;
+    button.innerText = 'In attesa...';
+
+    try {
+      const response = await fetch('php/accetta_notifica.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ notifica_id: notificaId })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        alert('Match accettato! Notifica inviata.');
+        button.innerText = 'Accettato';
+      } else {
+        alert('Errore: ' + data.message);
+        button.disabled = false;
+        button.innerText = 'Accetta';
+      }
+    } catch (error) {
+      console.error('Errore nella richiesta:', error);
+      alert('Errore nella comunicazione con il server.');
+      button.disabled = false;
+      button.innerText = 'Accetta';
+    }
+  });
+});
+
+</script>
 </body>
 </html>

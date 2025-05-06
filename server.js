@@ -36,26 +36,38 @@ io.on('connection', (socket) => {
 
 // Endpoint per inviare la notifica
 app.post('/notify-swipe', async (req, res) => {
-    const { userId, fromUser, tripId, tripTitle } = req.body;
+    const { userId, fromUser, tripId, tripTitle, tipo} = req.body;
   
     try {
+        console.log("Query INSERT:", [
+            userId, fromUser, tripId, tripTitle, tipo
+          ]);
+      
       // 1. Salva la notifica nel database
       await pool.query(
-        'INSERT INTO notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio) VALUES ($1, $2, $3, $4)',
-        [userId, fromUser, tripId, tripTitle]
+        'INSERT INTO notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, tipo) VALUES ($1, $2, $3, $4, $5)',
+        [userId, fromUser, tripId, tripTitle, tipo]
       );
-  
+
       // 2. Invia la notifica in tempo reale
-      io.to(`user_${userId}`).emit('swipeNotification', {
-        fromUser, tripId, tripTitle
-      });
-  
-      console.log(`Notifica swipe inviata a user_${userId}:`, req.body);
+      if (tipo === 'like') {
+        // Notifica per like
+        io.to(`user_${userId}`).emit('swipeNotification', {
+          fromUser, tripId, tripTitle, tipo
+        });
+      } else if (tipo === 'match_accepted') {
+        // Notifica per match accettato
+        io.to(`user_${fromUser}`).emit('matchAcceptedNotification', {
+          fromUser, tripId, tripTitle, tipo
+        });
+      }
+
+      console.log(`Notifica ${tipo} inviata a user_${userId}:`, req.body);
       res.sendStatus(200);
-    } catch (err) {
+  } catch (err) {
       console.error('Errore nel salvataggio:', err);
       res.status(500).send('Errore nel salvataggio');
-    }
+  }
   });
 
 // Avvio del server

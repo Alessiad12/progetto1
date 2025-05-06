@@ -72,7 +72,8 @@ if ($isLike) {
       'userId'    => (int)$orgId,
       'fromUser'  => (int)$userId,
       'tripId'    => (int)$tripId,
-      'tripTitle' => $tripTitle
+      'tripTitle' => $tripTitle,
+      'tipo'      => 'like'
   ];
 
   $options = [
