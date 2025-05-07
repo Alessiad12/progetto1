@@ -231,6 +231,44 @@ $viaggio_id = intval($_GET['viaggio_id'] ?? 0);
       <button type="submit" class="btn-submit">Salva Esperienza</button>
     </form>
   </div>
+  <script>
+  // Seleziono tutti gli input file dentro .photo-slot
+  document.querySelectorAll('.photo-slot input[type="file"]').forEach(input => {
+    input.addEventListener('change', function() {
+      const file = this.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        const slot = this.closest('.photo-slot');
+
+        // Nascondi il "+"
+        const label = slot.querySelector('label');
+        if (label) label.style.display = 'none';
+
+        // Verifico se esiste già un <img>, altrimenti lo creo
+        let img = slot.querySelector('img');
+        if (!img) {
+          img = document.createElement('img');
+          // Stili in linea per coprire tutto lo slot
+          img.style.position    = 'absolute';
+          img.style.top         = '0';
+          img.style.left        = '0';
+          img.style.width       = '100%';
+          img.style.height      = '100%';
+          img.style.objectFit   = 'cover';
+          img.style.borderRadius= '8px';
+          slot.appendChild(img);
+        }
+
+        // Imposto la sorgente al data URL
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+</script>
+
 </body>
 </html>
 
