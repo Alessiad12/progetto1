@@ -1,20 +1,90 @@
 <?php
 session_start();
+require 'connessione.php';  // si assume che qui tu esporti $dbconn
+
 if (!isset($_SESSION['id_utente'])) {
-  header('Location: login.php');
-  exit;
+    header('Location: login.php');
+    exit;
 }
 
-$utente_id = $_SESSION['id_utente'];
-$viaggio_id = $_GET['viaggio_id'];
+$utente_id = intval($_SESSION['id_utente']);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // --- 1) Ricevo i dati dal form ---
+    $viaggio_id  = intval($_POST['viaggio_id'] ?? 0);
+    $descrizione = trim($_POST['descrizione'] ?? '');
+    $valutazione = intval($_POST['valutazione'] ?? 0);
+
+    // --- 2) Preparo la cartella uploads ---
+    $relativeDir = 'uploads';
+    $uploadDir   = __DIR__ . DIRECTORY_SEPARATOR . $relativeDir . DIRECTORY_SEPARATOR;
+    if (!is_dir($uploadDir) && !mkdir($uploadDir, 0755, true)) {
+        die('Errore: impossibile creare la cartella di upload.');
+    }
+
+    // --- 3) Gestisco fino a 5 file ---
+    $fotos = [];
+    for ($i = 0; $i < 5; $i++) {
+        if (
+            isset($_FILES['foto']['error'][$i]) &&
+            $_FILES['foto']['error'][$i] === UPLOAD_ERR_OK
+        ) {
+            $tmpName = $_FILES['foto']['tmp_name'][$i];
+            $orig    = basename($_FILES['foto']['name'][$i]);
+            // Sanitizzo il nome e lo rendo unico
+            $safe    = uniqid() . '_' . preg_replace('/[^a-zA-Z0-9\._-]/', '_', $orig);
+            $dest    = $uploadDir . $safe;
+
+            if (move_uploaded_file($tmpName, $dest)) {
+                // salvo percorso relativo (da usare in HTML: /uploads/…)
+                $fotos[] = '/' . $relativeDir . '/' . $safe;
+            } else {
+                $fotos[] = null;
+            }
+        } else {
+            $fotos[] = null;
+        }
+    }
+
+    // --- 4) Inserisco su viaggi_terminati ---
+    $sql = "INSERT INTO viaggi_terminati
+        (utente_id, viaggio_id, descrizione, valutazione,
+         foto1, foto2, foto3, foto4, foto5)
+      VALUES
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9)";
+    $params = [
+        $utente_id,
+        $viaggio_id,
+        $descrizione,
+        $valutazione,
+        $fotos[0],
+        $fotos[1],
+        $fotos[2],
+        $fotos[3],
+        $fotos[4],
+    ];
+    $res = pg_query_params($dbconn, $sql, $params);
+    if (!$res) {
+        die('Errore salvataggio esperienza: ' . pg_last_error($dbconn));
+    }
+
+    // --- 5) Redirect di conferma ---
+    header('Location: pagina_profilo.php');
+    exit;
+}
+
+// Se arrivo qui, è GET: mostro il form
+$viaggio_id = intval($_GET['viaggio_id'] ?? 0);
 ?>
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Registra la tua esperienza – Wanderlust</title>
   <style>
+    
+
     /* Palette */
     :root {
       --cream: #FDF7E3;
@@ -122,13 +192,13 @@ $viaggio_id = $_GET['viaggio_id'];
     .btn-submit:hover {
       background: var(--navy-light);
     }
+  
   </style>
 </head>
 <body>
   <div class="card">
-    <h1> Il tuo viaggio</h1>
-    <form action="salva_viaggio_terminato.php" method="POST" enctype="multipart/form-data">
-      <input type="hidden" name="utente_id" value="<?= htmlspecialchars($utente_id) ?>">
+    <h1>Il tuo viaggio</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="viaggio_id" value="<?= htmlspecialchars($viaggio_id) ?>">
 
       <div>
@@ -139,16 +209,15 @@ $viaggio_id = $_GET['viaggio_id'];
       <div>
         <label>Valutazione</label>
         <div class="stars">
-          <input type="radio" name="valutazione" id="star5" value="5"><label for="star5">★</label>
-          <input type="radio" name="valutazione" id="star4" value="4"><label for="star4">★</label>
-          <input type="radio" name="valutazione" id="star3" value="3"><label for="star3">★</label>
-          <input type="radio" name="valutazione" id="star2" value="2"><label for="star2">★</label>
-          <input type="radio" name="valutazione" id="star1" value="1"><label for="star1">★</label>
+          <?php for ($s = 5; $s >= 1; $s--): ?>
+            <input type="radio" name="valutazione" id="star<?= $s ?>" value="<?= $s ?>">
+            <label for="star<?= $s ?>">★</label>
+          <?php endfor; ?>
         </div>
       </div>
 
       <div>
-        <label>Foto (5 slot)</label>
+        <label>Foto (max 5)</label>
         <div class="photo-slots">
           <?php for ($i = 0; $i < 5; $i++): ?>
             <div class="photo-slot">
@@ -164,3 +233,12 @@ $viaggio_id = $_GET['viaggio_id'];
   </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
