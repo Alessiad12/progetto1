@@ -4,7 +4,7 @@ require_once 'connessione.php';
 header('Content-Type: application/json');
 
 // File di log per il debug
-$log_file = __DIR__ . '/log_notifiche.txt';
+$log_file = __DIR__ . '/accetta_notifica.txt';
 function log_debug($msg) {
     global $log_file;
     file_put_contents($log_file, "[" . date('Y-m-d H:i:s') . "] " . $msg . "\n", FILE_APPEND);
@@ -50,15 +50,7 @@ if (!$insert_res) {
     echo json_encode(['success' => false, 'message' => 'Errore nel salvataggio']);
     exit;
 }
-$insert = "INSERT INTO notifiche (utente_id, mittente_id,viaggio_id, titolo_viaggio, data_creazione, tipo)
-           VALUES ($1, $2, $3, $4, NOW(), $5)";
-$insert_res = pg_query_params($dbconn, $insert, [ $utente_loggato,$mittente_id, $tripId, $titolo_viaggio, $tipo]);
 
-if (!$insert_res) {
-    log_debug("❌ Errore nell'inserimento della nuova notifica: " . pg_last_error($dbconn));
-    echo json_encode(['success' => false, 'message' => 'Errore nel salvataggio']);
-    exit;
-}
 $insert = "INSERT INTO viaggi_utenti (viaggio_id, user_id)
            VALUES ($1, $2)";
 $insert_res = pg_query_params($dbconn, $insert, [ $tripId,$mittente_id]);

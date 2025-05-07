@@ -43,3 +43,7 @@ DETAIL:  Key (viaggio_id, user_id)=(9, 7) already exists.
 [2025-05-06 22:00:27] ✅ Generata notifica di accettazione per utente 9
 [2025-05-06 22:00:27] ✅ Notifica salvata nel DB
 [2025-05-06 22:00:27] ✅ Notifica match_accepted inviata con HTTP 200: {"userId":"9","fromUser":"7","tripId":"7","tripTitle":"Canada","tipo":"match_accepted"}
+[2025-05-07 08:55:21] ▶ Richiesta ricevuta
+[2025-05-07 08:55:21] ✅ Generata notifica di accettazione per utente 7
+[2025-05-07 08:55:21] ✅ Notifica salvata nel DB
+[2025-05-07 08:55:21] ✅ Notifica match_accepted inviata con HTTP 200: {"userId":"7","fromUser":"1","tripId":"1","tripTitle":"Giappone","tipo":"match_accepted"}

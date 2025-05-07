@@ -36,7 +36,7 @@ while ($row = pg_fetch_assoc($result)) {
 <head>
   <meta charset="UTF-8">
   <title>Menu Profilo</title>
-  <link rel="stylesheet" href="visualizza_viaggi.css">
+  <link rel="stylesheet" href="css/visualizza_viaggi.css">
 </head>
 <body style="background-color: <?= htmlspecialchars($colore_sfondo) ?>;">
 <div class="card-container" id="cardContainer">
@@ -98,7 +98,7 @@ while ($row = pg_fetch_assoc($result)) {
   </div>
 </div>
 
-<script src="visualizza_viaggi.js"></script>
+<script src="js/visualizza_viaggi.js"></script>
 <script> document.querySelectorAll('.card').forEach(card => {
   enableMouseSwipe(card);
   enableSwipe(card);
