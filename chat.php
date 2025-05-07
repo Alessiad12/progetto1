@@ -30,8 +30,8 @@ while ($row = pg_fetch_assoc($res)) {
   <title>Chat Viaggio</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      font-family:"Inter", sans-serif;
+      background-color: #f2f4f8;
       margin: 0;
       display: flex;
       justify-content: center;
@@ -43,14 +43,20 @@ while ($row = pg_fetch_assoc($res)) {
       width: 90%;
       max-width: 600px;
       height: 80vh;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background: #FFFFFF ;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
     }
 
     .chat-messages {
+      padding: 1rem;
+      gap: 0.5 rem;
+      display: flex;
+      flex-direction: column;
+      scroll-behavior: smooth;
       flex: 1;
       padding: 10px;
       overflow-y: auto;
@@ -59,7 +65,7 @@ while ($row = pg_fetch_assoc($res)) {
 
     .messaggio {
       display: flex;
-      align-items: center;
+      align-items: fflex-start;
       margin-bottom: 10px;
     }
 
@@ -72,18 +78,38 @@ while ($row = pg_fetch_assoc($res)) {
 
     .testo-messaggio {
       margin-left: 10px;
-      background-color: #e9f5ff;
+      background-color: #f1f3f5;
+      color:333;
+      margin-left: 0.5rem;
       padding: 8px 12px;
-      border-radius: 10px;
+      border-top-left-radius: 0;
     }
 
     .proprio {
+      align-items: flex-end
+      display: flex;
       justify-content: flex-end;
     }
 
     .proprio .testo-messaggio {
-      background-color: #d1ffd1;
+      background-color: #d1e7ff;
+      color:#0B3175;
+      margin-right: o.5rem;
+      border-top-right-radius: 0;
     }
+
+          
+      /* 4) Scrollbar custom */
+      .chat-messages::-webkit-scrollbar {
+        width: 6px;
+      }
+      .chat-messages::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .chat-messages::-webkit-scrollbar-thumb {
+        background-color: rgba(0,0,0,0.2);
+        border-radius: 3px;
+      }
 
     .chat-input {
       display: flex;
@@ -94,7 +120,7 @@ while ($row = pg_fetch_assoc($res)) {
     .chat-input input {
       flex: 1;
       padding: 10px;
-      border: 1px solid #ccc;
+     
       border-radius: 5px;
     }
 

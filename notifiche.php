@@ -215,16 +215,19 @@ document.querySelectorAll('.organizza-btn').forEach(button => {
 
 
   // Funzione per gestire il click e fare il redirect
-function redirectToRegistraViaggio(button) {
-    // Estrai l'ID del viaggio dal bottone (dal suo attributo data-viaggio-id)
-const viaggioId = button.getAttribute('data-viaggio-id');
+  function redirectToRegistraViaggio(button) {
+    const viaggioId = button.getAttribute('data-viaggio-id');
+    // cambia qui:
+    const url = `termina_viaggio.php?viaggio_id=${viaggioId}`;
+    window.location.href = url;
+}
 
-    // Costruisci l'URL con il parametro viaggio_id
-  const url = `pagina_registra_viaggio.php?viaggio_id=${viaggioId}`;
+document.querySelectorAll('.registra-btn').forEach(button => {
+  button.addEventListener('click', () =>
+    redirectToRegistraViaggio(button)
+  );
+});
 
-    // Fai il redirect alla pagina desiderata
-  window.location.href = url;
-  }
 
 </script>
 </body>

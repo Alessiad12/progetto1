@@ -102,7 +102,7 @@ app.post('/notify-swipe', async (req, res) => {
 //*: Ogni giorno
 //*: Ogni mese
 //*: Ogni giorno della settimana
-cron.schedule('*/5 * * * *', async () => {
+cron.schedule('* * * * *', async () => {
   console.log('[CRON] Controllo viaggi terminati...');
 
   try {

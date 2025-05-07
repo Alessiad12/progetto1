@@ -25,6 +25,8 @@ SET default_table_access_method = heap;
 -- Name: chat_viaggio; Type: TABLE; Schema: public; Owner: postgres
 --
 
+
+
 CREATE TABLE public.chat_viaggio (
     id integer NOT NULL,
     viaggio_id integer NOT NULL,
@@ -640,4 +642,3 @@ ALTER TABLE ONLY public.viaggi_utenti
 --
 -- PostgreSQL database dump complete
 --
-
