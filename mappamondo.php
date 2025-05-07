@@ -1,10 +1,20 @@
 <?php
-require_once __DIR__ . '/connessione.php';
+session_start();
+require 'connessione.php';
+
+if (!isset($_SESSION['id_utente'])) {
+    header('Location: login.php');
+    exit;
+}
+$utente_id = intval($_SESSION['id_utente']);
 
 $viaggi = [];
-$query = "SELECT id, destinazione AS nome, latitudine AS lat, longitudine AS lon FROM viaggi WHERE latitudine IS NOT NULL AND longitudine IS NOT NULL";
-$result = pg_query($dbconn, $query);
-
+$query = "SELECT distinct viaggi.id, destinazione AS nome, latitudine AS lat, longitudine AS lon 
+FROM viaggi JOIN viaggi_terminati on viaggi.id= viaggi_terminati.viaggio_id 
+WHERE latitudine IS NOT NULL AND longitudine IS NOT NULL AND viaggi_terminati.utente_id=$1;
+ 
+";
+$result = pg_query_params($dbconn, $query, [$utente_id]);
 if ($result) {
     while ($row = pg_fetch_assoc($result)) {
         $viaggi[] = $row;

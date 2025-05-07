@@ -139,20 +139,23 @@ if (empty($notifiche)) {
 
   // Ascolta le notifiche
   socket.on('swipeNotification', (data) => {
-    console.log('Notifica ricevuta:', data);
+  console.log('Notifica ricevuta:', data);
 
-    // Crea un elemento per visualizzare la notifica
-    const notificaElement = document.createElement('div');
-    notificaElement.classList.add('notifica');
-    notificaElement.innerHTML = `
-      <strong>Nuovo Like:</strong> ${data.fromUser} ha messo un like al viaggio "${data.tripTitle}".
-    `;
+  // Ricarica la pagina forzando anche dal server (bypassa cache)
+  window.location.reload(true);
+});
+socket.on('matchAcceptedNotification', (data) => {
+  console.log('Notifica ricevuta:', data);
 
-    // Aggiungi la notifica all'elenco
-    document.getElementById('notifiche').appendChild(notificaElement);
+  // Ricarica la pagina forzando anche dal server (bypassa cache)
+  window.location.reload(true);
+});
+socket.on('registraViaggioNotification', (data) => {
+  console.log('Notifica ricevuta:', data);
 
-
-  });
+  // Ricarica la pagina forzando anche dal server (bypassa cache)
+  window.location.reload(true);
+});
 </script>
 <script>
   // Mostra/nascondi il menu a discesa

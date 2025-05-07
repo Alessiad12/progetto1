@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 17.4
+-- Dumped from database version 17.0
 -- Dumped by pg_dump version 17.4
 
 SET statement_timeout = 0;
@@ -347,6 +347,8 @@ COPY public.chat_viaggio (id, viaggio_id, utente_id, messaggio, data_creazione) 
 2	1	7	ciao	2025-05-07 10:24:03.421753
 3	4	4	ida fanculo	2025-05-07 18:25:16.030412
 4	4	9	vero	2025-05-07 18:41:15.287931
+5	7	7	ciao	2025-05-07 21:24:51.877276
+6	7	7	ciao a te	2025-05-07 21:25:00.614084
 \.
 
 
@@ -458,6 +460,41 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 7	8	9	roma	f	2025-05-07 18:47:17.317724	like	232
 9	8	10	New York	f	2025-05-07 18:47:31.053788	like	233
 9	8	10	New York	f	2025-05-07 18:47:31.119628	like	234
+1	7	1	Giappone	f	2025-05-07 21:21:52.942965	like	235
+1	7	1	Giappone	f	2025-05-07 21:21:53.516862	like	236
+2	7	2	Spagna	f	2025-05-07 21:21:53.985995	like	237
+3	7	3	Francia	f	2025-05-07 21:21:54.981671	like	238
+7	7	7	Canada	f	2025-05-07 21:22:01.484042	like	239
+7	7	9	roma	f	2025-05-07 21:22:03.728394	like	240
+7	7	9	roma	f	2025-05-07 21:22:12.291717	match_accepted	241
+7	7	9	roma	f	2025-05-07 21:22:12.30611	match_accepted	242
+7	7	7	Canada	f	2025-05-07 21:22:21.191862	match_accepted	243
+7	7	7	Canada	f	2025-05-07 21:22:21.199523	match_accepted	244
+7	7	7	Canada	f	2025-05-07 21:25:00.288755	registra_viaggio	245
+7	7	9	roma	f	2025-05-07 21:27:44.371706	match_accepted	246
+7	7	7	Canada	f	2025-05-07 21:27:47.063476	match_accepted	247
+1	3	1	Giappone	f	2025-05-07 21:29:00.083907	like	248
+2	3	2	Spagna	f	2025-05-07 21:29:00.898807	like	249
+3	3	3	Francia	f	2025-05-07 21:29:01.733857	like	250
+4	3	4	Thailandia	f	2025-05-07 21:29:02.815561	like	251
+5	3	5	Australia	f	2025-05-07 21:29:03.526985	like	252
+6	3	6	USA	f	2025-05-07 21:29:04.225354	like	253
+7	3	7	Canada	f	2025-05-07 21:29:05.079597	like	254
+8	3	8	Portogallo	f	2025-05-07 21:29:05.723684	like	255
+8	3	8	Portogallo	f	2025-05-07 21:29:06.340111	like	256
+7	3	9	roma	f	2025-05-07 21:29:06.862889	like	257
+9	3	10	New York	f	2025-05-07 21:29:07.668591	like	258
+3	3	3	Francia	f	2025-05-07 21:29:17.354781	match_accepted	259
+3	3	3	Francia	f	2025-05-07 21:29:17.367659	match_accepted	260
+3	3	3	Francia	f	2025-05-07 21:30:00.649823	registra_viaggio	261
+1	7	1	Giappone	f	2025-05-07 21:31:16.678467	like	262
+2	7	2	Spagna	f	2025-05-07 21:31:17.539604	like	263
+3	7	3	Francia	f	2025-05-07 21:31:19.007097	like	264
+3	7	3	Francia	f	2025-05-07 21:33:16.509615	match_accepted	265
+7	3	3	Francia	f	2025-05-07 21:33:16.558247	match_accepted	266
+7	3	9	roma	f	2025-05-07 21:33:26.102082	match_accepted	267
+3	7	9	roma	f	2025-05-07 21:33:26.107578	match_accepted	268
+7	3	3	Francia	f	2025-05-07 21:35:01.040631	registra_viaggio	269
 \.
 
 
@@ -466,6 +503,14 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 --
 
 COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_partenza, data_ritorno, budget, tipo_viaggio, compagnia) FROM stdin;
+1	anna.bianchi@example.com	Parigi	2025-06-01	2025-06-10	500-1000€	Culturale	Amici
+2	luca.verdi@example.com	New York	2025-07-15	2025-07-25	2000-3000€	Avventura	Famiglia
+3	giulia.neri@example.com	Tokyo	2025-09-01	2025-09-15	3000-4000€	Gastronomico	Gruppo
+4	marco.rossi@example.com	Roma	2025-05-20	2025-05-25	100-500€	Spiaggia	Coppia
+5	s.gallo@example.com	Londra	2025-08-10	2025-08-20	1000-2000€	Shopping	Amici
+6	fra@gmail.com	Parigi	2025-06-01	2025-06-10	500-1000€	Culturale	Amici
+7	ida@ida.it	Portogallo	2025-07-15	2025-07-25	2000-3000€	Avventura	Famiglia
+8	ale.desi@gmail.com	Giappone	2025-09-01	2025-09-15	3000-4000€	Gastronomico	Gruppo
 1	anna.bianchi@example.com	Parigi	2025-06-01	2025-06-10	500-1000€	Culturale	Amici
 2	luca.verdi@example.com	New York	2025-07-15	2025-07-25	2000-3000€	Avventura	Famiglia
 3	giulia.neri@example.com	Tokyo	2025-09-01	2025-09-15	3000-4000€	Gastronomico	Gruppo
@@ -529,6 +574,25 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 9	9	t	2025-05-07 18:42:51.874661
 4	1	t	2025-05-07 18:43:38.450547
 4	2	t	2025-05-07 18:43:39.512363
+7	4	f	2025-05-07 21:21:57.375802
+7	5	f	2025-05-07 21:21:58.663308
+7	6	f	2025-05-07 21:22:00.151083
+7	7	t	2025-05-07 21:22:01.476834
+7	8	f	2025-05-07 21:22:02.92277
+7	9	t	2025-05-07 21:22:03.720668
+3	1	t	2025-05-07 21:29:00.03326
+3	2	t	2025-05-07 21:29:00.890828
+3	3	t	2025-05-07 21:29:01.726301
+3	4	t	2025-05-07 21:29:02.80768
+3	5	t	2025-05-07 21:29:03.521454
+3	6	t	2025-05-07 21:29:04.220212
+3	7	t	2025-05-07 21:29:05.072627
+3	8	t	2025-05-07 21:29:06.3356
+3	9	t	2025-05-07 21:29:06.856286
+3	10	t	2025-05-07 21:29:07.660905
+7	1	t	2025-05-07 21:31:16.659287
+7	2	t	2025-05-07 21:31:17.533464
+7	3	t	2025-05-07 21:31:19.00202
 \.
 
 
@@ -577,6 +641,9 @@ COPY public.viaggi_terminati (id, utente_id, viaggio_id, descrizione, valutazion
 3	4	4	bello!	1	/uploads/681b9281d584e_Screenshot_2024-10-10_175841.png	/uploads/681b9281d705b_Screenshot_2024-10-11_140204.png	/uploads/681b9281d7e1a_Screenshot_2024-10-10_175841.png	/uploads/681b9281d8d78_Screenshot_2024-09-30_230444.png	/uploads/681b9281d967e_Screenshot_2024-06-10_110446.png	2025-05-07 19:04:01.892285
 4	4	4	fun!	5	/uploads/681b9350d95e7_Screenshot_2024-06-10_110446.png	/uploads/681b9350d9c9e_Screenshot_2024-07-11_144642.png	\N	/uploads/681b9350da239_Screenshot_2024-07-11_222439.png	/uploads/681b9350da802_Screenshot_2024-07-11_222439.png	2025-05-07 19:07:28.89674
 5	4	4	bellooooooo	5	/uploads/681b93cfa0008_Screenshot_2024-10-11_131041.png	/uploads/681b93cfa0764_Screenshot_2024-10-19_105749.png	/uploads/681b93cfa0dc5_Screenshot_2024-10-10_175943.png	/uploads/681b93cfa1354_Screenshot_2024-10-09_110748.png	/uploads/681b93cfa1919_Screenshot_2024-07-11_222439.png	2025-05-07 19:09:35.663309
+6	4	4	bellissima, esperienza	5	/uploads/681b9af3e676c_IMG_3307.jpeg	/uploads/681b9af3eccff_IMG_1427.jpeg	\N	\N	\N	2025-05-07 19:40:03.971354
+7	3	3	bellissimo	3	/uploads/681bb5b0c84ee_IMG_1056.jpeg	\N	\N	\N	\N	2025-05-07 21:34:08.82162
+8	3	3	stupendo	5	/uploads/681bb611647f2_Screenshot_2025-03-21_alle_16.24.04.png	/uploads/681bb61164e01_68192209a1ed8_io.jpg	\N	\N	\N	2025-05-07 21:35:45.413702
 \.
 
 
@@ -589,6 +656,11 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 4	4	partecipante
 4	9	partecipante
 8	8	partecipante
+9	7	partecipante
+7	7	partecipante
+3	3	partecipante
+3	7	partecipante
+9	3	partecipante
 \.
 
 
@@ -596,7 +668,7 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 -- Name: chat_viaggio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 4, true);
+SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 6, true);
 
 
 --
@@ -610,7 +682,7 @@ SELECT pg_catalog.setval('public.esperienze_id_seq', 2, true);
 -- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifiche_id_seq', 234, true);
+SELECT pg_catalog.setval('public.notifiche_id_seq', 269, true);
 
 
 --
@@ -631,7 +703,7 @@ SELECT pg_catalog.setval('public.viaggi_id_seq', 11, true);
 -- Name: viaggi_terminati_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 5, true);
+SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 8, true);
 
 
 --

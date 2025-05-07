@@ -18,18 +18,32 @@ $sql = "
 ";
 $res = pg_query_params($dbconn, $sql, [ $utente_id ]);
 
-$photos = [];
+$photoGroups = [];
 if ($res) {
     while ($row = pg_fetch_assoc($res)) {
-        // prendo ogni colonna fotoN, fino ad avere 4 immagini
+        $group = [];
         for ($i = 1; $i <= 5; $i++) {
             if (!empty($row["foto{$i}"])) {
-                $photos[] = $row["foto{$i}"];
-                if (count($photos) >= 4) break 2;
+                $group[] = $row["foto{$i}"];
             }
+        }
+
+        if (!empty($group)) {
+            $destinazione = $row['destinazione'];
+            $photoGroups[$destinazione] = $group;
         }
     }
 }
+$sql = "
+  SELECT count(distinct viaggio_id) as viaggi
+  FROM viaggi_terminati
+  WHERE utente_id = $1
+  group by utente_id;
+";
+$result = pg_query_params($dbconn, $sql, [ $utente_id ]);
+$ro = pg_fetch_assoc($result);
+$n_viaggi = $ro ? $ro['viaggi'] : 0;
+$n_viaggi=$ro['viaggi'];
 ?>
 
 <!DOCTYPE html>
@@ -39,202 +53,16 @@ if ($res) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style_index.css">
   <title>Profilo Viaggiatore</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body, html {
-      background-color:rgb(247, 247, 247);
-      height: 100%;
-      font-family: Arial, sans-serif;
-    }
-
-    .page-wrapper {
-      display: flex;
-      height: 100vh;
-      width: 100vw;
-    }
-
-    /* PROFILO A SINISTRA */
-
-    .profile-sidebar {
-  border-radius: 20px;
-  transition: background-color 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  width: 260px;
-  padding: 20px;
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  background-color: rgb(186, 222, 214);
-}
-
-      .profile-sidebar-container {
-  width: 190px;
-  height: 250px;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  position: relative;
-  cursor: grab;
-}
-
-
-.profile-sidebar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  user-select: none;
-  pointer-events: none;
-}
-
-
-
-    .profile-sidebar h2 {
-      font-size: 20px;
-      text-align: center;
-      margin-bottom: 5px;
-    }
-
-    .profile-sidebar p {
-      font-size: 14px;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .profile-stats {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .stat-card {
-      background-color: #e3f2fd;
-      border-radius: 10px;
-      padding: 10px;
-      text-align: center;
-      font-size: 14px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .stat-card span {
-      display: block;
-      font-size: 18px;
-      font-weight: bold;
-      color: #1976d2;
-    }
-
-    .profile-sidebar button {
-      display: block;
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 8px;
-      border: none;
-      background-color: #3498db;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    /* AREA CONTENUTO DESTRO */
-    .content-area {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      overflow: hidden;
-    }
-
-    .map-container {
-      height: 350px;
-      background-color: #ddd;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      margin-right: 20px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .map-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-     /* pointer-events: none; /* evita il click accidentale sull’iframe */
-    }
-
-    .map-container::after {
-      content: "Clicca per espandere";
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(0, 0, 0, 0.4);
-      color: white;
-      padding: 4px 8px;
-      font-size: 12px;
-      border-radius: 4px;
-    }
-
-    .photos-container {
-      flex: 1;
-      overflow-y: auto;
-      background-color: #fafafa;
-      padding: 10px;
-      border-radius: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      margin-right: 20px;
-      gap: 10px;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-    }
-
-    .photos-container img {
-      width: calc(33.3% - 10px);
-      height: 120px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    /* OVERLAY MAPPA FULLSCREEN */
-    .map-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0,0,0,0.8);
-      z-index: 1000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .map-overlay iframe {
-      width: 90%;
-      height: 90%;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
-
-    .map-overlay .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 28px;
-      color: white;
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style_pagina_profilo.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<style>
+  @font-face {
+    font-family: 'secondo_font';
+    src: url('/font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
+    font-display: swap;
+}
+</style>
 <body>
   <div class="page-wrapper">
 
@@ -248,10 +76,10 @@ if ($res) {
     <p class="profile-bio">Viaggiatore curioso.<br> Amo conoscere culture e paesaggi.</p>
     <div class="profile-stats">
       <div class="stat-card">
-        Compagni<br><span class="profile-compagni">18</span>
+        Compagni<br><span class="profile-compagni"></span>
       </div>
       <div class="stat-card">
-        Viaggi<br><span class="profile-viaggi">12</span>
+        Viaggi<br><span class="profile-viaggi"><?php echo htmlspecialchars($n_viaggi); ?></span>
       </div>
     </div>
     <button onclick="window.location.href='modifica_profilo.php'">Modifica profilo</button>
@@ -269,16 +97,52 @@ if ($res) {
 
       <!-- FOTO -->
       <div class="photos-container">
-        <?php if (!empty($photos)): ?>
-          <?php foreach ($photos as $idx => $src): ?>
-            <img
-              src="<?= htmlspecialchars($src) ?>"
-              alt="Viaggio <?= $idx + 1 ?>">
-          <?php endforeach; ?>
-        <?php else: ?>
-          <p>Non hai ancora caricato foto delle tue esperienze.</p>
-        <?php endif; ?>
-</div>
+      <?php if (!empty($photoGroups)): ?>
+        <?php foreach ($photoGroups as $title => $group): ?>
+          <?php $modalId = 'modal-' . md5($title); ?>
+          <div class="photo-group mb-4">
+
+        <div class="cover-container" style="background-color:rgba(251, 253, 254, 0.76); font-family: secondo_font, sans-serif; color: rgb(4, 2, 38); ; padding: 50px 0; text-align: center; cursor: pointer;"
+        data-bs-toggle="modal"
+        data-bs-target="#<?= $modalId ?>">
+          <h4><?= htmlspecialchars($title) ?></h4>
+        </div>
+
+
+            <!-- Bootstrap Modal -->
+            <div class="modal fade" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                  <div class="modal-body p-0">
+                    <div id="carousel-<?= $modalId ?>" class="carousel slide" data-bs-ride="carousel">
+                      <div class="carousel-inner">
+                        <?php foreach ($group as $index => $src): ?>
+                          <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                            <img src="<?= htmlspecialchars($src) ?>" class="d-block w-100" alt="Foto <?= $index + 1 ?>">
+                          </div>
+                        <?php endforeach; ?>
+                      </div>
+
+                      <!-- Controls -->
+                      <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<?= $modalId ?>" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#carousel-<?= $modalId ?>" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <p>Non hai ancora caricato foto delle tue esperienze.</p>
+      <?php endif; ?>
+    </div>
+
+
 
     </div>
   </div>
@@ -308,6 +172,15 @@ if ($res) {
       document.getElementById('mapOverlay').style.display = 'none';
     }
   </script>
+  <script>
+  document.querySelectorAll('.thumbnail').forEach(thumbnail => {
+    thumbnail.addEventListener('click', function () {
+      const groupId = this.getAttribute('data-group');
+      const gallery = document.getElementById('group-' + groupId);
+      gallery.style.display = gallery.style.display === 'none' ? 'block' : 'none';
+    });
+  });
+</script>
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     fetch('/profilo.php')
@@ -343,6 +216,7 @@ if ($res) {
     });
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="/js/index.js"></script>
 </body>
 </html>

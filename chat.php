@@ -86,7 +86,7 @@ while ($row = pg_fetch_assoc($res)) {
     }
 
     .proprio {
-      align-items: flex-end
+      align-items: flex-end;
       display: flex;
       justify-content: flex-end;
     }
