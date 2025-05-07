@@ -6,21 +6,21 @@
   <title>Crea Viaggio</title>
   <style>
     body {
-  background-image: url('https://i.pinimg.com/736x/08/1f/24/081f245b11dbcc5f37cc116c5bb5b339.jpg'); /* Inserisci il percorso dell'immagine */
-  background-size: cover; /* L'immagine copre l'intera area */
-  background-position: center; /* Centra l'immagine */
-  background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
-  background-color: #EAE1C1; /* Colore di sfondo di fallback */
-  color: #1D3B5B;
-  font-family: 'Playfair Display', serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
-  margin: 20px;
-  padding-top: 40px;
-}
+      background-image: url('https://i.pinimg.com/736x/08/1f/24/081f245b11dbcc5f37cc116c5bb5b339.jpg'); /* Inserisci il percorso dell'immagine */
+      background-size: cover; /* L'immagine copre l'intera area */
+      background-position: center; /* Centra l'immagine */
+      background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
+      background-color: #EAE1C1; /* Colore di sfondo di fallback */
+      color: #1D3B5B;
+      font-family: 'Playfair Display', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      margin: 20px;
+      padding-top: 40px;
+    }
 
     .form-container {
       background-color: rgba(255, 255, 255, 0.66);

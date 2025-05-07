@@ -10,7 +10,7 @@ $utente_id = intval($_SESSION['id_utente']);
 
 // --- 1) Recupero fino a 4 foto dalle esperienze terminate ---
 $sql = "
-  SELECT foto1, foto2, foto3, foto4, foto5, viaggi.destinazione as Destinazione
+  SELECT viaggi_terminati.viaggio_id, foto1, foto2, foto3, foto4, foto5, viaggi.destinazione as Destinazione
   FROM viaggi_terminati
   JOIN viaggi ON viaggi_terminati.viaggio_id = viaggi.id
   WHERE utente_id = $1
@@ -29,6 +29,7 @@ if ($res) {
         }
 
         if (!empty($group)) {
+            $viaggio=$row["viaggio_id"];
             $destinazione = $row['destinazione'];
             $photoGroups[$destinazione] = $group;
         }
@@ -61,6 +62,10 @@ $n_viaggi=$ro['viaggi'];
     font-family: 'secondo_font';
     src: url('/font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
     font-display: swap;
+}
+.w-100 {
+width: 100%!important;
+height: 100%;
 }
 </style>
 <body>
@@ -99,6 +104,7 @@ $n_viaggi=$ro['viaggi'];
       <div class="photos-container">
       <?php if (!empty($photoGroups)): ?>
         <?php foreach ($photoGroups as $title => $group): ?>
+          <?php $viaggio = $group['viaggio_id'];?>
           <?php $modalId = 'modal-' . md5($title); ?>
           <div class="photo-group mb-4">
 
@@ -107,8 +113,6 @@ $n_viaggi=$ro['viaggi'];
         data-bs-target="#<?= $modalId ?>">
           <h4><?= htmlspecialchars($title) ?></h4>
         </div>
-
-
             <!-- Bootstrap Modal -->
             <div class="modal fade" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -131,6 +135,9 @@ $n_viaggi=$ro['viaggi'];
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                       </button>
                     </div>
+                    <div class="text-center p-3">
+                      <a href="descrizione_viaggio.php?id=<?= urlencode($viaggio) ?>" class="btn btn-primary">
+                      Descrizione </a>
                   </div>
                 </div>
               </div>

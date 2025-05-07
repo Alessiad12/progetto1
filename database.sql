@@ -644,6 +644,7 @@ COPY public.viaggi_terminati (id, utente_id, viaggio_id, descrizione, valutazion
 6	4	4	bellissima, esperienza	5	/uploads/681b9af3e676c_IMG_3307.jpeg	/uploads/681b9af3eccff_IMG_1427.jpeg	\N	\N	\N	2025-05-07 19:40:03.971354
 7	3	3	bellissimo	3	/uploads/681bb5b0c84ee_IMG_1056.jpeg	\N	\N	\N	\N	2025-05-07 21:34:08.82162
 8	3	3	stupendo	5	/uploads/681bb611647f2_Screenshot_2025-03-21_alle_16.24.04.png	/uploads/681bb61164e01_68192209a1ed8_io.jpg	\N	\N	\N	2025-05-07 21:35:45.413702
+9	7	3	bellissimo	5	/uploads/681bc640ed721_Screenshot_2025-03-21_alle_16.24.04.png	\N	\N	\N	\N	2025-05-07 22:44:48.973912
 \.
 
 
@@ -703,7 +704,7 @@ SELECT pg_catalog.setval('public.viaggi_id_seq', 11, true);
 -- Name: viaggi_terminati_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 8, true);
+SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 9, true);
 
 
 --
