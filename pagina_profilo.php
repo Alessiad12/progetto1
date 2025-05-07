@@ -10,8 +10,9 @@ $utente_id = intval($_SESSION['id_utente']);
 
 // --- 1) Recupero fino a 4 foto dalle esperienze terminate ---
 $sql = "
-  SELECT foto1, foto2, foto3, foto4, foto5
+  SELECT foto1, foto2, foto3, foto4, foto5, viaggi.destinazione as Destinazione
   FROM viaggi_terminati
+  JOIN viaggi ON viaggi_terminati.viaggio_id = viaggi.id
   WHERE utente_id = $1
   ORDER BY data_creazione DESC
 ";
