@@ -1,0 +1,4 @@
+[2025-05-07 09:33:49] ▶ Richiesta ricevuta
+[2025-05-07 09:33:49] ✅ Generata notifica di accettazione per utente 7
+[2025-05-07 09:33:49] ✅ Notifica salvata nel DB
+[2025-05-07 09:33:49] ✅ Notifica match_accepted inviata con HTTP 200: {"userId":"7","fromUser":"4","tripId":"4","tripTitle":"Thailandia","tipo":"match_accepted"}
