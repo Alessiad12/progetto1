@@ -1,138 +1,198 @@
 <?php
 session_start();
-// Se non loggato, reindirizza al login
+require 'connessione.php';
+
 if (!isset($_SESSION['id_utente'])) {
-  header('Location: login.php');
-  exit;
+    header('Location: login.php');
+    exit;
 }
-$utente = $_SESSION['id_utente']; // ID dell'utente loggato
-$viaggio_id = $_GET['viaggio_id']; // ID del viaggio passato tramite URL
+
+$utente = $_SESSION['id_utente'];
+$viaggio_id = $_GET['viaggio_id'];
+
+
+$query = "SELECT n.*, p.nome AS mittente_nome, p.immagine_profilo AS immagine_mittente 
+          FROM chat_viaggio n
+          JOIN profili p ON n.utente_id = p.id 
+          WHERE n.viaggio_id = $1 
+          ORDER BY n.data_creazione";
+
+$res = pg_query_params($dbconn, $query, [$viaggio_id]);
+$messaggi = [];
+while ($row = pg_fetch_assoc($res)) {
+    $messaggi[] = $row;
+}
 ?>
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Viaggio</title>
-    <style>
-        /* Stili per la chat */
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
-        .chat-container {
-            width: 80%;
-            max-width: 600px;
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .chat-messages {
-            flex-grow: 1;
-            padding: 10px;
-            overflow-y: auto;
-            border-bottom: 1px solid #ccc;
-        }
-        .chat-input {
-            display: flex;
-            border-top: 1px solid #ccc;
-            padding: 10px;
-        }
-        .chat-input input {
-            flex-grow: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .chat-input button {
-            margin-left: 10px;
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .chat-input button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Chat Viaggio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      width: 90%;
+      max-width: 600px;
+      height: 80vh;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .messaggio {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .messaggio img.avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .testo-messaggio {
+      margin-left: 10px;
+      background-color: #e9f5ff;
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+
+    .proprio {
+      justify-content: flex-end;
+    }
+
+    .proprio .testo-messaggio {
+      background-color: #d1ffd1;
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .chat-input button {
+      margin-left: 10px;
+      padding: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .chat-input button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Contenitore della chat -->
-    <div class="chat-container">
-        <div id="chat-container" class="chat-messages">
-            <!-- I messaggi verranno qui -->
+<div class="chat-container">
+  <div id="chat-container" class="chat-messages">
+    <?php if (empty($messaggi)): ?>
+      <p>Inizia la chat.</p>
+    <?php else: ?>
+      <?php foreach ($messaggi as $messaggio): 
+        $is_own = $messaggio['utente_id'] == $utente;
+        $classe = $is_own ? 'proprio messaggio' : 'messaggio';
+        $img = !empty($messaggio['immagine_mittente']) ? htmlspecialchars($messaggio['immagine_mittente']) : 'immagini/default.png';
+        $nome = htmlspecialchars($messaggio['mittente_nome']);
+        $testo = htmlspecialchars($messaggio['messaggio']);
+      ?>
+        <div class="<?= $classe ?>">
+          <?php if (!$is_own): ?>
+            <img src="<?= $img ?>" alt="Profilo" class="avatar">
+          <?php endif; ?>
+          <div class="testo-messaggio"><strong><?= $nome ?></strong>: <?= $testo ?></div>
         </div>
-        <div class="chat-input">
-            <input type="text" id="messageInput" placeholder="Scrivi un messaggio...">
-            <button onclick="sendMessage(<?php echo $viaggio_id; ?>, <?php echo $utente; ?>)">Invia</button> <!-- Passa viaggio_id e id_utente -->
-        </div>
-    </div>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </div>
 
-    <!-- Include la libreria Socket.io -->
-    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
-    
-    <script>
-        const socket = io('http://localhost:4000');  // URL del server Node.js
+  <div class="chat-input">
+    <input type="text" id="messageInput" placeholder="Scrivi un messaggio...">
+    <button onclick="sendMessage(<?= $viaggio_id ?>, <?= $utente ?>)">Invia</button>
+  </div>
+</div>
 
-        // Funzione per inviare un messaggio
-        function sendMessage(viaggioId, mittenteId) {
-            const messageInput = document.getElementById('messageInput');
-            const messaggio = messageInput.value;
+<script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+<script>
+  const socket = io('http://localhost:4000'); // Cambia URL se in produzione
 
-            if (messaggio.trim() !== "") {
-                // Invia il messaggio al server
-                socket.emit('sendMessage', {
-                    viaggio_id: viaggioId,
-                    messaggio: messaggio,
-                    mittente_id: mittenteId
-                });
+  function sendMessage(viaggioId, mittenteId) {
+    const input = document.getElementById('messageInput');
+    const msg = input.value.trim();
+    if (msg === '') return;
 
-                // Aggiungi il messaggio alla chat (locale, immediato)
-                const chatContainer = document.getElementById('chat-container');
-                const newMessage = document.createElement('div');
-                chatContainer.appendChild(newMessage);
+    socket.emit('sendMessage', {
+      viaggio_id: viaggioId,
+      mittente_id: mittenteId,
+      messaggio: msg
+    });
 
-                // Scrolla verso il basso per vedere il messaggio inviato
-                chatContainer.scrollTop = chatContainer.scrollHeight;
+    input.value = '';
+  }
+  socket.on('newMessage', (data) => {
 
-                // Pulisci il campo di input
-                messageInput.value = '';
-            }
-        }
+    const chat = document.getElementById('chat-container');
+    const div = document.createElement('div');
+    div.className = (data.mittente_id == <?= $utente ?>) ? 'proprio messaggio' : 'messaggio';
 
-        // Unirsi alla chat del viaggio (quando l'utente accede alla chat)
-        function joinChat(viaggioId) {
-            socket.emit('joinChat', viaggioId);
-        }
+    div.innerHTML = `
+      <div class="testo-messaggio">
+        <strong>Utente ${data.mittente_id}</strong>: ${data.messaggio}
+      </div>
+    `;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+  });
+  socket.on('newMessage', () => {
+  const chat = document.getElementById('chat-container');
+  const scrollPos = chat.scrollHeight;
 
-        // Ricevere il messaggio in tempo reale
-        socket.on('newMessage', (data) => {
-            console.log('Nuovo messaggio:', data);
-            // Aggiungi il messaggio alla chat del viaggio
-            const chatContainer = document.getElementById('chat-container');
-            const newMessage = document.createElement('div');
-            newMessage.textContent = `Utente ${data.mittente_id}: ${data.messaggio}`;
-            chatContainer.appendChild(newMessage);
+  localStorage.setItem('chatScrollPos', scrollPos);
 
-            // Scrolla verso il basso per vedere il nuovo messaggio
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        });
+  location.reload();
+});
+window.onload = () => {
+  const chat = document.getElementById('chat-container');
+  const savedPos = localStorage.getItem('chatScrollPos');
+  if (savedPos) {
+    chat.scrollTop = savedPos;
+    localStorage.removeItem('chatScrollPos');
+  }
+};
 
-        // Unirsi alla chat di un viaggio specifico
-        joinChat(<?php echo $viaggio_id; ?>);  // Passa l'ID del viaggio alla funzione
-    </script>
+  socket.emit('joinChat', <?= $viaggio_id ?>);
+</script>
 
 </body>
 </html>

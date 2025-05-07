@@ -95,7 +95,21 @@ if (empty($notifiche)) {
             </div>
             <button class='organizza-btn' data-id='{$notifica['id']}' data-viaggio-id='{$notifica['viaggio_id']}'>organizza</button>
           </div>";
-}
+  }
+      if ($notifica['tipo'] === 'registra_viaggio') {
+        $viaggio = htmlspecialchars($notifica['titolo_viaggio']);
+        $viaggio_id = htmlspecialchars($notifica['viaggio_id']);
+        $notifica_id = htmlspecialchars($notifica['id']);
+
+        echo "<div class='notifica'>
+                <div class='notifica-header'>
+                  <div class='testo-notifica'>
+                    Il viaggio <strong>\"$viaggio\"</strong> è terminato. Puoi ora <strong>registrare il resoconto</strong>.
+                  </div>
+                </div>
+                <button class='registra-btn' data-id='$notifica_id' data-viaggio-id='$viaggio_id'>Registra viaggio</button>
+              </div>";
+    }
   }
 }
 ?>
@@ -198,6 +212,19 @@ document.querySelectorAll('.organizza-btn').forEach(button => {
     window.location.href = `chat.php?viaggio_id=${viaggioId}`;
   });
 });
+
+
+  // Funzione per gestire il click e fare il redirect
+function redirectToRegistraViaggio(button) {
+    // Estrai l'ID del viaggio dal bottone (dal suo attributo data-viaggio-id)
+const viaggioId = button.getAttribute('data-viaggio-id');
+
+    // Costruisci l'URL con il parametro viaggio_id
+  const url = `pagina_registra_viaggio.php?viaggio_id=${viaggioId}`;
+
+    // Fai il redirect alla pagina desiderata
+  window.location.href = url;
+  }
 
 </script>
 </body>

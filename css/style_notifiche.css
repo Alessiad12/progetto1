@@ -56,6 +56,20 @@
   .organizza-btn:hover {
     background-color: #2a8c00;
   }
+  
+  .registra-btn{
+    align-self: flex-end;
+    padding: 8px 16px;
+    background-color: #38b000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .registra-btn:hover {
+    background-color: #2a8c00;
+  }
   body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;

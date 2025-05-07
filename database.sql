@@ -278,6 +278,8 @@ ALTER TABLE ONLY public.viaggi ALTER COLUMN id SET DEFAULT nextval('public.viagg
 --
 
 COPY public.chat_viaggio (id, viaggio_id, utente_id, messaggio, data_creazione) FROM stdin;
+1	1	7	fghjk	2025-05-07 10:23:51.619263
+2	1	7	ciao	2025-05-07 10:24:03.421753
 \.
 
 
@@ -286,21 +288,6 @@ COPY public.chat_viaggio (id, viaggio_id, utente_id, messaggio, data_creazione) 
 --
 
 COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta, data_creazione, tipo, id) FROM stdin;
-7	7	7	Canada	f	2025-05-06 19:28:23.526819	\N	1
-1	7	1	Giappone	f	2025-05-06 19:33:48.773977	\N	2
-2	7	2	Spagna	f	2025-05-06 19:33:54.676214	\N	3
-3	7	3	Francia	f	2025-05-06 19:33:56.860481	\N	4
-4	7	4	Thailandia	f	2025-05-06 19:34:34.170973	\N	5
-5	7	5	Australia	f	2025-05-06 19:35:42.381414	\N	6
-5	7	5	Australia	f	2025-05-06 19:35:42.88503	\N	7
-6	7	6	USA	f	2025-05-06 19:35:43.267922	\N	8
-1	7	1	Giappone	f	2025-05-06 19:39:11.222992	\N	9
-2	7	2	Spagna	f	2025-05-06 19:39:12.122792	\N	10
-3	7	3	Francia	f	2025-05-06 19:39:12.810289	\N	11
-4	7	4	Thailandia	f	2025-05-06 19:40:21.391828	\N	12
-5	7	5	Australia	f	2025-05-06 19:40:22.443098	\N	13
-7	7	7	Canada	f	2025-05-06 19:40:40.307992	\N	14
-8	7	8	Portogallo	f	2025-05-06 19:40:41.061384	\N	15
 7	7	9	roma	f	2025-05-06 19:41:13.042183	like	16
 1	7	1	Giappone	f	2025-05-06 19:41:35.46645	like	17
 1	7	1	Giappone	f	2025-05-06 19:41:35.942619	like	18
@@ -340,16 +327,6 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 7	7	7	Canada	f	2025-05-06 21:35:37.432468	like	52
 8	7	8	Portogallo	f	2025-05-06 21:35:37.780581	like	53
 7	7	9	roma	f	2025-05-06 21:35:39.094822	like	54
-7	7	9	roma	f	2025-05-06 21:44:18.683619	match_accepted	56
-7	7	7	Canada	f	2025-05-06 21:44:33.878221	match_accepted	57
-7	7	7	Canada	f	2025-05-06 21:47:13.730808	match_accepted	58
-7	7	7	Canada	f	2025-05-06 21:47:13.754024	match_accepted	59
-7	7	9	roma	f	2025-05-06 21:57:21.071061	match_accepted	60
-7	7	9	roma	f	2025-05-06 21:57:21.075591	match_accepted	61
-7	7	9	roma	f	2025-05-06 21:57:51.996758	match_accepted	62
-7	7	9	roma	f	2025-05-06 21:57:51.997868	match_accepted	63
-7	7	9	roma	f	2025-05-06 21:58:11.597423	match_accepted	64
-7	7	9	roma	f	2025-05-06 21:58:11.598433	match_accepted	65
 1	9	1	Giappone	f	2025-05-06 21:59:31.548711	like	66
 3	9	3	Francia	f	2025-05-06 21:59:33.537087	like	67
 4	9	4	Thailandia	f	2025-05-06 21:59:34.2608	like	68
@@ -358,9 +335,55 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 8	9	8	Portogallo	f	2025-05-06 21:59:37.120253	like	71
 8	9	8	Portogallo	f	2025-05-06 21:59:37.738359	like	72
 7	9	9	roma	f	2025-05-06 21:59:38.665115	like	73
-7	9	7	Canada	f	2025-05-06 22:00:27.051801	match_accepted	74
-7	9	7	Canada	f	2025-05-06 22:00:27.052932	match_accepted	75
-9	7	7	Canada	f	2025-05-06 22:00:27.078452	match_accepted	76
+1	1	1	Giappone	f	2025-05-07 08:54:57.637703	like	77
+1	1	1	Giappone	f	2025-05-07 08:54:57.768903	like	78
+2	1	2	Spagna	f	2025-05-07 08:54:58.873269	like	79
+4	1	4	Thailandia	f	2025-05-07 08:55:00.393866	like	80
+4	1	4	Thailandia	f	2025-05-07 08:55:01.00329	like	81
+5	1	5	Australia	f	2025-05-07 08:55:02.526452	like	82
+6	1	6	USA	f	2025-05-07 08:55:03.997502	like	83
+6	1	6	USA	f	2025-05-07 08:55:04.022556	like	84
+8	1	8	Portogallo	f	2025-05-07 08:55:06.191965	like	85
+8	1	8	Portogallo	f	2025-05-07 08:55:06.216149	like	86
+1	7	1	Giappone	f	2025-05-07 09:03:26.284294	like	90
+1	7	1	Giappone	f	2025-05-07 09:41:00.467452	like	91
+1	7	1	Giappone	f	2025-05-07 09:41:00.974418	like	92
+2	7	2	Spagna	f	2025-05-07 09:41:01.285746	like	93
+2	7	2	Spagna	f	2025-05-07 09:41:01.759363	like	94
+3	7	3	Francia	f	2025-05-07 09:41:02.01905	like	95
+3	7	3	Francia	f	2025-05-07 09:41:02.48135	like	96
+4	7	4	Thailandia	f	2025-05-07 09:41:02.666088	like	97
+4	7	4	Thailandia	f	2025-05-07 09:41:03.130599	like	98
+5	7	5	Australia	f	2025-05-07 09:41:03.693571	like	99
+6	7	6	USA	f	2025-05-07 09:41:04.435927	like	100
+6	7	6	USA	f	2025-05-07 09:41:05.017327	like	101
+7	7	7	Canada	f	2025-05-07 09:41:05.409163	like	102
+7	7	7	Canada	f	2025-05-07 09:41:05.977431	like	103
+8	7	8	Portogallo	f	2025-05-07 09:41:06.359053	like	104
+8	7	8	Portogallo	f	2025-05-07 09:41:06.76679	like	105
+7	7	9	roma	f	2025-05-07 09:41:07.089512	like	106
+7	7	9	roma	f	2025-05-07 09:41:07.418131	like	107
+9	7	10	New York	f	2025-05-07 09:41:07.931788	like	108
+1	9	1	Giappone	f	2025-05-07 10:53:08.059201	like	111
+1	9	1	Giappone	f	2025-05-07 10:53:08.376829	like	112
+1	9	1	Giappone	f	2025-05-07 10:53:08.696896	like	113
+2	9	2	Spagna	f	2025-05-07 10:53:09.33838	like	114
+3	9	3	Francia	f	2025-05-07 10:53:10.103058	like	115
+4	9	4	Thailandia	f	2025-05-07 10:53:10.743807	like	116
+4	9	4	Thailandia	f	2025-05-07 10:53:11.225608	like	117
+5	9	5	Australia	f	2025-05-07 10:53:11.561636	like	118
+5	9	5	Australia	f	2025-05-07 10:53:12.032396	like	119
+6	9	6	USA	f	2025-05-07 10:53:12.349	like	120
+6	9	6	USA	f	2025-05-07 10:53:12.82434	like	121
+7	9	7	Canada	f	2025-05-07 10:53:13.021627	like	122
+7	9	7	Canada	f	2025-05-07 10:53:13.470961	like	123
+8	9	8	Portogallo	f	2025-05-07 10:53:13.677776	like	124
+8	9	8	Portogallo	f	2025-05-07 10:53:14.127671	like	125
+7	9	9	roma	f	2025-05-07 10:53:14.324534	like	126
+7	9	9	roma	f	2025-05-07 10:53:14.742822	like	127
+7	9	9	roma	f	2025-05-07 10:53:14.946575	like	128
+9	9	10	New York	f	2025-05-07 10:53:15.557265	like	129
+
 \.
 
 
@@ -391,7 +414,7 @@ COPY public.profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, 
 4	marco.rossi@xample.com	Marco Rossi	28	Viaggiare è la mia passione. Ho una collezione di mappe antiche.	#faf3bfc4	1997-05-15	immagini/default.png	
 5	s.gallo@xampre.com	Sara Gallo	29	Viaggiare è una delle cose che mi rende felice, ma amo anche il buon cinema.	#faf3bfc4	1995-12-01	immagini/default.png	
 6	fra@gmail.com	Francesco Esposito	32	Tecnologia e viaggi, la mia vita in poche parole. Sempre in cerca di avventure.	#faf3bfc4	1993-03-20	immagini/default.png	
-8	ale@desi@gmail.com	Alessia Desideri	22	Futura architetta e viaggiatrice nel cuore. Amo la cultura e l’arte.	#faf3bfc4	2003-06-12	immagini/default.png	
+8	ale.desi@gmail.com	Alessia Desideri	22	Futura architetta e viaggiatrice nel cuore. Amo la cultura e l’arte.	#faf3bfc4	2003-06-12	immagini/default.png	
 9	b@e.it	betta	22	mi piace viaggiare 	#fbfbce	20003-04-17	uploads/profilo_681921cace5c3.jpg	50
 7	ida@ida.it	Ida Benvenuto	22	Studentessa di design e amante della moda. Viaggiare mi ispira moltissimo.	#fbfbce	2003-08-19	uploads/profilo_681a409cd4722.jpg	50
 \.
@@ -402,47 +425,7 @@ COPY public.profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, 
 --
 
 COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
-6	8	f	2025-05-06 10:20:31.229276
-6	9	t	2025-05-06 10:20:32.429073
-6	10	f	2025-05-06 10:20:34.800827
-7	11	t	2025-05-06 10:16:10.728117
-2	2	t	2025-05-06 18:13:07.995039
-3	4	t	2025-05-06 18:14:31.554559
-3	5	t	2025-05-06 18:14:32.431859
-3	6	t	2025-05-06 18:14:33.906336
-3	7	t	2025-05-06 18:14:35.160837
-3	8	t	2025-05-06 18:14:36.415359
-3	9	t	2025-05-06 18:14:37.837975
-3	10	t	2025-05-06 18:14:38.976876
-3	1	t	2025-05-06 18:14:41.419358
-3	2	t	2025-05-06 18:14:42.739496
-3	3	t	2025-05-06 18:14:44.005545
-7	10	t	2025-05-06 18:15:58.309647
-6	1	t	2025-05-06 18:35:02.803363
-6	2	t	2025-05-06 18:35:03.850965
-6	3	t	2025-05-06 18:35:05.013729
-6	4	t	2025-05-06 18:35:06.082046
-6	5	t	2025-05-06 18:35:07.022276
-6	6	t	2025-05-06 18:35:07.946892
-6	7	t	2025-05-06 18:35:08.39716
-7	1	t	2025-05-06 21:35:18.20784
-7	2	t	2025-05-06 21:35:19.493726
-7	3	t	2025-05-06 21:35:19.8864
-7	4	t	2025-05-06 21:35:34.560133
-7	5	t	2025-05-06 21:35:35.725482
-7	6	t	2025-05-06 21:35:36.582653
-7	7	t	2025-05-06 21:35:37.42513
-7	8	t	2025-05-06 21:35:37.773093
-7	9	t	2025-05-06 21:35:39.088394
-9	1	t	2025-05-06 21:59:31.505808
-9	2	f	2025-05-06 21:59:32.535099
-9	3	t	2025-05-06 21:59:33.517192
-9	4	t	2025-05-06 21:59:34.252615
-9	5	t	2025-05-06 21:59:35.005085
-9	6	f	2025-05-06 21:59:35.772415
-9	7	t	2025-05-06 21:59:36.471365
-9	8	t	2025-05-06 21:59:37.727582
-9	9	t	2025-05-06 21:59:38.657066
+
 \.
 
 
@@ -458,7 +441,7 @@ COPY public.utenti (id, nome, nickname, email, data_di_nascita, password) FROM s
 5	Sara Gallo	sgallo	s.gallo@xampre.com	1995-12-01	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
 6	Francesco Esposito	fesposito	fra@gmail.com	1993-03-20	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
 7	Ida Benvenuto	ida_b	ida@ida.it	2003-08-19	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
-8	Alessia Desideri	ale_desi	ale@desi@gmail.com	2003-06-12	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
+8	Alessia Desideri	ale_desi	ale.desi@gmail.com	2003-06-12	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
 9	betta	betta	b@e.it	20003-04-17	$2y$10$NJqjqSh11tCmFi0Vv0cPa.B46Gp4VSzLuCcQQ9/eUK2Yf2VN6IbBS
 \.
 
@@ -486,25 +469,7 @@ COPY public.viaggi (id, user_id, destinazione, data_partenza, data_ritorno, budg
 --
 
 COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
-1	1	ideatore
-1	2	partecipante
-2	2	ideatore
-2	4	partecipante
-2	3	partecipante
-3	3	ideatore
-3	4	partecipante
-4	4	ideatore
-4	5	partecipante
-5	5	ideatore
-5	6	partecipante
-6	6	ideatore
-6	7	partecipante
-7	7	ideatore
-7	8	partecipante
-8	8	ideatore
-9	7	ideatore
-10	9	ideatore
-7	9	partecipante
+
 \.
 
 
@@ -512,14 +477,14 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 -- Name: chat_viaggio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 3, true);
+SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 2, true);
 
 
 --
 -- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifiche_id_seq', 76, true);
+SELECT pg_catalog.setval('public.notifiche_id_seq', 131, true);
 
 
 --
@@ -614,6 +579,14 @@ ALTER TABLE ONLY public.viaggi
 
 ALTER TABLE ONLY public.viaggi_utenti
     ADD CONSTRAINT viaggi_utenti_pkey PRIMARY KEY (viaggio_id, user_id);
+
+
+--
+-- Name: chat_viaggio fk_viaggio; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.chat_viaggio
+    ADD CONSTRAINT fk_viaggio FOREIGN KEY (viaggio_id) REFERENCES public.viaggi(id) ON DELETE CASCADE;
 
 
 --
