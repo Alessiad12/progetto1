@@ -1,3 +1,36 @@
+<?php
+session_start();
+require 'connessione.php';
+
+if (!isset($_SESSION['id_utente'])) {
+    header('Location: login.php');
+    exit;
+}
+$utente_id = intval($_SESSION['id_utente']);
+
+// --- 1) Recupero fino a 4 foto dalle esperienze terminate ---
+$sql = "
+  SELECT foto1, foto2, foto3, foto4, foto5
+  FROM viaggi_terminati
+  WHERE utente_id = $1
+  ORDER BY data_creazione DESC
+";
+$res = pg_query_params($dbconn, $sql, [ $utente_id ]);
+
+$photos = [];
+if ($res) {
+    while ($row = pg_fetch_assoc($res)) {
+        // prendo ogni colonna fotoN, fino ad avere 4 immagini
+        for ($i = 1; $i <= 5; $i++) {
+            if (!empty($row["foto{$i}"])) {
+                $photos[] = $row["foto{$i}"];
+                if (count($photos) >= 4) break 2;
+            }
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -235,11 +268,17 @@
 
       <!-- FOTO -->
       <div class="photos-container">
-        <img src="immagini/viaggio1.jpg" alt="Viaggio 1">
-        <img src="immagini/viaggio2.jpg" alt="Viaggio 2">
-        <img src="immagini/viaggio3.jpg" alt="Viaggio 3">
-        <img src="immagini/viaggio4.jpg" alt="Viaggio 4">
-      </div>
+        <?php if (!empty($photos)): ?>
+          <?php foreach ($photos as $idx => $src): ?>
+            <img
+              src="<?= htmlspecialchars($src) ?>"
+              alt="Viaggio <?= $idx + 1 ?>">
+          <?php endforeach; ?>
+        <?php else: ?>
+          <p>Non hai ancora caricato foto delle tue esperienze.</p>
+        <?php endif; ?>
+</div>
+
     </div>
   </div>
 
