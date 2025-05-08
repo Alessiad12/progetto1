@@ -10,20 +10,23 @@ if (!isset($_SESSION['id_utente'])) {
 $utente_id = intval($_SESSION['id_utente']);
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    echo "ID viaggio non valido.";
+    echo "ID viaggio non valido.<br>";
+
     exit;
 }
-
-$viaggio_id = intval($_GET['id']);
+echo "Valore ricevuto: ";
+echo isset($_GET['id']) ? htmlspecialchars($_GET['id']) : 'Nessun ID ricevuto';
+$viaggio_id =($_GET['id']);
 
 $sql = "
-  SELECT *
-  FROM viaggi_terminati
-  WHERE viaggio_id = $1 
-  ORDER BY data_creazione DESC
+  SELECT v.*,p.*
+  FROM viaggi_terminati v join profili p on 
+  p.id=v.utente_id
+  WHERE viaggio_id=$1;
 ";
 $res = pg_query_params($dbconn, $sql, [ $viaggio_id ]);
 $row = pg_fetch_assoc($res);
+
 ?>
 
 <!DOCTYPE html>
@@ -53,18 +56,7 @@ $row = pg_fetch_assoc($res);
   </style>
 </head>
 <body>
-<p><strong>ID Viaggio Terminato:</strong> <?= htmlspecialchars($row['id']) ?></p>
-<div class="container">
 
-    <h2 class="mb-4">Descrizione del viaggio</h2>
-    <p><strong>Data:</strong> <?= htmlspecialchars(date('d/m/Y', strtotime($viaggio['data_creazione']))) ?></p>
-    <p><strong>Valutazione:</strong> <?= intval($viaggio['valutazione']) ?>/5</p>
-
-    <h4 class="mt-4">Testo esperienza</h4>
-    <p><?= nl2br(htmlspecialchars($viaggio['descrizione'])) ?></p>
-
-    <h4 class="mt-4">Foto</h4>
-
-
+</div>
 </body>
 </html>
