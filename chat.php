@@ -30,113 +30,121 @@ while ($row = pg_fetch_assoc($res)) {
   <title>Chat Viaggio</title>
   <style>
     body {
-      font-family:"Inter", sans-serif;
-      background-color: #f2f4f8;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+    font-family: "Inter", sans-serif;
+    background-color: #f2f4f8;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
 
-    .chat-container {
-      width: 90%;
-      max-width: 600px;
-      height: 80vh;
-      background: #FFFFFF ;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
+  .chat-container {
+    width: 90%;
+    max-width: 600px;
+    height: 80vh;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 
-    .chat-messages {
-      padding: 1rem;
-      gap: 0.5 rem;
-      display: flex;
-      flex-direction: column;
-      scroll-behavior: smooth;
-      flex: 1;
-      padding: 10px;
-      overflow-y: auto;
-      border-bottom: 1px solid #ccc;
-    }
+  .chat-messages {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    overflow-y: auto;
+    background: #f7f9fb;
+    border-bottom: 1px solid #e0e0e0;
+    scroll-behavior: smooth;
+  }
 
-    .messaggio {
-      display: flex;
-      align-items: fflex-start;
-      margin-bottom: 10px;
-    }
+  .messaggio {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
 
-    .messaggio img.avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
+  .messaggio img.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
 
-    .testo-messaggio {
-      margin-left: 10px;
-      background-color: #f1f3f5;
-      color:333;
-      margin-left: 0.5rem;
-      padding: 8px 12px;
-      border-top-left-radius: 0;
-    }
+  .testo-messaggio {
+    background-color: #e9ecef;
+    color: #343a40;
+    padding: 0.75rem 1rem;
+    border-radius: 16px;
+    border-top-left-radius: 4px;
+    max-width: 75%;
+    word-wrap: break-word;
+    position: relative;
+  }
 
-    .proprio {
-      align-items: flex-end;
-      display: flex;
-      justify-content: flex-end;
-    }
+  /* messaggi propri (allineati a destra e con colori invertiti) */
+  .proprio {
+    justify-content: flex-end;
+  }
 
-    .proprio .testo-messaggio {
-      background-color: #d1e7ff;
-      color:#0B3175;
-      margin-right: o.5rem;
-      border-top-right-radius: 0;
-    }
+  .proprio .testo-messaggio {
+    background-color: #0d6efd;
+    color: #fff;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 4px;
+  }
 
-          
-      /* 4) Scrollbar custom */
-      .chat-messages::-webkit-scrollbar {
-        width: 6px;
-      }
-      .chat-messages::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      .chat-messages::-webkit-scrollbar-thumb {
-        background-color: rgba(0,0,0,0.2);
-        border-radius: 3px;
-      }
+  /* footer fisso con input e bottone */
+  .chat-input {
+    display: flex;
+    padding: 0.75rem;
+    background: #ffffff;
+    border-top: 1px solid #e0e0e0;
+  }
 
-    .chat-input {
-      display: flex;
-      padding: 10px;
-      border-top: 1px solid #ccc;
-    }
+  .chat-input input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    outline: none;
+    transition: border-color .2s;
+  }
 
-    .chat-input input {
-      flex: 1;
-      padding: 10px;
-     
-      border-radius: 5px;
-    }
+  .chat-input input:focus {
+    border-color: #0d6efd;
+  }
 
-    .chat-input button {
-      margin-left: 10px;
-      padding: 10px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+  .chat-input button {
+    margin-left: 0.5rem;
+    padding: 0 1.2rem;
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background .2s;
+  }
 
-    .chat-input button:hover {
-      background-color: #0056b3;
-    }
+  .chat-input button:hover {
+    background-color: #084298;
+  }
+
+  /* scrollbar minimalista */
+  .chat-messages::-webkit-scrollbar {
+    width: 6px;
+  }
+  .chat-messages::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2);
+    border-radius: 3px;
+  }
+
   </style>
 </head>
 <body>

@@ -1,86 +1,131 @@
+:root {
+  --bg-page: #f4f6f8;
+  --card-bg: #ffffff;
+  --text-primary: #333;
+  --text-muted: #555;
+  --accent-green: #38b000;
+  --accent-green-dark: #2a8c00;
+  --accent-blue: #007bff;
+  --accent-blue-dark: #0069d9;
+  --accent-yellow: #ffc107;
+  --accent-yellow-dark: #e0a800;
+  --radius: 10px;
+  --transition: 0.2s ease-in-out;
+}
+
+body {
+  background: var(--bg-page);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+#notifiche {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Notifica */
 .notifica {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  background-color: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform var(--transition), box-shadow var(--transition);
 }
-  
+.notifica:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+/* Header */
 .notifica-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
-  
+
+/* Avatar */
 .avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ddd;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  flex-shrink: 0;
 }
-  
-  .testo-notifica {
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  .accetta-btn {
-    align-self: flex-end;
-    padding: 8px 16px;
-    background-color: #38b000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .accetta-btn:hover {
-    background-color: #2a8c00;
-  }
-  .organizza-btn {
-    align-self: flex-end;
-    padding: 8px 16px;
-    background-color: #38b000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .organizza-btn:hover {
-    background-color: #2a8c00;
-  }
-  
-  .registra-btn{
-    align-self: flex-end;
-    padding: 8px 16px;
-    background-color: #38b000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  .registra-btn:hover {
-    background-color: #2a8c00;
-  }
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 20px;
-  }
-  .profile-menu-wrapper {
+
+/* Testo */
+.testo-notifica {
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+/* Bottoni comuni */
+.accetta-btn,
+.organizza-btn,
+.registra-btn {
+  align-self: flex-end;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color var(--transition), transform var(--transition);
+}
+.accetta-btn:hover,
+.organizza-btn:hover,
+.registra-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Varianti colore */
+.accetta-btn {
+  background-color: var(--accent-green);
+  color: #fff;
+}
+.accetta-btn:hover {
+  background-color: var(--accent-green-dark);
+}
+
+.organizza-btn {
+  background-color: var(--accent-blue);
+  color: #fff;
+}
+.organizza-btn:hover {
+  background-color: var(--accent-blue-dark);
+}
+
+.registra-btn {
+  background-color: var(--accent-yellow);
+  color: #212529;
+}
+.registra-btn:hover {
+  background-color: var(--accent-yellow-dark);
+}
+
+/* Profile menu (se serve) */
+.profile-menu-wrapper {
   position: fixed;
   bottom: 20px;
   left: 20px;
 }
-
 .profile-icon {
   width: 48px;
   height: 48px;
@@ -88,40 +133,40 @@
   cursor: pointer;
   border: 2px solid #ddd;
 }
-
 .dropdown-menu {
   display: none;
   position: absolute;
   bottom: 60px;
   left: 0;
-  background-color: white;
+  background-color: #fff;
   min-width: 140px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: var(--radius);
   z-index: 1000;
 }
-
 .dropdown-menu a {
   display: block;
   padding: 12px 16px;
-  color: #333;
+  color: var(--text-primary);
   text-decoration: none;
-  transition: background 0.2s;
+  transition: background-color var(--transition);
 }
-
 .dropdown-menu a:hover {
   background-color: #f0f0f0;
 }
 
+/* Responsive */
+@media (max-width: 600px) {
   .notifica {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    flex-direction: column;
+    text-align: center;
   }
-  .notifica:hover {
-    transform: scale(1.05);
+  .notifica-header {
+    justify-content: center;
   }
-  
+  .accetta-btn,
+  .organizza-btn,
+  .registra-btn {
+    margin: 0.5rem auto;
+  }
+}
