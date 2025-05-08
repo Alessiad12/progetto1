@@ -8,43 +8,45 @@ if (!isset($_SESSION['id_utente'])) {
 }
 $utente_id = intval($_SESSION['id_utente']);
 
-// --- 1) Recupero fino a 4 foto dalle esperienze terminate ---
+// --- Recupera foto e ID viaggio ---
 $sql = "
-  SELECT viaggi_terminati.viaggio_id, foto1, foto2, foto3, foto4, foto5, viaggi.destinazione as Destinazione
+  SELECT viaggi_terminati.viaggio_id, foto1, foto2, foto3, foto4, foto5, viaggi.destinazione as destinazione
   FROM viaggi_terminati
   JOIN viaggi ON viaggi_terminati.viaggio_id = viaggi.id
   WHERE utente_id = $1
-  ORDER BY data_creazione DESC
+  ORDER BY data_creazione DESC;
 ";
-$res = pg_query_params($dbconn, $sql, [ $utente_id ]);
+$res = pg_query_params($dbconn, $sql, [$utente_id]);
 
 $photoGroups = [];
 if ($res) {
     while ($row = pg_fetch_assoc($res)) {
-        $group = [];
+        $foto = [];
         for ($i = 1; $i <= 5; $i++) {
             if (!empty($row["foto{$i}"])) {
-                $group[] = $row["foto{$i}"];
+                $foto[] = $row["foto{$i}"];
             }
         }
 
-        if (!empty($group)) {
-            $viaggio=$row["viaggio_id"];
-            $destinazione = $row['destinazione'];
-            $photoGroups[$destinazione] = $group;
+        if (!empty($foto)) {
+            $photoGroups[$row['destinazione']] = [
+                'viaggio_id' => $row['viaggio_id'],
+                'foto' => $foto
+            ];
         }
     }
 }
+
+// --- Conta viaggi terminati ---
 $sql = "
-  SELECT count(distinct viaggio_id) as viaggi
+  SELECT COUNT(DISTINCT viaggio_id) AS viaggi
   FROM viaggi_terminati
   WHERE utente_id = $1
-  group by utente_id;
+  GROUP BY utente_id;
 ";
-$result = pg_query_params($dbconn, $sql, [ $utente_id ]);
+$result = pg_query_params($dbconn, $sql, [$utente_id]);
 $ro = pg_fetch_assoc($result);
 $n_viaggi = $ro ? $ro['viaggi'] : 0;
-$n_viaggi=$ro['viaggi'];
 ?>
 
 <!DOCTYPE html>
@@ -52,68 +54,71 @@ $n_viaggi=$ro['viaggi'];
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style_index.css">
   <title>Profilo Viaggiatore</title>
+  <link rel="stylesheet" href="css/style_index.css">
   <link rel="stylesheet" href="css/style_pagina_profilo.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'secondo_font';
+      src: url('/font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
+      font-display: swap;
+    }
+    .w-100 {
+      width: 100%!important;
+      height: 100%;
+    }
+  </style>
 </head>
-<style>
-  @font-face {
-    font-family: 'secondo_font';
-    src: url('/font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
-    font-display: swap;
-}
-.w-100 {
-width: 100%!important;
-height: 100%;
-}
-</style>
 <body>
-  <div class="page-wrapper">
+<div class="page-wrapper">
 
-    <!-- PROFILO -->
-    <div class="profile-sidebar">
-      <div class="profile-sidebar-container">
-      
-    <img class="profile-pic" src="immagini/new-york-city.jpg" alt="Profilo">
+  <!-- SIDEBAR PROFILO -->
+  <div class="profile-sidebar">
+    <div class="profile-sidebar-container">
+      <img class="profile-pic" src="immagini/new-york-city.jpg" alt="Profilo">
     </div>
     <h2 class="profile-name">Mario Rossi, 35</h2>
-    <p class="profile-bio">Viaggiatore curioso.<br> Amo conoscere culture e paesaggi.</p>
+    <p class="profile-bio">Viaggiatore curioso.<br>Amo conoscere culture e paesaggi.</p>
     <div class="profile-stats">
       <div class="stat-card">
         Compagni<br><span class="profile-compagni"></span>
       </div>
       <div class="stat-card">
-        Viaggi<br><span class="profile-viaggi"><?php echo htmlspecialchars($n_viaggi); ?></span>
+        Viaggi<br><span class="profile-viaggi"><?= htmlspecialchars($n_viaggi) ?></span>
       </div>
     </div>
     <button onclick="window.location.href='modifica_profilo.php'">Modifica profilo</button>
     <button onclick="window.location.href='/crea_viaggio.php'">Crea viaggio</button>
-    
   </div>
 
-    <!-- CONTENUTO DESTRO -->
-    <div class="content-area">
+  <!-- AREA CONTENUTI -->
+  <div class="content-area">
 
-      <!-- MAPPA -->
-      <div class="map-container" onclick="espandiMappa()">
-        <iframe src="mappamondo.php"></iframe>
-      </div>
+    <!-- MAPPA -->
+    <div class="map-container" onclick="espandiMappa()">
+      <iframe src="mappamondo.php"></iframe>
+    </div>
 
-      <!-- FOTO -->
-      <div class="photos-container">
+    <!-- FOTO ESPERIENZE -->
+    <div class="photos-container">
       <?php if (!empty($photoGroups)): ?>
-        <?php foreach ($photoGroups as $title => $group): ?>
-          <?php $viaggio = $group['viaggio_id'];?>
-          <?php $modalId = 'modal-' . md5($title); ?>
+        <?php foreach ($photoGroups as $destinazione => $data): ?>
+          <?php 
+            $group = $data['foto'];
+            $viaggio_id = $data['viaggio_id'];
+            $modalId = 'modal-' . md5($destinazione); 
+          ?>
           <div class="photo-group mb-4">
 
-        <div class="cover-container" style="background-color:rgba(251, 253, 254, 0.76); font-family: secondo_font, sans-serif; color: rgb(4, 2, 38); ; padding: 50px 0; text-align: center; cursor: pointer;"
-        data-bs-toggle="modal"
-        data-bs-target="#<?= $modalId ?>">
-          <h4><?= htmlspecialchars($title) ?></h4>
-        </div>
-            <!-- Bootstrap Modal -->
+            <!-- COPERTINA -->
+            <div class="cover-container" style="background-color:rgba(251, 253, 254, 0.76); font-family: secondo_font, sans-serif; color: rgb(4, 2, 38); padding: 50px 0; text-align: center; cursor: pointer;"
+                 data-bs-toggle="modal"
+                 data-bs-target="#<?= $modalId ?>">
+              <h4><?= htmlspecialchars($destinazione) ?></h4>
+            </div>
+
+            <!-- MODAL FOTO -->
             <div class="modal fade" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
@@ -127,7 +132,7 @@ height: 100%;
                         <?php endforeach; ?>
                       </div>
 
-                      <!-- Controls -->
+                      <!-- Controlli -->
                       <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<?= $modalId ?>" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                       </button>
@@ -136,12 +141,13 @@ height: 100%;
                       </button>
                     </div>
                     <div class="text-center p-3">
-                      <a href="descrizione_viaggio.php?id=<?= urlencode($viaggio) ?>" class="btn btn-primary">
-                      Descrizione </a>
+                      <a href="/bootstrap-5.3.3-examples/blog/index.php?id=<?= urlencode($viaggio_id); ?>" class="btn btn-primary">Descrizione</a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
         <?php endforeach; ?>
       <?php else: ?>
@@ -149,10 +155,9 @@ height: 100%;
       <?php endif; ?>
     </div>
 
-
-
-    </div>
   </div>
+</div>
+
 
   <!-- OVERLAY MAPPA -->
   <div class="map-overlay" id="mapOverlay">
