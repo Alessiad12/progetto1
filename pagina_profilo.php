@@ -68,6 +68,55 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
       width: 100%!important;
       height: 100%;
     }
+    /* ===== Disposizione mobile per pagina profilo ===== */
+@media (max-width: 600px) {
+  /* Permetti alla pagina di crescere in altezza invece che restare ferma a 100vh */
+  .page-wrapper {
+    flex-direction: column !important;
+    height: auto !important;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Sidebar e content area full-width e senza margin-right */
+  .profile-sidebar,
+  .content-area {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 1rem !important;
+  }
+
+  /* Rimuovi lo spazio a destra su mappa e foto */
+  .map-container,
+  .photos-container {
+    width: 100% !important;
+    margin-right: 0 !important;
+  }
+
+  /* Riduci l’altezza della mappa per mobile */
+  .map-container {
+    height: 200px;
+    margin-bottom: 1rem;
+  }
+
+  /* Foto a due colonne più piccole */
+  .photos-container {
+    gap: 0.5rem;
+  }
+  .photos-container img {
+    width: calc(50% - 0.5rem);
+    height: 80px;
+  }
+
+  /* Se hai il menu fisso in basso, centrato */
+  .profile-menu-wrapper {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    }
+}
+
   </style>
 </head>
 <body>

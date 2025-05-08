@@ -199,6 +199,55 @@
       color: white;
       cursor: pointer;
     }
+
+    /* ===== Breakpoint per smartphone e piccoli tablet ===== */
+@media (max-width: 600px) {
+  /* Trasforma la riga in colonna */
+  .page-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+  }
+
+  /* Sidebar e contenuto occupano tutta la larghezza */
+  .profile-sidebar,
+  .content-area {
+    width: 100%;
+    padding: 1rem;
+    margin: 0;
+  }
+
+  /* Elimina il margin-right sui contenitori interni */
+  .map-container,
+  .photos-container {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  /* Abbassa un po’ l’altezza della mappa per non sprecare spazio */
+  .map-container {
+    height: 200px;
+    margin-bottom: 1rem;
+  }
+
+  /* Le foto si ridistribuiscono automaticamente */
+  .photos-container {
+    gap: 0.5rem;
+  }
+
+  .photos-container img {
+    width: calc(50% - 0.5rem); /* due per riga */
+    height: 100px;
+  }
+
+  /* Se il menu profilo va a sovrapporsi, rialzalo */
+  .profile-menu-wrapper {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
   </style>
 </head>
 <body>
