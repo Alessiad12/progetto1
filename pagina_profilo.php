@@ -190,7 +190,7 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
                       </button>
                     </div>
                     <div class="text-center p-3">
-                      <a href="/bootstrap-5.3.3-examples/blog/index.php?id=<?= urlencode($viaggio_id); ?>" class="btn btn-primary">Descrizione</a>
+                      <a href="prova.php?id=<?= urlencode($viaggio_id); ?>" class="btn btn-primary">Descrizione</a>
                     </div>
                   </div>
                 </div>
