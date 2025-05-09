@@ -20,10 +20,78 @@ $row = pg_fetch_assoc($res);
 $colore_sfondo = $row['colore_sfondo'] ?? '#fef6e4';
 $immagine_profilo = $row['immagine_profilo'] ?? 'immagini/default.png';
 // Recupera tutti i viaggi
-$query = "SELECT * FROM viaggi ORDER BY id DESC";
-$result = pg_query($dbconn, $query);
+// Recupera le preferenze dell’utente
+$sqlPref = "SELECT * FROM preferenze_utente_viaggio WHERE utente_id = $1 ORDER BY data_partenza DESC LIMIT 1";
+$resPref = pg_query_params($dbconn, $sqlPref, [$id_utente]);
+
+if (!$resPref || pg_num_rows($resPref) === 0) {
+    die("Nessuna preferenza trovata per l’utente.");
+}
+
+$pref = pg_fetch_assoc($resPref);
+
+
+if (preg_match('/^\s*(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)\s*€?\s*$/', $pref['budget'], $m)) {
+    // budget nel formato "100-500€"
+    $budget_min = floatval($m[1]);
+    $budget_max = floatval($m[2]);
+} else {
+    // budget singolo, es. "300€" → margine ±20%
+    $budget_num = floatval(preg_replace('/[^\d.]/', '', $pref['budget']));
+    $budget_min = $budget_num * 0.8;
+    $budget_max = $budget_num * 1.2;
+}
+
+
+
+// Calcoli di flessibilità
+$data_partenza_da = date('Y-m-d', strtotime($pref['data_partenza'] . ' -15 days'));
+$data_partenza_a = date('Y-m-d', strtotime($pref['data_partenza'] . ' +15 days'));
+$data_ritorno_da = date('Y-m-d', strtotime($pref['data_ritorno'] . ' -15 days'));
+$data_ritorno_a = date('Y-m-d', strtotime($pref['data_ritorno'] . ' +15 days'));
+
+// Gestione del budget come numero
+
+// Query dei viaggi compatibili
+$query = "
+SELECT *
+FROM viaggi v
+WHERE
+  destinazione ILIKE '%' || $1 || '%' AND
+  tipo_viaggio ILIKE '%' || $2 || '%' AND
+  data_partenza BETWEEN $3 AND $4
+  AND data_ritorno BETWEEN $5 AND $6
+  AND budget BETWEEN $7 AND $8
+  -- altri filtri…
+  AND NOT EXISTS (
+      SELECT 1
+      FROM viaggi_utenti vu
+      WHERE vu.viaggio_id = v.id
+        AND vu.user_id    = \$9
+    )
+
+ORDER BY data_partenza ASC
+LIMIT 20
+";
+
+$user_id = $_SESSION['id_utente'];
+
+$params = [
+    $pref['destinazione'],
+    $pref['tipo_viaggio'],
+    $data_partenza_da,
+    $data_partenza_a,    
+    $data_ritorno_da,
+    $data_ritorno_a,
+    $budget_min,
+    $budget_max,
+    $user_id
+];
+
+
+$result = pg_query_params($dbconn, $query, $params);
 if (!$result) {
-    die("Errore nella query dei viaggi: " . pg_last_error($dbconn));
+    die("Errore nella query dei viaggi compatibili: " . pg_last_error($dbconn));
 }
 
 $viaggi = [];

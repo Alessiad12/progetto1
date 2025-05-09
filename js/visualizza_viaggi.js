@@ -179,7 +179,7 @@ document.querySelectorAll('.card').forEach(card => {
         data.forEach(componente => {
           const pallino = document.createElement('a');
           pallino.classList.add('pallino-componente');
-          pallino.href = `get_profilo.html?id=${componente.id_utente}`;
+          pallino.href = `get_profiloo.php?id=${componente.id_utente}`;
           pallino.title = componente.username;
           const img = document.createElement('img');
           img.src = componente.immagine_profilo || 'immagini/default.jpg'; // fallback se non presente
