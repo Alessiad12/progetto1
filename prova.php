@@ -38,7 +38,7 @@ $media = ($r && pg_num_rows($r)) ? pg_fetch_result($r,0,'media') : 0;
 
 // 3) Commenti
 $sqlComm = "
-  SELECT p.nome, p.immagine_profilo, v.descrizione
+  SELECT p.nome, p.immagine_profilo, v.descrizione, v.utente_id
   FROM viaggi_terminati v
   JOIN profili p ON p.id = v.utente_id
   WHERE v.viaggio_id = $1
@@ -125,12 +125,14 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
     </div>
 
     <!-- COMMENTI -->
-    <section class="commenti mb-5">
+        <section class="commenti mb-5">
       <h4>Commenti</h4>
       <?php while($c = pg_fetch_assoc($resComm)): ?>
         <div class="commento d-flex align-items-start">
-          <img src="<?= htmlspecialchars($c['immagine_profilo']) ?>"
-               alt="Avatar <?= htmlspecialchars($c['nome']) ?>" class="avatar">
+        <a href="get_profilo.html?id=<?= urlencode($c['utente_id']) ?>">
+            <img src="<?= htmlspecialchars($c['immagine_profilo']) ?>"
+                alt="Avatar <?= htmlspecialchars($c['nome']) ?>" class="avatar">
+          </a>
           <div>
             <strong><?= htmlspecialchars($c['nome']) ?></strong>
             <p class="mb-0"><?= nl2br(htmlspecialchars($c['descrizione'])) ?></p>
@@ -138,6 +140,7 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
         </div>
       <?php endwhile; ?>
     </section>
+
 
     <!-- ITINERARIO -->
     <section class="mb-5">
