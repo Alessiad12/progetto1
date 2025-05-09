@@ -51,7 +51,7 @@ $query_media=" SELECT AVG(valutazione) AS media_valutazione
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.122.0">
-    <title>Blog Template · Bootstrap v5.3</title>
+    <title>Viaggi Terminati</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
 
@@ -232,7 +232,9 @@ height: 44px;
       </div>
     </div>
   </header>
-
+  
+<div> <img src="../../<?= htmlspecialchars($row['foto']) ?>" alt="foto viaggio">
+</div>
 <main class="container " >
   <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary" style="background-color: rgba(167, 186, 213, 0.49)!important;size: 17rem;">
     <div class="col-lg-6 px-0">

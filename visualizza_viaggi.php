@@ -62,8 +62,18 @@ while ($row = pg_fetch_assoc($result)) {
         default:
           $immagine = 'https://i.pinimg.com/736x/5d/e7/25/5de7255c7ef36023e25ac38fe9fec211.jpg';
           break;
+
+          $sql = "INSERT INTO viaggi (foto) VALUES ($1)";
+          $res = pg_query_params($conn, $sql, array($immagine));
+      
+          if (!$res) {
+              echo "Errore nell'inserimento della foto nel DB: " . pg_last_error($conn);
+          }
       }
+
+      
     }
+
 ?>
 <div class="card" id="card-<?php echo $viaggio['id']; ?>" style="background-image: url('<?= htmlspecialchars($immagine) ?>');"
     data-viaggio-id="<?php echo $viaggio['id']; ?>">
