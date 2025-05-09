@@ -129,7 +129,7 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
       <h4>Commenti</h4>
       <?php while($c = pg_fetch_assoc($resComm)): ?>
         <div class="commento d-flex align-items-start">
-        <a href="get_profilo.html?id=<?= urlencode($c['utente_id']) ?>">
+        <a href="get_profiloo.php?id=<?= urlencode($c['utente_id']) ?>">
             <img src="<?= htmlspecialchars($c['immagine_profilo']) ?>"
                 alt="Avatar <?= htmlspecialchars($c['nome']) ?>" class="avatar">
           </a>

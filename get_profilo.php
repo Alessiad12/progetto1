@@ -24,5 +24,4 @@ if ($result) {
     echo json_encode(["error" => "Profilo non trovato"]);
 }
 
-// Ora hai i dati dell'utente selezionato in $utente
 ?>
