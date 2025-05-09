@@ -63,13 +63,13 @@ while ($row = pg_fetch_assoc($result)) {
           $immagine = 'https://i.pinimg.com/736x/5d/e7/25/5de7255c7ef36023e25ac38fe9fec211.jpg';
           break;
 
-          $sql = "INSERT INTO viaggi (foto) VALUES ($1)";
-          $res = pg_query_params($conn, $sql, array($immagine));
-      
-          if (!$res) {
-              echo "Errore nell'inserimento della foto nel DB: " . pg_last_error($conn);
-          }
+          
       }
+      $sqlUp = "UPDATE viaggi SET foto = $1 WHERE id = $2";
+      $resUp = pg_query_params($dbconn, $sqlUp, [$immagine, $viaggio['id']]);
+      if (!$resUp) {
+          error_log("Errore aggiornamento foto viaggio {$viaggio['id']}: " . pg_last_error($dbconn));
+}
 
       
     }
