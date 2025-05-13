@@ -19,7 +19,7 @@ if (!$res) {
 $row = pg_fetch_assoc($res);
 $colore_sfondo = $row['colore_sfondo'] ?? '#fef6e4';
 $immagine_profilo = $row['immagine_profilo'] ?? 'immagini/default.png';
-// Recupera tutti i viaggi
+
 // Recupera le preferenze dell’utente
 $sqlPref = "SELECT * FROM preferenze_utente_viaggio WHERE utente_id = $1 ORDER BY data_partenza DESC LIMIT 1";
 $resPref = pg_query_params($dbconn, $sqlPref, [$id_utente]);
@@ -29,20 +29,39 @@ if (!$resPref || pg_num_rows($resPref) === 0) {
 }
 
 $pref = pg_fetch_assoc($resPref);
+$continente_utente = $pref['destinazione'];
 
+//destinazioni:
+ function getLimitiContinente($continente) {
+    switch (strtolower($continente)) {
+        case 'africa':
+            return ['lat_min' => -35, 'lat_max' => 37, 'lon_min' => -17, 'lon_max' => 51];
+        case 'europa':
+            return ['lat_min' => 35, 'lat_max' => 71, 'lon_min' => -10, 'lon_max' => 40];
+        case 'asia':
+            return ['lat_min' => -10, 'lat_max' => 55, 'lon_min' => 60, 'lon_max' => 150];
+        case 'america':
+            return ['lat_min' => -55, 'lat_max' => 70, 'lon_min' => -30, 'lon_max' => 150];
+        case 'antartide':
+            return ['lat_min' => -90, 'lat_max' => -60, 'lon_min' => -180, 'lon_max' => 180];
+        case 'oceania':
+            return ['lat_min' => -47, 'lat_max' => -10, 'lon_min' => 110, 'lon_max' => 180];
+        default:
+            return ['lat_min' => -90, 'lat_max' => 90, 'lon_min' => -180, 'lon_max' => 180]; // Default for "unknown"
+    }
+}
+$limitiContinente = getLimitiContinente($continente_utente);
 
-if (preg_match('/^\s*(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)\s*€?\s*$/', $pref['budget'], $m)) {
-    // budget nel formato "100-500€"
+if (preg_match('/^\s*(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)\s*$/', $pref['budget'], $m)) {
+    // Budget nel formato "100-200" → intervallo esplicito
     $budget_min = floatval($m[1]);
     $budget_max = floatval($m[2]);
 } else {
-    // budget singolo, es. "300€" → margine ±20%
+    // Budget singolo, es. "300" → margine ±20%
     $budget_num = floatval(preg_replace('/[^\d.]/', '', $pref['budget']));
     $budget_min = $budget_num * 0.8;
     $budget_max = $budget_num * 1.2;
 }
-
-
 
 // Calcoli di flessibilità
 $data_partenza_da = date('Y-m-d', strtotime($pref['data_partenza'] . ' -15 days'));
@@ -50,34 +69,29 @@ $data_partenza_a = date('Y-m-d', strtotime($pref['data_partenza'] . ' +15 days')
 $data_ritorno_da = date('Y-m-d', strtotime($pref['data_ritorno'] . ' -15 days'));
 $data_ritorno_a = date('Y-m-d', strtotime($pref['data_ritorno'] . ' +15 days'));
 
-// Gestione del budget come numero
 
 // Query dei viaggi compatibili
 $query = "
 SELECT *
 FROM viaggi v
 WHERE
-  destinazione ILIKE '%' || $1 || '%' AND
-  tipo_viaggio ILIKE '%' || $2 || '%' AND
-  data_partenza BETWEEN $3 AND $4
-  AND data_ritorno BETWEEN $5 AND $6
-  AND budget BETWEEN $7 AND $8
-  -- altri filtri…
-  AND NOT EXISTS (
+  tipo_viaggio ILIKE '%' || $1 || '%' 
+  AND data_partenza BETWEEN $2 AND $3
+  AND data_ritorno BETWEEN $4 AND $5
+  AND budget::numeric >= $6 and budget::numeric <= $7
+  AND latitudine BETWEEN $8 AND $9
+  AND longitudine BETWEEN $10 AND $11
+    AND NOT EXISTS (
       SELECT 1
       FROM viaggi_utenti vu
       WHERE vu.viaggio_id = v.id
-        AND vu.user_id    = \$9
+        AND vu.user_id    = $12
     )
+  ORDER BY data_partenza ASC
+  LIMIT 20";
 
-ORDER BY data_partenza ASC
-LIMIT 20
-";
-
-$user_id = $_SESSION['id_utente'];
 
 $params = [
-    $pref['destinazione'],
     $pref['tipo_viaggio'],
     $data_partenza_da,
     $data_partenza_a,    
@@ -85,8 +99,15 @@ $params = [
     $data_ritorno_a,
     $budget_min,
     $budget_max,
-    $user_id
+    $limitiContinente['lat_min'],
+    $limitiContinente['lat_max'],
+    $limitiContinente['lon_min'],
+    $limitiContinente['lon_max'],
+        $id_utente
+ 
+
 ];
+
 
 
 $result = pg_query_params($dbconn, $query, $params);

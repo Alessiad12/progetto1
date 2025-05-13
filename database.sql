@@ -565,6 +565,7 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 4	8	13	Roma	f	2025-05-09 19:08:22.569075	match_accepted	332
 8	4	13	Roma	f	2025-05-09 19:09:28.305217	match_accepted	333
 4	8	14	Giappone	f	2025-05-09 19:16:00.106202	like	334
+4	8	14	Giappone	f	2025-05-13 17:34:17.576052	match_accepted	335
 \.
 
 
@@ -577,12 +578,12 @@ COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_part
 1	anna.bianchi@example.com	Parigi	2025-06-01	2025-06-10	500-1000€	natura	coppia
 2	luca.verdi@example.com	New York	2025-07-15	2025-07-25	2000-3000€	spiaggia	gruppo
 3	giulia.neri@example.com	Tokyo	2025-09-01	2025-09-15	3000-4000€	ristoranti	coppia
-4	marco.rossi@example.com	Roma	2025-05-20	2025-05-25	100-500€	natura	gruppo
 5	s.gallo@example.com	Londra	2025-08-10	2025-08-20	1000-2000€	musei	gruppo
 6	fra@gmail.com	Parigi	2025-06-01	2025-06-10	500-1000€	musei	coppia
-7	ida@ida.it	Portogallo	2025-07-15	2025-07-25	2000-3000€	ristoranti	gruppo
-8	ale.desi@gmail.com	Giappone	2025-09-01	2025-09-15	3000-4000€	spiaggia	coppia
 11	agdys@idhifdhj.it	\N	\N	\N	\N	musei	gruppo
+4	marco.rossi@example.com	Europa	2025-05-12	2025-05-18	200-1000	musei	gruppo
+7	ida@ida.it	Asia	2025-05-14	2025-05-17	200-3000	musei	gruppo
+8	ale.desi@gmail.com	Asia	2025-05-13	2025-05-20	200-3000	musei	gruppo
 \.
 
 
@@ -646,10 +647,16 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 7	1	t	2025-05-09 18:19:03.105614
 7	2	t	2025-05-09 18:19:04.220926
 7	3	t	2025-05-09 18:19:04.787319
-4	9	t	2025-05-09 18:33:00.846387
 4	12	t	2025-05-09 18:38:23.322361
 4	13	t	2025-05-09 19:07:50.718314
 8	14	t	2025-05-09 19:15:59.993984
+4	16	t	2025-05-13 17:31:19.192443
+4	9	f	2025-05-13 17:31:24.767566
+4	17	t	2025-05-13 17:31:29.920352
+7	16	t	2025-05-13 17:37:22.467636
+7	9	t	2025-05-13 17:37:23.230957
+7	17	t	2025-05-13 17:37:24.406461
+8	19	t	2025-05-13 17:41:19.041121
 \.
 
 
@@ -679,17 +686,22 @@ COPY public.utenti (id, nome, nickname, email, data_di_nascita, password) FROM s
 COPY public.viaggi (id, user_id, destinazione, data_partenza, data_ritorno, budget, tipo_viaggio, lingua, compagnia, descrizione, foto, latitudine, longitudine) FROM stdin;
 10	9	New York	2025-05-05	2025-05-09	1000	ristoranti	\N	singolo	Viaggio divertente	/uploads/68192209a1ed8_io.jpg	40.71272810	-74.00601520
 9	7	roma	2025-05-17	2025-05-21	400	musei	\N	gruppo	sogno di vedere il Colosseo	https://i.pinimg.com/736x/2c/32/50/2c3250a76a0699201d664d86a3611245.jpg	41.89332030	12.48293210
-8	8	Portogallo	2024-05-01	2024-05-15	1800 EUR	spiaggia	Portoghese	coppia	Esplorazione delle città storiche del Portogallo.	https://i.pinimg.com/736x/7a/22/9d/7a229d5fbdd76b026814465fbbc1b1b4.jpg	39.39990000	-8.22450000
-7	7	Canada	2024-04-10	2024-04-25	2200 EUR	ristoranti	Inglese/French	gruppo	Relax tra le montagne canadesi.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	56.13040000	-106.34680000
-6	6	USA	2024-03-15	2024-03-30	3500 EUR	musei	Inglese	coppia	Viaggio alla scoperta delle principali città americane.	https://i.pinimg.com/736x/2c/32/50/2c3250a76a0699201d664d86a3611245.jpg	37.09020000	-95.71290000
-5	5	Australia	2024-02-01	2024-02-20	3000 EUR	musei	Inglese	gruppo	Tour dei parchi nazionali australiani.	https://i.pinimg.com/736x/2c/32/50/2c3250a76a0699201d664d86a3611245.jpg	-25.27440000	133.77510000
-4	4	Thailandia	2023-12-05	2023-12-20	2500 EUR	natura	Thai	gruppo	Un viaggio esplorativo alla scoperta delle isole della Thailandia.	https://i.pinimg.com/736x/89/08/9c/89089cd5fbe7662e5a35beb13eb18edf.jpg	15.87000000	100.99250000
-3	3	Francia	2023-07-01	2023-07-10	1200 EUR	ristoranti	Francese	coppia	Escursione tra le Alpi francesi e Parigi.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	46.60340000	1.88830000
-2	2	Spagna	2023-06-15	2023-06-25	1500 EUR	spiaggia	Spagnolo	gruppo	Vacanza estiva in Spagna con amici.	https://i.pinimg.com/736x/7a/22/9d/7a229d5fbdd76b026814465fbbc1b1b4.jpg	40.46370000	-3.74920000
-1	1	Giappone	2023-09-10	2023-09-25	2000 EUR	natura	Giapponese	coppia	Un viaggio indimenticabile tra la tradizione e la modernità.	https://i.pinimg.com/736x/89/08/9c/89089cd5fbe7662e5a35beb13eb18edf.jpg	35.67620000	139.65030000
+8	8	Portogallo	2024-05-01	2024-05-15	1800	spiaggia	Portoghese	coppia	Esplorazione delle città storiche del Portogallo.	https://i.pinimg.com/736x/7a/22/9d/7a229d5fbdd76b026814465fbbc1b1b4.jpg	39.39990000	-8.22450000
+7	7	Canada	2024-04-10	2024-04-25	2200	ristoranti	Inglese/French	gruppo	Relax tra le montagne canadesi.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	56.13040000	-106.34680000
+6	6	USA	2024-03-15	2024-03-30	3500	musei	Inglese	coppia	Viaggio alla scoperta delle principali città americane.	https://i.pinimg.com/736x/2c/32/50/2c3250a76a0699201d664d86a3611245.jpg	37.09020000	-95.71290000
+5	5	Australia	2024-02-01	2024-02-20	3000	musei	Inglese	gruppo	Tour dei parchi nazionali australiani.	https://i.pinimg.com/736x/2c/32/50/2c3250a76a0699201d664d86a3611245.jpg	-25.27440000	133.77510000
+4	4	Thailandia	2023-12-05	2023-12-20	2500	natura	Thai	gruppo	Un viaggio esplorativo alla scoperta delle isole della Thailandia.	https://i.pinimg.com/736x/89/08/9c/89089cd5fbe7662e5a35beb13eb18edf.jpg	15.87000000	100.99250000
+3	3	Francia	2023-07-01	2023-07-10	1200	ristoranti	Francese	coppia	Escursione tra le Alpi francesi e Parigi.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	46.60340000	1.88830000
+2	2	Spagna	2023-06-15	2023-06-25	1500	spiaggia	Spagnolo	gruppo	Vacanza estiva in Spagna con amici.	https://i.pinimg.com/736x/7a/22/9d/7a229d5fbdd76b026814465fbbc1b1b4.jpg	40.46370000	-3.74920000
+1	1	Giappone	2023-09-10	2023-09-25	2000	natura	Giapponese	coppia	Un viaggio indimenticabile tra la tradizione e la modernità.	https://i.pinimg.com/736x/89/08/9c/89089cd5fbe7662e5a35beb13eb18edf.jpg	35.67620000	139.65030000
 12	8	Roma	2025-05-21	2025-05-25	100	natura	\N	gruppo	Emozionante avventura	/uploads/681e2d5d6c1f4_io.jpg	41.89332030	12.48293210
 13	8	Roma	2025-05-10	2025-05-25	250	natura	\N	gruppo	Non vedo l'ora di vedere il nuovo Papam!	/uploads/681e348f7b26b_Screenshot 2025-02-07 164924.png	41.89332030	12.48293210
 14	4	Giappone	2025-08-31	2025-09-20	3000	spiaggia	\N	coppia	Esplorare la cultura giapponese è il mio sogno!	/uploads/681e3836d602e_Screenshot 2024-10-11 131041.png	36.57484410	139.23941790
+15	7	Budapest	2025-05-15	2025-05-16	350	natura	\N	gruppo	scopriamo tutte le terme di Buda!!!	https://i.pinimg.com/736x/89/08/9c/89089cd5fbe7662e5a35beb13eb18edf.jpg	47.48138960	19.14609410
+17	7	Venezia	2025-05-15	2025-05-16	300	musei	\N	gruppo	soglio di visitare la capitale dell'amore	https://i.pinimg.com/736x/2c/32/50/2c3250a76a0699201d664d86a3611245.jpg	45.43719080	12.33458980
+16	7	Londra	2025-05-21	2025-05-14	500	musei	\N	gruppo	voglio vedere il Big Ben	https://i.pinimg.com/736x/2c/32/50/2c3250a76a0699201d664d86a3611245.jpg	51.48933350	-0.14405510
+18	4	cina	2025-05-16	2025-05-21	2000	natura	\N	gruppo	alla scoperta dell'oriente	/uploads/682366fad03b1_IMG_8059.heic	35.00006630	104.99995500
+19	7	mongolia	2025-05-14	2025-05-20	2000	musei	\N	gruppo	alla scoperta dell'oriente	https://i.pinimg.com/736x/2c/32/50/2c3250a76a0699201d664d86a3611245.jpg	46.82503880	103.84997360
 \.
 
 
@@ -725,6 +737,12 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 13	8	ideatore
 13	4	partecipante
 14	4	ideatore
+15	7	ideatore
+16	7	ideatore
+17	7	ideatore
+14	8	partecipante
+18	4	ideatore
+19	7	ideatore
 \.
 
 
@@ -746,7 +764,7 @@ SELECT pg_catalog.setval('public.esperienze_id_seq', 2, true);
 -- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifiche_id_seq', 334, true);
+SELECT pg_catalog.setval('public.notifiche_id_seq', 335, true);
 
 
 --
@@ -760,7 +778,7 @@ SELECT pg_catalog.setval('public.utenti_id_seq', 11, true);
 -- Name: viaggi_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_id_seq', 14, true);
+SELECT pg_catalog.setval('public.viaggi_id_seq', 19, true);
 
 
 --
@@ -917,3 +935,4 @@ ALTER TABLE ONLY public.viaggi_utenti
 --
 -- PostgreSQL database dump complete
 --
+
