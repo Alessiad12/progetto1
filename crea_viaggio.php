@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <span class="block mb-2 font-semibold">Vacanza da sogno</span>
         <div class="grid grid-cols-2 gap-2">
           <?php
-          $options = ['spiaggia'=>'🏖️ Spiaggia','musei'=>'🏛️ Musei','ristoranti'=>'🍴 Ristoranti','natura'=>'⛰️ Natura','bambini'=>'👨‍👩‍👧‍👦 Bambini'];
+          $options = ['spiaggia'=>'🏖️ Spiaggia','musei'=>'🏛️ Musei','ristoranti'=>'🍴 Ristoranti','natura'=>'⛰️ Natura'];
           foreach ($options as $val => $label) {
             echo "<label class='flex items-center bg-white/70 rounded-lg p-3 hover:bg-white cursor-pointer'>";
             echo "<input type='radio' name='tipo_viaggio' value='".htmlspecialchars($val)."' class='mr-3' required>";
