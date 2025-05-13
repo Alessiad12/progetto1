@@ -31,9 +31,6 @@ $img_path = 'uploads/' . $nome_file;
 
 
 // ---- INSERT su profili ----
-$sql = "INSERT INTO viaggi_terminati
-  (utente_id, viaggio_id, descrizione, valutazione, foto1, foto2, foto3, foto4, foto5)
- VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)";
 $sql_profili = "INSERT INTO profili(id, email, nome, eta, bio, data_di_nascita, immagine_profilo, posizione_immagine)
 VALUES ($1, $2, $3, $4, $5, $6,$7, $8)";
 
@@ -60,12 +57,12 @@ if (!$res) {
 }
 
 // ---- INSERT su preferenze_utente_viaggio ----
-$sql_pref = <<<SQL
+$sql_pref = "
 INSERT INTO preferenze_utente_viaggio
   (utente_id, email, destinazione, data_partenza, data_ritorno, budget, tipo_viaggio, compagnia)
 VALUES
   ($1, $2, $3, $4, $5, $6, $7, $8)
-SQL;
+SQL";
 
 $params_pref = [
   $id,
@@ -90,7 +87,7 @@ if (!$res2) {
 }
 
 // Tutto ok
-header('Location: /visualizza_viaggi.php');
+header('Location: /crea_preferenze_viaggi.php');
 exit;
 /* header('Content-Type: application/json');
 echo json_encode([

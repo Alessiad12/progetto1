@@ -917,4 +917,3 @@ ALTER TABLE ONLY public.viaggi_utenti
 --
 -- PostgreSQL database dump complete
 --
-
