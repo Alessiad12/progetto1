@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 17.4
+-- Dumped from database version 17.0
 -- Dumped by pg_dump version 17.4
 
 SET statement_timeout = 0;
@@ -582,6 +582,7 @@ COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_part
 6	fra@gmail.com	Parigi	2025-06-01	2025-06-10	500-1000€	musei	coppia
 7	ida@ida.it	Portogallo	2025-07-15	2025-07-25	2000-3000€	ristoranti	gruppo
 8	ale.desi@gmail.com	Giappone	2025-09-01	2025-09-15	3000-4000€	spiaggia	coppia
+11	agdys@idhifdhj.it	\N	\N	\N	\N	musei	gruppo
 \.
 
 
@@ -598,8 +599,9 @@ COPY public.profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, 
 7	ida@ida.it	Ida Benvenuto	22	Studentessa di design e amante della moda. Viaggiare mi ispira moltissimo.	#fbfbce	2003-08-19	uploads/profilo_681a409cd4722.jpg	50
 9	b@e.it	betta	22		#fbfbce	20003-04-17		50
 8	ale.desi@gmail.com	Alessia Desideri	22	Futura architetta e viaggiatrice nel cuore. Amo la cultura e l’arte.	#fbe0ce	2003-06-12	uploads/profilo_681b8e190dfe7.png	50
-10	ale@ida.it	Alida	21	Amo viaggiare e collezionare calamite.	#faf3bfc4	2003-08-12	
+10	ale@ida.it	Alida	21	Amo viaggiare e collezionare calamite.	#faf3bfc4	2003-08-12	uploads/profilo_681e37ada4a57.png	50
 4	marco.rossi@xample.com	Marco Rossi	28	Viaggiare è la mia passione. Ho una collezione di mappe antiche.	#cee3f4	1997-05-15	uploads/profilo_681e37ada4a57.png	50
+11	agdys@idhifdhj.it	jhdsisj	0	fghjk	#faf3bfc4	2025-05-10	uploads/682301cc277c6_68192209a1ed8_io.jpg	\N
 \.
 
 
@@ -666,6 +668,7 @@ COPY public.utenti (id, nome, nickname, email, data_di_nascita, password) FROM s
 8	Alessia Desideri	ale_desi	ale.desi@gmail.com	2003-06-12	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
 9	betta	betta	b@e.it	20003-04-17	$2y$10$NJqjqSh11tCmFi0Vv0cPa.B46Gp4VSzLuCcQQ9/eUK2Yf2VN6IbBS
 10	Alessia Benvenuto	Alida	ale@ida.it	2003-08-12	$2y$10$8/J7JIDpiZdguIpvOyebyeVzZ4yBcF01sZDivae8VMFYHhlSav3u6
+11	aaaa	jhdsisj	agdys@idhifdhj.it	2025-05-10	$2y$10$OmnuYWSFMRzYro5YasK7nuopcQMkh08MEvjtvqtWeqFd9LqzdVTCi
 \.
 
 
@@ -750,7 +753,7 @@ SELECT pg_catalog.setval('public.notifiche_id_seq', 334, true);
 -- Name: utenti_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.utenti_id_seq', 10, true);
+SELECT pg_catalog.setval('public.utenti_id_seq', 11, true);
 
 
 --

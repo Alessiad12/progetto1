@@ -24,25 +24,18 @@ try {
     $eta = null;
 }
 
-// immagine (hex string)
-$img_hex = null;
-if (!empty($_FILES['immagine_profilo']['tmp_name']) 
-    && is_uploaded_file($_FILES['immagine_profilo']['tmp_name'])
-) {
-    $raw = file_get_contents($_FILES['immagine_profilo']['tmp_name']);
-    // converto in hex (ASCII-safe)  
-    $img_hex = bin2hex($raw);
-}
+$nome_file = uniqid() . '_' . basename($_FILES['immagine_profilo']['name']);
+$destinazione = __DIR__ . '/uploads/' . $nome_file;
+move_uploaded_file($_FILES['immagine_profilo']['tmp_name'], $destinazione);
+$img_path = 'uploads/' . $nome_file;
+
 
 // ---- INSERT su profili ----
-// La colonna immagine_profilo è di tipo BYTEA
-// usiamo DECODE($7,'hex') per ottenere di nuovo i byte
-$sql_profili = <<<SQL
-INSERT INTO profili
-  (id, email, nome, eta, bio, data_di_nascita, immagine_profilo, posizione_immagine)
-VALUES
-  ($1, $2, $3, $4, $5, $6, decode($7,'hex'), $8)
-SQL;
+$sql = "INSERT INTO viaggi_terminati
+  (utente_id, viaggio_id, descrizione, valutazione, foto1, foto2, foto3, foto4, foto5)
+ VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)";
+$sql_profili = "INSERT INTO profili(id, email, nome, eta, bio, data_di_nascita, immagine_profilo, posizione_immagine)
+VALUES ($1, $2, $3, $4, $5, $6,$7, $8)";
 
 $params_profili = [
   $id,
@@ -51,7 +44,7 @@ $params_profili = [
   $eta,
   $bio,
   $compleanno,
-  $img_hex,   // hex string o null
+  $img_path,
   null        // posizione_immagine
 ];
 
@@ -97,7 +90,7 @@ if (!$res2) {
 }
 
 // Tutto ok
-header('Location: /index.html');
+header('Location: /visualizza_viaggi.php');
 exit;
 /* header('Content-Type: application/json');
 echo json_encode([
