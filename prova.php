@@ -91,6 +91,43 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
     .commenti .commento:last-child { border-bottom:none; }
     .commento .avatar { width:40px; height:40px; border-radius:50%; object-fit:cover; margin-right:.75rem; }
     .gallery img { object-fit:cover; width:100%; height:200px; border-radius:8px; }
+    .circle-container {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 15px;
+  }
+  .circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: conic-gradient(var(--color) calc(var(--percent) * 1%), #e0e0e0 0%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .circle::before {
+    content: '';
+    width: 80%;
+    height: 80%;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+  }
+  .circle img {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    z-index: 1;
+  }
+  .circle-label {
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+  }
     @media (max-width:576px) { .gallery img { height:120px; } }
   </style>
 </head>
@@ -147,6 +184,48 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
       <h4>Itinerario</h4>
       <p><?= nl2br(htmlspecialchars($trip['descrizione_viaggio'])) ?></p>
     </section>
+
+  <section class="mb-5">
+  <h4>Il viaggio in breve</h4>
+  <div class="d-flex flex-wrap justify-content-center">
+
+    <div class="circle-container">
+      <div class="circle" style="--percent:40; --color:#8BC34A;">
+        <img src="immagini/tree-solid.svg" alt="Natura">
+      </div>
+      <span class="circle-label">Natura e avventura</span>
+    </div>
+
+    <div class="circle-container">
+      <div class="circle" style="--percent:50; --color:#29B6F6;">
+        <img src="immagini/umbrella-beach-solid.svg" alt="Relax">
+      </div>
+      <span class="circle-label">Relax</span>
+    </div>
+
+    <div class="circle-container">
+      <div class="circle" style="--percent:30; --color:#FFCA28;">
+        <img src="immagini/archway-solid.svg" alt="Monumenti">
+      </div>
+      <span class="circle-label">Monumenti e storia</span>
+    </div>
+
+    <div class="circle-container">
+      <div class="circle" style="--percent:70; --color:#FB8C00;">
+        <img src="immagini/city-solid.svg" alt="Cultura">
+      </div>
+      <span class="circle-label">Città e cultura</span>
+    </div>
+
+    <div class="circle-container">
+      <div class="circle" style="--percent:50; --color:#7E57C2;">
+        <img src="immagini/champagne-glasses-solid.svg" alt="Nightlife">
+      </div>
+      <span class="circle-label">Party e nightlife</span>
+    </div>
+
+  </div>
+</section>
 
     <!-- GALLERIA FOTO -->
     <section class="gallery mb-5">
