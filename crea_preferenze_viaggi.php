@@ -84,9 +84,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
     <form  id="form-viaggio" action="crea_preferenze_viaggi.php" method="POST" enctype="multipart/form-data" class="space-y-5">
       <div>
-        <label class="block mb-1 font-semibold">Destinazione</label>
-        <input name="destinazione" type="text" required placeholder="Roma, Parigi..."
-          class="w-full bg-cream border border-navy/30 rounded-lg p-3 focus:ring-1 focus:ring-navy-light"/>
+        <div class="relative">
+  <label class="block mb-1 font-semibold">Destinazione</label>
+  <input id="input-destinazione" name="destinazione" type="text" required placeholder="Roma, Parigi..."
+    class="w-full bg-cream border border-navy/30 rounded-lg p-3 focus:ring-1 focus:ring-navy-light"/>
+
+  <!-- Menu a comparsa -->
+<div id="regioni-menu" class="absolute top-full left-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg p-4 grid grid-cols-3 gap-4 z-10 hidden w-[500px]">
+
+    <div class="region-option cursor-pointer text-center" data-value="Africa">
+      <img src="/immagini/Africa.png" class="w-28 h-28 object-cover mx-auto mb-2 rounded-xl" alt="Africa">
+    </div>
+    <div class="region-option cursor-pointer text-center" data-value="America">
+      <img src="/immagini/America.png"  class="w-28 h-28 object-cover mx-auto mb-2 rounded-xl" alt="America">
+    </div>
+    <div class="region-option cursor-pointer text-center" data-value="Antartide">
+      <img src="/immagini/Antartide.png"  class="w-28 h-28 object-cover mx-auto mb-2 rounded-xl" alt="Antartide">
+    </div>
+    <div class="region-option cursor-pointer text-center" data-value="Asia">
+      <img src="/immagini/Asia.png"  class="w-28 h-28 object-cover mx-auto mb-2 rounded-xl" alt="Asia">
+    </div>
+    <div class="region-option cursor-pointer text-center" data-value="Europa">
+      <img src="/immagini/Europa.png"  class="w-28 h-28 object-cover mx-auto mb-2 rounded-xl" alt="Europa">
+    </div>
+    <div class="region-option cursor-pointer text-center" data-value="Oceania">
+      <img src="/immagini/Oceania.png"  class="w-28 h-28 object-cover mx-auto mb-2 rounded-xl" alt="Oceania">
+    </div>
+  </div>
+</div>
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
@@ -139,5 +164,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
   </div>
   <script src="js/cerca_coordinate.js"></script>
+  <script>
+  const input = document.getElementById('input-destinazione');
+  const menu = document.getElementById('regioni-menu');
+  const options = document.querySelectorAll('.region-option');
+
+  // Mostra il menu quando clicchi sull'input
+  input.addEventListener('focus', () => {
+    menu.classList.remove('hidden');
+  });
+
+  // Nasconde il menu quando clicchi fuori
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && e.target !== input) {
+      menu.classList.add('hidden');
+    }
+  });
+
+  // Quando clicchi su un'opzione, scrive il valore nell'input
+  options.forEach(option => {
+    option.addEventListener('click', () => {
+      input.value = option.dataset.value;
+      menu.classList.add('hidden');
+    });
+  });
+</script>
 </body>
 </html>

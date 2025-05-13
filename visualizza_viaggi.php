@@ -173,6 +173,7 @@ while ($row = pg_fetch_assoc($result)) {
   <div class="dropdown-menu" id="dropdownMenu" >
           <a href="pagina_profilo.php">Profilo</a>
           <a href="login.html">Logout</a>
+          <a href="crea_preferenze_viaggi.php"> Preferenze <a>
   </div>
 </div>
 
