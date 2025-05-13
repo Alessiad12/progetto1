@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div>
         <span class="block mb-2 font-semibold">Tipo di viaggio</span>
         <div class="flex gap-3">
-          <label class="flex items-center"><input type="radio" name="compagnia" value="singolo" required><span class="ml-2">Solo</span></label>
+          
           <label class="flex items-center"><input type="radio" name="compagnia" value="coppia"><span class="ml-2">Coppia</span></label>
           <label class="flex items-center"><input type="radio" name="compagnia" value="gruppo"><span class="ml-2">Gruppo</span></label>
         </div>

@@ -47,26 +47,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // --- 4) Inserisco su viaggi_terminati ---
-    $sql = "INSERT INTO viaggi_terminati
-        (utente_id, viaggio_id, descrizione, valutazione,
-         foto1, foto2, foto3, foto4, foto5)
-      VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9)";
-    $params = [
-        $utente_id,
-        $viaggio_id,
-        $descrizione,
-        $valutazione,
-        $fotos[0],
-        $fotos[1],
-        $fotos[2],
-        $fotos[3],
-        $fotos[4],
-    ];
-    $res = pg_query_params($dbconn, $sql, $params);
-    if (!$res) {
-        die('Errore salvataggio esperienza: ' . pg_last_error($dbconn));
-    }
+    $natura    = intval($_POST['natura'] ?? 0);
+$relax     = intval($_POST['relax'] ?? 0);
+$monumenti = intval($_POST['monumenti'] ?? 0);
+$cultura   = intval($_POST['cultura'] ?? 0);
+$nightlife = intval($_POST['nightlife'] ?? 0);
+
+// --- Inserisco su viaggi_terminati (incluso percentuali) ---
+$sql = "INSERT INTO viaggi_terminati
+    (utente_id, viaggio_id, descrizione, valutazione,
+     foto1, foto2, foto3, foto4, foto5,
+     natura, relax, monumenti, cultura, nightlife)
+  VALUES
+    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)";
+$params = [
+    $utente_id,
+    $viaggio_id,
+    $descrizione,
+    $valutazione,
+    $fotos[0],
+    $fotos[1],
+    $fotos[2],
+    $fotos[3],
+    $fotos[4],
+    $natura,
+    $relax,
+    $monumenti,
+    $cultura,
+    $nightlife
+];
+$res = pg_query_params($dbconn, $sql, $params);
+if (!$res) {
+    die('Errore salvataggio esperienza: ' . pg_last_error($dbconn));
+}
 
     // --- 5) Redirect di conferma ---
     header('Location: pagina_profilo.php');
@@ -227,6 +240,27 @@ $viaggio_id = intval($_GET['viaggio_id'] ?? 0);
           <?php endfor; ?>
         </div>
       </div>
+          <div>
+      <label>Natura e avventura (%)</label>
+      <input type="number" name="natura" min="0" max="100" required>
+    </div>
+    <div>
+      <label>Relax (%)</label>
+      <input type="number" name="relax" min="0" max="100" required>
+    </div>
+    <div>
+      <label>Monumenti e storia (%)</label>
+      <input type="number" name="monumenti" min="0" max="100" required>
+    </div>
+    <div>
+      <label>Città e cultura (%)</label>
+      <input type="number" name="cultura" min="0" max="100" required>
+    </div>
+    <div>
+      <label>Party e nightlife (%)</label>
+      <input type="number" name="nightlife" min="0" max="100" required>
+    </div>
+
 
       <button type="submit" class="btn-submit">Salva Esperienza</button>
     </form>

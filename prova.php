@@ -27,6 +27,26 @@ if (!$res || pg_num_rows($res) === 0) {
 }
 $trip = pg_fetch_assoc($res);
 
+// Recupera percentuali dinamiche dal DB
+$sqlPerc = "
+SELECT 
+  ROUND(AVG(natura)) AS natura,
+  ROUND(AVG(relax)) AS relax,
+  ROUND(AVG(monumenti)) AS monumenti,
+  ROUND(AVG(cultura)) AS cultura,
+  ROUND(AVG(nightlife)) AS nightlife
+FROM viaggi_terminati
+WHERE viaggio_id = $1
+";
+$resPerc = pg_query_params($dbconn, $sqlPerc, [$viaggio_id]);
+if (!$resPerc || pg_num_rows($resPerc) === 0) {
+    $percentuali = ['natura'=>0,'relax'=>0,'monumenti'=>0,'cultura'=>0,'nightlife'=>0];
+} else {
+    $percentuali = pg_fetch_assoc($resPerc);
+}
+
+
+
 // 2) Media valutazione
 $sqlMedia = "
   SELECT ROUND(AVG(valutazione)::numeric,2) AS media
@@ -91,43 +111,56 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
     .commenti .commento:last-child { border-bottom:none; }
     .commento .avatar { width:40px; height:40px; border-radius:50%; object-fit:cover; margin-right:.75rem; }
     .gallery img { object-fit:cover; width:100%; height:200px; border-radius:8px; }
-    .circle-container {
+        .circle-container {
       display: inline-flex;
       flex-direction: column;
       align-items: center;
       margin: 15px;
-  }
-  .circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: conic-gradient(var(--color) calc(var(--percent) * 1%), #e0e0e0 0%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .circle::before {
-    content: '';
-    width: 80%;
-    height: 80%;
-    background: #fff;
-    border-radius: 50%;
-    position: absolute;
-  }
-  .circle img {
-    position: absolute;
-    width: 45px;
-    height: 45px;
-    z-index: 1;
-  }
-  .circle-label {
-    margin-top: 10px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-align: center;
-  }
+    }
+
+    .circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: conic-gradient(var(--color) calc(var(--percent) * 1%), #e0e0e0 0%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .circle::before {
+      content: '';
+      width: 80%;
+      height: 80%;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .circle img {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      z-index: 1;
+      filter: brightness(0) saturate(100%) invert(40%) sepia(100%) saturate(600%) hue-rotate(var(--hue,0deg));
+    }
+
+    .circle-label {
+      margin-top: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .circle-percent {
+      margin-top: 5px;
+      font-size: 0.85rem;
+      color: var(--color);
+      font-weight: bold;
+    }
+
     @media (max-width:576px) { .gallery img { height:120px; } }
   </style>
 </head>
@@ -185,47 +218,54 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
       <p><?= nl2br(htmlspecialchars($trip['descrizione_viaggio'])) ?></p>
     </section>
 
-  <section class="mb-5">
+        <section class="mb-5">
   <h4>Il viaggio in breve</h4>
   <div class="d-flex flex-wrap justify-content-center">
 
     <div class="circle-container">
-      <div class="circle" style="--percent:40; --color:#8BC34A;">
+      <div class="circle" style="--percent:<?= htmlspecialchars($percentuali['natura']) ?>; --color:#8BC34A; --hue:70deg;">
         <img src="immagini/tree-solid.svg" alt="Natura">
       </div>
       <span class="circle-label">Natura e avventura</span>
+      <span class="circle-percent"><?= htmlspecialchars($percentuali['natura']) ?>%</span>
     </div>
 
     <div class="circle-container">
-      <div class="circle" style="--percent:50; --color:#29B6F6;">
+      <div class="circle" style="--percent:<?= htmlspecialchars($percentuali['relax']) ?>; --color:#29B6F6; --hue:180deg;">
         <img src="immagini/umbrella-beach-solid.svg" alt="Relax">
       </div>
       <span class="circle-label">Relax</span>
+      <span class="circle-percent"><?= htmlspecialchars($percentuali['relax']) ?>%</span>
     </div>
 
     <div class="circle-container">
-      <div class="circle" style="--percent:30; --color:#FFCA28;">
+      <div class="circle" style="--percent:<?= htmlspecialchars($percentuali['monumenti']) ?>; --color:#FFCA28; --hue:40deg;">
         <img src="immagini/archway-solid.svg" alt="Monumenti">
       </div>
       <span class="circle-label">Monumenti e storia</span>
+      <span class="circle-percent"><?= htmlspecialchars($percentuali['monumenti']) ?>%</span>
     </div>
 
     <div class="circle-container">
-      <div class="circle" style="--percent:70; --color:#FB8C00;">
+      <div class="circle" style="--percent:<?= htmlspecialchars($percentuali['cultura']) ?>; --color:#FB8C00; --hue:20deg;">
         <img src="immagini/city-solid.svg" alt="Cultura">
       </div>
       <span class="circle-label">Città e cultura</span>
+      <span class="circle-percent"><?= htmlspecialchars($percentuali['cultura']) ?>%</span>
     </div>
 
     <div class="circle-container">
-      <div class="circle" style="--percent:50; --color:#7E57C2;">
+      <div class="circle" style="--percent:<?= htmlspecialchars($percentuali['nightlife']) ?>; --color:#7E57C2; --hue:250deg;">
         <img src="immagini/champagne-glasses-solid.svg" alt="Nightlife">
       </div>
       <span class="circle-label">Party e nightlife</span>
+      <span class="circle-percent"><?= htmlspecialchars($percentuali['nightlife']) ?>%</span>
     </div>
 
   </div>
 </section>
+
+
 
     <!-- GALLERIA FOTO -->
     <section class="gallery mb-5">
