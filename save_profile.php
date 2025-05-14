@@ -59,8 +59,7 @@ $sql_pref = "
 INSERT INTO preferenze_utente_viaggio
   (utente_id, email, destinazione, data_partenza, data_ritorno, budget, tipo_viaggio, compagnia)
 VALUES
-  ($1, $2, $3, $4, $5, $6, $7, $8)
-SQL";
+  ($1, $2, $3, $4, $5, $6, $7, $8)";
 
 $id             = $_SESSION['id_utente'];
 $email          = $_POST['email']          ?? '';
