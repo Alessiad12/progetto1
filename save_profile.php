@@ -13,8 +13,6 @@ $nome           = $_POST['name']           ?? '';
 $bio            = $_POST['bio']            ?? '';
 $email          = $_POST['email']          ?? '';
 $compleanno     = $_POST['compleanno']     ?? '';
-$mi_interessano = $_POST['mi_interessano'] ?? '';
-$dream_vacation = $_POST['dream_vacation'] ?? '';
 
 // calcolo età
 try {
@@ -64,6 +62,9 @@ VALUES
   ($1, $2, $3, $4, $5, $6, $7, $8)
 SQL";
 
+$id             = $_SESSION['id_utente'];
+$email          = $_POST['email']          ?? '';
+
 $params_pref = [
   $id,
   $email,
@@ -71,8 +72,8 @@ $params_pref = [
   null,   // data_partenza
   null,   // data_ritorno
   null,   // budget
-  $dream_vacation,
-  $mi_interessano
+  null,
+  null,
 ];
 
 $res2 = pg_query_params($dbconn, $sql_pref, $params_pref);
