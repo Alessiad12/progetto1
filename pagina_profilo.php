@@ -138,7 +138,7 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
       </div>
     </div>
     <button onclick="window.location.href='modifica_profilo.php'">Modifica profilo</button>
-    <button onclick="window.location.href='/crea_viaggio.php'">Crea viaggio</button>
+    <button onclick="window.location.href='/crea_viaggi.php'">Crea viaggio</button>
   </div>
 
   <!-- AREA CONTENUTI -->
@@ -217,7 +217,6 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
     <div class="profile-menu-wrapper">
     <img src="immagini/new-york-city.jpg" alt="Foto Profilo" class="profile-icon" onclick="toggleDropdown()" />
     <div class="dropdown-menu" id="dropdownMenu">
-      <a href="pagina_profilo.php">Profilo</a>
       <a href="login.html">Logout</a>
       <a href=visualizza_viaggi.php>Home</a>
       <a href=notifiche.php>Notifiche</a>
