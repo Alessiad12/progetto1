@@ -25,7 +25,7 @@ for ($i = 0; $i < 5; $i++) {
   }
 }
 
-// INSERT in esperienze
+// INSERT in viaggi_terminati
 $sql = "INSERT INTO viaggi_terminati
   (utente_id, viaggio_id, descrizione, valutazione, foto1, foto2, foto3, foto4, foto5)
  VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)";
