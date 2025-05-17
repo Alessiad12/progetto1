@@ -6,14 +6,107 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
-    body { margin: 0; display: flex; height: 100vh; font-family: sans-serif; }
-    #sidebar { width: 30%; padding: 20px; background: #f9f9f9; box-shadow: 2px 0 5px rgba(0,0,0,0.1); overflow-y: auto; }
-    #map { flex: 1; }
-    input, button { width: 100%; padding: 10px; margin-top: 10px; }
-    ul { list-style: none; padding-left: 0; margin-top: 20px; }
-    li { padding: 5px 0; border-bottom: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; }
-    .remove-btn { background: red; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+ <style>
+    @font-face {
+      font-family: 'CustomFont';
+      src: url('../font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
+      font-display: swap;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      font-family: 'CustomFont', sans-serif;
+      background-color: #f5f1de;
+      color: rgb(8, 7, 91);
+      overflow: hidden;
+    }
+
+    #sidebar {
+      width: 30%;
+      min-width: 280px;
+      background-color: #f5f1de;
+      padding: 24px;
+      border-right: 2px solid #ddd;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    #sidebar h2, #sidebar h3 {
+      margin-bottom: 16px;
+      font-size: 1.4rem;
+      color: rgb(8, 7, 91);
+    }
+
+    #sidebar input[type="text"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid rgb(8, 7, 91);
+      border-radius: 6px;
+      font-size: 1rem;
+      background-color: white;
+      color: rgb(8, 7, 91);
+      font-family: 'CustomFont', sans-serif;
+    }
+
+    #sidebar button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+      background-color: rgb(8, 7, 91);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-family: 'CustomFont', sans-serif;
+    }
+
+    #sidebar button:hover {
+      background-color: #2e5a80;
+    }
+
+    #placesList {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #ccc;
+      font-size: 1rem;
+      color: rgb(8, 7, 91);
+    }
+
+    .remove-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .remove-btn:hover {
+      background-color: #b02a37;
+    }
+
+    #map {
+      flex: 1;
+    }
   </style>
 </head>
 <body>
