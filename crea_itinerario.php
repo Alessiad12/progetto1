@@ -99,25 +99,28 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 0;
+      padding: 4px 0;
       border-bottom: 1px solid #ccc;
       font-size: 1rem;
       color: rgb(8, 7, 91);
+      gap: 8px;
     }
 
     .remove-btn {
       background-color: #dc3545;
       color: white;
       border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 0.9rem;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      white-space: nowrap;
+      flex-shrink: 0 0 auto;
     }
-
     .remove-btn:hover {
       background-color: #b02a37;
+
     }
 
     #map {
