@@ -194,9 +194,10 @@ while ($row = pg_fetch_assoc($result)) {
 <?php endforeach; ?>
 </div>
 <div class="reaction-buttons">
-  <button class="circle-button "><img src="/immagini/like.png" alt="like"></button>
-  <button class="circle-button "><img src="/immagini/dislike.png" alt="like"></button>
+  <button class="circle-button like-button"><img src="/immagini/like.png" alt="Like"></button>
+  <button class="circle-button dislike-button"><img src="/immagini/dislike.png" alt="Dislike"></button>
 </div>
+
 <div class="fascia">
   <div class="fascia-content">
     <div class="left-section">
