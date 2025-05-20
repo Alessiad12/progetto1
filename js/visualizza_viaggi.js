@@ -163,6 +163,14 @@ function enableSwipe(card) {
   }, { passive: false });
   card.addEventListener('touchend', end);
 }
+// Collega i bottoni al comportamento di swipe
+document.querySelector('.like-button').addEventListener('click', () => {
+  swipeCard('right');
+});
+
+document.querySelector('.dislike-button').addEventListener('click', () => {
+  swipeCard('left');
+});
 
 
 
