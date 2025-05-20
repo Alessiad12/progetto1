@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
- <style>
+  <style>
     @font-face {
       font-family: 'CustomFont';
       src: url('../font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
       font-display: swap;
     }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -20,16 +21,22 @@
 
     body {
       display: flex;
+      flex-direction: column;
       height: 100vh;
       font-family: 'CustomFont', sans-serif;
       background-color: #f5f1de;
       color: rgb(8, 7, 91);
-      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        flex-direction: row;
+      }
     }
 
     #sidebar {
-      width: 30%;
-      min-width: 280px;
+      width: 100%;
+      max-width: 100%;
       background-color: #f5f1de;
       padding: 24px;
       border-right: 2px solid #ddd;
@@ -37,7 +44,16 @@
       overflow-y: auto;
     }
 
-    #sidebar h2, #sidebar h3 {
+    @media (min-width: 768px) {
+      #sidebar {
+        width: 30%;
+        max-width: 400px;
+        height: 100vh;
+      }
+    }
+
+    #sidebar h2,
+    #sidebar h3 {
       margin-bottom: 16px;
       font-size: 1.4rem;
       color: rgb(8, 7, 91);
@@ -106,6 +122,13 @@
 
     #map {
       flex: 1;
+      height: 300px;
+    }
+
+    @media (min-width: 768px) {
+      #map {
+        height: 100vh;
+      }
     }
   </style>
 </head>
@@ -115,9 +138,10 @@
     <input type="text" id="placeInput" placeholder="Es. Colosseo, Roma">
     <button onclick="addPlace()">Aggiungi</button>
     
-    <h3>Luoghi inseriti</h3>
+    <h3>Luoghi inseriti:</h3>
     <ul id="placesList"></ul>
   </div>
+
   <div id="map"></div>
 
   <!-- Leaflet JS -->
@@ -128,7 +152,7 @@
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    const markers = []; // Array per tenere traccia dei marker
+    const markers = [];
 
     function addPlace() {
       const input = document.getElementById('placeInput');
@@ -144,25 +168,20 @@
             const marker = L.marker([lat, lon]).addTo(map).bindPopup(place).openPopup();
             map.setView([lat, lon], 14);
 
-            // Crea elemento lista
             const li = document.createElement('li');
             li.textContent = place;
 
-            // Bottone per rimuovere
             const btn = document.createElement('button');
             btn.textContent = 'Rimuovi';
             btn.className = 'remove-btn';
             btn.onclick = () => {
-              map.removeLayer(marker);      
-              li.remove();                 
+              map.removeLayer(marker);
+              li.remove();
             };
 
             li.appendChild(btn);
             document.getElementById('placesList').appendChild(li);
-
-            // Salva marker
             markers.push({ name: place, marker: marker });
-
             input.value = '';
           } else {
             alert("Luogo non trovato.");
