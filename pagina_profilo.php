@@ -138,7 +138,7 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
       </div>
     </div>
     <button onclick="window.location.href='modifica_profilo.php'">Modifica profilo</button>
-    <button onclick="window.location.href='/crea_viaggi.php'">Crea viaggio</button>
+    <button onclick="window.location.href='/crea_viaggio.php'">Crea viaggio</button>
   </div>
 
   <!-- AREA CONTENUTI -->
