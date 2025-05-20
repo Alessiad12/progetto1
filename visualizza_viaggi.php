@@ -128,6 +128,10 @@ while ($row = pg_fetch_assoc($result)) {
   <link rel="stylesheet" href="css/visualizza_viaggi.css">
 </head>
 <body style="background-color: <?= htmlspecialchars($colore_sfondo) ?>;">
+
+<div class="fade-section" id="intro">
+  Inizia a fare swipe
+</div>
 <div class="card-container" id="cardContainer">
 <?php foreach ($viaggi as $viaggio): 
     $immagine = $viaggio['foto'] ?? null;
@@ -189,6 +193,24 @@ while ($row = pg_fetch_assoc($result)) {
       </div>
 <?php endforeach; ?>
 </div>
+<div class="reaction-buttons">
+  <button class="circle-button "><img src="/immagini/like.png" alt="like"></button>
+  <button class="circle-button "><img src="/immagini/dislike.png" alt="like"></button>
+</div>
+<div class="fascia">
+  <div class="fascia-content">
+    <div class="left-section">
+      <img src="/immagini/logo.png" alt="Logo" class="logo">
+      <div class="title">Wanderlust</div>
+    </div>
+<a href="notifiche.php">
+  <img src="immagini/notifiche.png" alt="Notifiche" class="notifiche">
+</a>
+    <a href="login.html" class="button">Logout</a>
+  </div>
+</div>
+
+
 <div class="profile-menu-wrapper">
   <img src="<?= htmlspecialchars($immagine_profilo) ?>" alt="Foto Profilo" class="profile-icon"  />
   <div class="dropdown-menu" id="dropdownMenu" >
