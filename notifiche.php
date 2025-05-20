@@ -49,70 +49,100 @@ $mittente_nome = $row['mittente_nome'] ?? 'Utente sconosciuto';
   <link rel="stylesheet" href="css/style_notifiche.css">
 </head>
 <body style="background-color: <?= htmlspecialchars($colore_sfondo) ?>;">
+ <?php
+// Determina se tutte le notifiche sono di tipo 'like'
+$solo_like = true;
 
-<h1>Le tue notifiche</h1>
-
-<div id="notifiche">
-<?php
-// Se non ci sono notifiche, mostra un messaggio
-if (empty($notifiche)) {
-    echo "<p>Nessuna notifica al momento.</p>";
-} else {
-  foreach ($notifiche as $notifica) {
-    if($notifica['tipo']=== 'like'){
-    $mittente_nome = htmlspecialchars($notifica['mittente_nome']);
-    $viaggio = htmlspecialchars($notifica['titolo_viaggio']);
-    $profilo_img = !empty($notifica['immagine_mittente']) ? htmlspecialchars($notifica['immagine_mittente']) : 'immagini/default.png';
-    $mittente_id = htmlspecialchars($notifica['mittente_id']);
-
-    echo "<div class='notifica'>
-            <div class='notifica-header'>
-            <a href='get_profilo.html?id=$mittente_id'>
-                <img src='$profilo_img' alt='Profilo' class='avatar'>
-              </a>
-              <div class='testo-notifica'>
-                <strong>$mittente_nome</strong> è interessato a partire con te per il viaggio <strong>\"$viaggio\"</strong>.
-              </div>
-            </div>
-            <button class='accetta-btn' data-id='{$notifica['id']}'>Accetta</button>
-          </div>";
-}
-  
-  if($notifica['tipo']=== 'match_accepted'){
-    $mittente_nome = htmlspecialchars($notifica['mittente_nome']);
-    $viaggio = htmlspecialchars($notifica['titolo_viaggio']);
-    $profilo_img = !empty($notifica['immagine_mittente']) ? htmlspecialchars($notifica['immagine_mittente']) : 'immagini/default.png';
-    $mittente_id = htmlspecialchars($notifica['mittente_id']);
-
-    echo "<div class='notifica'>
-            <div class='notifica-header'>
-            <a href='get_profilo.html?id=$mittente_id'>
-                <img src='$profilo_img' alt='Profilo' class='avatar'>
-              </a>
-              <div class='testo-notifica'>
-                <strong>$mittente_nome</strong> ha accettato la tua proposta <strong>\"$viaggio\"</strong>.
-              </div>
-            </div>
-            <button class='organizza-btn' data-id='{$notifica['id']}' data-viaggio-id='{$notifica['viaggio_id']}'>organizza</button>
-          </div>";
-  }
-      if ($notifica['tipo'] === 'registra_viaggio') {
-        $viaggio = htmlspecialchars($notifica['titolo_viaggio']);
-        $viaggio_id = htmlspecialchars($notifica['viaggio_id']);
-        $notifica_id = htmlspecialchars($notifica['id']);
-
-        echo "<div class='notifica'>
-                <div class='notifica-header'>
-                  <div class='testo-notifica'>
-                    Il viaggio <strong>\"$viaggio\"</strong> è terminato. Puoi ora <strong>registrare il resoconto</strong>.
-                  </div>
-                </div>
-                <button class='registra-btn' data-id='$notifica_id' data-viaggio-id='$viaggio_id'>Registra viaggio</button>
-              </div>";
+foreach ($notifiche as $notifica) {
+    if ($notifica['tipo'] !== 'like') {
+        $solo_like = false;
+        break;
     }
-  }
 }
 ?>
+
+<body style="background-color: <?= htmlspecialchars($colore_sfondo) ?>;">
+
+  <div class="header">Notifiche</div>
+
+  <div class="tabs">
+    <div class="tab <?= $solo_like ? 'active' : '' ?>" id="notificheTab">Notifiche</div>
+    <div class="tab <?= !$solo_like ? 'active' : '' ?>" id="chatTab">Chat</div>
+  </div>
+
+  <div class="content" id="notificheContent" style="<?= $solo_like ? '' : 'display: none;' ?>">
+    <div id="notifiche">
+      <?php
+      if (empty($notifiche)) {
+          echo "<p>Nessuna notifica al momento.</p>";
+      } else {
+          foreach ($notifiche as $notifica) {
+              $tipo = $notifica['tipo'];
+              $mittente_nome = htmlspecialchars($notifica['mittente_nome'] ?? '');
+              $viaggio = htmlspecialchars($notifica['titolo_viaggio'] ?? '');
+              $profilo_img = !empty($notifica['immagine_mittente']) ? htmlspecialchars($notifica['immagine_mittente']) : 'immagini/default.png';
+              $mittente_id = htmlspecialchars($notifica['mittente_id'] ?? '');
+              $id = htmlspecialchars($notifica['id']);
+              $viaggio_id = htmlspecialchars($notifica['viaggio_id'] ?? '');
+
+              if ($tipo === 'like') {
+                  echo "<div class='notifica'>
+                          <div class='notifica-header'>
+                            <a href='get_profilo.html?id=$mittente_id'>
+                              <img src='$profilo_img' alt='Profilo' class='avatar'>
+                            </a>
+                            <div class='testo-notifica'>
+                              <strong>$mittente_nome</strong> è interessato a partire con te per il viaggio <strong>\"$viaggio\"</strong>.
+                            </div>
+                          </div>
+                          <button class='accetta-btn' data-id='$id'>Accetta</button>
+                        </div>";
+              } elseif ($tipo === 'registra_viaggio') {
+                  echo "<div class='notifica'>
+                          <div class='notifica-header'>
+                            <div class='testo-notifica'>
+                              Il viaggio <strong>\"$viaggio\"</strong> è terminato. Puoi ora <strong>registrare il resoconto</strong>.
+                            </div>
+                          </div>
+                          <button class='registra-btn' data-id='$id' data-viaggio-id='$viaggio_id'>Registra viaggio</button>
+                        </div>";
+              }
+          }
+      }
+      ?>
+    </div>
+  </div>
+
+  <div class="content" id="chatContent" style="<?= !$solo_like ? '' : 'display: none;' ?>">
+        <div id="notifiche">
+      <?php
+          foreach ($notifiche as $notifica) {
+              $tipo = $notifica['tipo'];
+              $mittente_nome = htmlspecialchars($notifica['mittente_nome'] ?? '');
+              $viaggio = htmlspecialchars($notifica['titolo_viaggio'] ?? '');
+              $profilo_img = !empty($notifica['immagine_mittente']) ? htmlspecialchars($notifica['immagine_mittente']) : 'immagini/default.png';
+              $mittente_id = htmlspecialchars($notifica['mittente_id'] ?? '');
+              $id = htmlspecialchars($notifica['id']);
+              $viaggio_id = htmlspecialchars($notifica['viaggio_id'] ?? '');
+
+              if ($tipo === 'match_accepted') {
+                            echo "<div class='notifica'>
+                                    <div class='notifica-header'>
+                                      <a href='get_profilo.html?id=$mittente_id'>
+                                        <img src='$profilo_img' alt='Profilo' class='avatar'>
+                                      </a>
+                                      <div class='testo-notifica'>
+                                        <strong>$mittente_nome</strong> ha accettato la tua proposta <strong>\"$viaggio\"</strong>.
+                                      </div>
+                                    </div>
+                                    <button class='organizza-btn' data-id='$id' data-viaggio-id='$viaggio_id'>Organizza</button>
+                                  </div>";
+                        }
+          } 
+
+                 ?>
+  </div>
+  </div>
 </div>
 <div class="profile-menu-wrapper">
   <img src="<?= htmlspecialchars($immagine_profilo) ?>" alt="Foto Profilo" class="profile-icon"  />
@@ -233,5 +263,26 @@ document.querySelectorAll('.registra-btn').forEach(button => {
 
 
 </script>
+ 
+  <script>
+    const chatTab = document.getElementById("chatTab");
+    const notificheTab = document.getElementById("notificheTab");
+    const chatContent = document.getElementById("chatContent");
+    const notificheContent = document.getElementById("notificheContent");
+
+    chatTab.addEventListener("click", () => {
+      chatTab.classList.add("active");
+      notificheTab.classList.remove("active");
+      chatContent.style.display = "block";
+      notificheContent.style.display = "none";
+    });
+
+    notificheTab.addEventListener("click", () => {
+      notificheTab.classList.add("active");
+      chatTab.classList.remove("active");
+      notificheContent.style.display = "block";
+      chatContent.style.display = "none";
+    });
+  </script>
 </body>
 </html>

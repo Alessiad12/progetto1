@@ -13,13 +13,6 @@
   --transition: 0.2s ease-in-out;
 }
 
-body {
-  background: var(--bg-page);
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  margin: 0;
-}
-
 h1 {
   text-align: center;
   color: var(--text-primary);
@@ -45,6 +38,7 @@ h1 {
   flex-direction: column;
   gap: 10px;
   transition: transform var(--transition), box-shadow var(--transition);
+  margin: 10px;
 }
 .notifica:hover {
   transform: translateY(-3px);
@@ -170,3 +164,69 @@ h1 {
     margin: 0.5rem auto;
   }
 }
+   @font-face {
+    font-family: 'CustomFont';
+    src: url('../font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'secondo_font';
+    src: url('../font/Arimo.7ac02a544211773d9636e056e9da6c35.7.f8f199f09526f79e87644ed227e0f651.woff2') format('woff2');
+    font-display: swap;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'CustomFont', sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+    position: relative;
+    background-color: #f5f1de;
+
+}
+
+    .header {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 1.5rem;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      background-color: #f0f0f0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-weight: 500;
+      color: #666;
+    }
+
+    .tab.active {
+      background-color: white;
+      border-bottom: 2px solid #333;
+      color: #000;
+    }
+
+    .content {
+      padding: 1.5rem;
+    }
+
+    .hidden {
+      display: none;
+    }

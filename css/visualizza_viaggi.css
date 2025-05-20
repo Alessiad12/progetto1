@@ -183,6 +183,10 @@
   display: flex;
   align-items: center;
 }
+.right-section {
+  display: flex;
+  align-items: center;
+}
 
 .logo {
   width: 70px;
@@ -204,15 +208,14 @@
   cursor: pointer;
   font-weight: bold;
    text-decoration: none; 
+  margin-left: 20px;
 }
 .button:hover {
   background-color: #f0f0f0;
 }
 .notifiche {
-position: absolute;
 width: 82px;
-/* margin-left: 38px; */
-right: 178px;
+margin-left: 38px; 
 top: 18px;
 }
 

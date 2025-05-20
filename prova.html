@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notifiche</title>
+  <style>
+    @font-face {
+    font-family: 'CustomFont';
+    src: url('../font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'secondo_font';
+    src: url('../font/Arimo.7ac02a544211773d9636e056e9da6c35.7.f8f199f09526f79e87644ed227e0f651.woff2') format('woff2');
+    font-display: swap;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'CustomFont', sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+    position: relative;
+    background-color: #f5f1de;
+
+}
+
+    .header {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 1.5rem;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      background-color: #f0f0f0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-weight: 500;
+      color: #666;
+    }
+
+    .tab.active {
+      background-color: white;
+      border-bottom: 2px solid #333;
+      color: #000;
+    }
+
+    .content {
+      padding: 1.5rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">Notifiche</div>
+
+  <div class="tabs">
+    <div class="tab" id="notificheTab"></div>
+    <div class="tab active" id="chatTab"></div>
+  </div>
+
+  <div class="content" id="chatContent" style="display: none;">
+    <p>Nessuna nuova chat.</p>
+  </div>
+
+  <div class="content" id="notificheContent">
+    <p>Hai 3 nuove notifiche.</p>
+  </div>
+
+  <script>
+    const chatTab = document.getElementById("chatTab");
+    const notificheTab = document.getElementById("notificheTab");
+    const chatContent = document.getElementById("chatContent");
+    const notificheContent = document.getElementById("notificheContent");
+
+    chatTab.addEventListener("click", () => {
+      chatTab.classList.add("active");
+      notificheTab.classList.remove("active");
+      chatContent.style.display = "block";
+      notificheContent.style.display = "none";
+    });
+
+    notificheTab.addEventListener("click", () => {
+      notificheTab.classList.add("active");
+      chatTab.classList.remove("active");
+      notificheContent.style.display = "block";
+      chatContent.style.display = "none";
+    });
+  </script>
+
+</body>
+</html>
