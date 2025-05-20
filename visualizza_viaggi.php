@@ -205,10 +205,12 @@ while ($row = pg_fetch_assoc($result)) {
       <img src="/immagini/logo.png" alt="Logo" class="logo">
       <div class="title">Wanderlust</div>
     </div>
+    <div class="right-section">
 <a href="notifiche.php">
   <img src="immagini/notifiche.png" alt="Notifiche" class="notifiche">
 </a>
     <a href="login.html" class="button">Logout</a>
+      </div>
   </div>
 </div>
 
