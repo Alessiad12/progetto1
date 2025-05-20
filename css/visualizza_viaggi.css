@@ -158,3 +158,121 @@
     opacity: 0;
     transition: transform 0.6s ease, opacity 0.6s ease;
   }
+
+.fascia {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(46, 90, 193, 0.5); 
+  color: white;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.fascia-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;      /* opzionale: limita la larghezza */
+  margin: 0 auto;         /* centra il contenuto */
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 70px;
+  margin-right: 10px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: rgb(57, 68, 105);
+}
+
+.button {
+  background-color: rgb(223, 219, 181);
+  color: #00206c;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+   text-decoration: none; 
+}
+.button:hover {
+  background-color: #f0f0f0;
+}
+.notifiche {
+position: absolute;
+width: 82px;
+/* margin-left: 38px; */
+right: 178px;
+top: 18px;
+}
+
+.fade-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #f5f1de;
+  color: rgb(8, 7, 91);
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+  z-index: 200000;
+  pointer-events: none; /* opzionale: disattiva click */
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.reaction-buttons {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 10000;
+}
+
+.circle-button {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  background-color: #dbdbdb;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  text-align: center;
+  padding: 5px;
+}
+
+.circle-button:hover {
+  background-color: #ffffff;
+}
+.circle-button img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  pointer-events: none; /* evita che il click colpisca l'immagine invece del bottone */
+}

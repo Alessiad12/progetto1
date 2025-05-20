@@ -194,3 +194,9 @@ document.querySelectorAll('.card').forEach(card => {
       });
   });
 
+
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      document.getElementById("intro").classList.add("fade-out");
+    }, 200); // dopo 2 secondi
+  });
