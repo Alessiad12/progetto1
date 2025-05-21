@@ -149,14 +149,14 @@ button:hover {
     display: flex; 
     width: 100%; 
     position: relative;
-    top: 100px;
+    top: 130px;
     flex-direction: column;
     align-items: center;
 }
 h2 {
     font-size: 5em;
     margin-bottom: 10px;
-    color: rgb(8, 7, 91);
+    color: #2e5a80;
     text-align: center;
     font-family: Songti TC;
 
@@ -183,13 +183,13 @@ h2 {
     justify-content: center;
     font-weight: bold;
     margin-bottom: 15px;
-    font-size: 1.8em;
+    font-size: 1.7em;
     font-family: Hiragino Mincho ProN;
 
 }
   
       .title_s {
-    font-size: 2.2em;
+    font-size: 2.1em;
     font-weight: bold;
     margin-bottom: 8px;
     text-align: center;
@@ -197,7 +197,7 @@ h2 {
 }
   
       .description {
-    font-size: 2em;
+    font-size: 1.9em;
     color: #555;
     text-align: center;
     line-height: 1.5;
