@@ -26,22 +26,33 @@ if ($result) {
 <head>
   <meta charset="UTF-8">
   <title>Mappa Viaggi</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Protezione da codice obsoleto (VML) -->
+  <script>
+    Object.defineProperty(document, "namespaces", {
+      value: undefined,
+      configurable: true
+    });
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <link rel="stylesheet" href="/css/style_index.css" />
   
     <style>
             .profile-picture-container {
-display: flex;
-justify-content: center;
-align-items: center;
-width: 200px;
-height: 260px;
-border-radius: 10px;
-overflow: hidden;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-background-color: #f0f0f0;
-margin-bottom: 18px;
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 260px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #f0f0f0;
+    margin-bottom: 18px;
+    }
   html, body {
     height: 100%;
     margin: 0;
@@ -61,7 +72,7 @@ margin-bottom: 18px;
   <div id="map"></div>
 
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
   <script>
     // Crea la mappa centrata sull’equatore
     const map = L.map('map').setView([0, 0], 2);
@@ -72,13 +83,13 @@ margin-bottom: 18px;
     }).addTo(map);
 
     // Array dei viaggi da PHP a JS
-    const viaggi = <?= json_encode($viaggi) ?>;
+  const viaggi = <?= json_encode($viaggi) ?>;
 
-    const viaggioIcon = L.icon({
-  iconUrl: '/immagini/pin-viaggio.png', // cambia con il percorso corretto della tua icona
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32]
+  const viaggioIcon = L.icon({
+    iconUrl: '/immagini/pin-viaggio.png', // cambia con il percorso corretto della tua icona
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
 });
 
 // Aggiungi i marker con link al viaggio
