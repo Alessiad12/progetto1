@@ -15,6 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $descrizione = trim($_POST['descrizione'] ?? '');
     $valutazione = intval($_POST['valutazione'] ?? 0);
 
+    // Recupera coordinate del viaggio selezionato
+// Recupera coordinate del viaggio selezionato
+
+
+
+
     // --- 2) Preparo la cartella uploads ---
     $relativeDir = 'uploads';
     $uploadDir   = __DIR__ . DIRECTORY_SEPARATOR . $relativeDir . DIRECTORY_SEPARATOR;
@@ -88,6 +94,18 @@ if (!$res) {
 
 // Se arrivo qui, è GET: mostro il form
 $viaggio_id = intval($_GET['viaggio_id'] ?? 0);
+$lat = '';
+$lon = '';
+if ($viaggio_id > 0) {
+    $resCoord = pg_query_params($dbconn, "SELECT latitudine, longitudine FROM viaggi WHERE id = $1", [$viaggio_id]);
+    if ($resCoord && pg_num_rows($resCoord) > 0) {
+        $coords = pg_fetch_assoc($resCoord);
+        $lat = $coords['latitudine'];
+        $lon = $coords['longitudine'];
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -201,6 +219,8 @@ $viaggio_id = intval($_GET['viaggio_id'] ?? 0);
       font-size: 1rem;
       cursor: pointer;
       transition: background 0.2s;
+      display: inline-block;
+      margin-bottom: 1.5rem;
     }
     .btn-submit:hover {
       background: var(--navy-light);
@@ -239,8 +259,11 @@ $viaggio_id = intval($_GET['viaggio_id'] ?? 0);
             </div>
           <?php endfor; ?>
         </div>
-      </div>
-          <div>
+     <div style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+        <a href="crea_itinerario.php?lat=<?= urlencode($lat) ?>&lon=<?= urlencode($lon) ?>" class="btn-submit">Inserisci Itinerario</a>
+     </div>
+
+
       <label>Natura e avventura (%)</label>
       <input type="number" name="natura" min="0" max="100" required>
     </div>

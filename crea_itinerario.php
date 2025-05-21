@@ -135,6 +135,11 @@
     }
   </style>
 </head>
+<?php
+  $lat = isset($_GET['lat']) ? floatval($_GET['lat']) : 41.9028;
+  $lon = isset($_GET['lon']) ? floatval($_GET['lon']) : 12.4964;
+?>
+
 <body>
   <div id="sidebar">
     <h2>Inserisci un luogo</h2>
@@ -150,7 +155,10 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    const map = L.map('map').setView([41.9028, 12.4964], 13);
+    const initialLat = <?= json_encode($lat) ?>;
+    const initialLon = <?= json_encode($lon) ?>;
+    const map = L.map('map').setView([initialLat, initialLon], 13);
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
