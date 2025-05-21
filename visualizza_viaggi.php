@@ -170,6 +170,9 @@ while ($row = pg_fetch_assoc($result)) {
 ?>
 <div class="card" id="card-<?php echo $viaggio['id']; ?>" style="background-image: url('<?= htmlspecialchars($immagine) ?>');"
     data-viaggio-id="<?php echo $viaggio['id']; ?>">
+     <div class="plane-overlay">
+      <img src="immagini/cuore.png" alt="aereo">
+    </div>
       <div class="card-content">
         <h2><?php echo $viaggio['destinazione']; ?></h2>
         <p class="destination">Destinazione: <?php echo $viaggio['destinazione']; ?></p>
@@ -230,5 +233,7 @@ while ($row = pg_fetch_assoc($result)) {
   enableSwipe(card);
 });
 </script>
+<!-- Overlay aeroplanino -->
+
 </body>
 </html>

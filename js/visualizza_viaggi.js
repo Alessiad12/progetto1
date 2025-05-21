@@ -208,3 +208,39 @@ document.querySelectorAll('.card').forEach(card => {
       document.getElementById("intro").classList.add("fade-out");
     }, 200); // dopo 2 secondi
   });
+
+function mostraAeroplanino(card) {
+  const cuore = card.querySelector('.plane-overlay');
+  if (cuore) {
+    cuore.style.display = 'block'; // appare
+  }
+}
+
+function rimuoviCardConEffetto(card) {
+  mostraAeroplanino(card); // aeroplanino parte appena inizia l’uscita
+
+  // Aggiungi eventualmente una classe per animare l’uscita della card
+  card.style.transition = 'transform 1.5s ease-out, opacity 1.5s ease-out';
+  card.style.transform = 'translateX(100vw)';
+  card.style.opacity = '0';
+
+  setTimeout(() => card.remove(), 1500);
+}
+
+// Click su like
+document.querySelector('.like-button').addEventListener('click', () => {
+  const currentCard = document.querySelector('.card-container .card');
+  if (currentCard) {
+    rimuoviCardConEffetto(currentCard);
+  }
+});
+
+// Swipe
+document.querySelectorAll('.card').forEach(card => {
+  enableMouseSwipe(card);
+  enableSwipe(card);
+
+  card.addEventListener('swipeRight', () => {
+    rimuoviCardConEffetto(card);
+  });
+});

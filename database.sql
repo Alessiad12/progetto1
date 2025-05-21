@@ -423,6 +423,38 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 4	4	18	Tokyo	f	2025-05-21 21:39:01.112705	registra_viaggio	383
 13	4	18	Tokyo	f	2025-05-21 21:39:01.115801	registra_viaggio	384
 6	6	26	Barcellona	f	2025-05-21 21:39:01.119425	registra_viaggio	385
+6	9	26	Barcellona	f	2025-05-21 21:59:31.325053	like	386
+9	8	10	New York	f	2025-05-21 21:59:54.860128	match_accepted	387
+8	9	10	New York	f	2025-05-21 21:59:54.941596	match_accepted	388
+8	9	10	New York	f	2025-05-21 22:00:00.093783	registra_viaggio	389
+6	9	26	Barcellona	f	2025-05-21 22:00:40.49189	like	390
+6	9	26	Barcellona	f	2025-05-21 22:08:21.002445	like	391
+6	9	26	Barcellona	f	2025-05-21 22:09:11.202872	like	392
+6	9	26	Barcellona	f	2025-05-21 22:11:08.912317	like	393
+6	9	26	Barcellona	f	2025-05-21 22:12:22.990695	like	394
+6	9	26	Barcellona	f	2025-05-21 22:12:29.021316	like	395
+6	9	26	Barcellona	f	2025-05-21 22:15:30.792306	like	396
+6	9	26	Barcellona	f	2025-05-21 22:18:20.214883	like	397
+6	9	26	Barcellona	f	2025-05-21 22:18:27.71159	like	398
+6	9	26	Barcellona	f	2025-05-21 22:18:41.343521	like	399
+6	9	26	Barcellona	f	2025-05-21 22:22:28.922891	like	400
+6	9	26	Barcellona	f	2025-05-21 22:22:42.145489	like	401
+6	9	26	Barcellona	f	2025-05-21 22:23:41.259066	like	402
+6	9	26	Barcellona	f	2025-05-21 22:23:51.717813	like	403
+6	9	26	Barcellona	f	2025-05-21 22:24:22.128633	like	404
+6	9	26	Barcellona	f	2025-05-21 22:24:27.371871	like	405
+6	9	26	Barcellona	f	2025-05-21 22:24:31.251874	like	406
+6	9	26	Barcellona	f	2025-05-21 22:24:55.102511	like	407
+6	9	26	Barcellona	f	2025-05-21 22:26:03.058118	like	408
+6	9	26	Barcellona	f	2025-05-21 22:26:10.193978	like	409
+6	9	26	Barcellona	f	2025-05-21 22:26:28.342718	like	410
+6	9	26	Barcellona	f	2025-05-21 22:26:28.429309	like	411
+6	9	26	Barcellona	f	2025-05-21 22:26:28.51289	like	412
+6	9	26	Barcellona	f	2025-05-21 22:26:28.599197	like	413
+6	9	26	Barcellona	f	2025-05-21 22:26:35.679269	like	414
+6	9	26	Barcellona	f	2025-05-21 22:26:35.778279	like	415
+6	9	26	Barcellona	f	2025-05-21 22:26:35.87958	like	416
+6	9	26	Barcellona	f	2025-05-21 22:26:35.963414	like	417
 \.
 
 
@@ -442,6 +474,7 @@ COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_part
 7	ida@ida.it	Europa	2025-05-11	2025-05-13	1000-1500	spiaggia	gruppo
 13	mario@icloud.it	Asia	2025-05-07	2025-05-14	3500-5000	natura	gruppo
 8	ale.desi@gmail.com	Europa	2025-04-20	2025-04-25	20-40000	spiaggia	gruppo
+9	b@e.it	Europa	2025-04-20	2025-04-25	20-40000	spiaggia	gruppo
 \.
 
 
@@ -456,13 +489,13 @@ COPY public.profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, 
 5	s.gallo@xampre.com	Sara Gallo	29	Viaggiare è una delle cose che mi rende felice, ma amo anche il buon cinema.	#faf3bfc4	1995-12-01	immagini/default.png	
 6	fra@gmail.com	Francesco Esposito	32	Tecnologia e viaggi, la mia vita in poche parole. Sempre in cerca di avventure.	#faf3bfc4	1993-03-20	immagini/default.png	
 7	ida@ida.it	Ida Benvenuto	22	Studentessa di design e amante della moda. Viaggiare mi ispira moltissimo.	#fbfbce	2003-08-19	uploads/profilo_681a409cd4722.jpg	50
-9	b@e.it	betta	22		#fbfbce	20003-04-17		50
 8	ale.desi@gmail.com	Alessia Desideri	22	Futura architetta e viaggiatrice nel cuore. Amo la cultura e l’arte.	#fbe0ce	2003-06-12	uploads/profilo_681b8e190dfe7.png	50
 4	marco.rossi@xample.com	Marco Rossi	28	Viaggiare è la mia passione. Ho una collezione di mappe antiche.	#cee3f4	1997-05-15	uploads/profilo_681e37ada4a57.png	50
 11	m@a.it	marcolino	21		#faf3bfc4	2003-10-12	\N	\N
 12	mario@desi.it	mariodesi	57	mi piace viaggiare 	#faf3bfc4	1968-01-30	uploads/6824c58a6e8dc_Screenshot 2025-05-13 223922.png	\N
 13	mario@icloud.it	mariodeside	57	Amo viaggiare e collezionare calamite.	#fbfbce	1968-01-30	uploads/profilo_6824c9416ceb0.png	50
 10	ale@ida.it	Alida	21	Amo viaggiare e collezionare calamite.	#faf3bfc4	2003-08-12	uploads/profilo_682e2e794401c.jpg	50
+9	b@e.it	betta	22	Mi piace viaggiare con il mio ragazzo.	#cef4e3	20003-04-17	uploads/profilo_682e309c56f84.png	50
 \.
 
 
@@ -515,6 +548,7 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 8	15	t	2025-05-14 08:50:28.358474
 13	18	t	2025-05-14 19:05:14.314282
 8	26	t	2025-05-20 10:47:20.813961
+9	26	t	2025-05-21 22:26:35.94656
 \.
 
 
@@ -642,6 +676,7 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 34	8	partecipante
 35	9	partecipante
 36	10	ideatore
+10	8	partecipante
 \.
 
 
@@ -663,7 +698,7 @@ SELECT pg_catalog.setval('public.esperienze_id_seq', 2, true);
 -- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifiche_id_seq', 385, true);
+SELECT pg_catalog.setval('public.notifiche_id_seq', 417, true);
 
 
 --
