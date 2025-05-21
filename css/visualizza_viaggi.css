@@ -175,28 +175,37 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1200px;      /* opzionale: limita la larghezza */
-  margin: 0 auto;         /* centra il contenuto */
+  flex-wrap: wrap; /* ✅ fondamentale per mobile */
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
-.left-section {
+.left-section, .right-section {
   display: flex;
   align-items: center;
-}
-.right-section {
-  display: flex;
-  align-items: center;
+  flex-wrap: wrap;
 }
 
 .logo {
   width: 70px;
   margin-right: 10px;
+  max-width: 100%;
 }
 
 .title {
   font-size: 24px;
   font-weight: bold;
   color: rgb(57, 68, 105);
+  white-space: nowrap; /* Evita che vada a capo su mobile */
+}
+
+.notifiche {
+  width: 60px;
+  margin-left: 15px;
+  max-width: 100%;
 }
 
 .button {
@@ -207,16 +216,10 @@
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-   text-decoration: none; 
-  margin-left: 20px;
-}
-.button:hover {
-  background-color: #f0f0f0;
-}
-.notifiche {
-width: 82px;
-margin-left: 38px; 
-top: 18px;
+  text-decoration: none;
+  margin-left: 15px;
+  margin-right: 25px; 
+  white-space: nowrap; /* evita che il testo del pulsante vada a capo */
 }
 
 .fade-section {
@@ -287,6 +290,7 @@ top: 18px;
   top: 0;
   left: 0;
   width: 100%;
+padding-left: 0;
 }
 
   .logo {
