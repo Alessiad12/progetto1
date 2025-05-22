@@ -214,7 +214,9 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
 
     <!-- ITINERARIO -->
     <section class="mb-5">
-      <h4>Itinerario</h4>
+      <a href="get_itinerario(totale).php?id=<?= urlencode($viaggio_id) ?>" class="text-decoration-none">
+      <h4 >Itinerario</h4>
+      </a>
       <p><?= nl2br(htmlspecialchars($trip['descrizione_viaggio'])) ?></p>
     </section>
 
