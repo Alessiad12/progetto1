@@ -187,6 +187,10 @@ $viaggio_id = $_GET['viaggio_id'] ?? 0;
             btn.onclick = () => {
               map.removeLayer(marker);
               li.remove();
+                const index = markers.findIndex(m => m.name === place && m.marker === marker);
+                if (index !== -1) {
+                  markers.splice(index, 1); // Rimuove il marker dall'array
+                }
             };
 
             li.appendChild(btn);
