@@ -415,6 +415,9 @@ COPY public.chat_viaggio (id, viaggio_id, utente_id, messaggio, data_creazione) 
 20	39	7	dc	2025-05-22 11:04:19.677361
 21	9	7	gkighk	2025-05-22 14:42:30.942564
 22	9	8	kugoi	2025-05-22 14:43:38.131273
+23	9	7	ciao	2025-05-22 17:57:31.315501
+24	9	7	ciaopksèpa	2025-05-22 17:58:20.863259
+25	9	8	belooo!	2025-05-22 17:58:30.667571
 \.
 
 
@@ -695,7 +698,6 @@ COPY public.utenti (id, nome, nickname, email, data_di_nascita, password) FROM s
 4	Marco Rossi	mrossi	marco.rossi@xample.com	1997-05-15	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
 5	Sara Gallo	sgallo	s.gallo@xampre.com	1995-12-01	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
 6	Francesco Esposito	fesposito	fra@gmail.com	1993-03-20	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
-7	Ida Benvenuto	ida_b	ida@ida.it	2003-08-19	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
 8	Alessia Desideri	ale_desi	ale.desi@gmail.com	2003-06-12	$2y$10$CqZlGGtWI9TS6gD6dFX8g.IwHmzsn4A7Y1xy7XpwDHFmy6lAkie5q
 9	betta	betta	b@e.it	20003-04-17	$2y$10$NJqjqSh11tCmFi0Vv0cPa.B46Gp4VSzLuCcQQ9/eUK2Yf2VN6IbBS
 10	Alessia Benvenuto	Alida	ale@ida.it	2003-08-12	$2y$10$8/J7JIDpiZdguIpvOyebyeVzZ4yBcF01sZDivae8VMFYHhlSav3u6
@@ -703,6 +705,7 @@ COPY public.utenti (id, nome, nickname, email, data_di_nascita, password) FROM s
 12	Mario	mariodesi	mario@desi.it	1968-01-30	$2y$10$49PBPzrFJSJm.J4Iu7DgLOsZyUFsENs/nUL2QVtNiwqGVOC6lw8UG
 13	Mario	mariodeside	mario@icloud.it	1968-01-30	$2y$10$7RsaQXT2Co780RKbF0ghK.NLX9TGvG15MStSOCkFnNQ0mryrdiC1m
 14	Lorenzo	bebè	lorenzosdf@gmail.com	2025-05-16	$2y$10$3rDQi4JSN37SpI6jxUFxd.iggHwx06/1frZmwOc818dWjzB0E0vqK
+7	Ida Benvenuto	ida_b	ida@ida.it	2003-08-19	$2y$10$2Q/6OmJ89pkidXritK5vMOpO87Ve/asqOedSVeIts8G8dC/PK7Mri
 \.
 
 
@@ -852,7 +855,7 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 -- Name: chat_viaggio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 22, true);
+SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 25, true);
 
 
 --
