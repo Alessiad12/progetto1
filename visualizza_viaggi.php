@@ -188,21 +188,18 @@ while ($row = pg_fetch_assoc($result)) {
     </div>
       <div class="card-content">
         <h2><?php echo $viaggio['destinazione']; ?></h2>
-        <p class="destination">Destinazione: <?php echo $viaggio['destinazione']; ?></p>
         <p><?php echo $viaggio['descrizione']; ?></p>
         <ul class="info-list">
           <li><strong>Data partenza:</strong> <?php echo $viaggio['data_partenza']; ?></li>
           <li><strong>Data ritorno:</strong> <?php echo $viaggio['data_ritorno']; ?></li>
           <li><strong>Budget:</strong> <?php echo $viaggio['budget']; ?></li>
           <li><strong>Tipo di viaggio:</strong> <?php echo $viaggio['tipo_viaggio']; ?></li>
-          <li><strong>Lingua:</strong> <?php echo $viaggio['lingua']; ?></li>
           <li><strong>Compagnia ideale:</strong> <?php echo $viaggio['compagnia']; ?></li>
           <li><strong>Descrizione:</strong> <?php echo $viaggio['descrizione']; ?></li>
         </ul>
 
         <div class="card-footer">
           <span class="budget">Budget: <?php echo $viaggio['budget']; ?></span>
-          <span class="date">Partenza: <?php echo $viaggio['data_partenza']; ?></span>
         </div>
         <div class="componenti-wrapper"></div>
         </div>
