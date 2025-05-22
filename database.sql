@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 17.4
+-- Dumped from database version 17.0
 -- Dumped by pg_dump version 17.4
 
 SET statement_timeout = 0;
@@ -72,6 +72,44 @@ CREATE SEQUENCE public.esperienze_id_seq
 
 
 ALTER SEQUENCE public.esperienze_id_seq OWNER TO postgres;
+
+--
+-- Name: itinerari; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.itinerari (
+    id integer NOT NULL,
+    nome_itinerario character varying(255) NOT NULL,
+    luoghi json NOT NULL,
+    data_creazione timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    viaggio_id integer,
+    utente_id integer
+);
+
+
+ALTER TABLE public.itinerari OWNER TO postgres;
+
+--
+-- Name: itinerari_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.itinerari_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.itinerari_id_seq OWNER TO postgres;
+
+--
+-- Name: itinerari_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.itinerari_id_seq OWNED BY public.itinerari.id;
+
 
 --
 -- Name: notifiche; Type: TABLE; Schema: public; Owner: postgres
@@ -316,6 +354,13 @@ ALTER TABLE ONLY public.chat_viaggio ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: itinerari id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.itinerari ALTER COLUMN id SET DEFAULT nextval('public.itinerari_id_seq'::regclass);
+
+
+--
 -- Name: notifiche id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -363,6 +408,28 @@ COPY public.chat_viaggio (id, viaggio_id, utente_id, messaggio, data_creazione) 
 13	13	8	ciao	2025-05-12 12:24:54.610276
 14	15	8	ciao	2025-05-14 18:55:21.637901
 15	18	4	ciao	2025-05-14 19:05:55.443452
+16	9	7	ciao	2025-05-22 08:35:45.825377
+17	26	9	ciao	2025-05-22 09:00:15.835441
+18	26	6	ciao a te	2025-05-22 09:00:21.1025
+19	39	14	ciaooo	2025-05-22 11:03:53.093162
+20	39	7	dc	2025-05-22 11:04:19.677361
+21	9	7	gkighk	2025-05-22 14:42:30.942564
+22	9	8	kugoi	2025-05-22 14:43:38.131273
+\.
+
+
+--
+-- Data for Name: itinerari; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.itinerari (id, nome_itinerario, luoghi, data_creazione, viaggio_id, utente_id) FROM stdin;
+1	Roma	["colosseo"]	2025-05-22 09:31:37.557443	\N	\N
+2	wshn	["colosseo"]	2025-05-22 10:00:55.337274	4	7
+3	Budapest	["rudas","parlamento","gellert","gellert, budapest","Danubio, budapest","sasad"]	2025-05-22 10:19:26.597526	39	7
+4	budapest	["parlamento"]	2025-05-22 10:39:37.594261	39	7
+5	oih	["parlamento"]	2025-05-22 11:05:58.301614	39	7
+6	Portogallo	["porto","CENTRO STORICO, porto","parlamento, porto","porto, porto, Portogallo","quinta marques Gomes"]	2025-05-22 15:25:10.563176	16	7
+7	New York con Aldo	["soho","soho, New York","Manhattan","upper east side","Central Park","moma"]	2025-05-22 15:27:51.710539	10	9
 \.
 
 
@@ -455,6 +522,48 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 6	9	26	Barcellona	f	2025-05-21 22:26:35.778279	like	415
 6	9	26	Barcellona	f	2025-05-21 22:26:35.87958	like	416
 6	9	26	Barcellona	f	2025-05-21 22:26:35.963414	like	417
+7	7	39	Budapest	f	2025-05-22 08:35:00.902119	registra_viaggio	418
+5	5	43	Lisbona	f	2025-05-22 08:35:00.907209	registra_viaggio	419
+7	8	9	roma	f	2025-05-22 08:35:38.017242	match_accepted	420
+8	7	9	roma	f	2025-05-22 08:35:38.041704	match_accepted	421
+8	7	9	roma	f	2025-05-22 08:36:00.969025	registra_viaggio	422
+6	9	26	Barcellona	f	2025-05-22 08:59:02.859159	like	423
+6	9	26	Barcellona	f	2025-05-22 08:59:11.132714	like	424
+6	9	26	Barcellona	f	2025-05-22 08:59:11.159716	like	425
+6	9	26	Barcellona	f	2025-05-22 08:59:11.183581	like	426
+6	9	26	Barcellona	f	2025-05-22 08:59:11.209221	like	427
+6	9	26	Barcellona	f	2025-05-22 08:59:14.497563	like	428
+6	9	26	Barcellona	f	2025-05-22 09:00:01.695952	match_accepted	429
+9	6	26	Barcellona	f	2025-05-22 09:00:01.70971	match_accepted	430
+9	6	26	Barcellona	f	2025-05-22 09:01:00.796518	registra_viaggio	431
+2	7	29	Parigi	f	2025-05-22 10:37:10.143077	like	432
+2	7	29	Parigi	f	2025-05-22 10:37:10.167226	like	433
+2	7	29	Parigi	f	2025-05-22 10:37:10.181989	like	434
+2	7	29	Parigi	f	2025-05-22 10:37:10.200418	like	435
+6	7	19	Berlino	f	2025-05-22 10:37:11.992729	like	436
+2	7	29	Parigi	f	2025-05-22 10:37:18.850394	like	437
+7	14	53	Bruxelles	f	2025-05-22 11:02:15.693762	like	438
+7	14	53	Bruxelles	f	2025-05-22 11:02:15.730963	like	439
+7	14	53	Bruxelles	f	2025-05-22 11:02:15.751001	like	440
+7	14	53	Bruxelles	f	2025-05-22 11:02:15.770707	like	441
+7	14	39	Budapest	f	2025-05-22 11:02:29.429522	like	442
+7	14	39	Budapest	f	2025-05-22 11:02:29.456357	like	443
+7	14	39	Budapest	f	2025-05-22 11:02:29.481038	like	444
+7	14	39	Budapest	f	2025-05-22 11:02:29.503125	like	445
+7	14	53	Bruxelles	f	2025-05-22 11:02:32.753526	like	446
+7	14	53	Bruxelles	f	2025-05-22 11:02:32.778203	like	447
+7	14	53	Bruxelles	f	2025-05-22 11:02:32.807827	like	448
+7	14	53	Bruxelles	f	2025-05-22 11:02:32.827855	like	449
+7	14	39	Budapest	f	2025-05-22 11:03:36.530085	match_accepted	450
+14	7	39	Budapest	f	2025-05-22 11:03:36.553467	match_accepted	451
+14	7	39	Budapest	f	2025-05-22 11:04:00.525271	registra_viaggio	452
+2	7	29	Parigi	f	2025-05-22 14:40:38.105855	like	453
+2	7	29	Parigi	f	2025-05-22 14:40:41.29697	like	454
+6	7	19	Berlino	f	2025-05-22 14:40:45.860697	like	455
+6	7	19	Berlino	f	2025-05-22 14:40:45.888087	like	456
+6	7	19	Berlino	f	2025-05-22 14:40:45.911016	like	457
+6	7	19	Berlino	f	2025-05-22 14:40:45.930693	like	458
+7	8	9	roma	f	2025-05-22 14:42:13.626441	match_accepted	459
 \.
 
 
@@ -471,10 +580,24 @@ COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_part
 5	s.gallo@example.com	Londra	2025-08-10	2025-08-20	1000-2000€	musei	gruppo
 6	fra@gmail.com	Parigi	2025-06-01	2025-06-10	500-1000€	musei	coppia
 11	m@a.it	Europa	2025-05-12	2025-02-20	1000-3000	natura	gruppo
-7	ida@ida.it	Europa	2025-05-11	2025-05-13	1000-1500	spiaggia	gruppo
 13	mario@icloud.it	Asia	2025-05-07	2025-05-14	3500-5000	natura	gruppo
 8	ale.desi@gmail.com	Europa	2025-04-20	2025-04-25	20-40000	spiaggia	gruppo
 9	b@e.it	Europa	2025-04-20	2025-04-25	20-40000	spiaggia	gruppo
+7	ida@ida.it	Europa	2025-06-03	2025-06-11	200-2000	musei	gruppo
+14	lorenzosdf@gmail.com	Europa	2025-05-01	2025-05-30	100-3000	musei	gruppo
+10	ale@ida.it	\N	\N	\N	\N	ristoranti	coppia
+1	anna.bianchi@example.com	Parigi	2025-06-01	2025-06-10	500-1000€	natura	coppia
+2	luca.verdi@example.com	New York	2025-07-15	2025-07-25	2000-3000€	spiaggia	gruppo
+3	giulia.neri@example.com	Tokyo	2025-09-01	2025-09-15	3000-4000€	ristoranti	coppia
+4	marco.rossi@example.com	Roma	2025-05-20	2025-05-25	100-500€	natura	gruppo
+5	s.gallo@example.com	Londra	2025-08-10	2025-08-20	1000-2000€	musei	gruppo
+6	fra@gmail.com	Parigi	2025-06-01	2025-06-10	500-1000€	musei	coppia
+11	m@a.it	Europa	2025-05-12	2025-02-20	1000-3000	natura	gruppo
+13	mario@icloud.it	Asia	2025-05-07	2025-05-14	3500-5000	natura	gruppo
+8	ale.desi@gmail.com	Europa	2025-04-20	2025-04-25	20-40000	spiaggia	gruppo
+9	b@e.it	Europa	2025-04-20	2025-04-25	20-40000	spiaggia	gruppo
+7	ida@ida.it	Europa	2025-06-03	2025-06-11	200-2000	musei	gruppo
+14	lorenzosdf@gmail.com	Europa	2025-05-01	2025-05-30	100-3000	musei	gruppo
 \.
 
 
@@ -488,14 +611,15 @@ COPY public.profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, 
 3	giulia.neri@example.com	Giulia Neri	33	Sono un’appassionata di sport e natura. Mi piace fare trekking.	#faf3bfc4	1992-07-30	immagini/default.png	
 5	s.gallo@xampre.com	Sara Gallo	29	Viaggiare è una delle cose che mi rende felice, ma amo anche il buon cinema.	#faf3bfc4	1995-12-01	immagini/default.png	
 6	fra@gmail.com	Francesco Esposito	32	Tecnologia e viaggi, la mia vita in poche parole. Sempre in cerca di avventure.	#faf3bfc4	1993-03-20	immagini/default.png	
-7	ida@ida.it	Ida Benvenuto	22	Studentessa di design e amante della moda. Viaggiare mi ispira moltissimo.	#fbfbce	2003-08-19	uploads/profilo_681a409cd4722.jpg	50
 8	ale.desi@gmail.com	Alessia Desideri	22	Futura architetta e viaggiatrice nel cuore. Amo la cultura e l’arte.	#fbe0ce	2003-06-12	uploads/profilo_681b8e190dfe7.png	50
 4	marco.rossi@xample.com	Marco Rossi	28	Viaggiare è la mia passione. Ho una collezione di mappe antiche.	#cee3f4	1997-05-15	uploads/profilo_681e37ada4a57.png	50
 11	m@a.it	marcolino	21		#faf3bfc4	2003-10-12	\N	\N
 12	mario@desi.it	mariodesi	57	mi piace viaggiare 	#faf3bfc4	1968-01-30	uploads/6824c58a6e8dc_Screenshot 2025-05-13 223922.png	\N
 13	mario@icloud.it	mariodeside	57	Amo viaggiare e collezionare calamite.	#fbfbce	1968-01-30	uploads/profilo_6824c9416ceb0.png	50
 10	ale@ida.it	Alida	21	Amo viaggiare e collezionare calamite.	#faf3bfc4	2003-08-12	uploads/profilo_682e2e794401c.jpg	50
-9	b@e.it	betta	22	Mi piace viaggiare con il mio ragazzo.	#cef4e3	20003-04-17	uploads/profilo_682e309c56f84.png	50
+9	b@e.it	betta	22	Mi piace viaggiare con il mio ragazzo.	#cee3f4	20003-04-17	uploads/profilo_682e309c56f84.png	50
+14	lorenzosdf@gmail.com	bebbu	0		#fbe0ce	2025-05-16	uploads/682ee7d5a510b_	50
+7	ida@ida.it	Ida Benvenuto	22	Studentessa di design e amante della moda. Viaggiare mi ispira moltissimo.	#fbfbce	2003-08-19	uploads/profilo_681a409cd4722.jpg	50
 \.
 
 
@@ -548,7 +672,11 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 8	15	t	2025-05-14 08:50:28.358474
 13	18	t	2025-05-14 19:05:14.314282
 8	26	t	2025-05-20 10:47:20.813961
-9	26	t	2025-05-21 22:26:35.94656
+9	26	t	2025-05-22 08:59:14.491332
+14	39	t	2025-05-22 11:02:29.499438
+14	53	t	2025-05-22 11:02:32.824557
+7	29	t	2025-05-22 14:40:41.29216
+7	19	t	2025-05-22 14:40:45.927312
 \.
 
 
@@ -570,6 +698,7 @@ COPY public.utenti (id, nome, nickname, email, data_di_nascita, password) FROM s
 11	Marco	marcolino	m@a.it	2003-10-12	$2y$10$ICNYFeZoo8j58.GgqAutSO0lFrzphl.9YV8UKo0pV4277LKt7HaQi
 12	Mario	mariodesi	mario@desi.it	1968-01-30	$2y$10$49PBPzrFJSJm.J4Iu7DgLOsZyUFsENs/nUL2QVtNiwqGVOC6lw8UG
 13	Mario	mariodeside	mario@icloud.it	1968-01-30	$2y$10$7RsaQXT2Co780RKbF0ghK.NLX9TGvG15MStSOCkFnNQ0mryrdiC1m
+14	Lorenzo	bebè	lorenzosdf@gmail.com	2025-05-16	$2y$10$3rDQi4JSN37SpI6jxUFxd.iggHwx06/1frZmwOc818dWjzB0E0vqK
 \.
 
 
@@ -613,6 +742,23 @@ COPY public.viaggi (id, user_id, destinazione, data_partenza, data_ritorno, budg
 34	8	Napoli	2025-06-20	2025-06-27	700	ristoranti	Italiano	gruppo	Pizza, mare e Vesuvio!	https://i.pinimg.com/736x/7a/22/9d/7a229d5fbdd76b026814465fbbc1b1b4.jpg	40.85179800	14.26812000
 35	9	Edimburgo	2025-07-25	2025-08-01	1000	natura	inglese	coppia	Castelli e paesaggi scozzesi mozzafiato.	https://i.pinimg.com/736x/89/08/9c/89089cd5fbe7662e5a35beb13eb18edf.jpg	55.95325200	-3.18826700
 36	10	Malta	2025-09-01	2025-09-08	950	spiaggia	Maltese	gruppo	Sole, mare e cultura nel Mediterraneo.	https://i.pinimg.com/736x/7a/22/9d/7a229d5fbdd76b026814465fbbc1b1b4.jpg	35.93749600	14.37541600
+37	11	Salonicco	2025-10-05	2025-10-12	850	ristoranti	Greco	gruppo	Cucina greca e tramonti sul Mar Egeo.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	40.64006300	22.94441900
+38	3	Oslo	2025-06-15	2025-06-22	1100	natura	Norvegese	singolo	Trekking nei fiordi e panorami mozzafiato.	https://i.pinimg.com/736x/89/08/9c/89089cd5fbe7662e5a35beb13eb18edf.jpg	59.91386900	10.75224500
+39	7	Budapest	2025-05-10	2025-05-17	800	musei	Ungherese	coppia	Bagni termali, musei e romantiche passeggiate sul Danubio.	https://i.pinimg.com/736x/2c/32/50/2c3250a76a0699201d664d86a3611245.jpg	47.49791200	19.04023500
+40	4	Sarajevo	2025-11-15	2025-11-22	700	musei	Bosniaco	singolo	Tra storia e cultura nella capitale balcanica.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	43.85625860	18.41307630
+41	9	Rovaniemi	2025-12-02	2025-12-09	1200	natura	Finlandese	gruppo	Aurora boreale e foreste innevate.	https://i.pinimg.com/736x/89/08/9c/89089cd5fbe7662e5a35beb13eb18edf.jpg	66.50394700	25.72939000
+42	2	Bologna	2025-06-05	2025-06-12	750	ristoranti	Italiano	coppia	Tortellini, portici e cultura emiliana.	https://i.pinimg.com/736x/7a/22/9d/7a229d5fbdd76b026814465fbbc1b1b4.jpg	44.49488700	11.34261630
+43	5	Lisbona	2025-04-25	2025-05-02	900	musei	Portoghese	gruppo	Tramonti, azulejos e cultura urbana.	https://i.pinimg.com/736x/2c/32/50/2c3250a76a0699201d664d86a3611245.jpg	38.71690000	-9.13990000
+44	1	Tallinn	2025-08-01	2025-08-08	850	musei	Estone	singolo	Una città medievale ricca di fascino.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	59.43700000	24.75360000
+45	6	Palermo	2025-06-28	2025-07-05	800	ristoranti	Italiano	coppia	Tra arancini e mercati storici.	https://i.pinimg.com/736x/7a/22/9d/7a229d5fbdd76b026814465fbbc1b1b4.jpg	38.11569000	13.36148600
+46	12	Ginevra	2025-07-15	2025-07-22	1100	musei	Francese	gruppo	Scienza, arte e vista sul lago.	https://i.pinimg.com/736x/2c/32/50/2c3250a76a0699201d664d86a3611245.jpg	46.20439100	6.14315800
+47	10	Reykjavik	2025-09-15	2025-09-22	1300	natura	Islandese	singolo	Geiser, cascate e paesaggi lunari.	https://i.pinimg.com/736x/89/08/9c/89089cd5fbe7662e5a35beb13eb18edf.jpg	64.14660000	-21.94260000
+48	8	Porto	2025-05-30	2025-06-06	850	ristoranti	Portoghese	gruppo	Vino, cucina tradizionale e vista sull’oceano.	https://i.pinimg.com/736x/7a/22/9d/7a229d5fbdd76b026814465fbbc1b1b4.jpg	41.15794380	-8.62910530
+49	3	Copenaghen	2025-06-20	2025-06-27	950	musei	Danese	coppia	Cultura, design e gastronomia danese.	https://i.pinimg.com/736x/2c/32/50/2c3250a76a0699201d664d86a3611245.jpg	55.67609680	12.56833710
+50	2	Stoccolma	2025-07-10	2025-07-17	1000	natura	Svedese	singolo	Isole, architettura e cultura scandinava.	https://i.pinimg.com/736x/7a/22/9d/7a229d5fbdd76b026814465fbbc1b1b4.jpg	59.32932350	18.06858000
+51	1	Catania	2025-08-20	2025-08-27	800	musei	Siciliano	gruppo	Cultura, mare e buon cibo.	https://i.pinimg.com/736x/89/08/9c/89089cd5fbe7662e5a35beb13eb18edf.jpg	37.50787700	14.79310600
+52	4	Bruxelles	2025-09-15	2025-09-22	900	musei	Belga	coppia	Cultura, birra e cioccolato.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	50.85033960	4.35171030
+53	7	Bruxelles	2025-05-02	2025-06-10	900	musei	Belga	coppia	Cultura, birra e cioccolato.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	50.85033960	4.35171030
 \.
 
 
@@ -621,8 +767,6 @@ COPY public.viaggi (id, user_id, destinazione, data_partenza, data_ritorno, budg
 --
 
 COPY public.viaggi_terminati (id, utente_id, viaggio_id, descrizione, valutazione, foto1, foto2, foto3, foto4, foto5, data_creazione, natura, relax, monumenti, cultura, nightlife) FROM stdin;
-1	4	4	è stato un viaggio bellissimo !	4	/uploads/681b8c495c1b3_Screenshot 2024-06-10 110446.png	/uploads/681b8c495c843_Screenshot 2024-07-11 222439.png	/uploads/681b8c495cde6_Screenshot 2024-10-11 131041.png	\N	\N	2025-05-07 18:37:29.381941	0	0	0	0	0
-2	8	8	Bellissima esperienza!	5	\N	\N	\N	\N	\N	2025-05-07 18:46:42.832867	0	0	0	0	0
 3	4	4	bello!	1	/uploads/681b9281d584e_Screenshot_2024-10-10_175841.png	/uploads/681b9281d705b_Screenshot_2024-10-11_140204.png	/uploads/681b9281d7e1a_Screenshot_2024-10-10_175841.png	/uploads/681b9281d8d78_Screenshot_2024-09-30_230444.png	/uploads/681b9281d967e_Screenshot_2024-06-10_110446.png	2025-05-07 19:04:01.892285	0	0	0	0	0
 10	9	10	esperienza bellissima insieme ad Aldo!	5	/uploads/681e125d2563c_io.jpg	/uploads/681e125d27203_io.jpg	\N	\N	\N	2025-05-09 16:34:05.161912	0	0	0	0	0
 12	8	8	Esperienza migliore della mia vita!	5	/uploads/6823ab7a61cbd_Screenshot_2025-05-13_222739.png	/uploads/6823ab7a62028_Screenshot_2025-05-13_222752.png	\N	\N	\N	2025-05-13 22:28:42.405593	80	50	20	60	10
@@ -631,7 +775,7 @@ COPY public.viaggi_terminati (id, utente_id, viaggio_id, descrizione, valutazion
 15	7	15	Esperienza bellissima insieme alla mia amica Alessia!	5	/uploads/6823aebd8fd56_Screenshot_2025-05-13_223922.png	\N	\N	\N	\N	2025-05-13 22:42:37.593377	10	20	30	40	50
 16	7	16	Paradiso terrestre!	5	/uploads/6823b03c96f5d_Screenshot_2025-05-13_222752.png	\N	\N	\N	\N	2025-05-13 22:49:00.623959	10	20	30	40	50
 17	8	17	è stato bellissimo	5	/uploads/6824cb33dc89b_Screenshot_2025-05-13_223922.png	\N	\N	\N	\N	2025-05-14 18:56:19.904421	40	60	10	50	10
-18	7	0	bello	0	\N	\N	\N	\N	\N	2025-05-21 22:37:45.262519	7	12	2	1	2
+19	7	39	"Una città affascinante, divisa in due anime: la storica Buda e la vivace Pest.	4	/uploads/682ede36eebeb_istockphoto-508662108-612x612.jpg	/uploads/682ede36ef23d_images.jpeg	\N	\N	\N	2025-05-22 10:20:06.98022	20	70	20	60	40
 \.
 
 
@@ -678,6 +822,25 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 35	9	partecipante
 36	10	ideatore
 10	8	partecipante
+37	11	ideatore
+38	3	ideatore
+39	7	ideatore
+40	4	ideatore
+41	9	ideatore
+42	2	ideatore
+43	5	ideatore
+44	1	ideatore
+45	6	ideatore
+46	12	ideatore
+47	10	ideatore
+48	8	ideatore
+49	3	ideatore
+50	2	ideatore
+51	1	ideatore
+52	4	ideatore
+9	8	partecipante
+26	9	partecipante
+39	14	partecipante
 \.
 
 
@@ -685,7 +848,7 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 -- Name: chat_viaggio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 15, true);
+SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 22, true);
 
 
 --
@@ -696,31 +859,38 @@ SELECT pg_catalog.setval('public.esperienze_id_seq', 2, true);
 
 
 --
+-- Name: itinerari_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.itinerari_id_seq', 7, true);
+
+
+--
 -- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifiche_id_seq', 417, true);
+SELECT pg_catalog.setval('public.notifiche_id_seq', 459, true);
 
 
 --
 -- Name: utenti_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.utenti_id_seq', 13, true);
+SELECT pg_catalog.setval('public.utenti_id_seq', 14, true);
 
 
 --
 -- Name: viaggi_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_id_seq', 18, true);
+SELECT pg_catalog.setval('public.viaggi_id_seq', 21, true);
 
 
 --
 -- Name: viaggi_terminati_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 18, true);
+SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 19, true);
 
 
 --
@@ -729,6 +899,14 @@ SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 18, true);
 
 ALTER TABLE ONLY public.chat_viaggio
     ADD CONSTRAINT chat_viaggio_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: itinerari itinerari_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.itinerari
+    ADD CONSTRAINT itinerari_pkey PRIMARY KEY (id);
 
 
 --

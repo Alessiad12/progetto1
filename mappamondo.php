@@ -84,7 +84,7 @@ if ($result) {
 
     // Array dei viaggi da PHP a JS
   const viaggi = <?= json_encode($viaggi) ?>;
-
+  console.log(viaggi); // <-- DEBUG
   const viaggioIcon = L.icon({
     iconUrl: '/immagini/pin-viaggio.png', // cambia con il percorso corretto della tua icona
     iconSize: [32, 32],
@@ -93,19 +93,14 @@ if ($result) {
 });
 
 // Aggiungi i marker con link al viaggio
-viaggi.forEach((v, i) => {
+viaggi.forEach((v) => {
   L.marker([v.lat, v.lon], { icon: viaggioIcon })
     .addTo(map)
-   // .on('click', () => {
-     // window.location.href = `viaggi.php?id=${v.id}`; // cambia 'i' con v.id se hai ID veri
-   // })
+    .on('click', () => {
+window.location.href = `get_itinerario.php?viaggio_id=${v.id}`;
+    })
     .bindTooltip(v.nome, { permanent: false, direction: 'top' });
 });
-
-    // Mostra/nasconde profilo
-function toggleProfileContainer() {
-  document.querySelector('.profile-container').classList.toggle('active');
-}
 
 // Chiudi cliccando fuori
 window.onclick = (e) => {

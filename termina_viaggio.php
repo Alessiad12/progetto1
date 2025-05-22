@@ -260,7 +260,7 @@ if ($viaggio_id > 0) {
           <?php endfor; ?>
         </div>
      <div style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
-        <a href="crea_itinerario.php?lat=<?= urlencode($lat) ?>&lon=<?= urlencode($lon) ?>" class="btn-submit">Inserisci Itinerario</a>
+        <a href="crea_itinerario.php?lat=<?= urlencode($lat) ?>&lon=<?= urlencode($lon) ?>&viaggio_id=<?= urlencode($viaggio_id) ?>" class="btn-submit">Inserisci Itinerario</a>
      </div>
 
 

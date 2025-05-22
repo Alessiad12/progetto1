@@ -222,8 +222,7 @@ while ($row = pg_fetch_assoc($result)) {
   <img src="<?= htmlspecialchars($immagine_profilo) ?>" alt="Foto Profilo" class="profile-icon"  />
   <div class="dropdown-menu" id="dropdownMenu" >
           <a href="pagina_profilo.php">Profilo</a>
-          <a href="login.html">Logout</a>
-          <a href="crea_preferenze_viaggi.php"> Preferenze <a>
+          <a href="crea_preferenze_viaggi.php"> Preferenze viaggi <a>
   </div>
 </div>
 

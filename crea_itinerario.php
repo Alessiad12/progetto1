@@ -1,3 +1,13 @@
+<?php
+require_once 'connessione.php'; // Connessione al DB
+session_start();
+if (!isset($_SESSION['id_utente']) || !isset($_SESSION['user'])) {
+    header('Location: /login.php');
+    exit;
+}
+$id_utente = $_SESSION['id_utente'];
+$viaggio_id = $_GET['viaggio_id'] ?? 0;
+?>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -56,7 +66,7 @@
     #sidebar h3 {
       margin-bottom: 16px;
       font-size: 1.4rem;
-      color: rgb(8, 7, 91);
+      color: rgb(13, 10, 143);
     }
 
     #sidebar input[type="text"] {
@@ -66,15 +76,15 @@
       border-radius: 6px;
       font-size: 1rem;
       background-color: white;
-      color: rgb(8, 7, 91);
-      font-family: 'CustomFont', sans-serif;
+      color: rgb(12, 11, 92);
+      font-family: sans-serif
     }
 
     #sidebar button {
       margin-top: 10px;
       width: 100%;
       padding: 10px;
-      background-color: rgb(8, 7, 91);
+      background-color:  #2e5a80;
       color: white;
       border: none;
       border-radius: 6px;
@@ -82,7 +92,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      font-family: 'CustomFont', sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     #sidebar button:hover {
@@ -106,22 +116,6 @@
       gap: 8px;
     }
 
-    .remove-btn {
-      background-color: #dc3545;
-      color: white;
-      border: none;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      white-space: nowrap;
-      flex-shrink: 0 0 auto;
-    }
-    .remove-btn:hover {
-      background-color: #b02a37;
-
-    }
 
     #map {
       flex: 1;
@@ -145,8 +139,9 @@
     <h2>Inserisci un luogo</h2>
     <input type="text" id="placeInput" placeholder="Es. Colosseo, Roma">
     <button onclick="addPlace()">Aggiungi</button>
+    <button onclick="salvaItinerario()">Salva Itinerario</button>
     
-    <h3>Luoghi inseriti:</h3>
+    <h3 style= margin-top:20px;>Luoghi inseriti:</h3>
     <ul id="placesList"></ul>
   </div>
 
@@ -154,6 +149,10 @@
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+  const id_utente = <?= json_encode($id_utente) ?>;
+  const viaggio_id = <?= json_encode($viaggio_id) ?>;
+</script>
   <script>
     const initialLat = <?= json_encode($lat) ?>;
     const initialLon = <?= json_encode($lon) ?>;
@@ -199,6 +198,33 @@
           }
         });
     }
+    function salvaItinerario() {
+  const nome = prompt("Inserisci un nome per l'itinerario:");
+  if (!nome) return;
+
+  const luoghi = markers.map(m => m.name);
+
+  fetch('save_itinerario.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      nome: nome,
+      luoghi: luoghi,
+      utente_id: id_utente,
+      viaggio_id: viaggio_id
+    })
+  })
+  .then(res => res.text())
+  .then(response => {
+    alert("Itinerario salvato con successo!");
+  })
+  .catch(error => {
+    console.error("Errore nel salvataggio:", error);
+    alert("Errore nel salvataggio dell'itinerario.");
+  });
+}
+
   </script>
+  
 </body>
 </html>
