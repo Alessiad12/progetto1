@@ -18,7 +18,7 @@ body {
     text-align: center;
     overflow-x: hidden;
     position: relative;
-    background-color: #f5f1de;
+  background: #f9faff;
 
 }
 
@@ -91,35 +91,15 @@ body {
 }
 
 
-button {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    font-size: 1.3rem;
-    border: none;
-    background-color: #f5f1de;
-    color: rgb(8, 7, 91);
-    cursor: pointer;
-    border-radius: 5px;
-    font-family: 'CustomFont';
-    size: 30px;
-}
-button:hover {
-    background-color: #0056b3;
-    color: white;
-}
-
 /* Sezione immagini*/
 .next-section {
     min-height: 20vh;
     overflow: hidden;
     position: relative;
     white-space: nowrap;
-    background-color:  #f5f1de;
-    top: 100px;
+    background: #f9fbff;
+    margin-bottom: 120px;
 }
-
 
 
 .contenitore_immagini{
@@ -145,85 +125,297 @@ button:hover {
     }
 }
 
-.contenitore_step{
-    display: flex; 
-    width: 100%; 
-    position: relative;
-    top: 130px;
+.contenitore_step {
+    display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 4rem 1rem;
+    background: #f9fbff;
+    position: relative;
 }
+
 h2 {
-    font-size: 5em;
-    margin-bottom: 10px;
+    font-size: 3em;
     color: #2e5a80;
     text-align: center;
-    font-family: Songti TC;
-
+    font-family: 'Songti TC', serif;
+    margin-bottom: 2rem;
 }
+
+
+.title_s {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #154b89;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+.description {
+    font-size: 1.1em;
+    color: #444;
+    line-height: 1.6;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Animazione in entrata */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .contenitore_step {
+        padding: 2rem 1rem;
+    }
 
     .step {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 45px;
-        margin-top: 20px;
-        max-width: 500px;
-        width: 100%;
-      }
-  
-      .circle {
-    background-color: #2e5a80;
-    color: white;
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    margin-bottom: 15px;
-    font-size: 1.7em;
-    font-family: Hiragino Mincho ProN;
+        padding-left: 3rem;
+        margin: 1.5rem 0;
+    }
 
+    .step::before {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+        left: -30px;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
 }
-  
-      .title_s {
-    font-size: 2.1em;
-    font-weight: bold;
-    margin-bottom: 8px;
-    text-align: center;
-
-}
-  
-      .description {
-    font-size: 1.9em;
-    color: #555;
-    text-align: center;
-    line-height: 1.5;
-
+.testimonials {
+  padding: 2rem;
+background:#f9fbff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.testimonial {
+  background: white;
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 86, 179, 0.05);
+  font-style: italic;
+  color: #333;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  position: relative;
+}
+
+.testimonial.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.testimonial strong {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 700;
+  color: #0056b3;
+  font-style: normal;
+  text-align: right;
+}
+
+.testimonial::before {
+  content: "“";
+  font-size: 3rem;
+  color: #0056b3;
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  opacity: 0.1;
+  font-family: serif;
+}
 
 .qrcode {
-    display: flex; 
-    width: 100%; 
-    position: relative;
-    top: 100px;
-    right: 20px;
+  display: flex;
+width: 100%;
+position: relative;
+/* top: 100px; */
+right: 20px;
+-right: 20px;
+bottom: 20px;
+/* bottom: 31px; */
+flex-direction: column;
+align-items: flex-end;
+/* height: 100%; */
+}
+
+button, .btn {
+  background-color: #0056b3;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 86, 179, 0.3);
+}
+
+button:hover, .btn:hover {
+  background-color: #003d80;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 86, 179, 0.5);
+}
+
+/* la nostra missione */
+.mission-section {
+  max-width: 900px;
+  margin: 4rem auto;
+  padding: 0 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: rgba(182, 181, 181, 0.63);
+}
+
+.mission-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  background: #f9faff;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 6px 18px rgba(0, 86, 179, 0.1);
+}
+
+.mission-image img {
+  width: 300px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 86, 179, 0.15);
+}
+
+.mission-text {
+  flex: 1;
+}
+
+.mission-text h2 {
+  color: #0056b3;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.mission-text p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* Responsive: su schermi piccoli metti immagine sopra */
+@media (max-width: 700px) {
+  .mission-container {
     flex-direction: column;
+    text-align: center;
+  }
+  
+  .mission-image img {
+    width: 80%;
+    max-width: 300px;
+    margin: 0 auto 1.5rem;
+  }
+  
+  .mission-text {
+    flex: none;
+  }
+}
+
+/* striscia superiore */
+.hero {
+    position: relative;
+    height: 100vh;
+    background-image: url('https://i.pinimg.com/736x/c3/0d/01/c30d0181617661c19186220eedac9938.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    height: 100%;
+    padding: 1rem 2rem;
+    background-color: rgba(0, 0, 0, 0.191); /* trasparente per vedere l’immagine sotto */
+    color: rgb(255, 255, 255);
+    position: relative;
+    z-index: 6;
 }
 
-
-.qrcode img {
-    width: 150px; /* Imposta una dimensione fissa per il QR code */
-    height: auto; /* Mantiene le proporzioni dell'immagine */
+nav a, nav ul, nav .btn-login {
+    color: white;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+}
+       h1{
+            font-family: 'CustomFont';
+            color: #0056b3;
+        }
+        nav .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+        .logo img {
+        height: 40px;
+        width: auto;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+.btn-login{
+    background-color: #154b89fb;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: -6px;
+    font-size: 1rem;
+}
+/* Effetto step */
+.overlay {
+    padding: 2rem;
+    text-align: center;
+    color: white;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+    font-size: 2rem;}
+.step {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition-delay: var(--delay, 0s); /* usa la variabile */
 }
 
-.scarica {
-    font-size: 1.3em; 
-    color: rgb(8, 7, 91); 
-    margin-top: 10px; /* Aggiunge spazio tra il QR code e il testo */
+.step.visible {
+opacity: 1;
+transform: translateY(0);
+border: 2px solid rgba(0, 122, 255, 0);
+background-color: #e6f0ff;
+border-radius: 20px;
+margin: 21px;
+width: 64%;
 }
+
+    

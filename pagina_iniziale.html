@@ -12,10 +12,7 @@
             src: url('font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
             font-display: swap;
         }
-        h1{
-            font-family: 'CustomFont';
-            color: #0056b3;
-        }
+
     </style>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,20 +20,59 @@
 <body>
     <div class="fade-section" id="fadeSection">
         <h1>Wanderlust</h1>
-    </div>
-    
+  </div>
     <!-- Prima sezione con l'immagine -->
-    <div class="content">
-        <img src="https://i.pinimg.com/736x/c3/0d/01/c30d0181617661c19186220eedac9938.jpg" alt="errore caricamento immagine">
-        <div class="overlay">
-            
-            <p class="text">Non rimandare: il viaggio perfetto non ti aspetta.</p>
-            <a href="login.html"><button>Accedi</button></a>
-            
+<div class="hero">
+    <nav>
+        <div class="logo">
+            <img src="immagini/logo.png" alt="Logo" class="logo-img">
+            Wanderlust
         </div>
+        <ul>
+            <li><a href="#come_funziona">Come funziona</a></li>
+            <li><a href="#testimonials">Testimonianze</a></li>
+            <li><a href="#chi_siamo">Chi siamo</a></li>
+            <li><a href="login.html"><button class="btn-login">Accedi</button></a></li>
+        </ul>
+    </nav>
+
+    <div class="overlay">
+        <p class="text">Non rimandare: il viaggio perfetto non ti aspetta.</p>
     </div>
-    <!-- Nuova sezione sotto -->
-    <div class="next-section">
+
+  </div>
+<div class="contenitore_step" id="come_funziona">
+    <h2>Come Funziona</h2>
+    <div class="description">Connettersi con altri viaggiatori non è mai stato così semplice!</div>
+
+    <div class="step" data-step="1">
+        <div class="title_s">Crea il tuo profilo</div>
+        <div class="description">Registrati e personalizza il tuo profilo con le tue passioni da viaggio</div>
+    </div>
+
+    <div class="step" data-step="2">
+        <div class="title_s">Scopri potenziali match</div>
+        <div class="description">Il nostro algoritmo troverà il viaggio in base ai tuoi interessi</div>
+    </div>
+
+    <div class="step" data-step="3">
+        <div class="title_s">Inizia una conversazione</div>
+        <div class="description">Chatta con i tuoi nuovi compagni</div>
+    </div>
+
+    <div class="step" data-step="4">
+        <div class="title_s">Parti per l'avventura</div>
+        <div class="description">Organizza il viaggio dei tuoi sogni!</div>
+    </div>
+
+    <div class="step" data-step="5">
+        <div class="title_s">Racconta la tua esperienza</div>
+        <div class="description">Posta le foto del viaggio e l'itinerario da te scelto</div>
+    </div>
+
+</div>
+
+    <div class="next-section"  >
         <div class="contenitore_immagini"> 
             <img src="https://i.pinimg.com/736x/e2/50/a1/e250a1bc3373c5c1b7ce0128d63475b4.jpg" class="immagine" alt="errore caricamnto immagine" >
             
@@ -60,58 +96,95 @@
             <img src="https://i.pinimg.com/736x/54/8d/c7/548dc7dd5b6b7089097c0d2f64984d71.jpg" class="immagine" alt="errore caricamento immagine" >
         </div>   
     </div>
-    <div class="contenitore_step">
-        <br>
-        <br>
-        <br>
-        <h2>Come Funziona</h2>
-            <div class="description">Connettersi con altri viaggiatori non è mai stato così semplice!</div>
-
-        <div class="step">
-          <div class="circle">1</div>
-          <div class="title_s">Crea il tuo profilo</div>
-          <div class="description">Registrati e personalizza il tuo profilo con le tue passioni da viaggio</div>
+<section class="testimonials" id="testimonials" aria-label="Testimonianze degli utenti">
+        <h2>Testimonianze</h2>
+        <div class="testimonial">
+            "Wanderlust mi ha permesso di trovare compagni di viaggio con cui condividere momenti indimenticabili. Consigliatissimo!" 
+            <strong>- Luca R.</strong>
         </div>
-      
-        <div class="step">
-          <div class="circle">2</div>
-          <div class="title_s">Scopri potenziali match</div>
-          <div class="description">Il nostro algoritmo troverà il viaggio in base ai tuoi interessi</div>
+        <div class="testimonial">
+            "Finalmente un'app che mette insieme persone con le stesse passioni. Ho organizzato il mio primo viaggio di gruppo grazie a Wanderlust." 
+            <strong>- Maria G.</strong>
         </div>
-      
-        <div class="step">
-          <div class="circle">3</div>
-          <div class="title_s">Inizia una conversazione</div>
-          <div class="description">Chatta con i tuoi nuovi compagni </div>
-        </div>
-      
-        <div class="step">
-          <div class="circle">4</div>
-          <div class="title_s">Parti per l'avventura</div>
-          <div class="description">Organizza il viaggio dei tuoi sogni!</div>
-        </div>
-        <div class="step">
-          <div class="circle">5</div>
-          <div class="title_s">Racconta la tua esperienza</div>
-          <div class="description"> Posta le foto del viaggio e l'itinerario da te scelto</div>
+        <div class="testimonial">
+            "Interfaccia semplice, tantissime idee di viaggio e persone fantastiche. La mia esperienza non poteva essere migliore!" 
+            <strong>- Stefano P.</strong>
         </div>
 
-        <div class="step">
-          <div class="circle">6</div>
-          <div class="title_s">Organizza la prossima avventura</div>
-          <div class="description"> Crea nuovi viaggi e incontra nuove persone </div>
-        </div>
-       
-</div> 
+    </section>
+<div class="mission-section" id="chi_siamo">
+  <div class="mission-container">
+    <div class="mission-image">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Viaggio e avventura">
+    </div>
+    <div class="mission-text">
+      <h2>La nostra missione</h2>
+      <p>
+        Wanderlust nasce dal desiderio di connettere persone con la stessa passione per l’esplorazione. 
+        Vogliamo abbattere le barriere del viaggio solitario e rendere ogni avventura più sicura, condivisa e indimenticabile. 
+        Che tu stia cercando un compagno di viaggio, ispirazione per una nuova meta o semplicemente qualcuno con cui condividere esperienze,
+        Wanderlust è il tuo punto di partenza.
+      </p>
+    </div>
+  </div>
+</div>
+
 <div class="qrcode">
-   
-    <a href="comingsoon.html"><button>Download app</button></a>    
+    <a href="comingsoon.html">
+    <button>Download app</button></a>    
 </div>
-</div>
+
     <script>
-        setTimeout(() => {
-            document.getElementById('fadeSection').classList.add('hidden');}, 300); // La dissolvenza inizia dopo 3 secondi
-    </script>
+setTimeout(() => {
+    const fade = document.getElementById('fadeSection');
+    fade.classList.add('hidden');
+    window.scrollTo(0, 0); // forza scroll in cima dopo nascondere fadeSection
+}, 300);
+
+document.addEventListener("DOMContentLoaded", function () {
+  const steps = document.querySelectorAll(".step");
+
+  steps.forEach((step, index) => {
+    step.style.setProperty('--delay', `${index * 0.2}s`);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+
+  steps.forEach((step) => {
+    observer.observe(step);
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const testimonials = document.querySelectorAll(".testimonial");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+
+  testimonials.forEach((testimonial, index) => {
+    testimonial.style.transitionDelay = `${index * 0.3}s`;
+    observer.observe(testimonial);
+  });
+});
+
+</script>
 
 
 </body>
