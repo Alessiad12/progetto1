@@ -158,46 +158,32 @@ cron.schedule('* * * * *', async () => {
     console.error('[CRON] Errore durante l\'invio delle notifiche:', err);
   }
 });
+const { sendEmail } = require('./email');
 
 app.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
 
-  if (!email) {
-    return res.status(400).send('Email richiesta');
-  }
+  if (!email) return res.status(400).send('Email richiesta');
 
   try {
-    // Cerca l'utente per email e prendi id
-    const result = await pool.query('SELECT id FROM utenti WHERE email = $1', [email]);
-    
-    if (result.rows.length === 0) {
-      return res.status(404).send('Utente non trovato');
-    }
+    // Qui idealmente cerchi l'utente e generi un token reset (opzionale)
+    // Per semplicità, inviamo direttamente la mail
 
-    const userId = result.rows[0].id;
+    const resetLink = `http://localhost:3000/nuova_password.php?email=${email}`;
 
-    // Genera token reale (qui token fisso solo per esempio)
-    const token = '123456'; 
-
-    const resetLink = `http://localhost:3000/nuova_password.php?userId=${userId}&token=${token}`;
-
-    // Invia email con resetLink
-    await transporter.sendMail({
-      from: '"Wanderlust" <tuo.email@gmail.com>',
+    await sendEmail({
       to: email,
-      subject: 'Reset password Wanderlust',
-      text: `Per resettare la password clicca il link: ${resetLink}`,
-      html: `<p>Per resettare la password clicca <a href="${resetLink}">qui</a></p>`
+      subject: 'Reset password',
+      text: `Hai richiesto di resettare la password. Clicca qui per farlo: ${resetLink}`,
+      html: `<p>Hai richiesto di resettare la password.</p><p>Clicca qui per farlo: <a href="${resetLink}">${resetLink}</a></p>`
     });
 
-    res.status(200).send('Email inviata');
-
+    res.send('Email inviata, controlla la tua casella');
   } catch (error) {
-    console.error('Errore:', error);
-    res.status(500).send('Errore del server');
+    console.error('Errore invio email reset password:', error);
+    res.status(500).send('Errore nell\'invio email');
   }
 });
-
 
 // Avvio del server
 const PORT = 4000;
