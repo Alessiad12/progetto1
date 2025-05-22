@@ -6,8 +6,7 @@ if (!isset($_SESSION['id_utente'])) {
     header('Location: login.php');
     exit;
 }
-$utente_id = intval($_SESSION['id_utente']);
-
+$utente_id = $_GET['id'] ?? null; 
 // --- Recupera foto e ID viaggio ---
 $sql = "
   SELECT viaggi_terminati.viaggio_id, foto1, foto2, foto3, foto4, foto5, viaggi.destinazione as destinazione
@@ -131,7 +130,7 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
     <p class="profile-bio">Viaggiatore curioso.<br> Amo conoscere culture e paesaggi.</p>
     <div class="profile-stats">
       <div class="stat-card">
-        Compagni<br><span class="profile-compagni">18</span>
+        Compagni<br><span class="profile-compagni"></span>
       </div>
       <div class="stat-card">
         Viaggi<br><span class="profile-viaggi"><?= htmlspecialchars($n_viaggi) ?></span>
@@ -145,7 +144,7 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
 
     <!-- MAPPA -->
     <div class="map-container" onclick="espandiMappa()">
-      <iframe src="mappamondo.php"></iframe>
+      <iframe src="/mappamondo(get_profilo).php?id=<?= urlencode($utente_id)?>"></iframe>
     </div>
 
     <!-- FOTO ESPERIENZE -->
@@ -214,6 +213,7 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
       <a href=notifiche.php>Notifiche</a>
     </div>
   </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
   <script>
