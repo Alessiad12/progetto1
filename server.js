@@ -158,7 +158,32 @@ cron.schedule('* * * * *', async () => {
     console.error('[CRON] Errore durante l\'invio delle notifiche:', err);
   }
 });
+const { sendEmail } = require('./email');
 
+app.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) return res.status(400).send('Email richiesta');
+
+  try {
+    // Qui idealmente cerchi l'utente e generi un token reset (opzionale)
+    // Per semplicità, inviamo direttamente la mail
+
+    const resetLink = `http://localhost:3000/nuova_password.php?email=${email}`;
+
+    await sendEmail({
+      to: email,
+      subject: 'Reset password',
+      text: `Hai richiesto di resettare la password. Clicca qui per farlo: ${resetLink}`,
+      html: `<p>Hai richiesto di resettare la password.</p><p>Clicca qui per farlo: <a href="${resetLink}">${resetLink}</a></p>`
+    });
+
+    res.send('Email inviata, controlla la tua casella');
+  } catch (error) {
+    console.error('Errore invio email reset password:', error);
+    res.status(500).send('Errore nell\'invio email');
+  }
+});
 
 // Avvio del server
 const PORT = 4000;
