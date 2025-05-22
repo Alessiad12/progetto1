@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 17.0
+-- Dumped from database version 17.4
 -- Dumped by pg_dump version 17.4
 
 SET statement_timeout = 0;
@@ -430,6 +430,7 @@ COPY public.itinerari (id, nome_itinerario, luoghi, data_creazione, viaggio_id, 
 5	oih	["parlamento"]	2025-05-22 11:05:58.301614	39	7
 6	Portogallo	["porto","CENTRO STORICO, porto","parlamento, porto","porto, porto, Portogallo","quinta marques Gomes"]	2025-05-22 15:25:10.563176	16	7
 7	New York con Aldo	["soho","soho, New York","Manhattan","upper east side","Central Park","moma"]	2025-05-22 15:27:51.710539	10	9
+8	Giappone 2025	["Sakura","Osaka","tokyo"]	2025-05-22 15:56:56.187258	15	7
 \.
 
 
@@ -564,6 +565,9 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 6	7	19	Berlino	f	2025-05-22 14:40:45.911016	like	457
 6	7	19	Berlino	f	2025-05-22 14:40:45.930693	like	458
 7	8	9	roma	f	2025-05-22 14:42:13.626441	match_accepted	459
+2	7	29	Parigi	f	2025-05-22 16:00:04.819898	like	460
+2	7	29	Parigi	f	2025-05-22 16:00:11.711078	like	461
+6	7	19	Berlino	f	2025-05-22 16:00:13.310843	like	462
 \.
 
 
@@ -675,8 +679,8 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 9	26	t	2025-05-22 08:59:14.491332
 14	39	t	2025-05-22 11:02:29.499438
 14	53	t	2025-05-22 11:02:32.824557
-7	29	t	2025-05-22 14:40:41.29216
-7	19	t	2025-05-22 14:40:45.927312
+7	29	t	2025-05-22 16:00:11.690617
+7	19	t	2025-05-22 16:00:13.288485
 \.
 
 
@@ -862,14 +866,14 @@ SELECT pg_catalog.setval('public.esperienze_id_seq', 2, true);
 -- Name: itinerari_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.itinerari_id_seq', 7, true);
+SELECT pg_catalog.setval('public.itinerari_id_seq', 8, true);
 
 
 --
 -- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifiche_id_seq', 459, true);
+SELECT pg_catalog.setval('public.notifiche_id_seq', 462, true);
 
 
 --
@@ -883,7 +887,7 @@ SELECT pg_catalog.setval('public.utenti_id_seq', 14, true);
 -- Name: viaggi_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_id_seq', 21, true);
+SELECT pg_catalog.setval('public.viaggi_id_seq', 22, true);
 
 
 --
