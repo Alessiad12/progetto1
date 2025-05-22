@@ -126,12 +126,25 @@ while ($row = pg_fetch_assoc($result)) {
   <meta charset="UTF-8">
   <title>Menu Profilo</title>
   <link rel="stylesheet" href="css/visualizza_viaggi.css">
+  <link rel="stylesheet" href="css/style_pagina_iniziale.css">
 </head>
 <body style="background-color: <?= htmlspecialchars($colore_sfondo) ?>;">
 
 <div class="fade-section" id="intro">
   Inizia a fare swipe
 </div>
+    <nav>
+        <div class="logo">
+            <img src="immagini/logo.png" alt="Logo" class="logo-img">
+            Wanderlust
+        </div>
+        <ul>
+          <a href="notifiche.php">
+            <img src="immagini/notifiche.png" alt="Notifiche" class="notifiche">
+          </a>
+              <a href="login.html" class="button">Logout</a>
+        </ul>
+    </nav>
 <div class="card-container" id="cardContainer">
 <?php foreach ($viaggi as $viaggio): 
     $immagine = $viaggio['foto'] ?? null;
@@ -200,21 +213,6 @@ while ($row = pg_fetch_assoc($result)) {
 
   <button class="circle-button dislike-button"><img src="/immagini/dislike.png" alt="Dislike"></button>
     <button class="circle-button like-button"><img src="/immagini/like.png" alt="Like"></button>
-</div>
-
-<div class="fascia">
-  <div class="fascia-content">
-    <div class="left-section">
-      <img src="/immagini/logo.png" alt="Logo" class="logo">
-      <div class="title">Wanderlust</div>
-    </div>
-    <div class="right-section">
-<a href="notifiche.php">
-  <img src="immagini/notifiche.png" alt="Notifiche" class="notifiche">
-</a>
-    <a href="login.html" class="button">Logout</a>
-      </div>
-  </div>
 </div>
 
 
