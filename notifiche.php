@@ -88,7 +88,7 @@ foreach ($notifiche as $notifica) {
               if ($tipo === 'like') {
                   echo "<div class='notifica'>
                           <div class='notifica-header'>
-                            <a href='get_profilo.html?id=$mittente_id'>
+                            <a href='get_profiloo.php?id=$mittente_id'>
                               <img src='$profilo_img' alt='Profilo' class='avatar'>
                             </a>
                             <div class='testo-notifica'>
@@ -128,7 +128,7 @@ foreach ($notifiche as $notifica) {
               if ($tipo === 'match_accepted') {
                             echo "<div class='notifica'>
                                     <div class='notifica-header'>
-                                      <a href='get_profilo.html?id=$mittente_id'>
+                                      <a href='get_profiloo.php?id=$mittente_id'>
                                         <img src='$profilo_img' alt='Profilo' class='avatar'>
                                       </a>
                                       <div class='testo-notifica'>
