@@ -159,6 +159,45 @@ cron.schedule('* * * * *', async () => {
   }
 });
 
+app.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).send('Email richiesta');
+  }
+
+  try {
+    // Cerca l'utente per email e prendi id
+    const result = await pool.query('SELECT id FROM utenti WHERE email = $1', [email]);
+    
+    if (result.rows.length === 0) {
+      return res.status(404).send('Utente non trovato');
+    }
+
+    const userId = result.rows[0].id;
+
+    // Genera token reale (qui token fisso solo per esempio)
+    const token = '123456'; 
+
+    const resetLink = `http://localhost:3000/nuova_password.php?userId=${userId}&token=${token}`;
+
+    // Invia email con resetLink
+    await transporter.sendMail({
+      from: '"Wanderlust" <tuo.email@gmail.com>',
+      to: email,
+      subject: 'Reset password Wanderlust',
+      text: `Per resettare la password clicca il link: ${resetLink}`,
+      html: `<p>Per resettare la password clicca <a href="${resetLink}">qui</a></p>`
+    });
+
+    res.status(200).send('Email inviata');
+
+  } catch (error) {
+    console.error('Errore:', error);
+    res.status(500).send('Errore del server');
+  }
+});
+
 
 // Avvio del server
 const PORT = 4000;

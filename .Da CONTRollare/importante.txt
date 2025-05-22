@@ -2,7 +2,7 @@
  ./setup.sh
 chmod +x backup.sh
 ./backup.sh
-
+ npm install nodemailer
 DROP TABLE IF EXISTS public.preferenze_utente_viaggio CASCADE;
 DROP TABLE IF EXISTS public.profili CASCADE;
 DROP TABLE IF EXISTS public.swipes CASCADE;
