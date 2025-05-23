@@ -12,6 +12,9 @@
             src: url('font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
             font-display: swap;
         }
+        h3{
+          margin-bottom: 25px;
+        }
 
     </style>
 </head>
@@ -31,7 +34,7 @@
         <ul>
             <li><a href="#come_funziona">Come funziona</a></li>
             <li><a href="#testimonials">Testimonianze</a></li>
-            <li><a href="#chi_siamo">Chi siamo</a></li>
+            <li><a href="missione.html">Chi siamo</a></li>
             <li><a href="login.html"><button class="btn-login">Accedi</button></a></li>
         </ul>
     </nav>
@@ -41,10 +44,16 @@
     </div>
 
   </div>
+    <h2 style="margin: 40px; margin-bottom: 10px;">Come Funziona</h2>
+    <div class="description" style="margin-bottom: 20px;">Connettersi con altri viaggiatori non è mai stato così semplice!</div>
 <div class="contenitore_step" id="come_funziona">
-    <h2>Come Funziona</h2>
-    <div class="description">Connettersi con altri viaggiatori non è mai stato così semplice!</div>
-
+  <div class="video-container">
+  <video autoplay muted loop class="video">
+    <source src="https://v1.pinimg.com/videos/mc/hls/74/7b/86/747b8628c66db331533dc758183bc4ee.m3u8" type="video/mp4">
+    Il tuo browser non supporta il video HTML5.
+  </video>
+  </div>
+  <div class="contenitore">
     <div class="step" data-step="1">
         <div class="title_s">Crea il tuo profilo</div>
         <div class="description">Registrati e personalizza il tuo profilo con le tue passioni da viaggio</div>
@@ -69,9 +78,22 @@
         <div class="title_s">Racconta la tua esperienza</div>
         <div class="description">Posta le foto del viaggio e l'itinerario da te scelto</div>
     </div>
-
+    </div>
 </div>
-
+<section class="testimonials" id="testimonials" aria-label="Testimonianze degli utenti">
+        <div class="testimonial">
+            "Wanderlust mi ha permesso di trovare compagni di viaggio con cui condividere momenti indimenticabili. Consigliatissimo!" 
+            <strong>- Luca R.</strong>
+        </div>
+        <div class="testimonial">
+            "Finalmente un'app che mette insieme persone con le stesse passioni. Ho organizzato il mio primo viaggio di gruppo grazie a Wanderlust." 
+            <strong>- Maria G.</strong>
+        </div>
+        <div class="testimonial">
+            "Interfaccia semplice, tantissime idee di viaggio e persone fantastiche. La mia esperienza non poteva essere migliore!" 
+            <strong>- Stefano P.</strong>
+        </div>
+    </section>
     <div class="next-section"  >
         <div class="contenitore_immagini"> 
             <img src="https://i.pinimg.com/736x/e2/50/a1/e250a1bc3373c5c1b7ce0128d63475b4.jpg" class="immagine" alt="errore caricamnto immagine" >
@@ -96,43 +118,40 @@
             <img src="https://i.pinimg.com/736x/54/8d/c7/548dc7dd5b6b7089097c0d2f64984d71.jpg" class="immagine" alt="errore caricamento immagine" >
         </div>   
     </div>
-<section class="testimonials" id="testimonials" aria-label="Testimonianze degli utenti">
-        <h2>Testimonianze</h2>
-        <div class="testimonial">
-            "Wanderlust mi ha permesso di trovare compagni di viaggio con cui condividere momenti indimenticabili. Consigliatissimo!" 
-            <strong>- Luca R.</strong>
-        </div>
-        <div class="testimonial">
-            "Finalmente un'app che mette insieme persone con le stesse passioni. Ho organizzato il mio primo viaggio di gruppo grazie a Wanderlust." 
-            <strong>- Maria G.</strong>
-        </div>
-        <div class="testimonial">
-            "Interfaccia semplice, tantissime idee di viaggio e persone fantastiche. La mia esperienza non poteva essere migliore!" 
-            <strong>- Stefano P.</strong>
-        </div>
+     <h2></h2>
 
-    </section>
-<div class="mission-section" id="chi_siamo">
-  <div class="mission-container">
-    <div class="mission-image">
-      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Viaggio e avventura">
-    </div>
-    <div class="mission-text">
-      <h2>La nostra missione</h2>
-      <p>
-        Wanderlust nasce dal desiderio di connettere persone con la stessa passione per l’esplorazione. 
-        Vogliamo abbattere le barriere del viaggio solitario e rendere ogni avventura più sicura, condivisa e indimenticabile. 
-        Che tu stia cercando un compagno di viaggio, ispirazione per una nuova meta o semplicemente qualcuno con cui condividere esperienze,
-        Wanderlust è il tuo punto di partenza.
-      </p>
-    </div>
-  </div>
-</div>
+  <section>
+    <div class="contatti-container">
+      <div class="contatti-titolo">
+          <img src="immagini/logo.png" alt="Logo" class="logo-img">
+           <h3>Wanderlust</h3> 
+      </div>
+          <div class="contatti-titolo">
+            <h3>Social</h3>
+            <div class="contenitore-social">
+            <img src="immagini/facebook.png" alt="Facebook" class="logo-img">
+             Wanderlust_03 <br>
+            <img src="immagini/twitter.png" alt="Twitter" class="logo-img">
+             Wanderlust_03 <br>
+            </div>
+      </div>
+        <div class="contatti-titolo">
+       <h3>Contatti</h3>
+       <h5 >email:</h5> <a href="mailto: Wandelust03@gmail.com" style="text-decoration: none; color: black;">
+        Wandelust03@gmail.com
+        </a>
+        <h5 style="margin-top: 10px;">telefono: </h5><a href="tel:+393456789012" style="text-decoration: none; color: black;">
+        +39 345 6789012
+        </a>
+      </div>
+        <div class="contatti-titolo">
+        <div >
+            <a href="comingsoon.html">
+            <button>Download app</button></a>    
+        </div>
+      </div>
 
-<div class="qrcode">
-    <a href="comingsoon.html">
-    <button>Download app</button></a>    
-</div>
+  </section>
 
     <script>
 setTimeout(() => {

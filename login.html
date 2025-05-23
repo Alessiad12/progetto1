@@ -34,19 +34,26 @@
       </div>
 
       <div class="alt-login">
-        <div class="social-btn" onclick="loginWithFacebook()">
+        <div class="social-btn">
           <img src="immagini/facebook.png" alt="Facebook Icon">
-          <span>Accedi con Facebook</span>
+          <a style="text-decoration: none;   color: #1D3B5B;" href="https://www.facebook.com/v2.8/dialog/oauth?client_id=YOUR_APP_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=email">
+            <span>Accedi con Facebook</span>
+          </a>
+          
         </div>
 
-        <div class="social-btn" onclick="loginWithGoogle()">
+        <div class="social-btn">
           <img src="immagini/google.png" alt="Google Icon">
+                    <a style="text-decoration: none;   color: #1D3B5B;" href="https://accounts.google.com/o/oauth2/auth?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=email">
           <span>Accedi con Google</span>
+          </a>
         </div>
 
-        <div class="social-btn" onclick="loginWithApple()">
+        <div class="social-btn" >
           <img src="immagini/apple.png" alt="Apple Icon">
+           <a style="text-decoration: none;   color: #1D3B5B;" href="https://appleid.apple.com/auth/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=email">
           <span>Accedi con Apple</span>
+          </a>
         </div>
       </div>
     </form>

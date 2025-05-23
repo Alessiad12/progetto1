@@ -18,7 +18,7 @@ body {
     text-align: center;
     overflow-x: hidden;
     position: relative;
-  background: #f9faff;
+  background: #032f29;
 
 }
 
@@ -97,7 +97,6 @@ body {
     overflow: hidden;
     position: relative;
     white-space: nowrap;
-    background: #f9fbff;
     margin-bottom: 120px;
 }
 
@@ -126,14 +125,16 @@ body {
 }
 
 .contenitore_step {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    max-height: 730px; 
+}
+.contenitore{
     flex-direction: column;
     align-items: center;
     padding: 4rem 1rem;
-    background: #f9fbff;
     position: relative;
 }
-
 h2 {
     font-size: 3em;
     color: #2e5a80;
@@ -193,23 +194,37 @@ h2 {
     }
 }
 .testimonials {
-  padding: 2rem;
-background:#f9fbff;
+  padding: 1.5rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.testimonials h2 {
+  font-size: 2rem;
+  color: #0056b3;
+  margin-bottom: 1.5rem;
+}
+
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .testimonial {
   background: white;
   padding: 1.5rem 2rem;
-  margin-bottom: 1.5rem;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 86, 179, 0.05);
+  box-shadow: 0 4px 10px rgba(0, 86, 179, 0.08);
   font-style: italic;
   color: #333;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s ease, transform 0.6s ease;
   position: relative;
+  margin-bottom: 200px;
 }
 
 .testimonial.visible {
@@ -233,23 +248,10 @@ background:#f9fbff;
   position: absolute;
   top: 10px;
   left: 15px;
-  opacity: 0.1;
+  opacity: 0.08;
   font-family: serif;
 }
 
-.qrcode {
-  display: flex;
-width: 100%;
-position: relative;
-/* top: 100px; */
-right: 20px;
--right: 20px;
-bottom: 20px;
-/* bottom: 31px; */
-flex-direction: column;
-align-items: flex-end;
-/* height: 100%; */
-}
 
 button, .btn {
   background-color: #0056b3;
@@ -284,7 +286,6 @@ background: rgba(182, 181, 181, 0.63);
   align-items: center;
   gap: 2rem;
   flex-wrap: wrap;
-  background: #f9faff;
   border-radius: 15px;
   padding: 2rem;
   box-shadow: 0 6px 18px rgba(0, 86, 179, 0.1);
@@ -348,7 +349,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: rgba(0, 0, 0, 0.191); /* trasparente per vedere l’immagine sotto */
+    background-color: rgba(1, 48, 30, 0.455); /* trasparente per vedere l’immagine sotto */
     color: rgb(255, 255, 255);
     position: relative;
     z-index: 6;
@@ -381,6 +382,7 @@ nav a, nav ul, nav .btn-login {
         width: auto;
         margin-right: 10px;
         vertical-align: middle;
+        filter: brightness(0) invert(1); 
     }
 .btn-login{
     background-color: #154b89fb;
@@ -412,10 +414,80 @@ nav a, nav ul, nav .btn-login {
 opacity: 1;
 transform: translateY(0);
 border: 2px solid rgba(0, 122, 255, 0);
-background-color: #e6f0ff;
+background-color:#e1e7e8;
 border-radius: 20px;
 margin: 21px;
 width: 64%;
 }
 
-    
+.contatti-container{
+  display: grid;
+  text-align: initial;
+  grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+   background-color: rgba(1, 48, 30, 0.455);
+}
+.logo-img {
+        height: 40px;
+        width: auto;
+        margin-right: 10px;
+        vertical-align: middle;
+          margin-bottom: 12px;
+
+}
+.contenitore_social{
+  vertical-align: start;
+}
+body {
+  background-color: #f6f5f0;
+  color: #2c3e3e;
+}
+button, .btn {
+  background-color: #4daaaa;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(77, 170, 170, 0.2);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #3d8c8c;
+  transform: translateY(-2px);
+}
+h1, h2, h3 {
+  color: #2c3e3e;
+}
+
+.subheading, .subtitle {
+  color: #5f726f;
+}
+.mission-section {
+  background-color: #f5c49b10; /* pesca molto chiaro, trasparente */
+  border-left: 4px solid #f5c49b;
+  padding: 1.5rem;
+  color: #2c3e3e;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 60%;
+  padding: 1rem; /* margini interni */
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px; /* facoltativo per estetica */
+}
