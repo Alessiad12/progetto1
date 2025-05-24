@@ -18,7 +18,6 @@ body {
     text-align: center;
     overflow-x: hidden;
     position: relative;
-  background: #032f29;
 
 }
 
@@ -461,7 +460,9 @@ button:hover {
 h1, h2, h3 {
   color: #2c3e3e;
 }
-
+.title_s{
+  color: #2c3e3e;
+}
 .subheading, .subtitle {
   color: #5f726f;
 }
