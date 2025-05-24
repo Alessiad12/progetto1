@@ -18,6 +18,7 @@ $sql = "
 ";
 $res = pg_query_params($dbconn, $sql, [$utente_id]);
 
+
 $photoGroups = [];
 if ($res) {
     while ($row = pg_fetch_assoc($res)) {
@@ -47,6 +48,24 @@ $sql = "
 $result = pg_query_params($dbconn, $sql, [$utente_id]);
 $ro = pg_fetch_assoc($result);
 $n_viaggi = $ro ? $ro['viaggi'] : 0;
+
+
+// --- Conta compagni: utenti distinti che hanno condiviso almeno un tuo viaggio ---
+$sql = <<<SQL
+SELECT COUNT(DISTINCT vt2.utente_id) AS compagni
+FROM viaggi_terminati vt2
+WHERE vt2.viaggio_id IN (
+    SELECT vt1.viaggio_id
+    FROM viaggi_terminati vt1
+    WHERE vt1.utente_id = $1
+)
+AND vt2.utente_id <> $1
+SQL;
+$res = pg_query_params($dbconn, $sql, [ $utente_id ]);
+$row = pg_fetch_assoc($res);
+$n_compagni = $row['compagni'] ?? 0;
+
+
 ?>
 
 <!DOCTYPE html>
@@ -131,7 +150,7 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
     <p class="profile-bio">Viaggiatore curioso.<br>Amo conoscere culture e paesaggi.</p>
     <div class="profile-stats">
       <div class="stat-card">
-        Compagni<br><span class="profile-compagni"></span>
+        Compagni<br><span class="profile-compagni"><?= intval($n_compagni) ?></span>
       </div>
       <div class="stat-card">
         Viaggi<br><span class="profile-viaggi"><?= htmlspecialchars($n_viaggi) ?></span>

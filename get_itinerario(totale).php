@@ -1,180 +1,107 @@
 <?php
-require_once 'connessione.php'; // Connessione al DB
+require 'connessione.php';
 $viaggio_id = $_GET['id'] ?? null;
-
-$query = "SELECT * FROM itinerari i join viaggi on viaggi.id=i.viaggio_id WHERE viaggio_id = $1";
-$result = pg_query_params($dbconn, $query, [ $viaggio_id]);
-$itinerario = pg_fetch_assoc($result);
-
-$query_lat = "SELECT latitudine, longitudine from viaggi  WHERE id = $1";
-$result_1 = pg_query_params($dbconn, $query, [ $viaggio_id]);
-$latlon = pg_fetch_assoc($result_1); 
-
-$luoghi = json_decode($itinerario['luoghi'], true);
-$lat = floatval($latlon['latitudine']);
-$lon = floatval($latlon['longitudine']);
+$sql = "
+  SELECT i.luoghi, v.destinazione, v.foto AS sfondo, v.latitudine, v.longitudine
+  FROM itinerari i
+  JOIN viaggi v ON v.id = i.viaggio_id
+  WHERE v.id = $1
+";
+$res = pg_query_params($dbconn, $sql, [$viaggio_id]);
+$row = pg_fetch_assoc($res) ?: [];
+$luoghi = json_decode($row['luoghi'] ?? '[]', true);
 ?>
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title><?= htmlspecialchars($itinerario['nome_itinerario']) ?></title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>#map { height: 100vh; }</style>
-    <style>
-    @font-face {
-      font-family: 'CustomFont';
-      src: url('../font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
-      font-display: swap;
+  <title><?= htmlspecialchars($row['destinazione'] ?? 'Itinerario') ?></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <style>
+    body { overflow: hidden; }
+    .hero {
+      height: 200px;
+      background: url('<?= htmlspecialchars($row['sfondo'] ?: 'immagini/default-bg.jpg') ?>') center/cover no-repeat;
+      position: relative;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    .hero::after {
+      content:""; position:absolute; inset:0;
+      background: rgba(0,0,0,0.3);
     }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      font-family: 'CustomFont', sans-serif;
-      background-color: #f5f1de;
-      color: rgb(8, 7, 91);
+    .hero .card {
+      position: absolute; bottom: -24px; left: 50%;
+      transform: translateX(-50%);
+      width: 90%; max-width: 600px;
+      z-index: 1;
     }
-
-    @media (min-width: 768px) {
-      body {
-        flex-direction: row;
-      }
-    }
-
-    #sidebar {
-      width: 100%;
-      max-width: 100%;
-      background-color: #f5f1de;
-      padding: 24px;
-      border-right: 2px solid #ddd;
-      z-index: 1000;
-      overflow-y: auto;
-    }
-
-    @media (min-width: 768px) {
-      #sidebar {
-        width: 30%;
-        max-width: 400px;
-        height: 100vh;
-      }
-    }
-
-    #sidebar h2,
-    #sidebar h3 {
-      margin-bottom: 16px;
-      font-size: 1.4rem;
-      color: rgb(13, 10, 143);
-    }
-
-    #sidebar input[type="text"] {
-      width: 100%;
-      padding: 10px 14px;
-      border: 2px solid rgb(8, 7, 91);
-      border-radius: 6px;
-      font-size: 1rem;
-      background-color: white;
-      color: rgb(12, 11, 92);
-      font-family: sans-serif
-    }
-
-    #sidebar button {
-      margin-top: 10px;
-      width: 100%;
-      padding: 10px;
-      background-color:  #2e5a80;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    #sidebar button:hover {
-      background-color: #2e5a80;
-    }
-
-    #placesList {
-      list-style: none;
-      padding: 0;
-      margin-top: 20px;
-    }
-
-    li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 4px 0;
-      border-bottom: 1px solid #ccc;
-      font-size: 1rem;
-      color: rgb(8, 7, 91);
-      gap: 8px;
-    }
-
-
-    #map {
-      flex: 1;
-      height: 300px;
-    }
-
-    @media (min-width: 768px) {
-      #map {
-        height: 100vh;
-      }
-    }
-    </style>
+    #map { height: calc(100vh - 236px); }
+    .sidebar { height: calc(100vh - 236px); overflow-y: auto; }
+  </style>
 </head>
 <body>
-    
-    <div id="sidebar">
-    <h1><?= htmlspecialchars($itinerario['nome_itinerario']) ?></h1>
-    <h3 style= margin-top:20px;>Luoghi inseriti:</h3>
-    <ul>
-  <?php foreach ($luoghi as $luogo): ?>
-    <li><?= htmlspecialchars($luogo) ?></li>
-  <?php endforeach; ?>
-</ul>
+  <div class="hero mb-5">
+    <div class="card shadow">
+      <div class="card-body text-center">
+        <h3 class="card-title mb-0"><?= htmlspecialchars($row['destinazione'] ?? '') ?></h3>
+      </div>
+    </div>
   </div>
 
-  
-  <div id="map"></div>
+  <div class="container-fluid px-0">
+    <div class="row gx-0">
+      <nav class="col-12 col-md-4 col-lg-3 bg-white sidebar p-3">
+        <h5 class="mb-3">Luoghi visitati</h5>
+        <ul class="list-group">
+          <?php foreach($luoghi as $i=>$l): ?>
+            <li class="list-group-item d-flex align-items-center" data-idx="<?= $i ?>">
+              <span class="badge bg-primary me-3"><?= $i+1 ?></span>
+              <?= htmlspecialchars($l) ?>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      </nav>
+      <div class="col-12 col-md-8 col-lg-9 p-0 map">
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-    const initialLat = <?= json_encode($lat) ?>;
-    const initialLon = <?= json_encode($lon) ?>;
-    console.log(initialLat, initialLon);
-  const luoghi = <?= json_encode($luoghi) ?>;
-  const map = L.map('map').setView([initialLat, initialLon], 13);
+  <script>
+    // Initialize map
+    const lat = <?= $row['latitudine'] ?: 0 ?>,
+          lon = <?= $row['longitudine'] ?: 0 ?>;
+    const map = L.map('map').setView([lat, lon], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
+    // Add markers
+    const luoghi = <?= json_encode($luoghi) ?>;
+    const markers = [];
+    luoghi.forEach((nome, i) => {
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(nome)}`)
+        .then(r=>r.json()).then(data=>{
+          if(!data[0]) return;
+          const m = L.marker([data[0].lat, data[0].lon])
+            .addTo(map)
+            .bindPopup(nome);
+          markers.push(m);
+        });
+    });
 
-  luoghi.forEach(nome => {
-    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(nome)}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data[0]) {
-          const lat = parseFloat(data[0].lat);
-          const lon = parseFloat(data[0].lon);
-          L.marker([lat, lon]).addTo(map).bindPopup(nome);
-        }
-      })
-      .catch(err => console.error("Errore geocoding:", err));
-  });
-</script>
-
+    // List click
+    document.querySelectorAll('.list-group-item').forEach(item=>{
+      item.onclick = ()=>{
+        const idx = +item.dataset.idx;
+        const m = markers[idx];
+        if(!m) return;
+        map.setView(m.getLatLng(), 14, { animate:true });
+        m.openPopup();
+      };
+    });
+  </script>
 </body>
 </html>
