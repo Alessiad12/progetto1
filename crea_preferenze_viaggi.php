@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $res = pg_query_params($dbconn, $sql, $params);
 
     if ($res) {
-        header('Location: visualizza_viaggi.php'); // oppure una pagina di conferma
+        header('Location: card.php'); // oppure una pagina di conferma
         exit;
     } else {
         $error = 'Errore durante l\'inserimento: ' . pg_last_error($dbconn);
