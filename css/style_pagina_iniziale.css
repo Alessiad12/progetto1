@@ -127,6 +127,8 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     max-height: 730px; 
+    align-items: center;
+    justify-items: center;
 }
 .contenitore{
     flex-direction: column;
@@ -196,6 +198,7 @@ h2 {
   padding: 1.5rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
+  margin-top: 17rem;
 }
 
 .testimonials h2 {
@@ -413,7 +416,7 @@ nav a, nav ul, nav .btn-login {
 opacity: 1;
 transform: translateY(0);
 border: 2px solid rgba(0, 122, 255, 0);
-background-color:#e1e7e8;
+background-color:#e1e7e800;
 border-radius: 20px;
 margin: 21px;
 width: 64%;
@@ -461,6 +464,7 @@ h1, h2, h3 {
   color: #2c3e3e;
 }
 .title_s{
+  font-family:'customFont', sans-serif;
   color: #2c3e3e;
 }
 .subheading, .subtitle {

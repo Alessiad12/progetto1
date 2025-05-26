@@ -84,7 +84,7 @@ app.post('/notify-swipe', async (req, res) => {
         fromUser, tripId, tripTitle, tipo
       });
     } else if (tipo === 'match_accepted') {
-      io.to(`user_${fromUser}`).emit('matchAcceptedNotification', {
+      io.to(`user_${userId}`).emit('matchAcceptedNotification', {
         fromUser, tripId, tripTitle, tipo
       });
     }

@@ -37,7 +37,7 @@ if ($password==='123456') {
     echo json_encode([
         "status" => "success",
         "message" => "Login effettuato con successo!",
-        "redirect" => "visualizza_viaggi.php" // Cambia con la tua pagina di destinazione
+        "redirect" => "card.php" // Cambia con la tua pagina di destinazione
     ]);
 } else {
     echo json_encode([

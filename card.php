@@ -128,6 +128,7 @@ while ($row = pg_fetch_assoc($result)) {
   <link rel="stylesheet" href="css/style_pagina_iniziale.css">
   <link rel="stylesheet" href="css/card.css">
   <link rel="stylesheet" href="stili_card.css">
+  <link rel="stylesheet" href="css/style_notifiche.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <style>
@@ -265,6 +266,13 @@ while ($row = pg_fetch_assoc($result)) {
 <div class="fade-section" id="intro">
   Inizia a fare swipe
 </div>
+<div id="matchModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close-btn" id="closeModal">&times;</span>
+    <p id="matchText"></p>
+    <button onclick="window.location.href='notifiche.php'">Vai alle notifiche</button>
+  </div>
+</div>
 
 <div class="reaction-buttons">
 
@@ -277,6 +285,29 @@ while ($row = pg_fetch_assoc($result)) {
   </div>
 </div>
 </div>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script>
+  const userId = <?= json_encode($_SESSION['id_utente']); ?>;
+  const socket = io('http://localhost:4000');
+
+  socket.on('connect', () => {
+    console.log('Socket connesso:', socket.id);
+    socket.emit('join', userId);
+    console.log(`Socket ${socket.id} entrato in stanza user_${userId}`);
+  });
+
+  socket.on('matchAcceptedNotification', (data) => {
+    console.log('Match accettato ricevuto:', data);
+    const modal = document.getElementById("matchModal");
+    const text = document.getElementById("matchText");
+    text.innerHTML = `<strong>Hai un nuovo match!</strong><br>Viaggio: <strong>"${data.tripTitle}"</strong>`;
+    modal.style.display = "block";
+
+    document.getElementById("closeModal").onclick = () => {
+      modal.style.display = "none";
+    };
+  });
+</script>
 <script src="js/visualizza_viaggi.js"></script>
 <script> 
 document.querySelectorAll('.card').forEach(card => {
@@ -294,6 +325,5 @@ window.addEventListener("load", function () {
 });
 
 </script>
-
 </body>
 </html>

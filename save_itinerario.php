@@ -28,7 +28,8 @@ $query = "INSERT INTO itinerari (nome_itinerario, luoghi, utente_id, viaggio_id)
 $result = pg_query_params($dbconn, $query, [$nome, $luoghi, $utente_id, $viaggio_id]);
 
 if ($result) {
-    echo "OK";
+    header('Location: salva_viaggio_terminato.php');
+    exit;
 } else {
     http_response_code(500);
     echo "Errore query: " . pg_last_error($dbconn);
