@@ -418,6 +418,12 @@ COPY public.chat_viaggio (id, viaggio_id, utente_id, messaggio, data_creazione) 
 23	9	7	ciao	2025-05-22 17:57:31.315501
 24	9	7	ciaopksèpa	2025-05-22 17:58:20.863259
 25	9	8	belooo!	2025-05-22 17:58:30.667571
+26	19	7	ciao francesco	2025-05-22 20:14:59.380319
+27	19	6	ciao ida	2025-05-22 20:15:06.029113
+28	28	7	ciao alessia	2025-05-22 20:52:41.334769
+29	28	8	ciao ida	2025-05-22 20:52:48.758559
+30	48	8	ciao Ida, come stai?	2025-05-22 21:52:44.374053
+31	48	7	tutto bene, da dove parti?	2025-05-22 21:53:03.837668
 \.
 
 
@@ -434,6 +440,9 @@ COPY public.itinerari (id, nome_itinerario, luoghi, data_creazione, viaggio_id, 
 6	Portogallo	["porto","CENTRO STORICO, porto","parlamento, porto","porto, porto, Portogallo","quinta marques Gomes"]	2025-05-22 15:25:10.563176	16	7
 7	New York con Aldo	["soho","soho, New York","Manhattan","upper east side","Central Park","moma"]	2025-05-22 15:27:51.710539	10	9
 8	Giappone 2025	["Sakura","Osaka","tokyo"]	2025-05-22 15:56:56.187258	15	7
+9	Roma	["Marco Polo, san lorenzo","santa maria maggiore","Colosseo","fori imperiali","porta pia","basilica san Pietro","villa borghese"]	2025-05-26 17:35:10.86851	12	4
+10	roma 2	["colosseo"]	2025-05-26 17:38:33.397256	12	4
+11	Tokyo	[]	2025-05-26 17:42:36.329228	18	4
 \.
 
 
@@ -571,6 +580,94 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 2	7	29	Parigi	f	2025-05-22 16:00:04.819898	like	460
 2	7	29	Parigi	f	2025-05-22 16:00:11.711078	like	461
 6	7	19	Berlino	f	2025-05-22 16:00:13.310843	like	462
+2	7	29	Parigi	f	2025-05-22 20:12:55.805267	like	463
+2	7	29	Parigi	f	2025-05-22 20:12:55.834429	like	464
+2	7	29	Parigi	f	2025-05-22 20:12:55.852173	like	465
+2	7	29	Parigi	f	2025-05-22 20:12:55.961227	like	466
+6	7	19	Berlino	f	2025-05-22 20:12:58.077408	like	467
+2	7	29	Parigi	f	2025-05-22 20:13:01.590624	like	468
+2	7	29	Parigi	f	2025-05-22 20:14:00.612052	like	469
+6	7	19	Berlino	f	2025-05-22 20:14:11.220665	like	470
+6	7	19	Berlino	f	2025-05-22 20:14:37.816579	match_accepted	471
+7	6	19	Berlino	f	2025-05-22 20:14:37.846238	match_accepted	472
+2	7	42	Bologna	f	2025-05-22 20:47:53.333196	like	473
+8	7	48	Porto	f	2025-05-22 20:47:57.405261	like	474
+8	7	48	Porto	f	2025-05-22 20:47:57.439761	like	475
+8	7	48	Porto	f	2025-05-22 20:47:57.463948	like	476
+8	7	48	Porto	f	2025-05-22 20:47:57.485139	like	477
+8	7	28	Amsterdam	f	2025-05-22 20:48:04.050296	like	478
+8	7	28	Amsterdam	f	2025-05-22 20:52:01.349302	like	479
+8	7	28	Amsterdam	f	2025-05-22 20:52:27.303801	match_accepted	480
+7	8	28	Amsterdam	f	2025-05-22 20:52:27.327754	match_accepted	481
+8	7	48	Porto	f	2025-05-22 21:51:06.169054	like	482
+8	7	48	Porto	f	2025-05-22 21:51:29.209663	like	483
+8	7	48	Porto	f	2025-05-22 21:52:22.080983	match_accepted	484
+7	8	48	Porto	f	2025-05-22 21:52:22.107002	match_accepted	485
+7	7	33	Bruxelles	f	2025-05-23 00:00:00.950155	registra_viaggio	486
+3	7	30	Londra	f	2025-05-24 01:52:36.135035	like	487
+8	8	12	Roma	f	2025-05-26 15:41:00.874606	registra_viaggio	488
+4	8	12	Roma	f	2025-05-26 15:41:00.878968	registra_viaggio	489
+8	8	13	Roma	f	2025-05-26 15:41:00.880466	registra_viaggio	490
+4	8	13	Roma	f	2025-05-26 15:41:00.881605	registra_viaggio	491
+3	7	30	Londra	f	2025-05-26 16:04:32.979414	like	492
+3	7	30	Londra	f	2025-05-26 16:07:00.246677	match_accepted	493
+7	3	30	Londra	f	2025-05-26 16:07:00.281377	match_accepted	494
+3	8	3	Francia	f	2025-05-26 16:09:05.917946	match_accepted	495
+8	3	3	Francia	f	2025-05-26 16:09:05.927271	match_accepted	496
+8	3	3	Francia	f	2025-05-26 16:10:00.175832	registra_viaggio	497
+3	9	3	Francia	f	2025-05-26 16:17:17.670358	match_accepted	498
+9	3	3	Francia	f	2025-05-26 16:17:17.697078	match_accepted	499
+9	3	3	Francia	f	2025-05-26 16:18:00.78527	registra_viaggio	500
+4	7	4	Thailandia	f	2025-05-26 16:19:36.976149	match_accepted	501
+1	9	1	Giappone	f	2025-05-26 16:20:32.642016	match_accepted	502
+1	8	1	Giappone	f	2025-05-26 16:20:59.249501	match_accepted	503
+8	1	1	Giappone	f	2025-05-26 16:20:59.287042	match_accepted	504
+8	1	1	Giappone	f	2025-05-26 16:21:00.986101	registra_viaggio	505
+1	8	1	Giappone	f	2025-05-26 16:23:19.000579	match_accepted	506
+3	7	49	Copenaghen	f	2025-05-26 16:23:47.284156	like	507
+1	7	1	Giappone	f	2025-05-26 16:23:50.376338	match_accepted	508
+7	1	1	Giappone	f	2025-05-26 16:23:50.385812	match_accepted	509
+7	1	1	Giappone	f	2025-05-26 16:24:00.226329	registra_viaggio	510
+6	7	19	Berlino	f	2025-05-26 16:38:21.541533	match_accepted	511
+6	9	26	Barcellona	f	2025-05-26 16:38:27.991506	match_accepted	512
+3	7	49	Copenaghen	f	2025-05-26 16:38:38.747062	like	513
+3	7	49	Copenaghen	f	2025-05-26 16:38:57.890379	match_accepted	514
+7	3	49	Copenaghen	f	2025-05-26 16:38:57.91704	match_accepted	515
+7	14	53	Bruxelles	f	2025-05-26 16:49:01.541344	match_accepted	516
+14	7	53	Bruxelles	f	2025-05-26 16:49:01.566586	match_accepted	517
+7	14	53	Bruxelles	f	2025-05-26 16:49:15.880544	match_accepted	518
+6	7	19	Berlino	f	2025-05-26 16:50:02.901003	match_accepted	519
+6	8	26	Barcellona	f	2025-05-26 16:56:40.353999	like	520
+6	8	26	Barcellona	f	2025-05-26 16:56:55.309579	match_accepted	521
+8	6	26	Barcellona	f	2025-05-26 16:56:55.336251	match_accepted	522
+8	6	26	Barcellona	f	2025-05-26 16:57:00.867179	registra_viaggio	523
+2	6	42	Bologna	f	2025-05-26 16:59:08.376012	like	524
+2	6	42	Bologna	f	2025-05-26 16:59:30.761782	match_accepted	525
+6	2	42	Bologna	f	2025-05-26 16:59:30.787996	match_accepted	526
+8	6	48	Porto	f	2025-05-26 17:09:44.08341	like	527
+8	6	48	Porto	f	2025-05-26 17:09:58.849998	match_accepted	528
+6	8	48	Porto	f	2025-05-26 17:09:58.86934	match_accepted	529
+7	6	54	Perugia	f	2025-05-26 17:10:27.837371	like	530
+7	6	54	Perugia	f	2025-05-26 17:10:53.570504	match_accepted	531
+6	7	54	Perugia	f	2025-05-26 17:10:53.591528	match_accepted	532
+7	6	55	Oslo	f	2025-05-26 17:16:45.024735	like	533
+7	6	55	Oslo	f	2025-05-26 17:17:04.473173	match_accepted	534
+6	7	55	Oslo	f	2025-05-26 17:17:04.489692	match_accepted	535
+7	6	54	Perugia	f	2025-05-26 17:17:11.262704	match_accepted	536
+8	6	28	Amsterdam	f	2025-05-26 17:19:42.720907	like	537
+8	6	28	Amsterdam	f	2025-05-26 17:19:50.388023	match_accepted	538
+6	8	28	Amsterdam	f	2025-05-26 17:19:50.397589	match_accepted	539
+8	6	56	Varsavia	f	2025-05-26 17:24:36.65844	like	540
+8	6	56	Varsavia	f	2025-05-26 17:24:45.836019	match_accepted	541
+6	8	56	Varsavia	f	2025-05-26 17:24:45.846731	match_accepted	542
+2	4	42	Bologna	f	2025-05-26 17:29:04.662141	like	543
+7	4	55	Oslo	f	2025-05-26 17:29:40.270802	like	544
+8	4	56	Varsavia	f	2025-05-26 17:29:56.545781	like	545
+8	4	48	Porto	f	2025-05-26 17:30:14.704067	like	546
+7	4	54	Perugia	f	2025-05-26 17:30:15.928441	like	547
+8	4	28	Amsterdam	f	2025-05-26 17:30:17.011916	like	548
+8	4	28	Amsterdam	f	2025-05-26 17:30:46.733384	match_accepted	549
+4	8	28	Amsterdam	f	2025-05-26 17:30:46.754343	match_accepted	550
 \.
 
 
@@ -583,28 +680,28 @@ COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_part
 1	anna.bianchi@example.com	Parigi	2025-06-01	2025-06-10	500-1000€	natura	coppia
 2	luca.verdi@example.com	New York	2025-07-15	2025-07-25	2000-3000€	spiaggia	gruppo
 3	giulia.neri@example.com	Tokyo	2025-09-01	2025-09-15	3000-4000€	ristoranti	coppia
-4	marco.rossi@example.com	Roma	2025-05-20	2025-05-25	100-500€	natura	gruppo
 5	s.gallo@example.com	Londra	2025-08-10	2025-08-20	1000-2000€	musei	gruppo
-6	fra@gmail.com	Parigi	2025-06-01	2025-06-10	500-1000€	musei	coppia
 11	m@a.it	Europa	2025-05-12	2025-02-20	1000-3000	natura	gruppo
 13	mario@icloud.it	Asia	2025-05-07	2025-05-14	3500-5000	natura	gruppo
 8	ale.desi@gmail.com	Europa	2025-04-20	2025-04-25	20-40000	spiaggia	gruppo
 9	b@e.it	Europa	2025-04-20	2025-04-25	20-40000	spiaggia	gruppo
-7	ida@ida.it	Europa	2025-06-03	2025-06-11	200-2000	musei	gruppo
 14	lorenzosdf@gmail.com	Europa	2025-05-01	2025-05-30	100-3000	musei	gruppo
 10	ale@ida.it	\N	\N	\N	\N	ristoranti	coppia
 1	anna.bianchi@example.com	Parigi	2025-06-01	2025-06-10	500-1000€	natura	coppia
 2	luca.verdi@example.com	New York	2025-07-15	2025-07-25	2000-3000€	spiaggia	gruppo
 3	giulia.neri@example.com	Tokyo	2025-09-01	2025-09-15	3000-4000€	ristoranti	coppia
-4	marco.rossi@example.com	Roma	2025-05-20	2025-05-25	100-500€	natura	gruppo
 5	s.gallo@example.com	Londra	2025-08-10	2025-08-20	1000-2000€	musei	gruppo
-6	fra@gmail.com	Parigi	2025-06-01	2025-06-10	500-1000€	musei	coppia
 11	m@a.it	Europa	2025-05-12	2025-02-20	1000-3000	natura	gruppo
 13	mario@icloud.it	Asia	2025-05-07	2025-05-14	3500-5000	natura	gruppo
 8	ale.desi@gmail.com	Europa	2025-04-20	2025-04-25	20-40000	spiaggia	gruppo
 9	b@e.it	Europa	2025-04-20	2025-04-25	20-40000	spiaggia	gruppo
-7	ida@ida.it	Europa	2025-06-03	2025-06-11	200-2000	musei	gruppo
 14	lorenzosdf@gmail.com	Europa	2025-05-01	2025-05-30	100-3000	musei	gruppo
+7	ida@ida.it	Europa	2025-06-22	2025-07-05	20-3000	musei	gruppo
+7	ida@ida.it	Europa	2025-06-22	2025-07-05	20-3000	musei	gruppo
+6	fra@gmail.com	Europa	2025-05-31	2025-06-02	10-12345678	ristoranti	gruppo
+6	fra@gmail.com	Europa	2025-05-31	2025-06-02	10-12345678	ristoranti	gruppo
+4	marco.rossi@example.com	Europa	2025-05-30	2025-06-08	10-30000	ristoranti	gruppo
+4	marco.rossi@example.com	Europa	2025-05-30	2025-06-08	10-30000	ristoranti	gruppo
 \.
 
 
@@ -625,8 +722,8 @@ COPY public.profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, 
 13	mario@icloud.it	mariodeside	57	Amo viaggiare e collezionare calamite.	#fbfbce	1968-01-30	uploads/profilo_6824c9416ceb0.png	50
 10	ale@ida.it	Alida	21	Amo viaggiare e collezionare calamite.	#faf3bfc4	2003-08-12	uploads/profilo_682e2e794401c.jpg	50
 9	b@e.it	betta	22	Mi piace viaggiare con il mio ragazzo.	#cee3f4	20003-04-17	uploads/profilo_682e309c56f84.png	50
-14	lorenzosdf@gmail.com	bebbu	0		#fbe0ce	2025-05-16	uploads/682ee7d5a510b_	50
-7	ida@ida.it	Ida Benvenuto	22	Studentessa di design e amante della moda. Viaggiare mi ispira moltissimo.	#fbfbce	2003-08-19	uploads/profilo_681a409cd4722.jpg	50
+7	ida@ida.it	Ida Benvenuto	22	Studentessa di design e amante della moda. Viaggiare mi ispira moltissimo.	#f4cedc	2003-08-19	uploads/profilo_681a409cd4722.jpg	50
+14	lorenzosdf@gmail.com	bebbu	0		#fbfbce	2025-05-16	uploads/profilo_68347f453c468.png	50
 \.
 
 
@@ -678,12 +775,29 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 7	16	t	2025-05-13 22:47:16.908166
 8	15	t	2025-05-14 08:50:28.358474
 13	18	t	2025-05-14 19:05:14.314282
-8	26	t	2025-05-20 10:47:20.813961
 9	26	t	2025-05-22 08:59:14.491332
 14	39	t	2025-05-22 11:02:29.499438
 14	53	t	2025-05-22 11:02:32.824557
-7	29	t	2025-05-22 16:00:11.690617
-7	19	t	2025-05-22 16:00:13.288485
+7	19	t	2025-05-22 20:14:11.203015
+7	28	t	2025-05-22 20:52:01.338592
+7	48	t	2025-05-22 21:51:29.19257
+7	42	f	2025-05-22 21:57:18.373888
+7	29	f	2025-05-22 21:58:31.50684
+7	30	t	2025-05-26 16:04:32.943183
+7	49	t	2025-05-26 16:38:38.71787
+8	26	t	2025-05-26 16:56:40.31793
+6	42	t	2025-05-26 16:59:08.365498
+6	48	t	2025-05-26 17:09:44.050954
+6	54	t	2025-05-26 17:10:27.813412
+6	55	t	2025-05-26 17:16:45.000592
+6	28	t	2025-05-26 17:19:42.696953
+6	56	t	2025-05-26 17:24:36.641037
+4	42	t	2025-05-26 17:29:04.648103
+4	55	t	2025-05-26 17:29:40.251047
+4	56	t	2025-05-26 17:29:56.520145
+4	48	t	2025-05-26 17:30:14.683504
+4	54	t	2025-05-26 17:30:15.920371
+4	28	t	2025-05-26 17:30:17.003281
 \.
 
 
@@ -705,7 +819,7 @@ COPY public.utenti (id, nome, nickname, email, data_di_nascita, password) FROM s
 12	Mario	mariodesi	mario@desi.it	1968-01-30	$2y$10$49PBPzrFJSJm.J4Iu7DgLOsZyUFsENs/nUL2QVtNiwqGVOC6lw8UG
 13	Mario	mariodeside	mario@icloud.it	1968-01-30	$2y$10$7RsaQXT2Co780RKbF0ghK.NLX9TGvG15MStSOCkFnNQ0mryrdiC1m
 14	Lorenzo	bebè	lorenzosdf@gmail.com	2025-05-16	$2y$10$3rDQi4JSN37SpI6jxUFxd.iggHwx06/1frZmwOc818dWjzB0E0vqK
-7	Ida Benvenuto	ida_b	ida@ida.it	2003-08-19	$2y$10$2Q/6OmJ89pkidXritK5vMOpO87Ve/asqOedSVeIts8G8dC/PK7Mri
+7	Ida Benvenuto	ida_b	ida@ida.it	2003-08-19	$2y$10$YOBplovcQqaV/gl3QOED3OI8gVU3oyAUYpMVcxz0E.L.Lwk386Uke
 \.
 
 
@@ -766,6 +880,9 @@ COPY public.viaggi (id, user_id, destinazione, data_partenza, data_ritorno, budg
 51	1	Catania	2025-08-20	2025-08-27	800	musei	Siciliano	gruppo	Cultura, mare e buon cibo.	https://i.pinimg.com/736x/89/08/9c/89089cd5fbe7662e5a35beb13eb18edf.jpg	37.50787700	14.79310600
 52	4	Bruxelles	2025-09-15	2025-09-22	900	musei	Belga	coppia	Cultura, birra e cioccolato.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	50.85033960	4.35171030
 53	7	Bruxelles	2025-05-02	2025-06-10	900	musei	Belga	coppia	Cultura, birra e cioccolato.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	50.85033960	4.35171030
+54	7	Perugia	2025-05-29	2025-06-01	300	ristoranti	\N	gruppo	Alla scoperta della cioccolata migliore di'Italia.	/uploads/683480ad934d7_images-2.jpeg	43.10703210	12.40299620
+55	7	Oslo	2025-05-31	2025-06-04	400	ristoranti	\N	gruppo	Tra ristoranti stellati e mercatini locali, la capitale norvegese è un vero paradiso per chi ama scoprire nuovi sapori. Dal salmone fresco ai piatti tipici come il “fårikål”, ogni assaggio è un viaggio nella cultura nordica! 🇳🇴✨	/uploads/683485b626df3_Oslo2-800x445.jpg	59.91333010	10.73897010
+56	8	Varsavia	2025-05-30	2025-06-04	400	ristoranti	\N	gruppo	Varsavia, una città esuberante, movimentata, piena di vita.	/uploads/683487aa00cbc_images-3.jpeg	52.23371720	21.07143220
 \.
 
 
@@ -783,6 +900,7 @@ COPY public.viaggi_terminati (id, utente_id, viaggio_id, descrizione, valutazion
 16	7	16	Paradiso terrestre!	5	/uploads/6823b03c96f5d_Screenshot_2025-05-13_222752.png	\N	\N	\N	\N	2025-05-13 22:49:00.623959	10	20	30	40	50
 17	8	17	è stato bellissimo	5	/uploads/6824cb33dc89b_Screenshot_2025-05-13_223922.png	\N	\N	\N	\N	2025-05-14 18:56:19.904421	40	60	10	50	10
 19	7	39	"Una città affascinante, divisa in due anime: la storica Buda e la vivace Pest.	4	/uploads/682ede36eebeb_istockphoto-508662108-612x612.jpg	/uploads/682ede36ef23d_images.jpeg	\N	\N	\N	2025-05-22 10:20:06.98022	20	70	20	60	40
+22	4	12	Bellissima città, la compagnia non è stata delle migliori	2	/uploads/68348b11b8d75_Roma_in_breve.jpg	/uploads/68348b11b91b5_536216-roman-forum.jpg	\N	\N	\N	2025-05-26 17:38:57.758465	10	10	90	70	30
 \.
 
 
@@ -848,6 +966,27 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 9	8	partecipante
 26	9	partecipante
 39	14	partecipante
+19	7	partecipante
+28	7	partecipante
+48	7	partecipante
+30	7	partecipante
+3	8	partecipante
+3	9	partecipante
+1	8	partecipante
+1	7	partecipante
+49	7	partecipante
+53	14	partecipante
+54	7	ideatore
+26	8	partecipante
+42	6	partecipante
+48	6	partecipante
+54	6	partecipante
+55	7	ideatore
+55	6	partecipante
+28	6	partecipante
+56	8	ideatore
+56	6	partecipante
+28	4	partecipante
 \.
 
 
@@ -855,7 +994,7 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 -- Name: chat_viaggio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 25, true);
+SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 31, true);
 
 
 --
@@ -869,14 +1008,14 @@ SELECT pg_catalog.setval('public.esperienze_id_seq', 2, true);
 -- Name: itinerari_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.itinerari_id_seq', 8, true);
+SELECT pg_catalog.setval('public.itinerari_id_seq', 11, true);
 
 
 --
 -- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifiche_id_seq', 462, true);
+SELECT pg_catalog.setval('public.notifiche_id_seq', 550, true);
 
 
 --
@@ -890,14 +1029,14 @@ SELECT pg_catalog.setval('public.utenti_id_seq', 14, true);
 -- Name: viaggi_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_id_seq', 22, true);
+SELECT pg_catalog.setval('public.viaggi_id_seq', 56, true);
 
 
 --
 -- Name: viaggi_terminati_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 19, true);
+SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 23, true);
 
 
 --
