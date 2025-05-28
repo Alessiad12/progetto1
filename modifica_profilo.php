@@ -297,7 +297,7 @@ document.querySelector('.save-btn').addEventListener('click', function () {
 .then(response => response.json())
   .then(data => {
     if (data.success) {
-      window.location.href = 'visualizza_viaggi.php';
+      window.location.href = 'card.php';
     } else {
       alert(data.error || "Errore durante il salvataggio.");
     }
