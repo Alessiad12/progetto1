@@ -424,6 +424,8 @@ COPY public.chat_viaggio (id, viaggio_id, utente_id, messaggio, data_creazione) 
 29	28	8	ciao ida	2025-05-22 20:52:48.758559
 30	48	8	ciao Ida, come stai?	2025-05-22 21:52:44.374053
 31	48	7	tutto bene, da dove parti?	2025-05-22 21:53:03.837668
+32	42	2	ciao	2025-05-27 09:02:21.059936
+33	42	4	ciao Luca	2025-05-27 09:02:30.494733
 \.
 
 
@@ -668,6 +670,10 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 8	4	28	Amsterdam	f	2025-05-26 17:30:17.011916	like	548
 8	4	28	Amsterdam	f	2025-05-26 17:30:46.733384	match_accepted	549
 4	8	28	Amsterdam	f	2025-05-26 17:30:46.754343	match_accepted	550
+8	4	28	Amsterdam	f	2025-05-26 19:12:29.430424	match_accepted	551
+2	4	42	Bologna	f	2025-05-27 08:58:56.474039	like	552
+2	4	42	Bologna	f	2025-05-27 08:59:10.533588	match_accepted	553
+4	2	42	Bologna	f	2025-05-27 08:59:10.547201	match_accepted	554
 \.
 
 
@@ -696,12 +702,12 @@ COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_part
 8	ale.desi@gmail.com	Europa	2025-04-20	2025-04-25	20-40000	spiaggia	gruppo
 9	b@e.it	Europa	2025-04-20	2025-04-25	20-40000	spiaggia	gruppo
 14	lorenzosdf@gmail.com	Europa	2025-05-01	2025-05-30	100-3000	musei	gruppo
-7	ida@ida.it	Europa	2025-06-22	2025-07-05	20-3000	musei	gruppo
-7	ida@ida.it	Europa	2025-06-22	2025-07-05	20-3000	musei	gruppo
 6	fra@gmail.com	Europa	2025-05-31	2025-06-02	10-12345678	ristoranti	gruppo
 6	fra@gmail.com	Europa	2025-05-31	2025-06-02	10-12345678	ristoranti	gruppo
 4	marco.rossi@example.com	Europa	2025-05-30	2025-06-08	10-30000	ristoranti	gruppo
 4	marco.rossi@example.com	Europa	2025-05-30	2025-06-08	10-30000	ristoranti	gruppo
+7	ida@ida.it	Europa	2025-05-29	2025-06-02	10-2000	ristoranti	gruppo
+7	ida@ida.it	Europa	2025-05-29	2025-06-02	10-2000	ristoranti	gruppo
 \.
 
 
@@ -781,7 +787,6 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 7	19	t	2025-05-22 20:14:11.203015
 7	28	t	2025-05-22 20:52:01.338592
 7	48	t	2025-05-22 21:51:29.19257
-7	42	f	2025-05-22 21:57:18.373888
 7	29	f	2025-05-22 21:58:31.50684
 7	30	t	2025-05-26 16:04:32.943183
 7	49	t	2025-05-26 16:38:38.71787
@@ -792,12 +797,14 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 6	55	t	2025-05-26 17:16:45.000592
 6	28	t	2025-05-26 17:19:42.696953
 6	56	t	2025-05-26 17:24:36.641037
-4	42	t	2025-05-26 17:29:04.648103
-4	55	t	2025-05-26 17:29:40.251047
-4	56	t	2025-05-26 17:29:56.520145
-4	48	t	2025-05-26 17:30:14.683504
-4	54	t	2025-05-26 17:30:15.920371
 4	28	t	2025-05-26 17:30:17.003281
+4	55	t	2025-05-26 19:12:19.581386
+4	56	t	2025-05-26 19:12:21.863107
+4	48	t	2025-05-26 19:12:22.81579
+4	54	t	2025-05-26 19:12:24.010717
+4	42	t	2025-05-27 08:58:56.43503
+7	56	f	2025-05-28 22:22:23.421205
+7	42	t	2025-05-28 22:27:12.535966
 \.
 
 
@@ -987,6 +994,7 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 56	8	ideatore
 56	6	partecipante
 28	4	partecipante
+42	4	partecipante
 \.
 
 
@@ -994,7 +1002,7 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 -- Name: chat_viaggio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 31, true);
+SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 33, true);
 
 
 --
@@ -1015,7 +1023,7 @@ SELECT pg_catalog.setval('public.itinerari_id_seq', 11, true);
 -- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifiche_id_seq', 550, true);
+SELECT pg_catalog.setval('public.notifiche_id_seq', 554, true);
 
 
 --

@@ -279,7 +279,7 @@ while ($row = pg_fetch_assoc($result)) {
   <button class="circle-button dislike-button"><img src="/immagini/dislike.png" alt="Dislike"></button>
     <button class="circle-button like-button"><img src="/immagini/like.png" alt="Like"></button>
 </div>
-<div class="profile-menu-wrapper">
+<div class="profile-menu-wrapper" style="z-index: -1000;">
   <img src="<?= htmlspecialchars($immagine_profilo) ?>" alt="Foto Profilo" class="profile-icon"  />
   <div class="dropdown-menu" id="dropdownMenu" >
   </div>

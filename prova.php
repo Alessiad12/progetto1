@@ -74,32 +74,9 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dettaglio Viaggio – <?= htmlspecialchars($trip['destinazione']) ?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style_pagina_iniziale.css" rel="stylesheet">
   <style>
-    @font-face {
-    font-family: 'CustomFont';
-    src: url('../font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
-        font-display: swap;
-    }
-    @font-face {
-        font-family: 'secondo_font';
-        src: url('../font/Arimo.7ac02a544211773d9636e056e9da6c35.7.f8f199f09526f79e87644ed227e0f651.woff2') format('woff2');
-        font-display: swap;
-    }
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    body {
-        font-family: 'CustomFont', sans-serif;
-        text-align:left;
-        overflow-x: hidden;
-        position: relative;
-        background-color: #f5f1de;
 
-    }
-
-    body { background:#f4f6f8;  }
     .hero { position:relative; width:100%; height:50vh; min-height:300px; overflow:hidden; }
     .hero img { width:100%; height:100%; object-fit:cover; }
     .hero-overlay { position:absolute; bottom:1rem; left:1rem; color:#fff; text-shadow:0 2px 6px rgba(0,0,0,0.6); }
@@ -160,8 +137,56 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
       color: var(--color);
       font-weight: bold;
     }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr; 
+      gap: 20px; 
+    }
+    .destra{
+        flex: 1;
+        align-self: end;
+        place-self: end;
+    }
+    .container_1{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    /* Sezione immagini*/
+.next-section {
+    min-height: 20vh;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    margin-bottom: 120px;
+}
 
-    @media (max-width:576px) { .gallery img { height:120px; } }
+
+.contenitore_immagini{
+    display: flex;
+    width: max-content; /* adatta la dimensione alla quantità di immagini */
+    animation: scroll 70s linear infinite; /* Controlla la velocità qui */
+}
+.immagine{
+    width: 100%;
+    height: 250px; /* Imposta un'altezza fissa per uniformare */
+    object-fit: cover; /* Riempe il contenitore tagliando il minimo necessario */
+    border-radius: 10px;
+    margin-right: 10px;
+ 
+}
+/* Animazione */
+@keyframes scroll {
+    0%{
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
   </style>
 </head>
 <body>
@@ -170,58 +195,51 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
   <section class="hero mb-4">
     <img src="<?= htmlspecialchars($trip['foto1']) ?>" alt="Hero">
     <div class="hero-overlay">
-      <h1><?= htmlspecialchars($trip['destinazione']) ?></h1>
+      <h1 style="color:white"><?= htmlspecialchars($trip['destinazione']) ?></h1>
       <p><?= htmlspecialchars($trip['descrizione_viaggio']) ?></p>
     </div>
   </section>
 
   <div class="container">
-
-    <!-- VALUTAZIONE -->
-    <div class="rating mb-4">
-      <?php
-        $filled = floor($media);
-        for ($i=1; $i<=5; $i++) {
-          if ($i <= $filled) {
-            echo '<span class="star">★</span>';
-          } elseif ($i === $filled+1 && $media - $filled >= 0.5) {
-            echo '<span class="star">★</span>'; // mezza stella semplificata
-          } else {
-            echo '<span class="text-muted">☆</span>';
-          }
-        }
-      ?>
-      <small class="text-muted">(<?= number_format($media,2) ?> / 5,00)</small>
-    </div>
-
+    <div class="sinistra">
     <!-- COMMENTI -->
-        <section class="commenti mb-5">
-      <h4>Commenti</h4>
       <?php while($c = pg_fetch_assoc($resComm)): ?>
         <div class="commento d-flex align-items-start">
         <a href="get_profiloo.php?id=<?= urlencode($c['utente_id']) ?>">
             <img src="<?= htmlspecialchars($c['immagine_profilo']) ?>"
                 alt="Avatar <?= htmlspecialchars($c['nome']) ?>" class="avatar">
           </a>
-          <div>
+          <div  style="font-family: italic; margin-bottom:20px; "class="testimonial" >
+            <?= nl2br(htmlspecialchars($c['descrizione'])) ?>
             <strong><?= htmlspecialchars($c['nome']) ?></strong>
-            <p class="mb-0"><?= nl2br(htmlspecialchars($c['descrizione'])) ?></p>
           </div>
         </div>
       <?php endwhile; ?>
     </section>
-
-
-    <!-- ITINERARIO -->
-    <section class="mb-5">
-      <a href="get_itinerario(totale).php?id=<?= urlencode($viaggio_id) ?>" class="text-decoration-none">
-      <h4 >Itinerario</h4>
-      </a>
-      <p><?= nl2br(htmlspecialchars($trip['descrizione_viaggio'])) ?></p>
-    </section>
-
+  </div>
+      <div class="destra">
+    <!-- VALUTAZIONE -->
+      <div class="rating mb-4">
+        <?php
+          $filled = floor($media);
+          for ($i=1; $i<=5; $i++) {
+            if ($i <= $filled) {
+              echo '<span class="star">★</span>';
+            } elseif ($i === $filled+1 && $media - $filled >= 0.5) {
+              echo '<span class="star">★</span>'; // mezza stella semplificata
+            } else {
+              echo '<span class="text-muted">☆</span>';
+            }
+          }
+        ?>
+        <small class="text-muted">(<?= number_format($media,2) ?> / 5,00)</small>
+      </div>
+        <a href="get_itinerario(totale).php?id=<?= urlencode($viaggio_id) ?>"><button class="btn-login">Itinerario</button></a>
+      
+  </div>
+    </div>
+<div class ="container_1">
         <section class="mb-5">
-  <h4>Il viaggio in breve</h4>
   <div class="d-flex flex-wrap justify-content-center">
 
     <div class="circle-container">
@@ -266,28 +284,66 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
 
   </div>
 </section>
-
+  </div>
 
 
     <!-- GALLERIA FOTO -->
-    <section class="gallery mb-5">
-      <h4>Foto</h4>
-      <div class="row g-3">
-        <?php
-          for ($i=1; $i<=5; $i++) {
-            $f = $trip["foto{$i}"];
-            if ($f) {
-              echo '<div class="col-6 col-md-3">';
-              echo '<img src="'.htmlspecialchars($f).'" alt="Foto '.$i.'">';
-              echo '</div>';
-            }
-          }
-        ?>
-      </div>
-    </section>
 
+<div class="next-section">
+  <div class="contenitore_immagini">
+    <?php
+      // Primo ciclo
+      for ($i=1; $i<=5; $i++) {
+        $f = $trip["foto{$i}"];
+        if (empty($f)) continue; // Salta foto vuote
+          echo '<img src="'.htmlspecialchars($f). '" alt="Foto '.$i.'"class="immagine" style="width: 300px; height: 200px;">';
+      }
+            for ($i=1; $i<=5; $i++) {
+        $f = $trip["foto{$i}"];
+        if (empty($f)) continue; // Salta foto vuote
+          echo '<img src="'.htmlspecialchars($f). '" alt="Foto '.$i.'"class="immagine" style="width: 300px; height: 200px;">';
+      }
+            for ($i=1; $i<=5; $i++) {
+        $f = $trip["foto{$i}"];
+        if (empty($f)) continue; // Salta foto vuote
+          echo '<img src="'.htmlspecialchars($f). '" alt="Foto '.$i.'"class="immagine" style="width: 300px; height: 200px;">';
+      }
+                  for ($i=1; $i<=5; $i++) {
+        $f = $trip["foto{$i}"];
+        if (empty($f)) continue; // Salta foto vuote
+          echo '<img src="'.htmlspecialchars($f). '" alt="Foto '.$i.'"class="immagine" style="width: 300px; height: 200px;">';
+      }
+            for ($i=1; $i<=5; $i++) {
+        $f = $trip["foto{$i}"];
+        if (empty($f)) continue; // Salta foto vuote
+          echo '<img src="'.htmlspecialchars($f). '" alt="Foto '.$i.'"class="immagine" style="width: 300px; height: 200px;">';
+      }
+
+    ?>
   </div>
-
+</div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+  const testimonials = document.querySelectorAll(".testimonial");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+
+  testimonials.forEach((testimonial, index) => {
+    testimonial.style.transitionDelay = `${index * 0.3}s`;
+    observer.observe(testimonial);
+  });
+});
+
+    </script>
 </body>
 </html>

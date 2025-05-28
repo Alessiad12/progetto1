@@ -237,7 +237,7 @@ $n_compagni = $row['compagni'] ?? 0;
     <img src="immagini/new-york-city.jpg" alt="Foto Profilo" class="profile-icon" onclick="toggleDropdown()" />
     <div class="dropdown-menu" id="dropdownMenu">
       <a href="login.html">Logout</a>
-      <a href=visualizza_viaggi.php>Home</a>
+      <a href=card.php>Home</a>
       <a href=notifiche.php>Notifiche</a>
     </div>
   </div>
