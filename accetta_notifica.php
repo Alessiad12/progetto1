@@ -13,7 +13,7 @@ if (!$notifica_id || !$utente_loggato) {
     exit;
 }
 
-// Recupera la notifica
+// Recupera la notifica dal database 
 $sql = "SELECT * FROM notifiche WHERE id = $1 AND utente_id = $2";
 $res = pg_query_params($dbconn, $sql, [$notifica_id, $utente_loggato]);
 
@@ -49,7 +49,7 @@ if (!$insert_res) {
 }
 
 
-// Invia notifica real-time al server Node
+// Invia notifica real-time al server Node.js in tempo real
 $postData = json_encode([
     'userId' => $mittente_id,
     'fromUser' => $_SESSION['id_utente'],
@@ -58,7 +58,11 @@ $postData = json_encode([
     'tipo' => $tipo
 ]);
 
+// Inizializza cURL per inviare la notifica al server Node.js
+//il server è in ascolto e riceve un json con le informazioni essenziali
+
 $ch = curl_init('http://localhost:4000/notify-swipe');
+//imposta metodo su POST
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -78,3 +82,5 @@ if ($curlErr) {
 }
 
 echo json_encode(['success' => true]);
+
+//salvataggop latp database + invio notiifca real-time al mittente tramite servizio node.js+socket.io

@@ -31,6 +31,8 @@ $query_chatlist = "
   GROUP BY v.id, v.destinazione, v.foto
   ORDER BY MAX(c.data_creazione) DESC
 ";
+//order by data_creazione DESC mi serve per avere ordine cronologico dopo
+
 $res_chatlist = pg_query_params($dbconn, $query_chatlist, [$utente]);
 $chatlist = pg_fetch_all($res_chatlist) ?: [];
 
@@ -101,7 +103,7 @@ while ($row = pg_fetch_assoc($res)) {
       flex:1; display:flex; flex-direction:column; position:relative;
       background: url('<?= $viaggio_img ?>') center/cover;
     }
-    .chat-panel::before { content:""; position:absolute; inset:0; background:rgba(255,255,255,0.2); }
+    .chat-panel::before { content:""; position:absolute; inset:0; background:rgba(255,255,255,0.5); }
     .chat-panel>* { position:relative; z-index:1; }
 
     /* header chat */
@@ -131,8 +133,12 @@ while ($row = pg_fetch_assoc($res)) {
       width:40px; height:40px; border-radius:50%; object-fit:cover;
     }
     .messaggio .testo-messaggio, .proprio .testo-messaggio {
-      max-width:60%; padding:12px 16px;
-      border-radius:20px; line-height:1.5; position:relative;
+      max-width:60%;
+      padding:12px 16px 20px 16px; /* ← Aggiunto spazio in basso per l'orario */
+      border-radius:20px;
+      line-height:1.5;
+      position:relative;
+      min-height:40px;
     }
     .messaggio .testo-messaggio {
       background:#f1f1f1; color:#2e2e2e; margin-left:.5rem;
@@ -180,7 +186,7 @@ while ($row = pg_fetch_assoc($res)) {
         <?php endforeach; ?>
       </div>
     </div>
-
+<!--in ultima data scorro ò'array e controllo la data di ogni messaggio,cosi quando cambia giorno inserisco un nuovo separatore-->
     <div class="chat-panel">
       <div class="chat-header">Benvenuto nella chat di <?php echo htmlspecialchars($viaggio_nome); ?></div>
       <div id="chat-container" class="chat-messages">
@@ -190,13 +196,17 @@ while ($row = pg_fetch_assoc($res)) {
           $ultima_data = null;
           $mittente_precedente = null;
           foreach ($messaggi as $m):
+            //converto la data in timestap (secondi dall'epoca)
             $ts = strtotime($m['data_creazione']);
+            //formatto il timestamp come data per avere la data solo come giorno,senza orario
             $d  = date('Y-m-d',$ts);
             if ($d !== $ultima_data) {
               if ($d === date('Y-m-d')) $label='Oggi';
               elseif ($d === date('Y-m-d',strtotime('-1 day'))) $label='Ieri';
               else { setlocale(LC_TIME,'it_IT.UTF-8'); $label=strftime('%d %B %Y',$ts); }
               echo "<div class='data-separatore'>{$label}</div>";
+              //aggiorno l'ultima data per il prossimo confronto
+              //in questo modo se la data è uguale non viene visualizzato il separatore
               $ultima_data=$d;
             }
             $own = $m['utente_id']==$utente;
@@ -206,6 +216,7 @@ while ($row = pg_fetch_assoc($res)) {
         <div class="<?php echo $cls; ?>">
           <img src="<?php echo $img; ?>" class="avatar" alt="Profilo">
           <div class="testo-messaggio">
+            <!-- Se il mittente è diverso dal precedente, mostro il nome utente-->
             <?php if ($mittente_precedente!==$m['utente_id']): ?><div class="nome-utente"><?php echo htmlspecialchars($m['mittente_nome']); ?></div><?php endif; ?>
             <?php echo htmlspecialchars($m['messaggio']); ?>
             <div class="ora-messaggio"><?php echo date('H:i',$ts); ?></div>
@@ -216,14 +227,23 @@ while ($row = pg_fetch_assoc($res)) {
       <?php if ($viaggio_id): ?>
       <div class="chat-input">
         <input type="text" id="messageInput" placeholder="Scrivi un messaggio...">
-        <button onclick="sendMessage(<?php echo $viaggio_id;?>,<?php echo $utente;?>)">→</button>
+        <button onclick="sendMessage(<?php echo $viaggio_id;?>,<?php echo $utente;?>)">Invia</button>
       </div>
       <?php endif; ?>
     </div>
   </div>
 
+  <!-- Includo Socket.IO per la comunicazione in tempo reale -->
   <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
   <script>
+    const input = document.getElementById('messageInput');
+
+    input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Impedisce di andare a capo
+      sendMessage(<?= $viaggio_id ?>, <?= $utente ?>);
+    }
+  });
     const socket = io('http://localhost:4000');
     function sendMessage(vId,uId){const input=document.getElementById('messageInput');const msg=input.value.trim();if(!msg)return;socket.emit('sendMessage',{viaggio_id:vId,mittente_id:uId,messaggio:msg});input.value='';}
     socket.on('newMessage',()=>location.reload());
@@ -231,3 +251,4 @@ while ($row = pg_fetch_assoc($res)) {
   </script>
 </body>
 </html>
+

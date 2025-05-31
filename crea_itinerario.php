@@ -141,7 +141,7 @@ $viaggio_id = $_GET['viaggio_id'] ?? 0;
     <button onclick="addPlace()">Aggiungi</button>
     <button onclick="salvaItinerario()">Salva Itinerario</button>
     
-    <h3 style= margin-top:20px;>Luoghi inseriti:</h3>
+    <h3 style= margin-top:20px;>Luoghi inseriti</h3>
     <ul id="placesList"></ul>
   </div>
 

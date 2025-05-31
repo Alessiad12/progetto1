@@ -185,6 +185,39 @@ app.post('/forgot-password', async (req, res) => {
   }
 });
 
+app.post('/beta-signup', async (req, res) => {
+  const { email } = req.body;
+
+  console.log('[DEBUG] Ricevuta richiesta beta per:', email);
+
+  if (!email || !email.includes('@')) {
+    return res.status(400).send('Email non valida');
+  }
+
+  try {
+    await sendEmail({
+      to: email,
+      subject: 'Benvenuto nella beta di Wanderlust ✈️',
+      text: 'Grazie per esserti iscritto alla beta di Wanderlust! Ti contatteremo quando l’app sarà disponibile.',
+      html: `
+        <div style="font-family: sans-serif; padding: 1rem;">
+          <h2 style="color:#0A2342;">Ciao e grazie per l'interesse!</h2>
+          <p>Stiamo preparando qualcosa di straordinario 🌍</p>
+          <p>Riceverai aggiornamenti appena Wanderlust sarà disponibile.</p>
+          <br />
+          
+        </div>
+      `
+    });
+
+    res.status(200).send('Email inviata con successo!');
+  } catch (error) {
+    console.error('Errore invio email beta:', error);
+    res.status(500).send('Errore durante l\'invio dell\'email.');
+  }
+});
+
+
 // Avvio del server
 const PORT = 4000;
 server.listen(PORT, () => {

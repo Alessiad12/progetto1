@@ -32,6 +32,12 @@ $pref = pg_fetch_assoc($resPref);
 $continente_utente = $pref['destinazione'];
 
 //destinazioni:
+
+// -----------------------------------------------------------------------------
+// Definisce una funzione per ottenere i limiti geografici di un continente
+// in termini di latitudine e longitudine. Questi valori servono per filtrare
+// i viaggi disponibili all'interno di quel continente.
+// -----------------------------------------------------------------------------
  function getLimitiContinente($continente) {
     switch (strtolower($continente)) {
         case 'africa':
@@ -63,7 +69,7 @@ if (preg_match('/^\s*(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)\s*$/', $pref['budget'
     $budget_max = $budget_num * 1.2;
 }
 
-// Calcoli di flessibilità
+// Calcoli di flessibilità di circa +-15 giorni per le date di partenza e ritorno
 $data_partenza_da = date('Y-m-d', strtotime($pref['data_partenza'] . ' -15 days'));
 $data_partenza_a = date('Y-m-d', strtotime($pref['data_partenza'] . ' +15 days'));
 $data_ritorno_da = date('Y-m-d', strtotime($pref['data_ritorno'] . ' -15 days'));
@@ -292,10 +298,11 @@ while ($row = pg_fetch_assoc($result)) {
 
   socket.on('connect', () => {
     console.log('Socket connesso:', socket.id);
+    // Unisciti alla stanza specifica per l'utente
     socket.emit('join', userId);
     console.log(`Socket ${socket.id} entrato in stanza user_${userId}`);
   });
-
+  //quando ricevi una notifica di match accettato mostra il modal
   socket.on('matchAcceptedNotification', (data) => {
     console.log('Match accettato ricevuto:', data);
     const modal = document.getElementById("matchModal");
