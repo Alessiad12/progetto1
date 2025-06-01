@@ -5,203 +5,148 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            cream: "#FDF7E3",
-            navy: "#0A2342",
-            "navy-light": "#12315C",
-            "navy-dark": "#06162F"
-          }
-        }
-      }
-    };
-  </script>
+  <!-- Font Awesome per le icone -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <!-- Il tuo CSS esterno -->
+  <link rel="stylesheet" href="css/style_creaprofilo.css" />
 
   <title>Wanderlust – Crea account</title>
-  <style>
-    .profile-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  gap: 15px;
-}
-
-.profile-picture-container {
-  width: 300px;
-  height: 400px;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  background-color: #f0f0f0;
-  position: relative;
-  cursor: grab;
-}
-
-.profile-picture-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  user-select: none;
-  pointer-events: none;
-}
-
-input[type="file"] {
-  margin-top: 20px;
-}
-
-  </style>
 </head>
-<body class="bg-cream text-navy min-h-screen">
-  <div class="container mx-auto p-4">
-    
+<body>
+  <div class="container">
+    <h2>Crea account</h2>
 
-    <!-- FORM che avvolge tutto -->
-    <form id="createForm"
-          action="save_profile.php"
-          method="POST"
-          enctype="multipart/form-data"
-          class="max-w-4xl mx-auto bg-white/40 backdrop-blur-sm rounded-2xl shadow-lg p-8">
+    <!-- Anteprima immagine profilo -->
+    <div class="input-group">
+      <img
+        id="profileImage"
+        src="immagini/default.png"
+        alt="Immagine Profilo"
+        class="profile-preview"
+      />
+      <div class="input-file-wrapper">
+        <label for="fileInputProfile" class="input-file-label">
+          <i class="fas fa-camera"></i> Carica foto
+        </label>
+        <input
+          type="file"
+          id="fileInputProfile"
+          name="immagine_profilo"
+          accept="image/*"
+        />
+      </div>
+      <div id="profileError" class="validation-error"></div>
+    </div>
 
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-8 text-center">Crea account</h1>
+    <!-- FORM -->
+    <form
+      id="createForm"
+      action="save_profile.php"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <!-- Nome -->
+      <div class="input-group">
+        <label for="name">Nome</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Inserisci il tuo nome"
+        />
+        <div id="nameError" class="validation-error"></div>
+      </div>
 
-      <!-- IMMAGINE PROFILO 1 modifica-->
-      <div class="profile-header">
-        <div class="profile-picture-container" id="imageContainer">
-          <img id="profileImage" src="" alt="Immagine Profilo" />
+      <!-- Bio -->
+      <div class="input-group">
+        <label for="bio">Bio</label>
+        <textarea
+          id="bio"
+          name="bio"
+          rows="3"
+          placeholder="Raccontaci qualcosa di te..."
+        ></textarea>
+        <div id="bioError" class="validation-error"></div>
+      </div>
+
+      <!-- Email -->
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="esempio@dominio.com"
+        />
+        <div id="emailError" class="validation-error"></div>
+      </div>
+
+      <!-- Compleanno -->
+      <div class="input-group">
+        <label for="compleanno">Compleanno</label>
+        <input id="compleanno" name="compleanno" type="date" />
+        <div id="dateError" class="validation-error"></div>
+      </div>
+
+      <!-- Tipo di viaggio -->
+      <div class="input-group">
+        <label>Tipo di viaggio</label>
+        <div class="radio-group">
+          <input
+            type="radio"
+            id="viaggioCoppia"
+            name="tipo_viaggio"
+            value="coppia"
+          />
+          <label for="viaggioCoppia">Viaggi di coppia</label>
+
+          <input
+            type="radio"
+            id="viaggioGruppo"
+            name="tipo_viaggio"
+            value="gruppo"
+          />
+          <label for="viaggioGruppo">Viaggi di gruppo</label>
         </div>
-
-        <input type="file"
-               id="fileInputProfile"
-               name="immagine_profilo"
-               accept="image/*"
-               class="mt-4" />
+        <div id="tipoViaggioError" class="validation-error"></div>
       </div>
 
-      <!-- NOME -->
-      <div class="mb-4">
-        <label for="name" class="block text-sm font-semibold mb-2">Nome</label>
-        <input id="name"
-               name="name"
-               type="text"
-               placeholder="nome"
-               class="w-full bg-cream border border-navy/30 rounded-lg p-3" />
-      </div>
+     
 
-      <!-- BIO -->
-      <div class="mb-4">
-        <label for="bio" class="block text-sm font-semibold mb-2">Bio</label>
-        <input id="bio"
-               name="bio"
-               type="text"
-               placeholder="bio"
-               class="w-full bg-cream border border-navy/30 rounded-lg p-3" />
-      </div>
-
-      <!-- EMAIL -->
-      <div class="mb-4">
-        <label for="email" class="block text-sm font-semibold mb-2">Email</label>
-        <input id="email"
-               name="email"
-               type="email"
-               placeholder="email"
-               class="w-full bg-cream border border-navy/30 rounded-lg p-3" />
-      </div>
-
-      <!-- COMPLEANNO (campo unico date) -->
-      <div class="mb-4">
-        <label for="compleanno" class="block text-sm font-semibold mb-2">Compleanno</label>
-        <input id="compleanno"
-               name="compleanno"
-               type="date"
-               class="w-full bg-cream border border-navy/30 rounded-lg p-3" />
-      </div>
-
-      <!-- MI INTERESSANO -->
-      <input type="hidden" name="mi_interessano" id="interestInput" />
-      <div class="mb-4">
-        <label class="block text-sm font-semibold mb-2">Mi interessano</label>
-        <div class="flex gap-2">
-         
-          <button type="button" data-value="coppia"       class="interest-btn flex-1 border rounded-lg p-3">Viaggi di coppia</button>
-          <button type="button" data-value="gruppo"       class="interest-btn flex-1 border rounded-lg p-3">Viaggi di gruppo</button>
-        </div>
-      </div>
-
-
-      <!-- SUBMIT -->
-      <div class="flex justify-center">
-        <button type="submit"
-                class="bg-navy text-cream px-8 py-3 rounded-lg font-semibold hover:bg-navy-light">
-          Termina
-        </button>
+      <!-- Bottone Termina -->
+      <div class="input-group">
+        <button type="submit" class="btn">Termina</button>
       </div>
     </form>
   </div>
 
+  <!-- Script JS -->
   <script>
-    // Gestione caricamento immagine preview
+    // Anteprima immagine profilo
     const fileInput = document.getElementById("fileInputProfile");
     const profileImage = document.getElementById("profileImage");
-    fileInput.addEventListener("change", e => {
+
+    fileInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = ev => profileImage.src = ev.target.result;
+      reader.onload = (ev) => (profileImage.src = ev.target.result);
       reader.readAsDataURL(file);
     });
 
-    // Drag dell'immagine (come prima)
-    const imageContainer = document.getElementById("imageContainer");
-    let isDragging = false, startX = 0, currentX = 50;
-    imageContainer.addEventListener("mousedown", e => {
-      isDragging = true; startX = e.clientX; imageContainer.style.cursor = "grabbing";
-    });
-    window.addEventListener("mousemove", e => {
-      if (!isDragging) return;
-      const delta = e.clientX - startX;
-      startX = e.clientX;
-      currentX = Math.min(100, Math.max(0, currentX + delta/3));
-      profileImage.style.objectPosition = `${currentX}% center`;
-    });
-    window.addEventListener("mouseup", () => {
-      isDragging = false; imageContainer.style.cursor = "grab";
-    });
-
-    // Pulsanti "Mi interessano"
-    document.querySelectorAll('.interest-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.interest-btn').forEach(b => b.classList.remove('bg-navy','text-cream'));
-        btn.classList.add('bg-navy','text-cream');
-        document.getElementById('interestInput').value = btn.dataset.value;
-      });
-    });
-
-    // Pulsanti "vacanza da sogno"
-    document.querySelectorAll('.dream-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.dream-btn').forEach(b => b.classList.remove('bg-navy','text-cream'));
-        btn.classList.add('bg-navy','text-cream');
-        document.getElementById('dreamInput').value = btn.dataset.value;
-      });
-    });
-
-    // Popola email/nickname/data via API se vuoi
-    fetch('creaprofilo.php')
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 'success') {
-          document.getElementById('email').value = data.email;
-          document.getElementById('name').value  = data.nickname || '';
+    // Popolamento via API (facoltativo)
+    fetch("creaprofilo.php")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") {
+          document.getElementById("email").value = data.email || "";
+          document.getElementById("name").value = data.nickname || "";
           if (data.data_di_nascita) {
-            document.getElementById('compleanno').value = data.data_di_nascita;
+            document.getElementById("compleanno").value = data.data_di_nascita;
           }
         }
       })
