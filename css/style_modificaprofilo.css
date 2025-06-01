@@ -109,7 +109,7 @@ button[type="submit"] {
   width: 100%;
   margin-top: 25px;
   padding: 14px;
-  background: #4CAF50;
+  background: #1D3B5B;
   color: white;
   border: none;
   border-radius: 12px;
@@ -120,7 +120,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background: #45a049;
+  background:#1D3B5B;
 }
 
 

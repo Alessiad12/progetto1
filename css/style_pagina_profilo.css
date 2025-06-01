@@ -86,7 +86,7 @@ pointer-events: none;
     display: block;
     font-size: 18px;
     font-weight: bold;
-    color: #1976d2;
+    color:#1D3B5B;
   }
 
   .profile-sidebar button {
@@ -95,7 +95,7 @@ pointer-events: none;
     margin-bottom: 10px;
     padding: 8px;
     border: none;
-    background-color: #3498db;
+    background-color:#1D3B5B;
     color: white;
     border-radius: 6px;
     cursor: pointer;
@@ -214,4 +214,9 @@ pointer-events: none;
     background-color: rgba(0, 0, 0, 0.5); /* Sfondo semitrasparente per il testo */
     padding: 20px;
   }
-
+  .btn-primary {
+      background-color: #1D3B5B;
+      border-color: #1D3B5B;
+      color: white;
+      font-weight: 600;
+  }

@@ -209,7 +209,8 @@ $n_compagni = $row['compagni'] ?? 0;
                       </button>
                     </div>
                     <div class="text-center p-3">
-                      <a href="prova.php?id=<?= urlencode($viaggio_id); ?>" class="btn btn-primary">Descrizione</a>
+                      <a href="prova.php?id=<?= urlencode($viaggio_id); ?>" class="btn btn-primary" style="background-color: #0A2342; border-color: #0A2342;">Descrizione</a>
+                      
                     </div>
                   </div>
                 </div>
