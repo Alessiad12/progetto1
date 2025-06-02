@@ -55,6 +55,8 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
   <link rel="stylesheet" href="css/style_index.css">
   <link rel="stylesheet" href="css/style_pagina_profilo.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/card.css">
+    <link rel="stylesheet" href="css/style_pagina_iniziale.css">
   <title>Profilo Viaggiatore</title>
   <style>
       @font-face {
@@ -114,10 +116,33 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
     z-index: 1000;
     }
 }
-
+    .logo-img {
+        height: 40px;
+        width: auto;
+        margin-right: 10px;
+        vertical-align: middle;
+        filter: brightness(0) invert(1); 
+    }
   </style>
 </head>
 <body>
+      <script src="https://cdn.tailwindcss.com"></script>
+  <nav style='padding: 0;
+background-color: #9cc4cc;'>
+    <div class="logo">
+        <img src="immagini/logo.png" alt="Logo" class="logo-img" > Wanderlust </div>
+        <ul style="margin-right: 1rem; margin-top:0.5rem;">     
+            <li> <a href="pagina_profilo.php"> <img src="immagini/icona_profilo.png" alt=" profilo" class="logo-img" style="height: 35px;   margin-top:2px; filter: sepia(1) hue-rotate(560deg) saturate(10) brightness(0.4) contrast(1.5);">  </a></li>       
+            <li> <a href="notifiche.php"> <img src="immagini/notifiche.png" alt="Notifiche" class="logo-img" style="height: 35px; margin-top:2px;  filter: sepia(1) hue-rotate(180deg) saturate(4);"> </a></li>
+            <li>  <a href="card.php" class="logo-img" >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-15 h-10 fill-[#0A2342] hover:opacity-80 transition" viewBox="0 0 24 24">
+                    <path d="M12 3l9 8h-3v9h-12v-9h-3l9-8z"/>
+                  </svg>
+                  </a></li>
+            <li> <a href="login.html"><button class="btn-login" style="margin-top: 2px;">Logout</button></a></li>
+
+        </ul>
+</nav>
   <div class="page-wrapper">
 
     <!-- PROFILO -->

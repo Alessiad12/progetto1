@@ -11,6 +11,7 @@
     }
 .nav{
     padding: 0.7rem 2rem !important;
+    font-family: 'customFont', sans-serif;
 }
 .hero{
     background-color: #f6f5f0;
@@ -138,4 +139,20 @@
 
 .fade-out {
   opacity: 0;
+}
+nav, .nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  nav, .nav {
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .logo {
+    margin-bottom: 12px;
+    margin-left: -13px; 
+  }
 }

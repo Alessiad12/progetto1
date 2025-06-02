@@ -126,8 +126,6 @@ body {
 .contenitore_step {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    max-height: 730px; 
-    align-items: center;
     justify-items: center;
 }
 .contenitore{
@@ -172,33 +170,11 @@ h2 {
     }
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    .contenitore_step {
-        padding: 2rem 1rem;
-    }
-
-    .step {
-        padding-left: 3rem;
-        margin: 1.5rem 0;
-    }
-
-    .step::before {
-        width: 30px;
-        height: 30px;
-        font-size: 0.9rem;
-        left: -30px;
-    }
-
-    h2 {
-        font-size: 2em;
-    }
-}
 .testimonials {
   padding: 1.5rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  margin-top: 17rem;
+  margin-top: 1.5rem;
 }
 
 .testimonials h2 {
@@ -316,23 +292,7 @@ background: rgba(182, 181, 181, 0.63);
   line-height: 1.7;
 }
 
-/* Responsive: su schermi piccoli metti immagine sopra */
-@media (max-width: 700px) {
-  .mission-container {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .mission-image img {
-    width: 80%;
-    max-width: 300px;
-    margin: 0 auto 1.5rem;
-  }
-  
-  .mission-text {
-    flex: none;
-  }
-}
+
 
 /* striscia superiore */
 .hero {
@@ -495,4 +455,11 @@ h1, h2, h3 {
   object-fit: cover;
   display: block;
   border-radius: 12px; /* facoltativo per estetica */
+}
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: flex-start;
+  }
 }

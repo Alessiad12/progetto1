@@ -77,6 +77,7 @@ $n_compagni = $row['compagni'] ?? 0;
   <link rel="stylesheet" href="css/style_index.css">
   <link rel="stylesheet" href="css/style_pagina_profilo.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style_pagina_iniziale.css">
   <style>
     @font-face {
       font-family: 'secondo_font';
@@ -134,11 +135,28 @@ $n_compagni = $row['compagni'] ?? 0;
     left: 20px;
     z-index: 1000;
     }
+
 }
 
   </style>
 </head>
 <body>
+    <script src="https://cdn.tailwindcss.com"></script>
+  <nav style='padding: 0;
+background-color: #9cc4cc;'>
+    <div class="logo">
+        <img src="immagini/logo.png" alt="Logo" class="logo-img"> Wanderlust </div>
+        <ul style="margin-right: 1rem; margin-top:0.5rem;">            
+            <li> <a href="notifiche.php"> <img src="immagini/notifiche.png" alt="Notifiche" class="logo-img" style="height: 35px; margin-top:2px;  filter: sepia(1) hue-rotate(180deg) saturate(4);"> </a></li>
+            <li>  <a href="card.php" class="logo-img" >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-15 h-10 fill-[#0A2342] hover:opacity-80 transition" viewBox="0 0 24 24">
+                    <path d="M12 3l9 8h-3v9h-12v-9h-3l9-8z"/>
+                  </svg>
+                  </a></li>
+            <li> <a href="login.html"><button class="btn-login" style="margin-top: 2px;">Logout</button></a></li>
+
+        </ul>
+</nav>
 <div class="page-wrapper">
 
   <!-- SIDEBAR PROFILO -->
@@ -234,7 +252,7 @@ $n_compagni = $row['compagni'] ?? 0;
     <iframe src="mappamondo.php"></iframe>
   </div>
     <!-- Menu Profilo -->
-    <div class="profile-menu-wrapper">
+    <div class="profile-menu-wrapper" style="z-index: -30;">
     <img src="immagini/new-york-city.jpg" alt="Foto Profilo" class="profile-icon" onclick="toggleDropdown()" />
     <div class="dropdown-menu" id="dropdownMenu">
       <a href="login.html">Logout</a>
