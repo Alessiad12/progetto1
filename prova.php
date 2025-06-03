@@ -107,17 +107,7 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
       }
 
       /* 4) Media‐query per schermi molto stretti (<576px) */
-      @media (max-width: 576px) {
-        .back-button {
-          top: 0.5rem;   /* 8px dal bordo superiore */
-          left: 0.5rem;  /* 8px dal bordo sinistro */
-          padding: 0.375rem; /* 6px padding */
-        }
-        .back-button svg {
-          width: 1rem;   /* 16px */
-          height: 1rem;  /* 16px */
-        }
-      }
+       
     .hero img { width:100%; height:100%; object-fit:cover; }
     .hero-overlay { position:absolute; bottom:1rem; left:1rem; color:#fff; text-shadow:0 2px 6px rgba(0,0,0,0.6); }
     .hero-overlay h1 { font-size:clamp(1.8rem,6vw,2.8rem); margin:0; }
@@ -226,6 +216,23 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
         transform: translateX(-50%);
     }
 }
+      @media (max-width: 576px) {
+        .back-button {
+          top: 0.5rem;   /* 8px dal bordo superiore */
+          left: 0.5rem;  /* 8px dal bordo sinistro */
+          padding: 0.375rem; /* 6px padding */
+        }
+        .back-button svg {
+          width: 1rem;   /* 16px */
+          height: 1rem;  /* 16px */
+        }
+        .container {
+          grid-template-columns: 1fr; /* Una colonna su schermi piccoli */
+        }
+        }
+        .testimonial {
+          font-size: 0.9rem; /* testo più piccolo su schermi stretti */
+        }
 
   </style>
 </head>

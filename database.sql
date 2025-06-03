@@ -674,6 +674,15 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 2	4	42	Bologna	f	2025-05-27 08:58:56.474039	like	552
 2	4	42	Bologna	f	2025-05-27 08:59:10.533588	match_accepted	553
 4	2	42	Bologna	f	2025-05-27 08:59:10.547201	match_accepted	554
+8	8	28	Amsterdam	f	2025-06-03 22:13:00.806773	registra_viaggio	555
+7	8	28	Amsterdam	f	2025-06-03 22:13:00.811491	registra_viaggio	556
+6	8	28	Amsterdam	f	2025-06-03 22:13:00.812025	registra_viaggio	557
+4	8	28	Amsterdam	f	2025-06-03 22:13:00.812501	registra_viaggio	558
+7	7	54	Perugia	f	2025-06-03 22:13:00.814323	registra_viaggio	559
+6	7	54	Perugia	f	2025-06-03 22:13:00.815026	registra_viaggio	560
+2	15	29	Parigi	f	2025-06-03 22:23:36.702902	like	561
+2	15	29	Parigi	f	2025-06-03 22:23:37.175124	like	562
+6	15	19	Berlino	f	2025-06-03 22:23:37.552024	like	563
 \.
 
 
@@ -708,6 +717,7 @@ COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_part
 4	marco.rossi@example.com	Europa	2025-05-30	2025-06-08	10-30000	ristoranti	gruppo
 7	ida@ida.it	Europa	2025-05-29	2025-06-02	10-2000	ristoranti	gruppo
 7	ida@ida.it	Europa	2025-05-29	2025-06-02	10-2000	ristoranti	gruppo
+15	benvenutogiusy8@gmail.com	Europa	2025-06-03	2025-06-06	10-30000	musei	gruppo
 \.
 
 
@@ -730,6 +740,7 @@ COPY public.profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, 
 9	b@e.it	betta	22	Mi piace viaggiare con il mio ragazzo.	#cee3f4	20003-04-17	uploads/profilo_682e309c56f84.png	50
 7	ida@ida.it	Ida Benvenuto	22	Studentessa di design e amante della moda. Viaggiare mi ispira moltissimo.	#f4cedc	2003-08-19	uploads/profilo_681a409cd4722.jpg	50
 14	lorenzosdf@gmail.com	bebbu	0		#fbfbce	2025-05-16	uploads/profilo_68347f453c468.png	50
+15	benvenutogiusy8@gmail.com	b_giusy	24	Amo scoprire nuovi posti e culture	#faf3bfc4	2000-12-08	uploads/683f5993c2d2a_	\N
 \.
 
 
@@ -805,6 +816,8 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 4	42	t	2025-05-27 08:58:56.43503
 7	56	f	2025-05-28 22:22:23.421205
 7	42	t	2025-05-28 22:27:12.535966
+15	29	t	2025-06-03 22:23:37.169015
+15	19	t	2025-06-03 22:23:37.545713
 \.
 
 
@@ -827,6 +840,7 @@ COPY public.utenti (id, nome, nickname, email, data_di_nascita, password) FROM s
 13	Mario	mariodeside	mario@icloud.it	1968-01-30	$2y$10$7RsaQXT2Co780RKbF0ghK.NLX9TGvG15MStSOCkFnNQ0mryrdiC1m
 14	Lorenzo	bebè	lorenzosdf@gmail.com	2025-05-16	$2y$10$3rDQi4JSN37SpI6jxUFxd.iggHwx06/1frZmwOc818dWjzB0E0vqK
 7	Ida Benvenuto	ida_b	ida@ida.it	2003-08-19	$2y$10$YOBplovcQqaV/gl3QOED3OI8gVU3oyAUYpMVcxz0E.L.Lwk386Uke
+15	Giusy	b_giusy	benvenutogiusy8@gmail.com	2000-12-08	$2y$10$z.vsyhMXy3dfKU0q8EWMIe6zqGpxDRt9a5AwamdNAgNdmZA/eUfKa
 \.
 
 
@@ -1023,14 +1037,14 @@ SELECT pg_catalog.setval('public.itinerari_id_seq', 11, true);
 -- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifiche_id_seq', 554, true);
+SELECT pg_catalog.setval('public.notifiche_id_seq', 563, true);
 
 
 --
 -- Name: utenti_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.utenti_id_seq', 14, true);
+SELECT pg_catalog.setval('public.utenti_id_seq', 15, true);
 
 
 --

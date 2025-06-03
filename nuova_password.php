@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // $hashed = password_hash($nuovaPass, PASSWORD_DEFAULT);
         // $sql = "UPDATE utenti SET password = $1 WHERE id = $2";
         // pg_query_params($dbconn, $sql, [$hashed, $_SESSION['id_utente']]);
-        header('Location: /pagina_profilo.php');
+        header('Location: /login.html');
         exit;
     }
 }
