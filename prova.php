@@ -78,6 +78,46 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
   <style>
 
     .hero { position:relative; width:100%; height:50vh; min-height:300px; overflow:hidden; }
+      .back-button {
+        position: absolute;
+        top: 1rem;   /* 16px di distanza dal bordo superiore della hero */
+        left: 1rem;  /* 16px di distanza dal bordo sinistro della hero */
+        z-index: 10; /* in primo piano su immagine + testo */
+        
+        background-color: rgba(255, 255, 255, 0.4); /* box bianco semitrasparente */
+        padding: 0.5rem;      /* 8px di padding su tutti i lati */
+        border-radius: 0.375rem; /* 6px di arrotondamento */
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none; /* rimuove la sottolineatura del link */
+        color: #1D3B5B;        /* colore della freccia (blu scuro) */
+        transition: background-color 0.2s ease;
+      }
+
+      .back-button:hover {
+        background-color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* 3) Ridimensiona l’SVG all’interno se vuoi renderlo più piccolo o più grande */
+      .back-button svg {
+        width: 1.25rem;  /* 20px */
+        height: 1.25rem; /* 20px */
+      }
+
+      /* 4) Media‐query per schermi molto stretti (<576px) */
+      @media (max-width: 576px) {
+        .back-button {
+          top: 0.5rem;   /* 8px dal bordo superiore */
+          left: 0.5rem;  /* 8px dal bordo sinistro */
+          padding: 0.375rem; /* 6px padding */
+        }
+        .back-button svg {
+          width: 1rem;   /* 16px */
+          height: 1rem;  /* 16px */
+        }
+      }
     .hero img { width:100%; height:100%; object-fit:cover; }
     .hero-overlay { position:absolute; bottom:1rem; left:1rem; color:#fff; text-shadow:0 2px 6px rgba(0,0,0,0.6); }
     .hero-overlay h1 { font-size:clamp(1.8rem,6vw,2.8rem); margin:0; }
@@ -193,6 +233,15 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
 
   <!-- HERO -->
   <section class="hero mb-4">
+    <a href="pagina_profilo.php" class="back-button">
+    <!-- SVG minimal di freccia a sinistra -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         class="feather feather-arrow-left">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+  </a>
     <img src="<?= htmlspecialchars($trip['foto1']) ?>" alt="Hero">
     <div class="hero-overlay">
       <h1 style="color:white"><?= htmlspecialchars($trip['destinazione']) ?></h1>

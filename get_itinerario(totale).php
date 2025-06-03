@@ -71,6 +71,12 @@ $data_ritorno  = $row['data_ritorno']
       z-index: 1;
     }
     /* Titolo grande centrato */
+    @font-face {
+      font-family: 'secondo_font';
+      src: url('/font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
+      font-display: swap;
+    }
+
     .hero h1 {
       position: absolute;
       bottom: 20px;
@@ -84,6 +90,7 @@ $data_ritorno  = $row['data_ritorno']
       font-size: 2.5rem;
       font-weight: 700;
       z-index: 2;
+      font-family:'secondo_font', serif;
       white-space: nowrap;
     }
 
