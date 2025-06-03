@@ -35,7 +35,7 @@ $data_ritorno  = $row['data_ritorno']
   <title><?= htmlspecialchars($row['destinazione'] ?? 'Itinerario') ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Bootstrap CSS -->
+  <!-- Bootstrap CSS (per grid e componenti di base) -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet"
@@ -48,49 +48,55 @@ $data_ritorno  = $row['data_ritorno']
 
   <style>
     /* =========================
-       STILI GENERALI
-    ========================= */
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f1de;
+       1) STILI GENERALI + PALETTE
+       ========================= */
+    :root {
+      --col-cream: #FDF7E3;
+      --col-navy: #0A2342;
+      --col-navy-light: #12315C;
+      --col-bg-light: #f5f1de;
+      --col-card-bg: rgba(255,255,255,0.85);
+      --col-border-light: #ddd;
     }
 
-    /* Hero con immagine di sfondo */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: var(--col-bg-light);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--col-navy);
+    }
+
+    /* =========================
+       2) HERO (titolo + background)
+       ========================= */
     .hero {
-      height: 220px;
+      position: relative;
+      height: 240px;
       background: url('<?= htmlspecialchars($row['sfondo'] ?: 'immagini/default-bg.jpg') ?>')
                   center/cover no-repeat;
-      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
     }
-    .hero::after {
+    .hero::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 1;
+      background: rgba(0,0,0,0.3);
     }
-    /* Titolo grande centrato */
-    @font-face {
-      font-family: 'secondo_font';
-      src: url('/font/8e78142e2f114c02b6e1daaaf3419b2e.woff2') format('woff2');
-      font-display: swap;
-    }
-
     .hero h1 {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.8);
-      padding: 0.75rem 2rem;
+      position: relative;
+      margin-bottom: 1rem;
+      background: var(--col-card-bg);
+      padding: 0.75rem 1.5rem;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      color: #0A2342;
-      font-size: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      font-size: 2.25rem;
       font-weight: 700;
-      z-index: 2;
       font-family:'secondo_font', serif;
+      color: var(--col-navy);
       white-space: nowrap;
     }
 
@@ -99,54 +105,73 @@ $data_ritorno  = $row['data_ritorno']
       position: absolute;
       top: 12px;
       left: 12px;
-      background: rgba(255,255,255,0.8);
+      background: var(--col-card-bg);
       padding: 6px 10px;
-      border-radius: 6px;
+      border-radius: 8px;
       text-decoration: none;
-      color: #0A2342;
+      color: var(--col-navy);
       font-size: 1rem;
-      z-index: 3;              /* Più alto dell’overlay */
       display: flex;
       align-items: center;
       gap: 6px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      z-index: 10;
     }
     .back-btn:hover {
       background: rgba(255,255,255,1);
+      transform: translateX(-2px);
     }
-    /* Forzo dimensione visibile al SVG */
     .back-btn svg {
       width: 16px;
       height: 16px;
-      display: block;
-      fill: #0A2342;
+      fill: var(--col-navy);
+      flex-shrink: 0;
     }
 
     /* =========================
-       LAYOUT PRINCIPALE
-    ========================= */
+       3) LAYOUT PRINCIPALE
+       ========================= */
     .main {
       display: grid;
-      grid-template-columns: 300px 1fr;
-      height: calc(100vh - 220px);
+      grid-template-columns: 320px 1fr;
+      gap: 1rem;
+      height: calc(100vh - 240px);
+      margin: 1rem;
     }
+    /* Per schermi piccoli (< 992px), trasformo in colonna */
+    @media (max-width: 991px) {
+      .main {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+      }
+    }
+
+    /* =========================
+       4) SIDEBAR “Luoghi visitati”
+       ========================= */
     .sidebar {
-      background-color: #f8f9fa;
+      background-color: var(--col-card-bg);
+      border: 1px solid var(--col-border-light);
+      border-radius: 12px;
       padding: 1.5rem;
       overflow-y: auto;
-      border-right: 1px solid #ddd;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-height: calc(100vh - 260px); /* spaziatura hero + margin */
     }
     .sidebar h5 {
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
       font-weight: 700;
-      color: #0A2342;
+      font-size: 1.25rem;
+      color: var(--col-navy);
     }
     .sidebar h6 {
       margin-top: 1rem;
       margin-bottom: 0.5rem;
-      color: #0A34D1;
+      color: var(--col-navy-light);
       font-weight: 600;
+      font-size: 1rem;
     }
     .list-group-item {
       border: none;
@@ -154,32 +179,41 @@ $data_ritorno  = $row['data_ritorno']
       border-radius: 8px;
       margin-bottom: 0.5rem;
       cursor: pointer;
-      background-color: #fff;
-      transition: background 0.2s;
+      background-color: white;
+      transition: background 0.2s, transform 0.1s;
       font-weight: 500;
-      color: #0A2342;
+      color: var(--col-navy);
       display: flex;
       align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
     .list-group-item:hover {
       background-color: #EAE1C1;
+      transform: translateX(2px);
     }
-    .badge {
-      background-color: #0A2342;
+    .list-group-item .badge {
+      background-color: var(--col-navy);
+      font-size: 0.9rem;
     }
 
-    /* Contenitore mappa + box date */
+    /* =========================
+       5) MAPPA + BOX DATE
+       ========================= */
     #map-container {
       position: relative;
-      width: 100%;
-      height: 100%;
+      border: 1px solid var(--col-border-light);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     #map {
       width: 100%;
       height: 100%;
+      min-height: 300px;
     }
     .number-marker {
-      background-color: #0A2342;
+      background-color: var(--col-navy);
       color: white;
       font-weight: bold;
       border-radius: 50%;
@@ -189,122 +223,87 @@ $data_ritorno  = $row['data_ritorno']
       line-height: 30px;
       box-shadow: 0 0 5px rgba(0,0,0,0.3);
     }
-    /* Box date (in alto a destra sulla mappa) */
     .date-box {
       position: absolute;
       top: 16px;
       right: 16px;
-      background: rgba(255,255,255,0.85);
+      background: var(--col-card-bg);
       border-radius: 8px;
       padding: 8px 12px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       font-size: 0.9rem;
-      color: #0A2342;
+      color: var(--col-navy);
       line-height: 1.4;
       text-align: right;
       z-index: 1000;
     }
 
     /* =========================
-       MEDIA QUERIES
-    ========================= */
+       6) MEDIA QUERIES AGGIUNTIVE
+       ========================= */
     @media (max-width: 992px) {
       .hero {
-        height: 180px;
+        height: 200px;
       }
       .hero h1 {
         font-size: 2rem;
-        padding: 0.5rem 1.5rem;
-      }
-    }
-    @media (max-width: 768px) {
-      .hero {
-        height: 150px;
-      }
-      .hero h1 {
-        font-size: 1.6rem;
-        padding: 0.4rem 1rem;
-        bottom: 12px;
-      }
-      .main {
-        display: flex;
-        flex-direction: column;
-        height: auto;
+        padding: 0.6rem 1.2rem;
       }
       .sidebar {
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
-      }
-      .sidebar h5 {
-        font-size: 1.1rem;
-        margin-bottom: 0.8rem;
-      }
-      .sidebar h6 {
-        font-size: 1rem;
-        margin-top: 0.8rem;
-        margin-bottom: 0.4rem;
-      }
-      .list-group-item {
-        font-size: 0.95rem;
-        padding: 0.5rem 0.8rem;
+        max-height: none;
+        margin-bottom: 1rem;
       }
       #map-container {
-        width: 100%;
-        height: 300px;
-      }
-      #map {
-        height: 100%;
+        height: 400px;
       }
       .date-box {
         top: 12px;
         right: 12px;
-        font-size: 0.8rem;
-        padding: 6px 10px;
       }
     }
     @media (max-width: 576px) {
       .hero {
-        height: 120px;
+        height: 160px;
       }
       .hero h1 {
-        font-size: 1.3rem;
-        padding: 0.3rem 0.8rem;
+        font-size: 1.6rem;
+        padding: 0.4rem 0.8rem;
         bottom: 8px;
       }
-      .sidebar {
-        padding: 1rem;
-      }
-      .sidebar h5 {
-        font-size: 1rem;
-        margin-bottom: 0.6rem;
-      }
-      .sidebar h6 {
-        font-size: 0.95rem;
-        margin-top: 0.6rem;
-        margin-bottom: 0.3rem;
-      }
-      .list-group-item {
+      .back-btn {
+        top: 8px;
+        left: 8px;
         font-size: 0.9rem;
-        padding: 0.4rem 0.6rem;
+        padding: 5px 8px;
+      }
+      .hero h1 {
+        white-space: normal;
+      }
+      #map-container {
+        height: 300px;
       }
       .date-box {
         top: 8px;
         right: 8px;
-        font-size: 0.75rem;
-        padding: 4px 8px;
+        font-size: 0.8rem;
+        padding: 6px 10px;
+      }
+      .sidebar {
+        padding: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Hero + freccia di “Torna indietro” -->
+
+  <!-- =========================
+       HERO + FRECCIA “INDIETRO”
+       ========================= -->
   <div class="hero">
     <a href="prova.php?id=<?= urlencode($viaggio_id) ?>"
        class="back-btn"
        aria-label="Torna a pagina precedente">
-      <!-- SVG che rappresenta la freccia indietro -->
+      <!-- Icona a forma di freccia a sinistra -->
       <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
         <path d="M8.707 12.707a1 1 0 0 1-1.414 0L2.586 7.999l4.707-4.707a1 1 0 0 1 1.414 1.414L5.414 7.999l3.293 3.293a1 1 0 0 1 0 1.415z"/>
         <path d="M14 7.5H3v1h11v-1z"/>
@@ -315,7 +314,11 @@ $data_ritorno  = $row['data_ritorno']
     <h1><?= htmlspecialchars($row['destinazione'] ?? '') ?></h1>
   </div>
 
+  <!-- =========================
+       MAIN WRAPPER: SIDEBAR + MAPPA
+       ========================= -->
   <div class="main">
+    <!-- Sidebar “Luoghi visitati” -->
     <aside class="sidebar">
       <h5>Luoghi visitati</h5>
       <?php
@@ -324,18 +327,19 @@ $data_ritorno  = $row['data_ritorno']
         foreach($luoghi as $i => $l):
           if ($i % $luoghiPerGiorno === 0):
             if ($i > 0) echo '</ul>';
-            echo "<h6 class='mt-3'>Giorno $giorno</h6><ul class='list-group'>";
+            echo "<h6>Giorno $giorno</h6><ul class='list-group'>";
             $giorno++;
           endif;
       ?>
-          <li class="list-group-item d-flex align-items-center" data-idx="<?= $i ?>">
-            <span class="badge rounded-pill text-white me-2 px-3 py-2"><?= $i+1 ?></span>
+          <li class="list-group-item" data-idx="<?= $i ?>">
+            <span class="badge rounded-pill text-white"><?= $i+1 ?></span>
             <?= htmlspecialchars($l) ?>
           </li>
       <?php endforeach; ?>
       </ul>
     </aside>
 
+    <!-- Contenitore mappa + date -->
     <div id="map-container">
       <div id="map"></div>
       <div class="date-box">
