@@ -1,29 +1,61 @@
 <?php
 session_start();
-// Se non loggato, reindirizza al login
+// Se stai facendo un reset via email, normalmente non serve controllare la sessione.
+// Qui assumiamo però che l’utente sia già loggato e abbia già passato il controllo di sessione:
 if (!isset($_SESSION['id_utente'])) {
-    header('Location: login.php');
+    header('Location: login.html');
     exit;
 }
+
 require_once __DIR__ . '/connessione.php';
 $error = '';
 $userId = intval($_SESSION['id_utente']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nuovaPass  = $_POST['nuova_password'] ?? '';
-    $conferma   = $_POST['conferma_password'] ?? '';
+    $nuovaPass  = trim($_POST['nuova_password']  ?? '');
+    $conferma   = trim($_POST['conferma_password'] ?? '');
 
     if ($nuovaPass === '' || $conferma === '') {
         $error = 'Entrambi i campi sono obbligatori.';
-    } elseif ($nuovaPass !== $conferma) {
+    }
+    elseif ($nuovaPass !== $conferma) {
         $error = 'Le password non corrispondono.';
-    } else {
-        // Logica di salvataggio nel DB (es. hash e UPDATE)
-        // $hashed = password_hash($nuovaPass, PASSWORD_DEFAULT);
-        // $sql = "UPDATE utenti SET password = $1 WHERE id = $2";
-        // pg_query_params($dbconn, $sql, [$hashed, $_SESSION['id_utente']]);
-        header('Location: /pagina_profilo.php');
-        exit;
+    }
+    else {
+        // 1) Recuperiamo l’hash corrente dal DB
+        $sql = "SELECT password FROM utenti WHERE id = $1";
+        $res = pg_query_params($dbconn, $sql, [$userId]);
+
+        if (!$res || pg_num_rows($res) === 0) {
+            $error = 'Utente non trovato.';
+        }
+        else {
+            $row     = pg_fetch_assoc($res);
+            $oldHash = $row['password'];
+
+            // 2) Controlliamo che la “nuova” non sia uguale alla “vecchia”
+            if (password_verify($nuovaPass, $oldHash)) {
+                $error = 'La nuova password non può essere uguale a quella attuale.';
+            }
+            else {
+                // 3) Hashiamo e aggiorniamo
+                $newHash   = password_hash($nuovaPass, PASSWORD_DEFAULT);
+                $updateSql = "UPDATE utenti SET password = $1 WHERE id = $2";
+                $updateRes = pg_query_params($dbconn, $updateSql, [$newHash, $userId]);
+
+                if ($updateRes) {
+                    // **Qui mostriamo il popup di successo e poi rimandiamo a login.html**
+                    echo "<script>
+                            alert('Password cambiata con successo!');
+                            window.location.href = 'login.html';
+                          </script>";
+                    exit;
+                }
+                else {
+                    $error = 'Errore durante l’aggiornamento. Riprova più tardi.';
+                }
+            }
+        }
     }
 }
 ?>
@@ -51,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </script>
 
   <style>
-    /* Corpo con sfondo immagine e overlay */
     body {
       position: relative;
       min-height: 100vh;
@@ -63,7 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       background-position: center;
       background-repeat: no-repeat;
     }
-    /* Overlay chiaro sopra l'immagine di sfondo */
     .bg-overlay {
       position: absolute;
       inset: 0;
@@ -73,11 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body class="text-navy flex flex-col">
-
-  <!-- ================================
-       HEADER FISSO (sfondo bianco semitrasparente + blur)
-       Logo + “Wanderlust” a sinistra
-       ================================ -->
+  <!-- HEADER FISSO -->
   <header class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-sm z-20 border-b border-gray-200">
     <div class="flex items-center px-4 sm:px-6 py-3">
       <img src="immagini/logo.png" alt="Logo Wanderlust" class="h-8 w-8 object-contain" />
@@ -87,21 +113,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </header>
 
-  <!-- Spazio sotto l’header per non farlo sovrapporre -->
   <div class="mt-16"></div>
-
-  <!-- Overlay bianco semitrasparente -->
   <div class="bg-overlay"></div>
 
-  <!-- ================================
-       BOX CENTRALE: “Nuova Password”
-       Centramento assoluto orizz. e vert.
-       ================================ -->
+  <!-- BOX CENTRALE: “Nuova Password” -->
   <div class="flex-grow flex items-center justify-center px-4">
     <div class="relative w-full max-w-md bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg">
       <div class="px-6 py-8">
         <h1 class="text-2xl font-semibold mb-6 text-center">Nuova Password</h1>
 
+        <!-- Se c’è un errore, lo mostro qui sotto -->
         <?php if ($error): ?>
           <div class="mb-4 px-4 py-2 bg-red-100 text-red-700 rounded">
             <?= htmlspecialchars($error) ?>
@@ -140,9 +161,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
     </div>
   </div>
-
-  <script>
-    // Eventuale script per la validazione o invio AJAX
-  </script>
 </body>
 </html>
