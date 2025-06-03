@@ -48,7 +48,7 @@ body {
 .content {
     position: relative;
     width: 100%;
-    height: 100vh; /* Altezza pari alla finestra */
+    height: 100vh;
 }
 .content img {
     width: 100%;
@@ -122,17 +122,20 @@ body {
         transform: translateX(-50%);
     }
 }
-
+/*step*/
 .contenitore_step {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
+    max-height: 100vh;
 }
-.contenitore{
-    flex-direction: column;
-    align-items: center;
-    padding: 4rem 1rem;
-    position: relative;
+.contenitore {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-top: 20px;
 }
 h2 {
     font-size: 3em;
@@ -157,6 +160,42 @@ h2 {
     line-height: 1.6;
     font-family: 'Arial', sans-serif;
 }
+.step {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition-delay: var(--delay, 0s); /* usa la variabile */
+}
+
+.step.visible {
+opacity: 1;
+transform: translateY(0);
+border: 2px solid rgba(0, 122, 255, 0);
+background-color:#e1e7e800;
+border-radius: 20px;
+margin: 21px;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-height: 90vh;
+  padding: 1rem; /* margini interni */
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px; /* facoltativo per estetica */
+}
+
 
 /* Animazione in entrata */
 @keyframes fadeInUp {
@@ -170,12 +209,8 @@ h2 {
     }
 }
 
-.testimonials {
-  padding: 1.5rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
-  margin-top: 1.5rem;
-}
+/*commenti*/
+
 
 .testimonials h2 {
   font-size: 2rem;
@@ -186,14 +221,16 @@ h2 {
 .testimonials {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
   gap: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  margin:3rem;
+  align-self: center;
 }
 
 .testimonial {
   background: white;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 4rem;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 86, 179, 0.08);
   font-style: italic;
@@ -202,7 +239,6 @@ h2 {
   transform: translateY(30px);
   transition: opacity 0.6s ease, transform 0.6s ease;
   position: relative;
-  margin-bottom: 200px;
 }
 
 .testimonial.visible {
@@ -365,22 +401,6 @@ nav a, nav ul, nav .btn-login {
     color: white;
     background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
     font-size: 2rem;}
-.step {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  transition-delay: var(--delay, 0s); /* usa la variabile */
-}
-
-.step.visible {
-opacity: 1;
-transform: translateY(0);
-border: 2px solid rgba(0, 122, 255, 0);
-background-color:#e1e7e800;
-border-radius: 20px;
-margin: 21px;
-width: 64%;
-}
 
 .contatti-container{
   display: grid;
@@ -437,29 +457,51 @@ h1, h2, h3 {
   color: #2c3e3e;
 }
 
-.video-container {
-  position: relative;
-  width: 100%;
-  height: 60%;
-  padding: 1rem; /* margini interni */
-  box-sizing: border-box;
-  overflow: hidden;
+  nav, .nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
-
-.video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 12px; /* facoltativo per estetica */
-}
 @media (max-width: 768px) {
-  .nav {
+  nav, .nav {
     flex-direction: column !important;
     align-items: center;
     justify-content: flex-start;
   }
+  .logo {
+    margin-bottom: 12px;
+    margin-left: -13px; 
+  }
+  .contenitore_step {
+    display: flex;
+    align-items: column;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    justify-items: center;
+}
+.testimonials{
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0 auto;
+    padding: 0 1rem;
+    margin-bottom: 2rem;
+}
+.immagine{
+    width: 150px;
+    height: 150px; 
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+.contatti-container{
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2rem 1rem;
+    gap: 1rem;
+    margin: 0 auto;
+    max-width: 600px;
+}
 }

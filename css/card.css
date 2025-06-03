@@ -27,7 +27,7 @@
   
   .card {
     position: absolute;
-  top: 46%; /* invece di 46% */
+  top: 46%; 
   left: 50%;
   transform: translate(-50%, -50%);
     width: 80vw;
@@ -154,5 +154,35 @@ nav, .nav {
   .logo {
     margin-bottom: 12px;
     margin-left: -13px; 
+  }
+  #cardContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card {
+    width: 90vw;
+    height: 50vh;
+  }
+}
+@media (max-width: 768px) {
+  .card {
+    width: 95vw;
+    height: 45vh;
+    min-height: 220px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+}
+
+/* Smartphone piccoli */
+@media (max-width: 480px) {
+  .card {
+    width: 98vw;
+    height: 38vh;
+    min-height: 160px;
+    max-width: 99vw;
+    margin: 0 auto;
   }
 }

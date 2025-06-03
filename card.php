@@ -31,13 +31,7 @@ if (!$resPref || pg_num_rows($resPref) === 0) {
 $pref = pg_fetch_assoc($resPref);
 $continente_utente = $pref['destinazione'];
 
-//destinazioni:
 
-// -----------------------------------------------------------------------------
-// Definisce una funzione per ottenere i limiti geografici di un continente
-// in termini di latitudine e longitudine. Questi valori servono per filtrare
-// i viaggi disponibili all'interno di quel continente.
-// -----------------------------------------------------------------------------
  function getLimitiContinente($continente) {
     switch (strtolower($continente)) {
         case 'africa':
@@ -163,10 +157,16 @@ while ($row = pg_fetch_assoc($result)) {
 .fade-out {
   opacity: 0;
 }
+  .profile-menu-wrapper{
+    bottom: 67px;
+    left: 24px;
+  }
 
 </style>
 
-
+<?php
+$is_mobile = isset($_GET['mobile']) || preg_match('/(android|iphone|ipad|mobile)/i', $_SERVER['HTTP_USER_AGENT']);
+?>
 <div class="hero">
 <nav>
     <div class="logo">
@@ -220,53 +220,47 @@ while ($row = pg_fetch_assoc($result)) {
     }
 
 ?>
-<div class="card <?= $classe_stile ?>" id="card-<?= $viaggio['id'] ?>" data-viaggio-id="<?= $viaggio['id'] ?>">
-    <?php if ($classe_stile == 'stile1' || $classe_stile == 'stile3') { ?>
+<?php
+    // Controlla se l'utente ha un colore di sfondo personalizzato
+    $stile_attivo = $is_mobile ? 'stile3' : $classe_stile;
+?>
+<div class="card <?= $stile_attivo ?>" id="card-<?= $viaggio['id'] ?>" data-viaggio-id="<?= $viaggio['id'] ?>">
+    <?php if ($stile_attivo == 'stile1' || $stile_attivo == 'stile3') { ?>
         <div class="left">
             <div class="image-background" style="background-image: url('<?= htmlspecialchars($immagine) ?>');"></div>
             <div class="image-overlay"></div>
         </div>
         <div class="right">
-            <h1><?php echo $viaggio['destinazione']; ?></h1>
-            <h2><?php echo $viaggio['descrizione']; ?></h2>
+            <h1><?= $viaggio['destinazione']; ?></h1>
+            <h2><?= $viaggio['descrizione']; ?></h2>
             <p>        
-                <strong>Data partenza:</strong> <?php echo $viaggio['data_partenza']; ?>
-                <br>
-                <strong>Data ritorno:</strong> <?php echo $viaggio['data_ritorno']; ?>
-                <br>
-                <strong>Budget:</strong> <?php echo $viaggio['budget']; ?></li>
-                <br>
-                <strong>Tipo di viaggio:</strong> <?php echo $viaggio['tipo_viaggio']; ?>
-                <br>
+                <strong>Data partenza:</strong> <?= $viaggio['data_partenza']; ?><br>
+                <strong>Data ritorno:</strong> <?= $viaggio['data_ritorno']; ?><br>
+                <strong>Budget:</strong> <?= $viaggio['budget']; ?><br>
+                <strong>Tipo di viaggio:</strong> <?= $viaggio['tipo_viaggio']; ?><br>
                 <div class="componenti-wrapper"></div>
-                <div class="script"><?php echo $viaggio['compagnia'];?></div>
+                <div class="script"><?= $viaggio['compagnia']; ?></div>
             </p>
         </div>
-        <?php } ?>
-        <?php if ($classe_stile == 'stile2' || $classe_stile == 'stile4') { ?>
+    <?php } elseif ($stile_attivo == 'stile2' || $stile_attivo == 'stile4') { ?>
         <div class="left">
-        <h1><?php echo $viaggio['destinazione']; ?></h1>
-        <h2><?php echo $viaggio['descrizione']; ?></h2>
-        <p>        
-          <strong>Data partenza:</strong> <?php echo $viaggio['data_partenza']; ?>
-          <br>
-          <strong>Data ritorno:</strong> <?php echo $viaggio['data_ritorno']; ?>
-           <br>
-          <strong>Budget:</strong> <?php echo $viaggio['budget']; ?></li>
-           <br>
-          <strong>Tipo di viaggio:</strong> <?php echo $viaggio['tipo_viaggio']; ?>
-           <br>
-        <div class="componenti-wrapper"></div>
-          <div class="script"><?php echo $viaggio['compagnia'];?></div>
-         </p>
-    </div>
-    <div class="right" >
-  <div class="image-background" style="background-image: url('<?= htmlspecialchars($immagine) ?>');"></div>
-  <div class="image-overlay"></div>
-    </div>
-    <?php } ?>
-
+            <h1><?= $viaggio['destinazione']; ?></h1>
+            <h2><?= $viaggio['descrizione']; ?></h2>
+            <p>        
+                <strong>Data partenza:</strong> <?= $viaggio['data_partenza']; ?><br>
+                <strong>Data ritorno:</strong> <?= $viaggio['data_ritorno']; ?><br>
+                <strong>Budget:</strong> <?= $viaggio['budget']; ?><br>
+                <strong>Tipo di viaggio:</strong> <?= $viaggio['tipo_viaggio']; ?><br>
+                <div class="componenti-wrapper"></div>
+                <div class="script"><?= $viaggio['compagnia']; ?></div>
+            </p>
         </div>
+        <div class="right">
+            <div class="image-background" style="background-image: url('<?= htmlspecialchars($immagine) ?>');"></div>
+            <div class="image-overlay"></div>
+        </div>
+    <?php } ?>
+</div>
 <?php endforeach; ?>
 </div>
 <div class="fade-section" id="intro">
