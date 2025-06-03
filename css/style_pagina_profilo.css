@@ -9,6 +9,8 @@
   /* PROFILO A SINISTRA */
 
   .profile-sidebar {
+margin-top: 15px;
+margin-left: 5px;
 border-radius: 20px;
 transition: background-color 0.3s ease;
 display: flex;
@@ -164,6 +166,7 @@ pointer-events: none;
     .photos-container {
       grid-template-columns: repeat(3, 1fr);
     }
+    
 
   }
 
@@ -231,3 +234,79 @@ pointer-events: none;
       color: white;
       font-weight: 600;
   }
+
+  /* ===============================
+   Centra e fa riempire la foto
+   nel modal su mobile
+   =============================== */
+
+/* 1) Forzo la modal-content a diventare flex-column,
+      in modo che si possa dividere in “area foto” + “area pulsante” */
+.modal .modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* occupa tutta l’altezza dello schermo */
+  border-radius: 0; /* su mobile, nessun arrotondamento */
+}
+
+/* 2) La modal-body (che contiene il carousel) diventa un contenitore flex,
+      che occupa tutto lo spazio disponibile tranne l’area pulsante */
+.modal .modal-body {
+  flex: 1 1 auto;   /* cresce e occupa lo spazio rimanente */
+  padding: 0;       /* tolgo qualunque padding per far arrivare la foto ai bordi */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 3) Il carousel itself deve occupare tutto lo spazio disponibile */
+.modal .carousel {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 4) Ogni carousel-item diventa un flex container che riempie l’area */
+.modal .carousel-item {
+  display: flex;
+  align-items: center;       /* centra verticalmente */
+  justify-content: center;   /* centra orizzontalmente */
+  flex: 1 1 auto;            /* occupa tutto lo spazio disponibile */
+}
+
+/* 5) La <img> dentro carousel-item va in cover-mode e riempie interamente il container */
+.modal .carousel-item img {
+  width: 100%;        /* si adatta sempre alla larghezza disponibile */
+  height: 100%;       /* si adatta sempre all’altezza disponibile */
+  object-fit: cover;  /* ritaglia la foto senza distorcerla, riempiendo il box */
+  object-position: center center; /* crop sempre dal centro */
+}
+
+/* 6) L’area sottostante (dove c’è il pulsante “Descrizione”) 
+      rimane fuori dal flex “1” e occupa solo lo spazio che gli serve */
+.modal .text-center.p-3 {
+  flex: 0 0 auto; /* non cresce, prende solo l’altezza del contenuto */
+  background-color: white; /* puoi aggiungere un fondo bianco se vuoi */
+}
+
+/* 7) Su schermi più grandi (desktop/tablet), torniamo al comportamento standard: */
+@media (min-width: 577px) {
+  .modal .modal-content {
+    display: block;    /* rimuove il flex-column su desktop */
+    height: auto;      /* lascia che il modal si adatti al contenuto */
+    border-radius: 0.5rem; /* ripristina gli angoli arrotondati */
+  }
+  .modal .modal-body,
+  .modal .carousel,
+  .modal .carousel-item img {
+    /* resetto i flex e le dimensioni, torniamo al comportamento di Bootstrap di default */
+    flex: none;
+    height: auto;
+    width: auto;
+    object-fit: contain; /* o “cover” a seconda di come vuoi la foto su desktop */
+  }
+  .modal .text-center.p-3 {
+    background-color: transparent; /* rimuovo eventuale fondo bianco su desktop */
+  }
+}
+

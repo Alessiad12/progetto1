@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
 
   <!-- Tailwind + custom palette -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -21,43 +20,102 @@
         }
       }
     };
-    
   </script>
 
   <title>Coming Soon – Wanderlust</title>
 </head>
 
-<body class="min-h-screen bg-cream text-navy flex items-center justify-center font-sans">
-  <!-- Sfondo nitido con overlay chiaro -->
-<div class="absolute inset-0 z-0">
-  <img src="immagini/download.jpg" alt="Sfondo travel" class="w-full h-full object-cover" />
-  <div class="absolute inset-0 bg-white bg-opacity-30"></div>
-</div>
-  <a href="pagina_iniziale.html" class="absolute top-4 left-4">
-  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 fill-[#0A2342] hover:opacity-80 transition" viewBox="0 0 24 24">
-    <path d="M12 3l9 8h-3v9h-12v-9h-3l9-8z"/>
-  </svg>
-  </a>
+<body class="min-h-screen bg-cream text-navy flex flex-col font-sans relative overflow-hidden">
+  <!-- =========================================
+       1) HEADER (adattivo, colonna su mobile, riga su ≥ sm)
+  ========================================== -->
+  <header
+    class="fixed top-0 left-0 w-full flex flex-col sm:flex-row items-center sm:justify-between
+           bg-white/60 backdrop-blur-md px-6 py-4 z-20"
+  >
+    <!-- Logo + testo Wanderlust -->
+    <div class="flex items-center space-x-2 mb-3 sm:mb-0">
+      <img
+        src="immagini/logo.png"
+        alt="Wanderlust Logo"
+        class="h-12 w-12 object-contain"
+      />
+      <span class="text-xl sm:text-2xl font-bold text-navy">Wanderlust</span>
+    </div>
 
-  <div class="max-w-md text-center bg-white/60 backdrop-blur-lg rounded-2xl shadow-lg p-8 space-y-6">
-    <div class="w-11/12 max-w-md text-center bg-white/60 …"></div>
-    <h1 class="text-3xl sm:text-4xl font-extrabold">App in arrivo!</h1>
-    <p class="text-base sm:text-lg">Restate sintonizzati: stiamo preparando qualcosa di straordinario per voi!</p>
+    <!-- Pulsanti: in colonna+centrati su mobile; in riga su ≥ sm -->
+    <nav class="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-2 sm:space-y-0">
+      <a
+        href="pagina_iniziale.html"
+        class="bg-navy hover:bg-navy-light text-white text-sm font-medium 
+               px-4 py-2 rounded transition"
+      >
+        Home
+      </a>
+      <a
+        href="login.html"
+        class="bg-navy hover:bg-navy-light text-white text-sm font-medium 
+               px-4 py-2 rounded transition"
+      >
+        Accedi
+      </a>
+      <a
+        href="register.html"
+        class="bg-navy hover:bg-navy-light text-white text-sm font-medium 
+               px-4 py-2 rounded transition"
+      >
+        Iscriviti
+      </a>
+    </nav>
+  </header>
 
-    <!-- Contact form per iscriversi alla beta -->
-    <form id="betaForm" class="space-y-4">
-
-      <input type="email" name="email" placeholder="La tua email" required
-             class="w-full bg-cream border border-navy/30 rounded-lg p-3 placeholder-navy/60 focus:ring-1 focus:ring-navy-light focus:border-navy-light transition" />
-      <button type="submit"
-              class="w-full bg-navy text-cream py-3 rounded-lg font-semibold hover:bg-navy-light focus:ring-2 focus:ring-navy-light transition">
-        Iscriviti alla beta
-      </button>
-    </form>
-
-    <p class="text-sm text-navy/60">Riceverai un link non appena l'app sarà disponibile.</p>
+  <!-- =========================================
+       2) SFONDO CON OVERLAY (dietro al contenuto)
+  ========================================== -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="immagini/download.jpg"
+      alt="Sfondo travel"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-white bg-opacity-30"></div>
   </div>
 
+  <!-- =========================================
+       3) CONTENUTO PRINCIPALE (card centrata sotto l’header)
+       – ho aggiunto mt-36 per lasciare spazio all’header adattivo 
+  ========================================== -->
+  <div class="mt-36 flex-1 w-full flex items-center justify-center z-10 px-4">
+    <div class="max-w-md w-full text-center bg-white/60 backdrop-blur-lg rounded-2xl shadow-lg p-8 space-y-6">
+      <h1 class="text-3xl sm:text-4xl font-extrabold">App in arrivo!</h1>
+      <p class="text-base sm:text-lg">
+        Restate sintonizzati: stiamo preparando qualcosa di straordinario per voi!
+      </p>
+
+      <!-- Contact form per iscriversi alla beta -->
+      <form id="betaForm" class="space-y-4">
+        <input
+          type="email"
+          name="email"
+          placeholder="La tua email"
+          required
+          class="w-full bg-cream border border-navy/30 rounded-lg p-3 placeholder-navy/60 
+                 focus:ring-1 focus:ring-navy-light focus:border-navy-light transition"
+        />
+        <button
+          type="submit"
+          class="w-full bg-navy text-cream py-3 rounded-lg font-semibold 
+                 hover:bg-navy-light focus:ring-2 focus:ring-navy-light transition"
+        >
+          Iscriviti alla beta
+        </button>
+      </form>
+
+      <p class="text-sm text-navy/60">
+        Riceverai un link non appena l'app sarà disponibile.
+      </p>
+    </div>
+  </div>
 
   <script>
     // Gestione del form di iscrizione alla beta
