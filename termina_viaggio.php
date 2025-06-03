@@ -8,88 +8,6 @@ if (!isset($_SESSION['id_utente'])) {
 }
 
 $utente_id = intval($_SESSION['id_utente']);
-$viaggio_id = intval($_GET['viaggio_id'] ?? 0);
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // --- 1) Ricevo i dati dal form ---
-$viaggio_id = intval($_POST['viaggio_id'] ?? 0);
-    $descrizione = trim($_POST['descrizione'] ?? '');
-    $valutazione = intval($_POST['valutazione'] ?? 0);
-
-    // Recupera coordinate del viaggio selezionato
-// Recupera coordinate del viaggio selezionato
-
-
-
-
-    // --- 2) Preparo la cartella uploads ---
-    $relativeDir = 'uploads';
-    $uploadDir   = __DIR__ . DIRECTORY_SEPARATOR . $relativeDir . DIRECTORY_SEPARATOR;
-    if (!is_dir($uploadDir) && !mkdir($uploadDir, 0755, true)) {
-        die('Errore: impossibile creare la cartella di upload.');
-    }
-
-    // --- 3) Gestisco fino a 5 file ---
-    $fotos = [];
-    for ($i = 0; $i < 5; $i++) {
-        if (
-            isset($_FILES['foto']['error'][$i]) &&
-            $_FILES['foto']['error'][$i] === UPLOAD_ERR_OK
-        ) {
-            $tmpName = $_FILES['foto']['tmp_name'][$i];
-            $orig    = basename($_FILES['foto']['name'][$i]);
-            // Sanitizzo il nome e lo rendo unico
-            $safe    = uniqid() . '_' . preg_replace('/[^a-zA-Z0-9\._-]/', '_', $orig);
-            $dest    = $uploadDir . $safe;
-
-            if (move_uploaded_file($tmpName, $dest)) {
-                // salvo percorso relativo (da usare in HTML: /uploads/…)
-                $fotos[] = '/' . $relativeDir . '/' . $safe;
-            } else {
-                $fotos[] = null;
-            }
-        } else {
-            $fotos[] = null;
-        }
-    }
-    $natura    = intval($_POST['natura'] ?? 0);
-$relax     = intval($_POST['relax'] ?? 0);
-$monumenti = intval($_POST['monumenti'] ?? 0);
-$cultura   = intval($_POST['cultura'] ?? 0);
-$nightlife = intval($_POST['nightlife'] ?? 0);
-
-// --- Inserisco su viaggi_terminati (incluso percentuali) ---
-$sql = "INSERT INTO viaggi_terminati
-    (utente_id, viaggio_id, descrizione, valutazione,
-     foto1, foto2, foto3, foto4, foto5,
-     natura, relax, monumenti, cultura, nightlife)
-  VALUES
-    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)";
-$params = [
-    $utente_id,
-    $viaggio_id,
-    $descrizione,
-    $valutazione,
-    $fotos[0],
-    $fotos[1],
-    $fotos[2],
-    $fotos[3],
-    $fotos[4],
-    $natura,
-    $relax,
-    $monumenti,
-    $cultura,
-    $nightlife
-];
-$res = pg_query_params($dbconn, $sql, $params);
-if (!$res) {
-    die('Errore salvataggio esperienza: ' . pg_last_error($dbconn));
-}
-
-    // --- 5) Redirect di conferma ---
-    header('Location: pagina_profilo.php');
-    exit;
-}else{
-
 // Se arrivo qui, è GET: mostro il form
 $viaggio_id = intval($_GET['viaggio_id'] ?? 0);
 $lat = '';
@@ -102,7 +20,7 @@ if ($viaggio_id > 0) {
         $lon = $coords['longitudine'];
     }
 }
-}
+
 
 ?>
 <!DOCTYPE html>
@@ -229,8 +147,9 @@ if ($viaggio_id > 0) {
 <body>
   <div class="card">
     <h1>Il tuo viaggio</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
-<input type="hidden" name="viaggio_id" id="viaggio_id_hidden" value="<?= htmlspecialchars($viaggio_id) ?>">
+<form action="salva_viaggio_terminato.php" method="POST" enctype="multipart/form-data">
+  <input type="hidden" name="viaggio_id" value="<?= htmlspecialchars($viaggio_id) ?>">
+
       <div>
         <label for="descrizione">Descrizione</label>
         <textarea id="descrizione" name="descrizione" required></textarea>
