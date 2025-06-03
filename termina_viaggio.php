@@ -51,8 +51,6 @@ $viaggio_id = intval($_POST['viaggio_id'] ?? 0);
             $fotos[] = null;
         }
     }
-
-    // --- 4) Inserisco su viaggi_terminati ---
     $natura    = intval($_POST['natura'] ?? 0);
 $relax     = intval($_POST['relax'] ?? 0);
 $monumenti = intval($_POST['monumenti'] ?? 0);
@@ -90,7 +88,7 @@ if (!$res) {
     // --- 5) Redirect di conferma ---
     header('Location: pagina_profilo.php');
     exit;
-}
+}else{
 
 // Se arrivo qui, è GET: mostro il form
 $viaggio_id = intval($_GET['viaggio_id'] ?? 0);
@@ -104,7 +102,7 @@ if ($viaggio_id > 0) {
         $lon = $coords['longitudine'];
     }
 }
-
+}
 
 ?>
 <!DOCTYPE html>
@@ -232,8 +230,7 @@ if ($viaggio_id > 0) {
   <div class="card">
     <h1>Il tuo viaggio</h1>
     <form action="" method="POST" enctype="multipart/form-data">
-      <input type="hidden" name="viaggio_id" value="<?= htmlspecialchars($viaggio_id) ?>">
-
+<input type="hidden" name="viaggio_id" id="viaggio_id_hidden" value="<?= htmlspecialchars($viaggio_id) ?>">
       <div>
         <label for="descrizione">Descrizione</label>
         <textarea id="descrizione" name="descrizione" required></textarea>
@@ -325,7 +322,21 @@ if ($viaggio_id > 0) {
     });
   });
 </script>
+<script>
+  // Prendi viaggio_id dalla query string se presente
+  function getViaggioIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('viaggio_id');
+  }
 
+  // Imposta il valore del campo hidden al caricamento della pagina
+  document.addEventListener('DOMContentLoaded', function() {
+    const viaggioIdFromUrl = getViaggioIdFromUrl();
+    if (viaggioIdFromUrl) {
+      document.getElementById('viaggio_id_hidden').value = viaggioIdFromUrl;
+    }
+  });
+</script>
 </body>
 </html>
 
