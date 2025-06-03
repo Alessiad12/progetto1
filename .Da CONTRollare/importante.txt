@@ -11,6 +11,9 @@ DROP TABLE IF EXISTS public.viaggi CASCADE;
 DROP TABLE IF EXISTS public.viaggi_utenti CASCADE;
 DROP TABLE IF EXISTS public.notifiche CASCADE;
 DROP TABLE IF EXISTS public.chat_viaggio CASCADE;
+DROP TABLE IF EXISTS public.viaggi_terminati CASCADE;
+DROP TABLE IF EXISTS public.itinerari CASCADE;
+
 
 
 Quando un utente si unisce alla chat di un viaggio, può farlo tramite l'ID del viaggio:
