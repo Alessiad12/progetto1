@@ -450,6 +450,8 @@ COPY public.itinerari (id, nome_itinerario, luoghi, data_creazione, viaggio_id, 
 13	Athene	["partenone","acropoli, Athene","nike, Athene","eretteo","agora, Athene","teatro di dioniso"]	2025-06-03 23:20:55.777138	58	15
 14	Athene	["partenone","acropoli, Athene","agora, Athene","teatro di Dioniso","parlamento, Athene"]	2025-06-03 23:33:46.622039	58	7
 15	Roma	["ara pacis","basilica di santa maria maggiore","fontana di trevi","palazzo Bonaparte","lungotevere","fori imperiali","piazza trilussa"]	2025-06-03 23:51:40.822666	59	7
+16	Roma	["Piazza Bologna, roma","verano, roma","villa borghese","piazza Euclide","colosseo"]	2025-06-04 00:34:41.239324	59	15
+17	marocco	["marrakesh","medina, marrakesh","fez","casablanca","merzouga"]	2025-06-04 00:50:58.86172	60	15
 \.
 
 
@@ -701,6 +703,15 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 15	7	59	Roma	f	2025-06-03 23:31:01.207562	match_accepted	574
 7	15	59	Roma	f	2025-06-03 23:31:01.212617	match_accepted	575
 7	15	59	Roma	f	2025-06-03 23:32:00.781649	registra_viaggio	576
+7	7	55	Oslo	f	2025-06-04 00:00:00.313304	registra_viaggio	577
+6	7	55	Oslo	f	2025-06-04 00:00:00.398924	registra_viaggio	578
+8	8	56	Varsavia	f	2025-06-04 00:00:00.399855	registra_viaggio	579
+6	8	56	Varsavia	f	2025-06-04 00:00:00.400433	registra_viaggio	580
+4	4	60	Marocco	f	2025-06-04 00:46:00.183057	registra_viaggio	581
+4	15	60	Marocco	f	2025-06-04 00:46:36.41413	like	582
+4	15	60	Marocco	f	2025-06-04 00:46:45.742057	match_accepted	583
+15	4	60	Marocco	f	2025-06-04 00:46:45.760101	match_accepted	584
+15	4	60	Marocco	f	2025-06-04 00:47:00.254135	registra_viaggio	585
 \.
 
 
@@ -733,9 +744,9 @@ COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_part
 6	fra@gmail.com	Europa	2025-05-31	2025-06-02	10-12345678	ristoranti	gruppo
 4	marco.rossi@example.com	Europa	2025-05-30	2025-06-08	10-30000	ristoranti	gruppo
 4	marco.rossi@example.com	Europa	2025-05-30	2025-06-08	10-30000	ristoranti	gruppo
-15	benvenutogiusy8@gmail.com	Europa	2025-06-03	2025-06-06	10-30000	musei	gruppo
 7	ida@ida.it	Europa	2025-06-02	2025-06-03	20-600	musei	coppia
 7	ida@ida.it	Europa	2025-06-02	2025-06-03	20-600	musei	coppia
+15	benvenutogiusy8@gmail.com	Africa	2025-06-02	2025-06-07	10-700	spiaggia	gruppo
 \.
 
 
@@ -838,6 +849,7 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 7	59	t	2025-06-03 23:30:06.562498
 15	29	t	2025-06-03 23:30:51.789156
 15	19	t	2025-06-03 23:30:53.312676
+15	60	t	2025-06-04 00:46:36.285826
 \.
 
 
@@ -927,6 +939,7 @@ COPY public.viaggi (id, user_id, destinazione, data_partenza, data_ritorno, budg
 57	15	Hanoi	2025-06-01	2025-06-02	2000	natura	\N	gruppo	Tra templi antichi, street food incredibile e il caos meraviglioso del Quartiere Vecchio.\r\nVietnam, arriviamo! 🇻🇳✈️	/uploads/683f5b873641f_iStock-2157440310-edited-Header_Mobile.avif	21.02833340	105.85404100
 58	15	Atene	2025-06-02	2025-06-03	300	musei	\N	gruppo	Tra rovine millenarie, tramonti sull’Acropoli e tanto souvlaki.\r\nPronti a tuffarci nella storia (e nel mare)! 🏛️🌊	/uploads/683f5c0942210_Athens-Monastiraki-Evening-2048x1365.jpg	37.97556480	23.73483240
 59	15	Roma	2025-06-02	2025-06-03	300	musei	\N	coppia	Roma non è solo una città: è un museo vivo, dove ogni passo ha il peso del tempo e la bellezza dell’eterno.	/uploads/683f693053b04_536216-roman-forum.jpg	41.89332030	12.48293210
+60	4	Marocco	2025-06-03	2025-06-04	500	spiaggia	\N	gruppo	Il Marocco è un paese che incanta i sensi e lascia un'impronta nel cuore.	/uploads/683f7b14f204f_marocco-FILEminimizer.jpg	28.33477220	-10.37133790
 \.
 
 
@@ -949,6 +962,12 @@ COPY public.viaggi_terminati (id, utente_id, viaggio_id, descrizione, valutazion
 25	15	58	Culla della civiltà e regina del Mediterraneo, Atene è un viaggio nel tempo tra templi maestosi e tramonti dorati sull’Acropoli.	5	/uploads/683f6804cd667_Athens-Acropolis-Panorama-Night.jpg	/uploads/683f6804ce3dd_images-5.jpeg	/uploads/683f6804ce436_images-4.jpeg	/uploads/683f6804ce47c_Athens-Monastiraki-Evening-2048x1365.jpg	\N	2025-06-03 23:24:20.846134	20	40	80	100	20
 26	7	58	Atene sorprende a ogni angolo: storia millenaria, tramonti mozzafiato e un’energia vibrante che unisce passato e presente. Una città che resta nel cuore. 🇬🇷✨	5	/uploads/683f6ac6d32d7_3d351145af20c0bf24427a750fe38c1a-Group_1.jpg.avif	/uploads/683f6ac6d4ed2_images-6.jpeg	/uploads/683f6ac6d4f34_Athens-Monastiraki-Evening-2048x1365.jpg	\N	\N	2025-06-03 23:36:06.875456	20	50	80	70	40
 29	7	59	Una città che unisce il fascino del passato con l'energia del presente. Impossibile non innamorarsene	4	/uploads/683f6eb5bdf59_07-cosa-vedere-a-roma-10-attrazioni-da-non-perdere-assolutamente.jpg	/uploads/683f6eb5be550_Colosseo-tramonto-clima-Roma.jpg.webp	/uploads/683f6eb5be5d4_Fontana-di-Trevi.jpg	/uploads/683f6eb5be636_roma-in-3-giorni-2.jpg	\N	2025-06-03 23:52:53.780638	10	10	70	80	50
+31	9	3	fggtyiuhiouop	5	/uploads/683f76f99a8fb_Fontana-di-Trevi.jpg	\N	\N	\N	\N	2025-06-04 00:28:09.639923	1	4	2	3	2
+32	9	26	sdfghjkjk	4	\N	\N	\N	/uploads/683f771f05525_Fontana-di-Trevi.jpg	\N	2025-06-04 00:28:47.024334	0	1	20	20	20
+34	9	1	alla scoperta dell'oriente	5	/uploads/683f79326f0ea_cosa-vedere-roma.jpg.webp	\N	\N	\N	\N	2025-06-04 00:37:38.45579	10	30	50	70	90
+33	15	59	L’atmosfera romantica di Trastevere, il fascino senza tempo delle piazze e fontane, e la cucina straordinaria rendono Roma una delle destinazioni più affascinanti del mondo. Ci tornerò sicuramente!" 🇮🇹✨	5	/uploads/683f78d2b9e19_Colosseo-tramonto-clima-Roma.jpg.webp	/uploads/683f78d2ba21d_roma-in-3-giorni-2.jpg	/uploads/683f78d2ba2b1_Cosa-vedere-a-Roma.jpg	/uploads/683f78d2ba2f8_cosa-vedere-roma.jpg.webp	\N	2025-06-04 00:36:02.76276	10	20	50	70	40
+35	15	60	Un viaggio in Marocco è un viaggio tra passato e presente, tra spiritualità e avventura. 🐪🌄🇲🇦	4	/uploads/683f7cb4270c5_Marocco-un-gennaio-da-record-con-12-milioni-di-turisti.jpg	/uploads/683f7cb42774e_marocco_1925269691-613x362.jpg	/uploads/683f7cb4277a4_Fez-shutterstock_2423382453.jpg	/uploads/683f7cb4277f3_marocco-FILEminimizer.jpg	\N	2025-06-04 00:52:36.162164	60	20	40	70	10
+36	4	60	Dalle vivaci medine di Marrakech e Fès, ai paesaggi mozzafiato del deserto del Sahara, passando per le maestose montagne dell'Atlante e le coste dell’oceano Atlantico, ogni angolo del Marocco racconta una storia ricca di cultura, tradizione e colori.	3	/uploads/683f7d5487495_marocco_1925269691-613x362.jpg	\N	\N	\N	\N	2025-06-04 00:55:16.556539	20	20	20	20	20
 \.
 
 
@@ -1041,6 +1060,8 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 59	15	ideatore
 58	7	partecipante
 59	7	partecipante
+60	4	ideatore
+60	15	partecipante
 \.
 
 
@@ -1062,14 +1083,14 @@ SELECT pg_catalog.setval('public.esperienze_id_seq', 2, true);
 -- Name: itinerari_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.itinerari_id_seq', 15, true);
+SELECT pg_catalog.setval('public.itinerari_id_seq', 17, true);
 
 
 --
 -- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifiche_id_seq', 576, true);
+SELECT pg_catalog.setval('public.notifiche_id_seq', 585, true);
 
 
 --
@@ -1083,14 +1104,14 @@ SELECT pg_catalog.setval('public.utenti_id_seq', 15, true);
 -- Name: viaggi_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_id_seq', 59, true);
+SELECT pg_catalog.setval('public.viaggi_id_seq', 60, true);
 
 
 --
 -- Name: viaggi_terminati_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 29, true);
+SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 36, true);
 
 
 --
