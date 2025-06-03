@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     elseif ($nuovaPass !== $conferma) {
         $error = 'Le password non corrispondono.';
+<<<<<<< HEAD
     }
     else {
         // 1) Recuperiamo l’hash corrente dal DB
@@ -56,6 +57,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
         }
+=======
+    } else {
+        // Logica di salvataggio nel DB (es. hash e UPDATE)
+        // $hashed = password_hash($nuovaPass, PASSWORD_DEFAULT);
+        // $sql = "UPDATE utenti SET password = $1 WHERE id = $2";
+        // pg_query_params($dbconn, $sql, [$hashed, $_SESSION['id_utente']]);
+        header('Location: /login.html');
+        exit;
+>>>>>>> 1040fa7bf7afbc2c25de10210182dfcd886cfd48
     }
 }
 ?>

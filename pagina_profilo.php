@@ -123,10 +123,6 @@ $n_compagni = $row['compagni'] ?? 0;
   .photos-container {
     gap: 0.5rem;
   }
-  .photos-container img {
-    width: calc(50% - 0.5rem);
-    height: 80px;
-  }
 
   /* Se hai il menu fisso in basso, centrato */
   .profile-menu-wrapper {
@@ -135,7 +131,6 @@ $n_compagni = $row['compagni'] ?? 0;
     left: 20px;
     z-index: 1000;
     }
-
 }
 
   </style>

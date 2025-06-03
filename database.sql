@@ -426,6 +426,7 @@ COPY public.chat_viaggio (id, viaggio_id, utente_id, messaggio, data_creazione) 
 31	48	7	tutto bene, da dove parti?	2025-05-22 21:53:03.837668
 32	42	2	ciao	2025-05-27 09:02:21.059936
 33	42	4	ciao Luca	2025-05-27 09:02:30.494733
+34	59	7	Ciao	2025-06-03 23:31:25.548628
 \.
 
 
@@ -445,6 +446,10 @@ COPY public.itinerari (id, nome_itinerario, luoghi, data_creazione, viaggio_id, 
 9	Roma	["Marco Polo, san lorenzo","santa maria maggiore","Colosseo","fori imperiali","porta pia","basilica san Pietro","villa borghese"]	2025-05-26 17:35:10.86851	12	4
 10	roma 2	["colosseo"]	2025-05-26 17:38:33.397256	12	4
 11	Tokyo	[]	2025-05-26 17:42:36.329228	18	4
+12	Ha noi	["Tran Quoc Pagoda","Th\\u0103ng Long","ngoc Kh\\u00e1nh","hang bot","kim lien","tu lien"]	2025-06-03 22:42:07.015394	57	15
+13	Athene	["partenone","acropoli, Athene","nike, Athene","eretteo","agora, Athene","teatro di dioniso"]	2025-06-03 23:20:55.777138	58	15
+14	Athene	["partenone","acropoli, Athene","agora, Athene","teatro di Dioniso","parlamento, Athene"]	2025-06-03 23:33:46.622039	58	7
+15	Roma	["ara pacis","basilica di santa maria maggiore","fontana di trevi","palazzo Bonaparte","lungotevere","fori imperiali","piazza trilussa"]	2025-06-03 23:51:40.822666	59	7
 \.
 
 
@@ -674,6 +679,28 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 2	4	42	Bologna	f	2025-05-27 08:58:56.474039	like	552
 2	4	42	Bologna	f	2025-05-27 08:59:10.533588	match_accepted	553
 4	2	42	Bologna	f	2025-05-27 08:59:10.547201	match_accepted	554
+8	8	28	Amsterdam	f	2025-06-03 22:13:00.806773	registra_viaggio	555
+7	8	28	Amsterdam	f	2025-06-03 22:13:00.811491	registra_viaggio	556
+6	8	28	Amsterdam	f	2025-06-03 22:13:00.812025	registra_viaggio	557
+4	8	28	Amsterdam	f	2025-06-03 22:13:00.812501	registra_viaggio	558
+7	7	54	Perugia	f	2025-06-03 22:13:00.814323	registra_viaggio	559
+6	7	54	Perugia	f	2025-06-03 22:13:00.815026	registra_viaggio	560
+2	15	29	Parigi	f	2025-06-03 22:23:36.702902	like	561
+2	15	29	Parigi	f	2025-06-03 22:23:37.175124	like	562
+6	15	19	Berlino	f	2025-06-03 22:23:37.552024	like	563
+15	15	57	Hanoi	f	2025-06-03 22:32:00.319718	registra_viaggio	564
+15	15	58	Atene	f	2025-06-03 22:34:00.692323	registra_viaggio	565
+15	15	59	Roma	f	2025-06-03 23:30:00.624774	registra_viaggio	566
+15	7	58	Atene	f	2025-06-03 23:30:04.731388	like	567
+15	7	59	Roma	f	2025-06-03 23:30:06.568118	like	568
+2	15	29	Parigi	f	2025-06-03 23:30:51.826243	like	569
+6	15	19	Berlino	f	2025-06-03 23:30:53.320433	like	570
+15	7	58	Atene	f	2025-06-03 23:30:58.964338	match_accepted	571
+7	15	58	Atene	f	2025-06-03 23:30:58.977047	match_accepted	572
+7	15	58	Atene	f	2025-06-03 23:31:00.680375	registra_viaggio	573
+15	7	59	Roma	f	2025-06-03 23:31:01.207562	match_accepted	574
+7	15	59	Roma	f	2025-06-03 23:31:01.212617	match_accepted	575
+7	15	59	Roma	f	2025-06-03 23:32:00.781649	registra_viaggio	576
 \.
 
 
@@ -706,8 +733,9 @@ COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_part
 6	fra@gmail.com	Europa	2025-05-31	2025-06-02	10-12345678	ristoranti	gruppo
 4	marco.rossi@example.com	Europa	2025-05-30	2025-06-08	10-30000	ristoranti	gruppo
 4	marco.rossi@example.com	Europa	2025-05-30	2025-06-08	10-30000	ristoranti	gruppo
-7	ida@ida.it	Europa	2025-05-29	2025-06-02	10-2000	ristoranti	gruppo
-7	ida@ida.it	Europa	2025-05-29	2025-06-02	10-2000	ristoranti	gruppo
+15	benvenutogiusy8@gmail.com	Europa	2025-06-03	2025-06-06	10-30000	musei	gruppo
+7	ida@ida.it	Europa	2025-06-02	2025-06-03	20-600	musei	coppia
+7	ida@ida.it	Europa	2025-06-02	2025-06-03	20-600	musei	coppia
 \.
 
 
@@ -730,6 +758,7 @@ COPY public.profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, 
 9	b@e.it	betta	22	Mi piace viaggiare con il mio ragazzo.	#cee3f4	20003-04-17	uploads/profilo_682e309c56f84.png	50
 7	ida@ida.it	Ida Benvenuto	22	Studentessa di design e amante della moda. Viaggiare mi ispira moltissimo.	#f4cedc	2003-08-19	uploads/profilo_681a409cd4722.jpg	50
 14	lorenzosdf@gmail.com	bebbu	0		#fbfbce	2025-05-16	uploads/profilo_68347f453c468.png	50
+15	benvenutogiusy8@gmail.com	b_giusy	24	Amo scoprire nuovi posti e culture	#faf3bfc4	2000-12-08	uploads/683f5993c2d2a_	\N
 \.
 
 
@@ -803,8 +832,12 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 4	48	t	2025-05-26 19:12:22.81579
 4	54	t	2025-05-26 19:12:24.010717
 4	42	t	2025-05-27 08:58:56.43503
-7	56	f	2025-05-28 22:22:23.421205
-7	42	t	2025-05-28 22:27:12.535966
+7	42	f	2025-06-03 23:29:34.624729
+7	56	f	2025-06-03 23:29:35.431058
+7	58	t	2025-06-03 23:30:04.713753
+7	59	t	2025-06-03 23:30:06.562498
+15	29	t	2025-06-03 23:30:51.789156
+15	19	t	2025-06-03 23:30:53.312676
 \.
 
 
@@ -827,6 +860,7 @@ COPY public.utenti (id, nome, nickname, email, data_di_nascita, password) FROM s
 13	Mario	mariodeside	mario@icloud.it	1968-01-30	$2y$10$7RsaQXT2Co780RKbF0ghK.NLX9TGvG15MStSOCkFnNQ0mryrdiC1m
 14	Lorenzo	bebè	lorenzosdf@gmail.com	2025-05-16	$2y$10$3rDQi4JSN37SpI6jxUFxd.iggHwx06/1frZmwOc818dWjzB0E0vqK
 7	Ida Benvenuto	ida_b	ida@ida.it	2003-08-19	$2y$10$YOBplovcQqaV/gl3QOED3OI8gVU3oyAUYpMVcxz0E.L.Lwk386Uke
+15	Giusy	b_giusy	benvenutogiusy8@gmail.com	2000-12-08	$2y$10$z.vsyhMXy3dfKU0q8EWMIe6zqGpxDRt9a5AwamdNAgNdmZA/eUfKa
 \.
 
 
@@ -890,6 +924,9 @@ COPY public.viaggi (id, user_id, destinazione, data_partenza, data_ritorno, budg
 54	7	Perugia	2025-05-29	2025-06-01	300	ristoranti	\N	gruppo	Alla scoperta della cioccolata migliore di'Italia.	/uploads/683480ad934d7_images-2.jpeg	43.10703210	12.40299620
 55	7	Oslo	2025-05-31	2025-06-04	400	ristoranti	\N	gruppo	Tra ristoranti stellati e mercatini locali, la capitale norvegese è un vero paradiso per chi ama scoprire nuovi sapori. Dal salmone fresco ai piatti tipici come il “fårikål”, ogni assaggio è un viaggio nella cultura nordica! 🇳🇴✨	/uploads/683485b626df3_Oslo2-800x445.jpg	59.91333010	10.73897010
 56	8	Varsavia	2025-05-30	2025-06-04	400	ristoranti	\N	gruppo	Varsavia, una città esuberante, movimentata, piena di vita.	/uploads/683487aa00cbc_images-3.jpeg	52.23371720	21.07143220
+57	15	Hanoi	2025-06-01	2025-06-02	2000	natura	\N	gruppo	Tra templi antichi, street food incredibile e il caos meraviglioso del Quartiere Vecchio.\r\nVietnam, arriviamo! 🇻🇳✈️	/uploads/683f5b873641f_iStock-2157440310-edited-Header_Mobile.avif	21.02833340	105.85404100
+58	15	Atene	2025-06-02	2025-06-03	300	musei	\N	gruppo	Tra rovine millenarie, tramonti sull’Acropoli e tanto souvlaki.\r\nPronti a tuffarci nella storia (e nel mare)! 🏛️🌊	/uploads/683f5c0942210_Athens-Monastiraki-Evening-2048x1365.jpg	37.97556480	23.73483240
+59	15	Roma	2025-06-02	2025-06-03	300	musei	\N	coppia	Roma non è solo una città: è un museo vivo, dove ogni passo ha il peso del tempo e la bellezza dell’eterno.	/uploads/683f693053b04_536216-roman-forum.jpg	41.89332030	12.48293210
 \.
 
 
@@ -908,6 +945,10 @@ COPY public.viaggi_terminati (id, utente_id, viaggio_id, descrizione, valutazion
 17	8	17	è stato bellissimo	5	/uploads/6824cb33dc89b_Screenshot_2025-05-13_223922.png	\N	\N	\N	\N	2025-05-14 18:56:19.904421	40	60	10	50	10
 19	7	39	"Una città affascinante, divisa in due anime: la storica Buda e la vivace Pest.	4	/uploads/682ede36eebeb_istockphoto-508662108-612x612.jpg	/uploads/682ede36ef23d_images.jpeg	\N	\N	\N	2025-05-22 10:20:06.98022	20	70	20	60	40
 22	4	12	Bellissima città, la compagnia non è stata delle migliori	2	/uploads/68348b11b8d75_Roma_in_breve.jpg	/uploads/68348b11b91b5_536216-roman-forum.jpg	\N	\N	\N	2025-05-26 17:38:57.758465	10	10	90	70	30
+24	15	57	Hanoi è un mix perfetto di caos e bellezza: ogni angolo racconta una storia, ogni piatto è una scoperta. Una città che ti conquista senza chiedere permesso. 🇻🇳✨	5	/uploads/683f5e610e164_00.hanoi-cosa-vedere_fb.jpg	/uploads/683f5e610fd6a_Hanoi-iStock-1463987072.jpg	/uploads/683f5e610fdd0_vacanze_in_vietnam_vista_aerea_hanoi_HD.jpg	/uploads/683f5e610ff15_iStock-2157440310-edited-Header_Mobile.avif	/uploads/683f5e610ffe2_hanoi-1400x788-3.jpg	2025-06-03 22:43:13.065976	40	10	60	80	30
+25	15	58	Culla della civiltà e regina del Mediterraneo, Atene è un viaggio nel tempo tra templi maestosi e tramonti dorati sull’Acropoli.	5	/uploads/683f6804cd667_Athens-Acropolis-Panorama-Night.jpg	/uploads/683f6804ce3dd_images-5.jpeg	/uploads/683f6804ce436_images-4.jpeg	/uploads/683f6804ce47c_Athens-Monastiraki-Evening-2048x1365.jpg	\N	2025-06-03 23:24:20.846134	20	40	80	100	20
+26	7	58	Atene sorprende a ogni angolo: storia millenaria, tramonti mozzafiato e un’energia vibrante che unisce passato e presente. Una città che resta nel cuore. 🇬🇷✨	5	/uploads/683f6ac6d32d7_3d351145af20c0bf24427a750fe38c1a-Group_1.jpg.avif	/uploads/683f6ac6d4ed2_images-6.jpeg	/uploads/683f6ac6d4f34_Athens-Monastiraki-Evening-2048x1365.jpg	\N	\N	2025-06-03 23:36:06.875456	20	50	80	70	40
+29	7	59	Una città che unisce il fascino del passato con l'energia del presente. Impossibile non innamorarsene	4	/uploads/683f6eb5bdf59_07-cosa-vedere-a-roma-10-attrazioni-da-non-perdere-assolutamente.jpg	/uploads/683f6eb5be550_Colosseo-tramonto-clima-Roma.jpg.webp	/uploads/683f6eb5be5d4_Fontana-di-Trevi.jpg	/uploads/683f6eb5be636_roma-in-3-giorni-2.jpg	\N	2025-06-03 23:52:53.780638	10	10	70	80	50
 \.
 
 
@@ -995,6 +1036,11 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 56	6	partecipante
 28	4	partecipante
 42	4	partecipante
+57	15	ideatore
+58	15	ideatore
+59	15	ideatore
+58	7	partecipante
+59	7	partecipante
 \.
 
 
@@ -1002,7 +1048,7 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 -- Name: chat_viaggio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 33, true);
+SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 34, true);
 
 
 --
@@ -1016,35 +1062,35 @@ SELECT pg_catalog.setval('public.esperienze_id_seq', 2, true);
 -- Name: itinerari_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.itinerari_id_seq', 11, true);
+SELECT pg_catalog.setval('public.itinerari_id_seq', 15, true);
 
 
 --
 -- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifiche_id_seq', 554, true);
+SELECT pg_catalog.setval('public.notifiche_id_seq', 576, true);
 
 
 --
 -- Name: utenti_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.utenti_id_seq', 14, true);
+SELECT pg_catalog.setval('public.utenti_id_seq', 15, true);
 
 
 --
 -- Name: viaggi_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_id_seq', 56, true);
+SELECT pg_catalog.setval('public.viaggi_id_seq', 59, true);
 
 
 --
 -- Name: viaggi_terminati_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 23, true);
+SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 29, true);
 
 
 --

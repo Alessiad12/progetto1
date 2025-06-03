@@ -8,10 +8,10 @@ if (!isset($_SESSION['id_utente'])) {
 }
 
 $utente_id = intval($_SESSION['id_utente']);
-
+$viaggio_id = intval($_GET['viaggio_id'] ?? 0);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // --- 1) Ricevo i dati dal form ---
-    $viaggio_id  = intval($_POST['viaggio_id'] ?? 0);
+$viaggio_id = intval($_POST['viaggio_id'] ?? 0);
     $descrizione = trim($_POST['descrizione'] ?? '');
     $valutazione = intval($_POST['valutazione'] ?? 0);
 
