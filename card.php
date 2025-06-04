@@ -187,7 +187,7 @@ $is_mobile = isset($_GET['mobile']) || preg_match('/(android|iphone|ipad|mobile)
     </div>
 <?php endif; ?>
 <?php foreach ($viaggi as $viaggio): 
-    $stili_disponibili = ['stile1', 'stile2', 'stile3', 'stile4'];
+    $stili_disponibili = ['stile1', 'stile2', 'stile4'];
 
     // Scelta random di uno stile
     $classe_stile = $stili_disponibili[array_rand($stili_disponibili)];

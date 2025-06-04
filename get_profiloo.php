@@ -46,6 +46,22 @@ $sql = "
 $result = pg_query_params($dbconn, $sql, [$utente_id]);
 $ro = pg_fetch_assoc($result);
 $n_viaggi = $ro ? $ro['viaggi'] : 0;
+
+$sql = <<<SQL
+SELECT COUNT(DISTINCT vt2.utente_id) AS compagni
+FROM viaggi_terminati vt2
+WHERE vt2.viaggio_id IN (
+    SELECT vt1.viaggio_id
+    FROM viaggi_terminati vt1
+    WHERE vt1.utente_id = $1
+)
+AND vt2.utente_id <> $1
+SQL;
+$res = pg_query_params($dbconn, $sql, [ $utente_id ]);
+$row = pg_fetch_assoc($res);
+$n_compagni = $row['compagni'] ?? 0;
+
+
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -68,8 +84,7 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
       width: 100%!important;
       height: 100%;
     }
-    /* ===== Disposizione mobile per pagina profilo ===== */
-@media (max-width: 600px) {
+    @media (max-width: 600px) {
   /* Permetti alla pagina di crescere in altezza invece che restare ferma a 100vh */
   .page-wrapper {
     flex-direction: column !important;
@@ -103,10 +118,6 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
   .photos-container {
     gap: 0.5rem;
   }
-  .photos-container img {
-    width: calc(50% - 0.5rem);
-    height: 80px;
-  }
 
   /* Se hai il menu fisso in basso, centrato */
   .profile-menu-wrapper {
@@ -116,13 +127,6 @@ $n_viaggi = $ro ? $ro['viaggi'] : 0;
     z-index: 1000;
     }
 }
-    .logo-img {
-        height: 40px;
-        width: auto;
-        margin-right: 10px;
-        vertical-align: middle;
-        filter: brightness(0) invert(1); 
-    }
   </style>
 </head>
 <body>
@@ -155,7 +159,7 @@ background-color: #9cc4cc;'>
     <p class="profile-bio">Viaggiatore curioso.<br> Amo conoscere culture e paesaggi.</p>
     <div class="profile-stats">
       <div class="stat-card">
-        Compagni<br><span class="profile-compagni"></span>
+        Compagni<br><span class="profile-compagni"><?= intval($n_compagni) ?></span>
       </div>
       <div class="stat-card">
         Viaggi<br><span class="profile-viaggi"><?= htmlspecialchars($n_viaggi) ?></span>

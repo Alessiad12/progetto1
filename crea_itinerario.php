@@ -492,9 +492,9 @@ $data_ritorno    = $row['data_ritorno']   ?? '';
       .then(response => {
         alert("Itinerario salvato con successo!");
         setTimeout(() => {
-          window.location.href = 'termina_viaggio.php';
-        }, 1000); // 1000 ms = 1 secondo
-      })
+          window.location.href = 'termina_viaggio.php?viaggio_id=' + encodeURIComponent(viaggio_id);
+      }, 1000);
+        }) 
       .catch(err => {
         console.error("Errore nel salvataggio:", err);
         alert("Errore nel salvataggio.");

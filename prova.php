@@ -19,7 +19,7 @@ $sql = "
   FROM viaggi_terminati v
   JOIN viaggi vi ON vi.id = v.viaggio_id
   WHERE v.viaggio_id = $1
-  LIMIT 1
+  
 ";
 $res = pg_query_params($dbconn, $sql, [$viaggio_id]);
 if (!$res || pg_num_rows($res) === 0) {
@@ -348,33 +348,30 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
 <div class="next-section">
   <div class="contenitore_immagini">
     <?php
-      // Primo ciclo
-      for ($i=1; $i<=5; $i++) {
-        $f = $trip["foto{$i}"];
-        if (empty($f)) continue; // Salta foto vuote
-          echo '<img src="'.htmlspecialchars($f). '" alt="Foto '.$i.'"class="immagine" style="width: 300px; height: 200px;">';
-      }
-            for ($i=1; $i<=5; $i++) {
-        $f = $trip["foto{$i}"];
-        if (empty($f)) continue; // Salta foto vuote
-          echo '<img src="'.htmlspecialchars($f). '" alt="Foto '.$i.'"class="immagine" style="width: 300px; height: 200px;">';
-      }
-            for ($i=1; $i<=5; $i++) {
-        $f = $trip["foto{$i}"];
-        if (empty($f)) continue; // Salta foto vuote
-          echo '<img src="'.htmlspecialchars($f). '" alt="Foto '.$i.'"class="immagine" style="width: 300px; height: 200px;">';
-      }
-                  for ($i=1; $i<=5; $i++) {
-        $f = $trip["foto{$i}"];
-        if (empty($f)) continue; // Salta foto vuote
-          echo '<img src="'.htmlspecialchars($f). '" alt="Foto '.$i.'"class="immagine" style="width: 300px; height: 200px;">';
-      }
-            for ($i=1; $i<=5; $i++) {
-        $f = $trip["foto{$i}"];
-        if (empty($f)) continue; // Salta foto vuote
-          echo '<img src="'.htmlspecialchars($f). '" alt="Foto '.$i.'"class="immagine" style="width: 300px; height: 200px;">';
+      // Ricarica il risultato della query per ciclare tutte le righe
+      $sql = "
+        SELECT v.foto1, v.foto2, v.foto3, v.foto4, v.foto5
+        FROM viaggi_terminati v
+        WHERE v.viaggio_id = $1
+      ";
+      $res = pg_query_params($dbconn, $sql, [$viaggio_id]);
+
+      // Raccogli tutte le foto non vuote in un array
+      $tutte_le_foto = [];
+      while ($row = pg_fetch_assoc($res)) {
+        for ($i = 1; $i <= 5; $i++) {
+          $f = $row["foto{$i}"];
+          if (!empty($f)) $tutte_le_foto[] = $f;
+        }
       }
 
+      // Quante volte vuoi ripetere la sequenza per il loop (es: 3 volte)
+      $ripetizioni = 6;
+      for ($r = 0; $r < $ripetizioni; $r++) {
+        foreach ($tutte_le_foto as $idx => $f) {
+          echo '<img src="'.htmlspecialchars($f).'" alt="Foto '.($idx+1).'" class="immagine" style="width: 300px; height: 200px;">';
+        }
+      }
     ?>
   </div>
 </div>

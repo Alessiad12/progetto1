@@ -147,8 +147,8 @@ if ($viaggio_id > 0) {
   <div class="card">
     <h1>Il tuo viaggio</h1>
 <form action="salva_viaggio_terminato.php" method="POST" enctype="multipart/form-data">
-  <input type="hidden" name="viaggio_id" value="<?= htmlspecialchars($viaggio_id) ?>">
-       <div style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+  <input type="hidden" name="viaggio_id" value="<?= htmlspecialchars($viaggio_id) ?> ">
+     <div style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
         <a href="crea_itinerario.php?lat=<?= urlencode($lat) ?>&lon=<?= urlencode($lon) ?>&viaggio_id=<?= urlencode($viaggio_id) ?>" class="btn-submit">Inserisci Itinerario</a>
      </div>
       <div>
