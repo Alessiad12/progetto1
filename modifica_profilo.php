@@ -138,14 +138,6 @@ pg_query_params($dbconn, $sql_profilo, [$nome, $bio, $colore, $path_db, $current
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" readonly>
 
-      <label class="preferito">Viaggio :</label>
-      <div class="preferito-options">
-        <button type="button" data-value="spiaggia">🏖️ Rilassarsi in spiaggia</button>
-        <button type="button" data-value="musei">🏛️ Imparare nei musei</button>
-        <button type="button" data-value="ristoranti">🍴 Provare nuovi ristoranti</button>
-        <button type="button" data-value="avventura">🧗‍♂️ Avventure all'aria aperta</button>
-      </div>
-
       <div class="colore_preferito">
         <label for="colore_preferito">Colore preferito:</label>
         <div class="color-options">

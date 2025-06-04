@@ -6,9 +6,12 @@ if (!isset($_SESSION['id_utente'])) {
   header('Location: login.php');
   exit;
 }
+if (!isset($_POST['viaggio_id'])) {
+    die('Errore: viaggio_id mancante nel POST.');
+}
 
 $utente_id   = intval($_SESSION['id_utente']);
-$viaggio_id  = intval($_POST['viaggio_id'] ?? 0);
+$viaggio_id  = ($_POST['viaggio_id'] ?? 0);
 $descrizione = trim($_POST['descrizione'] ?? '');
 $valutazione = intval($_POST['valutazione'] ?? 0);
 

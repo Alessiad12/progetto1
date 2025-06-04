@@ -8,7 +8,6 @@ if (!isset($_SESSION['id_utente'])) {
 }
 
 $utente_id = intval($_SESSION['id_utente']);
-// Se arrivo qui, è GET: mostro il form
 $viaggio_id = intval($_GET['viaggio_id'] ?? 0);
 $lat = '';
 $lon = '';
@@ -149,7 +148,9 @@ if ($viaggio_id > 0) {
     <h1>Il tuo viaggio</h1>
 <form action="salva_viaggio_terminato.php" method="POST" enctype="multipart/form-data">
   <input type="hidden" name="viaggio_id" value="<?= htmlspecialchars($viaggio_id) ?>">
-
+       <div style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+        <a href="crea_itinerario.php?lat=<?= urlencode($lat) ?>&lon=<?= urlencode($lon) ?>&viaggio_id=<?= urlencode($viaggio_id) ?>" class="btn-submit">Inserisci Itinerario</a>
+     </div>
       <div>
         <label for="descrizione">Descrizione</label>
         <textarea id="descrizione" name="descrizione" required></textarea>
@@ -175,9 +176,7 @@ if ($viaggio_id > 0) {
             </div>
           <?php endfor; ?>
         </div>
-     <div style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
-        <a href="crea_itinerario.php?lat=<?= urlencode($lat) ?>&lon=<?= urlencode($lon) ?>&viaggio_id=<?= urlencode($viaggio_id) ?>" class="btn-submit">Inserisci Itinerario</a>
-     </div>
+
 
 
       <label>Natura e avventura (%)</label>
@@ -239,21 +238,6 @@ if ($viaggio_id > 0) {
       };
       reader.readAsDataURL(file);
     });
-  });
-</script>
-<script>
-  // Prendi viaggio_id dalla query string se presente
-  function getViaggioIdFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('viaggio_id');
-  }
-
-  // Imposta il valore del campo hidden al caricamento della pagina
-  document.addEventListener('DOMContentLoaded', function() {
-    const viaggioIdFromUrl = getViaggioIdFromUrl();
-    if (viaggioIdFromUrl) {
-      document.getElementById('viaggio_id_hidden').value = viaggioIdFromUrl;
-    }
   });
 </script>
 </body>

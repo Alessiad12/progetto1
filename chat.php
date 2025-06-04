@@ -168,6 +168,76 @@ while ($row = pg_fetch_assoc($res)) {
       color:#fff; padding:8px 12px; border-radius:50%; cursor:pointer;
     }
     .chat-input button:hover { background:#084298; }
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .sidebar-col {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+
+  .chat-panel {
+    flex: 1;
+    width: 100%;
+    min-height: calc(100vh - 220px);
+    background-size: cover;
+    background-position: center;
+  }
+
+  .chat-header,
+  .chat-input {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .chat-input {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .chat-input input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .chat-input button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+
+  .chat-list-item {
+    padding: 0.5rem;
+  }
+
+  .chat-list-item img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .testo-messaggio {
+    max-width: 85%;
+    font-size: 0.95rem;
+  }
+
+  .nome-utente {
+    font-size: 0.8rem;
+  }
+
+  .ora-messaggio {
+    font-size: 0.7rem;
+  }
+}
+
+    
   </style>
 </head>
 <body>

@@ -180,6 +180,12 @@ $is_mobile = isset($_GET['mobile']) || preg_match('/(android|iphone|ipad|mobile)
         </ul>
 </nav>
 <div class="card-container" id="cardContainer">
+<?php if (empty($viaggi)): ?>
+    <div class="no-trips" style="text-align: center; margin-top: 50px;">
+        <h3>Non ci sono viaggi disponibili per le tue preferenze.</h2>
+        <p>Prova a modificare le tue preferenze o a creare un nuovo viaggio.</p>
+    </div>
+<?php endif; ?>
 <?php foreach ($viaggi as $viaggio): 
     $stili_disponibili = ['stile1', 'stile2', 'stile3', 'stile4'];
 

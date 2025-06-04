@@ -427,6 +427,9 @@ COPY public.chat_viaggio (id, viaggio_id, utente_id, messaggio, data_creazione) 
 32	42	2	ciao	2025-05-27 09:02:21.059936
 33	42	4	ciao Luca	2025-05-27 09:02:30.494733
 34	59	7	Ciao	2025-06-03 23:31:25.548628
+35	29	15	ciao	2025-06-04 09:28:30.840161
+36	59	15	ciao	2025-06-04 09:32:57.024402
+37	60	15	ciao	2025-06-04 09:33:07.627124
 \.
 
 
@@ -452,6 +455,7 @@ COPY public.itinerari (id, nome_itinerario, luoghi, data_creazione, viaggio_id, 
 15	Roma	["ara pacis","basilica di santa maria maggiore","fontana di trevi","palazzo Bonaparte","lungotevere","fori imperiali","piazza trilussa"]	2025-06-03 23:51:40.822666	59	7
 16	Roma	["Piazza Bologna, roma","verano, roma","villa borghese","piazza Euclide","colosseo"]	2025-06-04 00:34:41.239324	59	15
 17	marocco	["marrakesh","medina, marrakesh","fez","casablanca","merzouga"]	2025-06-04 00:50:58.86172	60	15
+18	Varsavia	["castello reale di varsavia","parco praski","Polin, varsavia","Zoo di Varsavia"]	2025-06-04 09:10:38.659002	56	6
 \.
 
 
@@ -712,6 +716,8 @@ COPY public.notifiche (utente_id, mittente_id, viaggio_id, titolo_viaggio, letta
 4	15	60	Marocco	f	2025-06-04 00:46:45.742057	match_accepted	583
 15	4	60	Marocco	f	2025-06-04 00:46:45.760101	match_accepted	584
 15	4	60	Marocco	f	2025-06-04 00:47:00.254135	registra_viaggio	585
+2	15	29	Parigi	f	2025-06-04 09:28:08.237155	match_accepted	586
+15	2	29	Parigi	f	2025-06-04 09:28:08.258489	match_accepted	587
 \.
 
 
@@ -746,7 +752,7 @@ COPY public.preferenze_utente_viaggio (utente_id, email, destinazione, data_part
 4	marco.rossi@example.com	Europa	2025-05-30	2025-06-08	10-30000	ristoranti	gruppo
 7	ida@ida.it	Europa	2025-06-02	2025-06-03	20-600	musei	coppia
 7	ida@ida.it	Europa	2025-06-02	2025-06-03	20-600	musei	coppia
-15	benvenutogiusy8@gmail.com	Africa	2025-06-02	2025-06-07	10-700	spiaggia	gruppo
+15	benvenutogiusy8@gmail.com	Europa	2025-06-03	2025-06-08	10-1000	ristoranti	gruppo
 \.
 
 
@@ -769,7 +775,7 @@ COPY public.profili (id, email, nome, eta, bio, colore_sfondo, data_di_nascita, 
 9	b@e.it	betta	22	Mi piace viaggiare con il mio ragazzo.	#cee3f4	20003-04-17	uploads/profilo_682e309c56f84.png	50
 7	ida@ida.it	Ida Benvenuto	22	Studentessa di design e amante della moda. Viaggiare mi ispira moltissimo.	#f4cedc	2003-08-19	uploads/profilo_681a409cd4722.jpg	50
 14	lorenzosdf@gmail.com	bebbu	0		#fbfbce	2025-05-16	uploads/profilo_68347f453c468.png	50
-15	benvenutogiusy8@gmail.com	b_giusy	24	Amo scoprire nuovi posti e culture	#faf3bfc4	2000-12-08	uploads/683f5993c2d2a_	\N
+15	benvenutogiusy8@gmail.com	b_giusy	24	Amo scoprire nuovi posti e culture	#cef4e3	2000-12-08	uploads/profilo_683ff6d2b0223.avif	50
 \.
 
 
@@ -850,6 +856,7 @@ COPY public.swipes (user_id, trip_id, is_like, created_at) FROM stdin;
 15	29	t	2025-06-03 23:30:51.789156
 15	19	t	2025-06-03 23:30:53.312676
 15	60	t	2025-06-04 00:46:36.285826
+15	42	f	2025-06-04 09:03:15.850436
 \.
 
 
@@ -934,12 +941,12 @@ COPY public.viaggi (id, user_id, destinazione, data_partenza, data_ritorno, budg
 52	4	Bruxelles	2025-09-15	2025-09-22	900	musei	Belga	coppia	Cultura, birra e cioccolato.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	50.85033960	4.35171030
 53	7	Bruxelles	2025-05-02	2025-06-10	900	musei	Belga	coppia	Cultura, birra e cioccolato.	https://i.pinimg.com/736x/08/ee/30/08ee30a9990aea92d1f2a90ea9a35971.jpg	50.85033960	4.35171030
 54	7	Perugia	2025-05-29	2025-06-01	300	ristoranti	\N	gruppo	Alla scoperta della cioccolata migliore di'Italia.	/uploads/683480ad934d7_images-2.jpeg	43.10703210	12.40299620
-55	7	Oslo	2025-05-31	2025-06-04	400	ristoranti	\N	gruppo	Tra ristoranti stellati e mercatini locali, la capitale norvegese è un vero paradiso per chi ama scoprire nuovi sapori. Dal salmone fresco ai piatti tipici come il “fårikål”, ogni assaggio è un viaggio nella cultura nordica! 🇳🇴✨	/uploads/683485b626df3_Oslo2-800x445.jpg	59.91333010	10.73897010
 56	8	Varsavia	2025-05-30	2025-06-04	400	ristoranti	\N	gruppo	Varsavia, una città esuberante, movimentata, piena di vita.	/uploads/683487aa00cbc_images-3.jpeg	52.23371720	21.07143220
 57	15	Hanoi	2025-06-01	2025-06-02	2000	natura	\N	gruppo	Tra templi antichi, street food incredibile e il caos meraviglioso del Quartiere Vecchio.\r\nVietnam, arriviamo! 🇻🇳✈️	/uploads/683f5b873641f_iStock-2157440310-edited-Header_Mobile.avif	21.02833340	105.85404100
 58	15	Atene	2025-06-02	2025-06-03	300	musei	\N	gruppo	Tra rovine millenarie, tramonti sull’Acropoli e tanto souvlaki.\r\nPronti a tuffarci nella storia (e nel mare)! 🏛️🌊	/uploads/683f5c0942210_Athens-Monastiraki-Evening-2048x1365.jpg	37.97556480	23.73483240
 59	15	Roma	2025-06-02	2025-06-03	300	musei	\N	coppia	Roma non è solo una città: è un museo vivo, dove ogni passo ha il peso del tempo e la bellezza dell’eterno.	/uploads/683f693053b04_536216-roman-forum.jpg	41.89332030	12.48293210
 60	4	Marocco	2025-06-03	2025-06-04	500	spiaggia	\N	gruppo	Il Marocco è un paese che incanta i sensi e lascia un'impronta nel cuore.	/uploads/683f7b14f204f_marocco-FILEminimizer.jpg	28.33477220	-10.37133790
+55	7	Oslo	2025-05-31	2025-06-04	400	ristoranti	\N	gruppo	Tra ristoranti stellati e mercatini locali, la capitale norvegese è un vero paradiso per chi ama scoprire nuovi sapori. 🇳🇴✨	/uploads/683485b626df3_Oslo2-800x445.jpg	59.91333010	10.73897010
 \.
 
 
@@ -968,6 +975,11 @@ COPY public.viaggi_terminati (id, utente_id, viaggio_id, descrizione, valutazion
 33	15	59	L’atmosfera romantica di Trastevere, il fascino senza tempo delle piazze e fontane, e la cucina straordinaria rendono Roma una delle destinazioni più affascinanti del mondo. Ci tornerò sicuramente!" 🇮🇹✨	5	/uploads/683f78d2b9e19_Colosseo-tramonto-clima-Roma.jpg.webp	/uploads/683f78d2ba21d_roma-in-3-giorni-2.jpg	/uploads/683f78d2ba2b1_Cosa-vedere-a-Roma.jpg	/uploads/683f78d2ba2f8_cosa-vedere-roma.jpg.webp	\N	2025-06-04 00:36:02.76276	10	20	50	70	40
 35	15	60	Un viaggio in Marocco è un viaggio tra passato e presente, tra spiritualità e avventura. 🐪🌄🇲🇦	4	/uploads/683f7cb4270c5_Marocco-un-gennaio-da-record-con-12-milioni-di-turisti.jpg	/uploads/683f7cb42774e_marocco_1925269691-613x362.jpg	/uploads/683f7cb4277a4_Fez-shutterstock_2423382453.jpg	/uploads/683f7cb4277f3_marocco-FILEminimizer.jpg	\N	2025-06-04 00:52:36.162164	60	20	40	70	10
 36	4	60	Dalle vivaci medine di Marrakech e Fès, ai paesaggi mozzafiato del deserto del Sahara, passando per le maestose montagne dell'Atlante e le coste dell’oceano Atlantico, ogni angolo del Marocco racconta una storia ricca di cultura, tradizione e colori.	3	/uploads/683f7d5487495_marocco_1925269691-613x362.jpg	\N	\N	\N	\N	2025-06-04 00:55:16.556539	20	20	20	20	20
+37	6	0	"Varsavia è una vera scoperta! 🌆✨ Tra palazzi storici, street art coloratissima e locali super cool, la capitale polacca mixa passato e futuro alla perfezione. Una città che non ti aspetti... ma che ti resta nel cuore! 💙🇵🇱	5	/uploads/683ff21b02018_shutterstock-437849467.jpeg	/uploads/683ff21b028f6_warsaw-1423864_1280.jpg.webp	/uploads/683ff21b029e3_guida-di-varsavia-blog-castello-reale-colonna-del-re-sigismondo-3-waza-piazza-del-castello-centro-storico-citta-vecchia-di-varsavia.jpg	/uploads/683ff21b02a6f_iStock-1009606890-HEADERMOBILE.avif	\N	2025-06-04 09:13:31.011133	10	40	50	60	30
+38	15	0		0	\N	\N	\N	\N	\N	2025-06-04 09:19:26.901303	0	0	0	0	0
+39	15	0		0	\N	\N	\N	\N	\N	2025-06-04 09:19:37.370973	0	0	0	0	0
+40	6	55	ghbljk	5	\N	\N	\N	\N	\N	2025-06-04 09:24:56.116974	0	1	11	11	23
+41	6	26	dutyiguho	2	/uploads/683ff5397c38d_guida-di-varsavia-blog-castello-reale-colonna-del-re-sigismondo-3-waza-piazza-del-castello-centro-storico-citta-vecchia-di-varsavia.jpg	\N	\N	\N	\N	2025-06-04 09:26:49.511225	1	1	1	1	1
 \.
 
 
@@ -1062,6 +1074,7 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 59	7	partecipante
 60	4	ideatore
 60	15	partecipante
+29	15	partecipante
 \.
 
 
@@ -1069,7 +1082,7 @@ COPY public.viaggi_utenti (viaggio_id, user_id, ruolo) FROM stdin;
 -- Name: chat_viaggio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 34, true);
+SELECT pg_catalog.setval('public.chat_viaggio_id_seq', 37, true);
 
 
 --
@@ -1083,14 +1096,14 @@ SELECT pg_catalog.setval('public.esperienze_id_seq', 2, true);
 -- Name: itinerari_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.itinerari_id_seq', 17, true);
+SELECT pg_catalog.setval('public.itinerari_id_seq', 18, true);
 
 
 --
 -- Name: notifiche_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifiche_id_seq', 585, true);
+SELECT pg_catalog.setval('public.notifiche_id_seq', 587, true);
 
 
 --
@@ -1111,7 +1124,7 @@ SELECT pg_catalog.setval('public.viaggi_id_seq', 60, true);
 -- Name: viaggi_terminati_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 36, true);
+SELECT pg_catalog.setval('public.viaggi_terminati_id_seq', 41, true);
 
 
 --

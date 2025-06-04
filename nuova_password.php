@@ -20,44 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     elseif ($nuovaPass !== $conferma) {
         $error = 'Le password non corrispondono.';
-<<<<<<< HEAD
-    }
-    else {
-        // 1) Recuperiamo l’hash corrente dal DB
-        $sql = "SELECT password FROM utenti WHERE id = $1";
-        $res = pg_query_params($dbconn, $sql, [$userId]);
-
-        if (!$res || pg_num_rows($res) === 0) {
-            $error = 'Utente non trovato.';
-        }
-        else {
-            $row     = pg_fetch_assoc($res);
-            $oldHash = $row['password'];
-
-            // 2) Controlliamo che la “nuova” non sia uguale alla “vecchia”
-            if (password_verify($nuovaPass, $oldHash)) {
-                $error = 'La nuova password non può essere uguale a quella attuale.';
-            }
-            else {
-                // 3) Hashiamo e aggiorniamo
-                $newHash   = password_hash($nuovaPass, PASSWORD_DEFAULT);
-                $updateSql = "UPDATE utenti SET password = $1 WHERE id = $2";
-                $updateRes = pg_query_params($dbconn, $updateSql, [$newHash, $userId]);
-
-                if ($updateRes) {
-                    // **Qui mostriamo il popup di successo e poi rimandiamo a login.html**
-                    echo "<script>
-                            alert('Password cambiata con successo!');
-                            window.location.href = 'login.html';
-                          </script>";
-                    exit;
-                }
-                else {
-                    $error = 'Errore durante l’aggiornamento. Riprova più tardi.';
-                }
-            }
-        }
-=======
     } else {
         // Logica di salvataggio nel DB (es. hash e UPDATE)
         // $hashed = password_hash($nuovaPass, PASSWORD_DEFAULT);
@@ -65,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // pg_query_params($dbconn, $sql, [$hashed, $_SESSION['id_utente']]);
         header('Location: /login.html');
         exit;
->>>>>>> 1040fa7bf7afbc2c25de10210182dfcd886cfd48
     }
 }
 ?>
