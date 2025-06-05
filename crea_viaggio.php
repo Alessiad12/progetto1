@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ></textarea>
       </div>
 
-      <!-- Date: 1 col su mobile, 2 col su md+ -->
+      
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label for="data_partenza" class="block mb-1 font-semibold">Data Partenza</label>
@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
       </div>
 
-      <!-- Vacanza da sogno: 1 col su mobile, 2 col su sm+ -->
+      
       <div>
         <span class="block mb-2 font-semibold">Vacanza da sogno</span>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -232,7 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
   </div>
 
-  <!-- Script per geolocalizzazione (se necessario) -->
+  
   <script src="js/cerca_coordinate.js"></script>
 </body>
 </html>

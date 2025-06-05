@@ -47,17 +47,17 @@ $continente_utente = $pref['destinazione'];
         case 'oceania':
             return ['lat_min' => -47, 'lat_max' => -10, 'lon_min' => 110, 'lon_max' => 180];
         default:
-            return ['lat_min' => -90, 'lat_max' => 90, 'lon_min' => -180, 'lon_max' => 180]; // Default for "unknown"
+            return ['lat_min' => -90, 'lat_max' => 90, 'lon_min' => -180, 'lon_max' => 180]; 
     }
 }
 $limitiContinente = getLimitiContinente($continente_utente);
 
 if (preg_match('/^\s*(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)\s*$/', $pref['budget'], $m)) {
-    // Budget nel formato "100-200" → intervallo esplicito
+ 
     $budget_min = floatval($m[1]);
     $budget_max = floatval($m[2]);
 } else {
-    // Budget singolo, es. "300" → margine ±20%
+   // margine ±20%
     $budget_num = floatval(preg_replace('/[^\d.]/', '', $pref['budget']));
     $budget_min = $budget_num * 0.8;
     $budget_max = $budget_num * 1.2;
@@ -150,7 +150,7 @@ while ($row = pg_fetch_assoc($result)) {
     $immagine = $viaggio['foto'] ?? null;
 
     if (!$immagine) {
-      $tipo = strtolower(trim($viaggio['tipo_viaggio'])); // Normalizza
+      $tipo = strtolower(trim($viaggio['tipo_viaggio'])); 
 
       switch ($tipo) {
         case 'spiaggia':
@@ -227,7 +227,7 @@ while ($row = pg_fetch_assoc($result)) {
   enableSwipe(card);
 });
 </script>
-<!-- Overlay aeroplanino -->
+
 
 </body>
 </html>

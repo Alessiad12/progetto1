@@ -171,24 +171,24 @@ foreach ($notifiche as $notifica) {
   socket.on('swipeNotification', (data) => {
   console.log('Notifica ricevuta:', data);
 
-  // Ricarica la pagina forzando anche dal server (bypassa cache)
+  // Ricarica la pagina forzando anche dal server 
   window.location.reload(true);
 });
 socket.on('matchAcceptedNotification', (data) => {
   console.log('Notifica ricevuta:', data);
 
-  // Ricarica la pagina forzando anche dal server (bypassa cache)
+  // Ricarica la pagina forzando anche dal server 
   window.location.reload(true);
 });
 socket.on('registraViaggioNotification', (data) => {
   console.log('Notifica ricevuta:', data);
 
-  // Ricarica la pagina forzando anche dal server (bypassa cache)
+  // Ricarica la pagina forzando anche dal server 
   window.location.reload(true);
 });
 </script>
 <script>
-  // Mostra/nascondi il menu a discesa
+  // Mostra il menu a discesa
   const profileIcon = document.querySelector('.profile-icon');
   const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -250,7 +250,7 @@ document.querySelectorAll('.organizza-btn').forEach(button => {
   // Funzione per gestire il click e fare il redirect
   function redirectToRegistraViaggio(button) {
     const viaggioId = button.getAttribute('data-viaggio-id');
-    // cambia qui:
+    
     const url = `termina_viaggio.php?viaggio_id=${viaggioId}`;
     window.location.href = url;
 }

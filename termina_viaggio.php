@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'connessione.php';  // si assume che qui tu esporti $dbconn
+require 'connessione.php';  
 
 if (!isset($_SESSION['id_utente'])) {
     header('Location: login.php');
@@ -78,7 +78,7 @@ if ($viaggio_id > 0) {
       resize: vertical;
       font-size: 1rem;
     }
-    /* Star rating */
+
     .stars {
       display: flex;
       direction: rtl;
@@ -96,7 +96,7 @@ if ($viaggio_id > 0) {
     .stars input:checked ~ label {
       color: gold;
     }
-    /* Photo slots */
+
     .photo-slots {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -105,7 +105,7 @@ if ($viaggio_id > 0) {
     .photo-slot {
       position: relative;
       width: 100%;
-      padding-top: 100%; /* square */
+      padding-top: 100%; 
       border: 2px dashed rgba(10,35,66,0.3);
       border-radius: 8px;
       overflow: hidden;
@@ -124,7 +124,7 @@ if ($viaggio_id > 0) {
       color: rgba(10,35,66,0.5);
       cursor: pointer;
     }
-    /* Submit button */
+    
     .btn-submit {
       background: var(--navy);
       color: #fff;
@@ -214,7 +214,7 @@ if ($viaggio_id > 0) {
       reader.onload = e => {
         const slot = this.closest('.photo-slot');
 
-        // Nascondi il "+"
+        
         const label = slot.querySelector('label');
         if (label) label.style.display = 'none';
 
@@ -222,7 +222,7 @@ if ($viaggio_id > 0) {
         let img = slot.querySelector('img');
         if (!img) {
           img = document.createElement('img');
-          // Stili in linea per coprire tutto lo slot
+          
           img.style.position    = 'absolute';
           img.style.top         = '0';
           img.style.left        = '0';

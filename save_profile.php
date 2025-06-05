@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id_utente'])) {
   exit;
 }
 
-// include la connessione (definisce $dbconn)
+
 require_once __DIR__ . '/connessione.php';
 
 $id             = $_SESSION['id_utente'];
@@ -89,8 +89,4 @@ if (!$res2) {
 // Tutto ok
 header('Location: /crea_preferenze_viaggi.php');
 exit;
-/* header('Content-Type: application/json');
-echo json_encode([
-  'status'  => 'success',
-  'message' => 'Profilo e preferenze salvate.'
-]);*/
+

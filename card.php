@@ -127,7 +127,7 @@ while ($row = pg_fetch_assoc($result)) {
   <title>Menu Profilo</title>
   <link rel="stylesheet" href="css/style_pagina_iniziale.css">
   <link rel="stylesheet" href="css/card.css">
-  <link rel="stylesheet" href="stili_card.css">
+  <link rel="stylesheet" href="css/stili_card.css">
   <link rel="stylesheet" href="css/style_notifiche.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
 </head>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'connessione.php'; // Assicurati che questo file definisca $dbconn
+require 'connessione.php'; 
 
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
@@ -37,7 +37,7 @@ if ($password==='123456') {
     echo json_encode([
         "status" => "success",
         "message" => "Login effettuato con successo!",
-        "redirect" => "card.php" // Cambia con la tua pagina di destinazione
+        "redirect" => "card.php" 
     ]);
 } else {
     echo json_encode([

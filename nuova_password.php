@@ -1,7 +1,6 @@
 <?php
 session_start();
-// Se stai facendo un reset via email, normalmente non serve controllare la sessione.
-// Qui assumiamo però che l’utente sia già loggato e abbia già passato il controllo di sessione:
+
 if (!isset($_SESSION['id_utente'])) {
     header('Location: login.html');
     exit;
@@ -21,10 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif ($nuovaPass !== $conferma) {
         $error = 'Le password non corrispondono.';
     } else {
-        // Logica di salvataggio nel DB (es. hash e UPDATE)
-        // $hashed = password_hash($nuovaPass, PASSWORD_DEFAULT);
-        // $sql = "UPDATE utenti SET password = $1 WHERE id = $2";
-        // pg_query_params($dbconn, $sql, [$hashed, $_SESSION['id_utente']]);
+     
         header('Location: /login.html');
         exit;
     }

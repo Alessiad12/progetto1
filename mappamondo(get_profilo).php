@@ -86,7 +86,7 @@ if ($result) {
   const viaggi = <?= json_encode($viaggi) ?>;
   console.log(viaggi); // <-- DEBUG
   const viaggioIcon = L.icon({
-    iconUrl: '/immagini/pin-viaggio.png', // cambia con il percorso corretto della tua icona
+    iconUrl: '/immagini/pin-viaggio.png', 
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]

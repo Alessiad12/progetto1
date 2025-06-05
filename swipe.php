@@ -2,7 +2,7 @@
 session_start();
 require_once 'connessione.php';
 
-// Impostiamo l'header per il tipo di risposta
+
 header('Content-Type: application/json');
 
 // 1. Leggi parametri
@@ -67,7 +67,7 @@ if ($isLike) {
   $tripTitle = $trip['destinazione'];
 
 
-  // Notifica realtime con Node.js (non blocca in caso di errore)
+  // Notifica realtime con Node.js
   $notifyData = [
       'userId'    => (int)$orgId,
       'fromUser'  => (int)$userId,

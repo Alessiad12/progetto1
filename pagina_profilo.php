@@ -90,7 +90,7 @@ $n_compagni = $row['compagni'] ?? 0;
     }
     /* ===== Disposizione mobile per pagina profilo ===== */
 @media (max-width: 600px) {
-  /* Permetti alla pagina di crescere in altezza invece che restare ferma a 100vh */
+  
   .page-wrapper {
     flex-direction: column !important;
     height: auto !important;
@@ -98,7 +98,7 @@ $n_compagni = $row['compagni'] ?? 0;
     overflow-x: hidden;
   }
 
-  /* Sidebar e content area full-width e senza margin-right */
+  
   .profile-sidebar,
   .content-area {
     width: 100% !important;
@@ -106,25 +106,23 @@ $n_compagni = $row['compagni'] ?? 0;
     padding: 1rem !important;
   }
 
-  /* Rimuovi lo spazio a destra su mappa e foto */
   .map-container,
   .photos-container {
     width: 100% !important;
     margin-right: 0 !important;
   }
 
-  /* Riduci l’altezza della mappa per mobile */
   .map-container {
     height: 200px;
     margin-bottom: 1rem;
   }
 
-  /* Foto a due colonne più piccole */
+  
   .photos-container {
     gap: 0.5rem;
   }
 
-  /* Se hai il menu fisso in basso, centrato */
+  
   .profile-menu-wrapper {
     position: fixed;
     bottom: 20px;

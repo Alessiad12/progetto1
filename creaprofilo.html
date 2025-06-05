@@ -11,7 +11,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   />
 
-  <!-- Il tuo CSS esterno -->
+
   <link rel="stylesheet" href="css/style_creaprofilo.css" />
 
   <title>Wanderlust – Crea account</title>
@@ -115,7 +115,7 @@
       reader.readAsDataURL(file);
     });
 
-    // Popolamento via API (facoltativo)
+    // Popolamento via API 
     fetch("creaprofilo.php")
       .then((res) => res.json())
       .then((data) => {

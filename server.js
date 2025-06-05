@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
     io.to(`chat_${viaggio_id}`).emit('newMessage', {
       mittente_id,
       messaggio,
-      data_creazione: new Date() // opzionale: lo invii anche ai client
+      data_creazione: new Date() 
     });
 
     console.log(`Messaggio salvato e inviato per il viaggio ${viaggio_id}`);
@@ -96,12 +96,7 @@ app.post('/notify-swipe', async (req, res) => {
     res.status(500).send('Errore nel salvataggio');
   }
 });
-// da modificare, con uno al giorno
-//*/5: Esegui ogni 5 minuti
-//*: Ogni ora
-//*: Ogni giorno
-//*: Ogni mese
-//*: Ogni giorno della settimana
+
 cron.schedule('* * * * *', async () => {
   console.log('[CRON] Controllo viaggi terminati...');
 
@@ -166,8 +161,7 @@ app.post('/forgot-password', async (req, res) => {
   if (!email) return res.status(400).send('Email richiesta');
 
   try {
-    // Qui idealmente cerchi l'utente e generi un token reset (opzionale)
-    // Per semplicità, inviamo direttamente la mail
+    
 
     const resetLink = `http://localhost:3000/nuova_password.php?email=${email}`;
 

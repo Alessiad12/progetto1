@@ -80,19 +80,19 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
     .hero { position:relative; width:100%; height:50vh; min-height:300px; overflow:hidden; }
       .back-button {
         position: absolute;
-        top: 1rem;   /* 16px di distanza dal bordo superiore della hero */
-        left: 1rem;  /* 16px di distanza dal bordo sinistro della hero */
-        z-index: 10; /* in primo piano su immagine + testo */
+        top: 1rem;   
+        left: 1rem;  
+        z-index: 10; 
         
-        background-color: rgba(255, 255, 255, 0.4); /* box bianco semitrasparente */
-        padding: 0.5rem;      /* 8px di padding su tutti i lati */
-        border-radius: 0.375rem; /* 6px di arrotondamento */
+        background-color: rgba(255, 255, 255, 0.4); 
+        padding: 0.5rem;     
+        border-radius: 0.375rem; 
         
         display: flex;
         align-items: center;
         justify-content: center;
-        text-decoration: none; /* rimuove la sottolineatura del link */
-        color: #1D3B5B;        /* colore della freccia (blu scuro) */
+        text-decoration: none; 
+        color: #1D3B5B;      
         transition: background-color 0.2s ease;
       }
 
@@ -100,7 +100,7 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
         background-color: rgba(255, 255, 255, 0.6);
       }
 
-      /* 3) Ridimensiona l’SVG all’interno se vuoi renderlo più piccolo o più grande */
+      /* 3) Ridimensiona l’SVG all’interno */
       .back-button svg {
         width: 1.25rem;  /* 20px */
         height: 1.25rem; /* 20px */
@@ -197,7 +197,7 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
 .contenitore_immagini{
     display: flex;
     width: max-content; /* adatta la dimensione alla quantità di immagini */
-    animation: scroll 70s linear infinite; /* Controlla la velocità qui */
+    animation: scroll 70s linear infinite; 
 }
 .immagine{
     width: 100%;
@@ -207,7 +207,7 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
     margin-right: 10px;
  
 }
-/* Animazione */
+
 @keyframes scroll {
     0%{
         transform: translateX(0%);
@@ -218,16 +218,16 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
 }
       @media (max-width: 576px) {
         .back-button {
-          top: 0.5rem;   /* 8px dal bordo superiore */
-          left: 0.5rem;  /* 8px dal bordo sinistro */
-          padding: 0.375rem; /* 6px padding */
+          top: 0.5rem;   
+          left: 0.5rem;  
+          padding: 0.375rem; 
         }
         .back-button svg {
-          width: 1rem;   /* 16px */
-          height: 1rem;  /* 16px */
+          width: 1rem;   
+          height: 1rem;  
         }
         .container {
-          grid-template-columns: 1fr; /* Una colonna su schermi piccoli */
+          grid-template-columns: 1fr; 
         }
         }
         .testimonial {
@@ -282,7 +282,7 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
             if ($i <= $filled) {
               echo '<span class="star">★</span>';
             } elseif ($i === $filled+1 && $media - $filled >= 0.5) {
-              echo '<span class="star">★</span>'; // mezza stella semplificata
+              echo '<span class="star">★</span>';
             } else {
               echo '<span class="text-muted">☆</span>';
             }
@@ -365,7 +365,7 @@ $resComm = pg_query_params($dbconn, $sqlComm, [$viaggio_id]);
         }
       }
 
-      // Quante volte vuoi ripetere la sequenza per il loop (es: 3 volte)
+  
       $ripetizioni = 6;
       for ($r = 0; $r < $ripetizioni; $r++) {
         foreach ($tutte_le_foto as $idx => $f) {

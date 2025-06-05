@@ -5,7 +5,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['id_utente'])) {
     echo json_encode(["error" => "Utente non loggato"]);
     exit;
 }
-require 'connessione.php'; // Assicurati che questo file definisca $conn
+require 'connessione.php'; 
 
 // Recupera l'ID utente dalla sessione
 $id_utente = $_SESSION['id_utente'];
