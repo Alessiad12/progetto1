@@ -2,11 +2,11 @@ const profileIcon = document.querySelector('.profile-icon');
 const dropdownMenu = document.getElementById('dropdownMenu');
 
 profileIcon.addEventListener('click', (e) => {
-  e.stopPropagation(); // evita la chiusura immediata
+  e.stopPropagation(); 
   dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
 });
 
-// Chiudi se clicchi fuori
+
 window.addEventListener('click', (e) => {
   if (!dropdownMenu.contains(e.target) && !profileIcon.contains(e.target)) {
     dropdownMenu.style.display = 'none';
@@ -18,7 +18,7 @@ const container = document.getElementById('cardContainer');
 
 function getTopCard() {
   const cards = container.querySelectorAll('.card');
-  return cards[cards.length - 1]; // ultima = visibile sopra
+  return cards[cards.length - 1]; 
 }
 
 async function swipeCard(direction) {
@@ -32,7 +32,7 @@ async function swipeCard(direction) {
   const like = direction === 'right' ? '1' : '0';
   console.log('Preparazione swipe:', { tripId, like, direction });
 
-  // Applica animazione manuale
+
   const offset = direction === 'left' ? '-150%' : '150%';
   card.style.transform = `translate(${offset}, -50%) rotate(${direction === 'left' ? '-' : ''}20deg)`;
   card.style.opacity = 0;
@@ -63,7 +63,6 @@ async function swipeCard(direction) {
     console.error('Errore durante lo swipe:', err);
   }
 
-  // Rimuovi la card dopo l'animazione
   setTimeout(() => {
     card.remove();
     console.log('Card rimossa dal DOM');
@@ -103,7 +102,6 @@ function enableMouseSwipe(card) {
       const direction = currentX > 0 ? 'right' : 'left';
       swipeCard(direction);
     } else {
-      // Torna in posizione se non è uno swipe valido
       card.style.transform = 'translate(-50%, -50%) rotate(0deg)';
     }
 
@@ -150,18 +148,11 @@ function enableSwipe(card) {
     currentX = 0;
   };
 
-  // Mouse events
+  // Mouse 
   card.addEventListener('mousedown', (e) => start(e.clientX));
   window.addEventListener('mousemove', (e) => move(e.clientX));
   window.addEventListener('mouseup', end);
 
-  // Touch events
-  card.addEventListener('touchstart', (e) => start(e.touches[0].clientX));
-  card.addEventListener('touchmove', (e) => {
-    move(e.touches[0].clientX);
-    e.preventDefault(); // Evita lo scroll durante lo swipe
-  }, { passive: false });
-  card.addEventListener('touchend', end);
 }
 // Collega i bottoni al comportamento di swipe
 document.querySelector('.like-button').addEventListener('click', () => {
@@ -190,9 +181,9 @@ document.querySelectorAll('.card').forEach(card => {
           pallino.href = `get_profiloo.php?id=${componente.id_utente}`;
           pallino.title = componente.username;
           const img = document.createElement('img');
-          img.src = componente.immagine_profilo || 'immagini/default.jpg'; // fallback se non presente
+          img.src = componente.immagine_profilo || 'immagini/default.jpg'; 
           img.alt = componente.nome;
-          img.classList.add('img-pallino'); // stile da definire in CSS
+          img.classList.add('img-pallino'); 
           pallino.appendChild(img);
           wrapper.appendChild(pallino);
         });
@@ -206,28 +197,11 @@ document.querySelectorAll('.card').forEach(card => {
   window.addEventListener("load", function () {
     setTimeout(function () {
       document.getElementById("intro").classList.add("fade-out");
-    }, 200); // dopo 2 secondi
+    }, 200); 
   });
 
-function mostraAeroplanino(card) {
-  const cuore = card.querySelector('.plane-overlay');
-  if (cuore) {
-    cuore.style.display = 'block'; // appare
-  }
-}
 
-function rimuoviCardConEffetto(card) {
-  mostraAeroplanino(card); // aeroplanino parte appena inizia l’uscita
-
-  // Aggiungi eventualmente una classe per animare l’uscita della card
-  card.style.transition = 'transform 1.5s ease-out, opacity 1.5s ease-out';
-  card.style.transform = 'translateX(100vw)';
-  card.style.opacity = '0';
-
-  setTimeout(() => card.remove(), 1500);
-}
-
-// Click su like
+// like
 document.querySelector('.like-button').addEventListener('click', () => {
   const currentCard = document.querySelector('.card-container .card');
   if (currentCard) {

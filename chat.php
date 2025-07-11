@@ -258,7 +258,9 @@ while ($row = pg_fetch_assoc($res)) {
     </div>
 <!--in ultima data scorro ò'array e controllo la data di ogni messaggio,cosi quando cambia giorno inserisco un nuovo separatore-->
     <div class="chat-panel">
-      <div class="chat-header">Benvenuto nella chat di <?php echo htmlspecialchars($viaggio_nome); ?></div>
+      <div class="chat-header">Benvenuto nella chat di <?php echo htmlspecialchars($viaggio_nome); ?>
+      <a href="/public/index.html"><img src="immagini/AI.png" style="height: 40px; position:absolute; right:20px;" alt="AI Icon"></a>
+      </div>
       <div id="chat-container" class="chat-messages">
         <?php if (empty($messaggi)): ?>
           <p>Seleziona una chat o inizia a scrivere per creare un nuovo messaggio.</p>

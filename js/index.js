@@ -1,11 +1,8 @@
-// Funzione per aprire/chiudere il menu
 function toggleDropdown() {
-  console.log("toggleDropdown chiamato");
   const menu = document.getElementById("dropdownMenu");
   menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 
-// Chiudi il menu se si clicca fuori dal menu
 window.addEventListener("click", function (e) {
   const wrapper = document.querySelector(".profile-menu-wrapper");
   const menu = document.getElementById("dropdownMenu");
@@ -14,15 +11,12 @@ window.addEventListener("click", function (e) {
   }
 });
 
-// Gestisci il click sul profilo
 document.querySelector(".profile-icon").addEventListener("click", (e) => {
-  e.stopPropagation();  // Evita che il click venga propagato al body e chiuda il menu
+  e.stopPropagation();
   toggleDropdown();
 });
 
-// Chiama la funzione quando la pagina è caricata
 document.addEventListener('DOMContentLoaded', () => {
-  // Carica immagine profilo
   loadProfilePicture();
 
   const container = document.getElementById('cardContainer');
@@ -47,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       body: form
     });
     if (!res.ok) throw new Error('Network error');
-    return res.json(); // { success, isMatch, conversationId, tripTitle }
+    return res.json();
   }
 
   function showMatchModal(tripTitle, conversationId) {
@@ -83,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (container) {
-    // Swipe touch
     let startX = 0;
     container.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
     container.addEventListener('touchend', (e) => {
@@ -92,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (diffX < -50) swipeCard('left');
     });
 
-    // Drag stile Tinder
     let isDragging = false;
     let startPos = { x: 0, y: 0 };
     let draggedCard = null;
@@ -133,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Bottoni del match modal
   btnChat?.addEventListener('click', () => {
     if (currentConv) window.location.href = `chat.php?conv=${currentConv}`;
   });
@@ -149,8 +140,6 @@ async function loadProfilePicture() {
     if (data.immagine_profilo) {
       const profileIcon = document.querySelector('.profile-icon');
       if (profileIcon) profileIcon.src = data.immagine_profilo;
-    } else {
-      console.error('Errore: Immagine del profilo non trovata');
     }
   } catch (error) {
     console.error('Errore durante il caricamento dell\'immagine del profilo:', error);
